@@ -5,7 +5,7 @@
 
 Frontend do **DigiChat** — CRM omnichannel WhatsApp multi-tenant.
 
-Stack: Next.js 15 App Router + React 19 + Tailwind 4 + shadcn/ui + Geist + TanStack Query + Kubb.
+Stack: Next.js 16 App Router + React 19 + Tailwind 4 + shadcn/ui + Geist + TanStack Query + Kubb.
 
 Licença: AGPL-3.0-or-later.
 
