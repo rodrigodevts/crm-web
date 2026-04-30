@@ -15,9 +15,9 @@
 2. Critério de "fase pronta"
 3. Mapa geral de fases
 4. Dependências entre fases
-5-14. Fases 0-9
-15. Fase futura — IA
-16. Rastreamento
+   5-14. Fases 0-9
+5. Fase futura — IA
+6. Rastreamento
 
 ---
 
@@ -106,7 +106,7 @@ Fase 9+ (Backlog, IA quando priorizada)
 - [ ] **Zod + nestjs-zod** configurado (ZodValidationPipe global, ZodExceptionFilter)
 - [ ] **OpenAPI + Scalar** configurado em `/api/v1/docs` (UI) e `/api/v1/openapi` (JSON)
 - [ ] TypeScript estrito (`strict`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`)
-- [ ] Frontend Next.js 15 + Tailwind + shadcn/ui
+- [ ] Frontend Next.js 16 + Tailwind + shadcn/ui
 - [ ] **Kubb configurado no `crm-web`** (`kubb.config.ts`, comando `pnpm generate:api`)
 - [ ] Pipeline de geração de tipos do frontend testada com endpoint dummy
 
@@ -125,11 +125,13 @@ Fase 9+ (Backlog, IA quando priorizada)
 ### Schema do núcleo (Prisma)
 
 **Entidades base:**
+
 - [ ] `Plan`, `Company`, `CompanySettings` (13 flags incluindo `hideBotTicketsFromAgents`)
 - [ ] `User` (4 perfis), `RefreshToken`
 - [ ] `Department` (workingHours, SLA, distributionMode preparados)
 
 **Cadastros:**
+
 - [ ] `Tag` (com scope), `QuickReply` (escopo COMPANY/PERSONAL)
 - [ ] `CloseReason` + `CloseReasonDepartment`
 - [ ] `SalesFunnel`, `LeadStatus`
@@ -137,9 +139,11 @@ Fase 9+ (Backlog, IA quando priorizada)
 - [ ] `BusinessHoliday` (schema preparado, fase 4+)
 
 **Integrações (schema apenas):**
+
 - [ ] `IntegrationLink`, `MessageTemplate`, `BotCredential`, `WebhookSubscription`, `WebhookDelivery`
 
 **Auditoria:**
+
 - [ ] `AuditLog`
 
 ### Auth (estrutura 3 camadas)
@@ -304,14 +308,17 @@ Fase 9+ (Backlog, IA quando priorizada)
 ### Módulo `tickets` (3 camadas completas)
 
 **Domain services:**
+
 - [ ] `tickets.domain.service.ts` (state machine)
 - [ ] `ticket-log.domain.service.ts` (logging append-only)
 - [ ] `ticket-protocol.domain.service.ts` (geração transacional)
 
 **Application service:**
+
 - [ ] `tickets.application.service.ts` (orquestração de aceitar, transferir, fechar, reabrir, etc)
 
 **Endpoints (controller):**
+
 - [ ] Listar com WHERE complexo + 12+ flags
 - [ ] CRUD básico cursor pagination
 - [ ] Aceitar (lock otimista)
@@ -384,16 +391,19 @@ Race conditions em aceite/transferência. Mitigado com lock otimista + testes de
 ### Módulo `chat-flows` (3 camadas)
 
 **Domain services:**
+
 - [ ] `chat-flows.domain.service.ts` (CRUD, validação)
 - [ ] `flow-execution.domain.service.ts` (state machine de execução)
 - [ ] `chat-flow-validator.domain.service.ts` (validação automática)
 
 **Application service:**
+
 - [ ] `chat-flows.application.service.ts`
 
 ### Módulo `bot-engine` (3 camadas)
 
 **Domain services:**
+
 - [ ] `bot-engine.domain.service.ts` (orquestração de execução)
 - [ ] Node executors em domain services dedicados (um por tipo):
   - [ ] `start-node.executor.ts`, `end-node.executor.ts`
@@ -647,6 +657,7 @@ Race conditions em aceite/transferência. Mitigado com lock otimista + testes de
 **Status:** descartado do escopo MVP por decisão estratégica.
 
 **Quando priorizar:**
+
 - Após produto base validado em produção
 - Com dores reais dos clientes mapeadas
 - Com mercado de LLMs mais estabilizado

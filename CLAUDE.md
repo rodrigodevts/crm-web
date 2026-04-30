@@ -8,7 +8,7 @@
 
 ## 1. Você está no projeto DigiChat
 
-CRM omnichannel WhatsApp multi-tenant em desenvolvimento. Stack: NestJS 11 + Fastify + Prisma + Postgres + Redis + BullMQ + Zod + Next.js 15 + Tailwind + shadcn/ui + Kubb.
+CRM omnichannel WhatsApp multi-tenant em desenvolvimento. Stack: NestJS 11 + Fastify + Prisma + Postgres + Redis + BullMQ + Zod + Next.js 16 + Tailwind + shadcn/ui + Kubb.
 
 Filosofia: AGPLv3 open-source, dev solo com Claude Code, médio-termo (sem over-engineering, sem Clean Architecture, sem DDD ortodoxo).
 
@@ -200,6 +200,7 @@ Estes são os erros mais comuns que Claude Code comete. Evite explicitamente:
 Quando trabalhando dentro destas pastas, leia também o `CLAUDE.md` específico delas:
 
 **Backend (`crm-api/`):**
+
 - `src/modules/CLAUDE.md` — convenções de módulos
 - `src/modules/tickets/CLAUDE.md` — regras específicas de Ticket
 - `src/modules/bot-engine/CLAUDE.md` — regras do Bot Engine
@@ -207,6 +208,7 @@ Quando trabalhando dentro destas pastas, leia também o `CLAUDE.md` específico 
 - `prisma/CLAUDE.md` — convenções de schema e migrations
 
 **Frontend (`crm-web/`):**
+
 - `components/CLAUDE.md` — convenções de componentes
 - `app/CLAUDE.md` — convenções de rotas e layouts
 - `lib/generated/CLAUDE.md` — aviso de "código gerado, não editar"
@@ -242,6 +244,7 @@ Verifique:
 - [ ] Multi-tenant checklist passou (releia se modificou queries)
 
 Reporte ao humano:
+
 - O que foi feito
 - O que ficou pendente
 - Decisões tomadas que não estavam no plano (se houve)
