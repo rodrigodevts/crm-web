@@ -114,6 +114,22 @@ Para Gupshup especificamente, contratos críticos estão em `docs/integrations/g
 
 18. **Bot NÃO é bloqueado por working hours.** Bot responde sempre. Working hours aplica apenas em transferência bot→humano e em ticket sem bot.
 
+### Pastas read-only (referência arquitetural)
+
+19. **`/home/rodrigo-digigov/referencias/chatwoot` é apenas referência arquitetural para leitura.** NUNCA modifique, crie ou delete arquivos nesta pasta. Use apenas para consulta de padrões de modelagem.
+
+### Branch e PR
+
+20. **`main` é branch protegida.** Push direto em `main` falha no remoto. Toda mudança vai em branch separada e é mergeada via Pull Request.
+21. **Padrão de nome de branch:** prefixo coerente com o Conventional Commit do trabalho.
+    - `feat/<slug>` — nova feature
+    - `fix/<slug>` — bugfix
+    - `chore/<slug>` — infra, deps, CI, tooling
+    - `docs/<slug>` — documentação
+    - `refactor/<slug>`, `style/<slug>`, `test/<slug>` quando aplicável
+22. **Antes de começar a codar, crie a branch a partir de `origin/main` atualizado.** Nunca trabalhe em cima de `main` local com a intenção de "depois eu mudo de branch".
+23. **Nunca tente bypass:** sem `git push --force` em `main`, sem `--no-verify` para pular hooks, sem desabilitar proteção. Se push for rejeitado, abrir PR é o caminho.
+
 ---
 
 ## 5. Workflow padrão (com Superpowers)
@@ -205,7 +221,7 @@ Hierarquia de busca:
 
 1. **Audit da feature** em `crm-specs/audits/` — primeira consulta
 2. **Spec descritiva do sistema atual** em `crm-specs/areas/` — comportamento atual
-3. **Chatwoot** clonado localmente — referência arquitetural
+3. **Chatwoot** clonado localmente em `/home/rodrigo-digigov/referencias/chatwoot` — referência arquitetural **read-only** (ver regra 19)
 4. **Doc oficial** da lib (Prisma, NestJS, Zod, etc) — nunca chutar API
 5. **Pergunta ao humano** — se nada acima resolver
 
