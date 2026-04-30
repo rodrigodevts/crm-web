@@ -1,5 +1,8 @@
 # crm-web
 
+[![CI](https://github.com/rodrigodevts/crm-web/actions/workflows/ci.yml/badge.svg)](https://github.com/rodrigodevts/crm-web/actions/workflows/ci.yml)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 Frontend do **DigiChat** — CRM omnichannel WhatsApp multi-tenant.
 
 Stack: Next.js 15 App Router + React 19 + Tailwind 4 + shadcn/ui + Geist + TanStack Query + Kubb.
@@ -17,7 +20,7 @@ Licença: AGPL-3.0-or-later.
 ## Setup local
 
 ```bash
-# 1. Dependências
+# 1. Dependências (o script "prepare" ativa os git hooks automaticamente)
 pnpm install
 
 # 2. Subir o crm-api em outro terminal
@@ -32,12 +35,27 @@ pnpm dev
 
 Abra [http://localhost:3001](http://localhost:3001).
 
+### Git hooks (Lefthook)
+
+Os hooks são instalados automaticamente pelo `prepare` script no `pnpm install`. Se precisar reinstalar manualmente:
+
+```bash
+pnpm exec lefthook install
+```
+
+O que roda:
+
+- **pre-commit** (paralelo, só nos arquivos staged): `eslint --fix`, `prettier --write`, `tsc --noEmit`
+- **pre-push**: `pnpm test`
+
+Para pular pontualmente (use com parcimônia): `LEFTHOOK=0 git commit ...` ou `git push --no-verify`.
+
 ## Endpoints disponíveis nesta etapa
 
-| URL                 | Descrição                                    |
-| ------------------- | -------------------------------------------- |
-| `GET /`             | Home placeholder com toggle de tema          |
-| `GET /login`        | Form placeholder (sem submit funcional ainda)|
+| URL          | Descrição                                     |
+| ------------ | --------------------------------------------- |
+| `GET /`      | Home placeholder com toggle de tema           |
+| `GET /login` | Form placeholder (sem submit funcional ainda) |
 
 ## Comandos
 
@@ -93,10 +111,10 @@ lib/
 
 ## Variáveis de ambiente
 
-| Var                  | Default                                          | Quando usar              |
-| -------------------- | ------------------------------------------------ | ------------------------ |
-| `API_OPENAPI_URL`    | `http://localhost:3000/api/v1/openapi.json`      | Para `pnpm generate:api` |
-| `NEXT_PUBLIC_API_URL`| `http://localhost:3000`                          | Base do client gerado    |
+| Var                   | Default                                     | Quando usar              |
+| --------------------- | ------------------------------------------- | ------------------------ |
+| `API_OPENAPI_URL`     | `http://localhost:3000/api/v1/openapi.json` | Para `pnpm generate:api` |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:3000`                     | Base do client gerado    |
 
 ## Próximos passos da Fase 0
 
@@ -107,7 +125,6 @@ Ver [`ROADMAP.md`](./ROADMAP.md) §5. Em ordem:
 3. Layout autenticado (`(dashboard)/layout.tsx` com sidebar + header)
 4. Páginas dummy de Atendimentos
 5. Telas básicas de Configurações (Departments, Users, Tags, CloseReasons)
-6. CI GitHub Actions
 
 ## Documentação relacionada
 
