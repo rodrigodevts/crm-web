@@ -1,0 +1,23 @@
+{
+  "name": "crm-web",
+  "version": "0.0.1",
+  "description": "DigiChat CRM Web — Next.js 15 + Tailwind 4 + shadcn/ui + TanStack Query + Kubb",
+  "license": "AGPL-3.0-or-later",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"{app,components,lib,hooks,stores}/**/*.{ts,tsx,css}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "generate:api": "kubb generate"
+  }
+}

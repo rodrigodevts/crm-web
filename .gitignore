@@ -1,0 +1,44 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# build output
+build/
+*.tsbuildinfo
+
+# env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# coverage
+coverage/
+.nyc_output/
+
+# editor
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+
+# OS
+Thumbs.db
+
+# misc
+.cache/
+
+# Note: lib/generated/ is intentionally NOT ignored — it is a build artifact
+# from Kubb that ships with the repo so CI runs without booting the API.
