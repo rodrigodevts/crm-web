@@ -1,0 +1,136 @@
+@import 'tailwindcss';
+@plugin "tw-animate-css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens — DigiChat
+ * Reference: design-system.md
+ *
+ * Naming follows shadcn/ui convention so its CLI/components plug in directly.
+ * Primary: Sky (#0EA5E9). Neutral: Slate.
+ */
+
+:root {
+  --radius: 0.5rem; /* 8px — design-system §4.3 */
+
+  /* Surface */
+  --background: oklch(1 0 0); /* white */
+  --foreground: oklch(0.21 0.034 264.665); /* slate-900 */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.21 0.034 264.665);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.21 0.034 264.665);
+
+  /* Primary — Sky 500 */
+  --primary: oklch(0.685 0.169 237.323);
+  --primary-foreground: oklch(0.985 0 0);
+
+  /* Secondary / muted / accent — Slate */
+  --secondary: oklch(0.968 0.007 247.896); /* slate-100 */
+  --secondary-foreground: oklch(0.279 0.041 260.031);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417); /* slate-500 */
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.279 0.041 260.031);
+
+  /* Semantic */
+  --destructive: oklch(0.637 0.237 25.331); /* red-500 */
+  --destructive-foreground: oklch(0.985 0 0);
+  --success: oklch(0.696 0.17 162.48); /* emerald-500 */
+  --success-foreground: oklch(0.985 0 0);
+  --warning: oklch(0.769 0.188 70.08); /* amber-500 */
+  --warning-foreground: oklch(0.21 0.034 264.665);
+  --info: oklch(0.623 0.214 259.815); /* blue-500 */
+  --info-foreground: oklch(0.985 0 0);
+
+  /* Borders / inputs */
+  --border: oklch(0.929 0.013 255.508); /* slate-200 */
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.685 0.169 237.323); /* sky-500 — focus ring */
+}
+
+.dark {
+  /* Surface */
+  --background: oklch(0.129 0.042 264.695); /* slate-900 */
+  --foreground: oklch(0.984 0.003 247.858); /* slate-50 */
+  --card: oklch(0.208 0.042 265.755); /* slate-800 */
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+
+  /* Primary stays Sky 500 in dark per design-system §2.1 */
+  --primary: oklch(0.685 0.169 237.323);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+
+  /* Secondary / muted / accent — slate-700/800 */
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788); /* slate-400 */
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+
+  /* Semantic — slightly lighter on dark */
+  --destructive: oklch(0.704 0.191 22.216); /* red-400 */
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --success: oklch(0.765 0.177 163.223); /* emerald-400 */
+  --success-foreground: oklch(0.129 0.042 264.695);
+  --warning: oklch(0.828 0.189 84.429); /* amber-400 */
+  --warning-foreground: oklch(0.129 0.042 264.695);
+  --info: oklch(0.707 0.165 254.624); /* blue-400 */
+  --info-foreground: oklch(0.129 0.042 264.695);
+
+  /* Borders / inputs */
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.685 0.169 237.323);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
+  }
+}
