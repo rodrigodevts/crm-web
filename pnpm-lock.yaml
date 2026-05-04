@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@hookform/resolvers':
         specifier: ^5.2.2
-        version: 5.2.2(react-hook-form@7.74.0(react@19.2.5))
+        version: 5.2.2(react-hook-form@7.75.0(react@19.2.5))
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.1.16
         version: 2.1.16(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -22,10 +22,10 @@ importers:
         version: 1.2.4(@types/react@19.2.14)(react@19.2.5)
       '@tanstack/react-query':
         specifier: ^5.100.6
-        version: 5.100.6(react@19.2.5)
+        version: 5.100.9(react@19.2.5)
       axios:
         specifier: ^1.15.2
-        version: 1.15.2
+        version: 1.16.0
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -52,7 +52,7 @@ importers:
         version: 19.2.5(react@19.2.5)
       react-hook-form:
         specifier: ^7.74.0
-        version: 7.74.0(react@19.2.5)
+        version: 7.75.0(react@19.2.5)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -61,20 +61,20 @@ importers:
         version: 1.4.0
       zod:
         specifier: ^4.4.1
-        version: 4.4.1
+        version: 4.4.2
     devDependencies:
       '@kubb/cli':
         specifier: ^4.37.5
         version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(typescript@6.0.3)
       '@kubb/plugin-client':
         specifier: ^4.37.5
-        version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.15.2)
+        version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.16.0)
       '@kubb/plugin-oas':
         specifier: ^4.37.5
         version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)
       '@kubb/plugin-react-query':
         specifier: ^4.37.5
-        version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.15.2)
+        version: 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.16.0)
       '@kubb/plugin-ts':
         specifier: ^4.37.5
         version: 4.37.5(@kubb/react-fabric@0.14.0)
@@ -116,7 +116,7 @@ importers:
         version: 2.1.6
       postcss:
         specifier: ^8.5.12
-        version: 8.5.12
+        version: 8.5.13
       prettier:
         specifier: ^3.8.3
         version: 3.8.3
@@ -1274,11 +1274,11 @@ packages:
   '@tailwindcss/postcss@4.2.4':
     resolution: {integrity: sha512-wgAVj6nUWAolAu8YFvzT2cTBIElWHkjZwFYovF+xsqKsW2ADxM/X2opxj5NsF/qVccAOjRNe8X2IdPzMsWyHTg==}
 
-  '@tanstack/query-core@5.100.6':
-    resolution: {integrity: sha512-Os2CPUr98to98RYm+D4qGqGkiffn7MGSyl2547a4MljVkHE30AMJRqTiyCqBfMwzAx/I91vCkAxp5tHSla6Twg==}
+  '@tanstack/query-core@5.100.9':
+    resolution: {integrity: sha512-SJSFw1S8+kQ0+knv/XGfrbocWoAlT7vDKsSImtLx3ZPQmEcR46hkDjLSvynSy25N8Ms4tIEini1FuBd5k7IscQ==}
 
-  '@tanstack/react-query@5.100.6':
-    resolution: {integrity: sha512-uVSrps0PV16Cxmcn2rvL+dUhwTpTUtiRW347AEeYxMZXO2pZe9ja7E24PAMGoQ5u2g89DD8u4QhOviBk+RN8RA==}
+  '@tanstack/react-query@5.100.9':
+    resolution: {integrity: sha512-Oa44XkaI3kCNN6ME0KByU3xT3SEUNOMfZpHxL6+wFoTm+OeUFYHKdeYVe0aOXlRDm/f15sgLwEt2HDorIdW8+A==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -1653,8 +1653,8 @@ packages:
     resolution: {integrity: sha512-KunSNx+TVpkAw/6ULfhnx+HWRecjqZGTOyquAoWHYLRSdK1tB5Ihce1ZW+UY3fj33bYAFWPu7W/GRSmmrCGuxA==}
     engines: {node: '>=4'}
 
-  axios@1.15.2:
-    resolution: {integrity: sha512-wLrXxPtcrPTsNlJmKjkPnNPK2Ihe0hn0wGSaTEiHRPxwjvJwT3hKmXF4dpqxmPO9SoNb2FsYXj/xEo0gHN+D5A==}
+  axios@1.16.0:
+    resolution: {integrity: sha512-6hp5CwvTPlN2A31g5dxnwAX0orzM7pmCRDLnZSX772mv8WDqICwFjowHuPs04Mc8deIld1+ejhtaMn5vp6b+1w==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -2772,8 +2772,8 @@ packages:
     resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
     hasBin: true
 
-  nanoid@3.3.11:
-    resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
+  nanoid@3.3.12:
+    resolution: {integrity: sha512-ZB9RH/39qpq5Vu6Y+NmUaFhQR6pp+M2Xt76XBnEwDaGcVAqhlvxrl3B2bKS5D3NH3QR76v3aSrKaF/Kiy7lEtQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -2971,8 +2971,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.12:
-    resolution: {integrity: sha512-W62t/Se6rA0Az3DfCL0AqJwXuKwBeYg6nOaIgzP+xZ7N5BFCI7DYi1qs6ygUYT6rvfi6t9k65UMLJC+PHZpDAA==}
+  postcss@8.5.13:
+    resolution: {integrity: sha512-qif0+jGGZoLWdHey3UFHHWP0H7Gbmsk8T5VEqyYFbWqPr1XqvLGBbk/sl8V5exGmcYJklJOhOQq1pV9IcsiFag==}
     engines: {node: ^10 || ^12 || >=14}
 
   prelude-ls@1.2.1:
@@ -3065,8 +3065,8 @@ packages:
     peerDependencies:
       react: ^19.2.5
 
-  react-hook-form@7.74.0:
-    resolution: {integrity: sha512-yR6wHr99p9wFv686jhRWVSFhUvDvNbdUf2dKlbno8/VKOCuoNobDGC6S+M2dua9A9Yo8vpcrp8assIYbsZCQ9g==}
+  react-hook-form@7.75.0:
+    resolution: {integrity: sha512-Ovv94H+0p3sJ7B9B5QxPuCP1u8V/cHuVGyH55cSwodYDtoJwK+fqk3vjfIgSX59I2U/bU4z0nRJ9HMLpNiWEmw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
@@ -3731,8 +3731,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
 
-  zod@4.4.1:
-    resolution: {integrity: sha512-a6ENMBBGZBsnlSebQ/eKCguSBeGKSf4O7BPnqVPmYGtpBYI7VSqoVqw+QcB7kPRjbqPwhYTpFbVj/RqNz/CT0Q==}
+  zod@4.4.2:
+    resolution: {integrity: sha512-IynmDyxsEsb9RKzO3J9+4SxXnl2FTFSzNBaKKaMV6tsSk0rw9gYw9gs+JFCq/qk2LCZ78KDwyj+Z289TijSkUw==}
 
 snapshots:
 
@@ -3990,10 +3990,10 @@ snapshots:
 
   '@floating-ui/utils@0.2.11': {}
 
-  '@hookform/resolvers@5.2.2(react-hook-form@7.74.0(react@19.2.5))':
+  '@hookform/resolvers@5.2.2(react-hook-form@7.75.0(react@19.2.5))':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.74.0(react@19.2.5)
+      react-hook-form: 7.75.0(react@19.2.5)
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -4187,7 +4187,7 @@ snapshots:
       - '@kubb/react-fabric'
       - encoding
 
-  '@kubb/plugin-client@4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.15.2)':
+  '@kubb/plugin-client@4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.16.0)':
     dependencies:
       '@kubb/core': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)
       '@kubb/fabric-core': 0.14.0
@@ -4197,7 +4197,7 @@ snapshots:
       '@kubb/plugin-zod': 4.37.5(@kubb/fabric-core@0.14.0)
       '@kubb/react-fabric': 0.14.0
     optionalDependencies:
-      axios: 1.15.2
+      axios: 1.16.0
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -4213,12 +4213,12 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@kubb/plugin-react-query@4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.15.2)':
+  '@kubb/plugin-react-query@4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.16.0)':
     dependencies:
       '@kubb/core': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)
       '@kubb/fabric-core': 0.14.0
       '@kubb/oas': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)
-      '@kubb/plugin-client': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.15.2)
+      '@kubb/plugin-client': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)(axios@1.16.0)
       '@kubb/plugin-oas': 4.37.5(@kubb/fabric-core@0.14.0)(@kubb/react-fabric@0.14.0)
       '@kubb/plugin-ts': 4.37.5(@kubb/react-fabric@0.14.0)
       '@kubb/plugin-zod': 4.37.5(@kubb/fabric-core@0.14.0)
@@ -4801,14 +4801,14 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.2.4
       '@tailwindcss/oxide': 4.2.4
-      postcss: 8.5.12
+      postcss: 8.5.13
       tailwindcss: 4.2.4
 
-  '@tanstack/query-core@5.100.6': {}
+  '@tanstack/query-core@5.100.9': {}
 
-  '@tanstack/react-query@5.100.6(react@19.2.5)':
+  '@tanstack/react-query@5.100.9(react@19.2.5)':
     dependencies:
-      '@tanstack/query-core': 5.100.6
+      '@tanstack/query-core': 5.100.9
       react: 19.2.5
 
   '@testing-library/dom@10.4.1':
@@ -5198,7 +5198,7 @@ snapshots:
 
   axe-core@4.11.4: {}
 
-  axios@1.15.2:
+  axios@1.16.0:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.5
@@ -5681,8 +5681,8 @@ snapshots:
       '@babel/parser': 7.29.2
       eslint: 9.39.4(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.4.1
-      zod-validation-error: 4.0.2(zod@4.4.1)
+      zod: 4.4.2
+      zod-validation-error: 4.0.2(zod@4.4.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -6419,7 +6419,7 @@ snapshots:
 
   mustache@4.2.0: {}
 
-  nanoid@3.3.11: {}
+  nanoid@3.3.12: {}
 
   napi-postinstall@0.3.4: {}
 
@@ -6641,13 +6641,13 @@ snapshots:
 
   postcss@8.4.31:
     dependencies:
-      nanoid: 3.3.11
+      nanoid: 3.3.12
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.12:
+  postcss@8.5.13:
     dependencies:
-      nanoid: 3.3.11
+      nanoid: 3.3.12
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -6690,7 +6690,7 @@ snapshots:
       react: 19.2.5
       scheduler: 0.27.0
 
-  react-hook-form@7.74.0(react@19.2.5):
+  react-hook-form@7.75.0(react@19.2.5):
     dependencies:
       react: 19.2.5
 
@@ -7259,7 +7259,7 @@ snapshots:
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.4
-      postcss: 8.5.12
+      postcss: 8.5.13
       rolldown: 1.0.0-rc.17
       tinyglobby: 0.2.16
     optionalDependencies:
@@ -7408,8 +7408,8 @@ snapshots:
 
   yocto-queue@1.2.2: {}
 
-  zod-validation-error@4.0.2(zod@4.4.1):
+  zod-validation-error@4.0.2(zod@4.4.2):
     dependencies:
-      zod: 4.4.1
+      zod: 4.4.2
 
-  zod@4.4.1: {}
+  zod@4.4.2: {}
