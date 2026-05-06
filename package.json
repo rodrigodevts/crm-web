@@ -20,6 +20,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "generate:api": "kubb generate",
+    "generate:api:from-snapshot": "API_OPENAPI_URL=./openapi.snapshot.json kubb generate",
     "prepare": "lefthook install"
   },
   "dependencies": {
