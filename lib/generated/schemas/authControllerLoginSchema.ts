@@ -4,10 +4,11 @@
 */
 
 import type { AuthControllerLogin200, AuthControllerLoginMutationRequest, AuthControllerLoginMutationResponse } from "../types/AuthControllerLogin.ts";
+import { authResponseDtoSchema } from "./authResponseDtoSchema.ts";
 import { loginDtoSchema } from "./loginDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const authControllerLogin200Schema = z.any() as unknown as z.ZodType<AuthControllerLogin200>
+export const authControllerLogin200Schema = z.lazy(() => authResponseDtoSchema).describe("Dados do usuário autenticado. Tokens trafegam por cookie httpOnly (ver ADR 0001).") as unknown as z.ZodType<AuthControllerLogin200>
 
 export const authControllerLoginMutationRequestSchema = z.lazy(() => loginDtoSchema).describe("Credenciais de login") as unknown as z.ZodType<AuthControllerLoginMutationRequest>
 

@@ -3,9 +3,10 @@
 * Do not edit manually.
 */
 
+import type { AuthResponseDto } from "./AuthResponseDto.ts";
 import type { RefreshDto } from "./RefreshDto.ts";
 
-export type AuthControllerRefresh200 = unknown;
+export type AuthControllerRefresh200 = AuthResponseDto;
 
 export type AuthControllerRefreshMutationRequest = RefreshDto;
 

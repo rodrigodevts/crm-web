@@ -5,12 +5,13 @@
 
 
 /**
- * @description Refresh token para renovar par de tokens
+ * @description Refresh token para renovar par de tokens — preferir cookie httpOnly
 */
 export type RefreshDto = {
     /**
+     * @description Refresh token (opcional — fallback do cookie httpOnly refresh_token)
      * @minLength 1
-     * @type string
+     * @type string | undefined
     */
-    refreshToken: string;
+    refreshToken?: string;
 };

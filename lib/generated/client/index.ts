@@ -22,6 +22,7 @@ export { departmentsControllerList } from "./departmentsControllerList.ts";
 export { departmentsControllerSoftDelete } from "./departmentsControllerSoftDelete.ts";
 export { departmentsControllerUpdate } from "./departmentsControllerUpdate.ts";
 export { healthControllerCheck } from "./healthControllerCheck.ts";
+export { meControllerFindMine } from "./meControllerFindMine.ts";
 export { meControllerUpdateMe } from "./meControllerUpdateMe.ts";
 export { tagsControllerCreate } from "./tagsControllerCreate.ts";
 export { tagsControllerDelete } from "./tagsControllerDelete.ts";
