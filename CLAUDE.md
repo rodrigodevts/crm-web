@@ -1,134 +1,107 @@
-# CLAUDE.md — DigiChat (raiz)
+# CLAUDE.md — DigiChat Web (raiz)
 
-> Instruções operacionais para Claude Code. **Leia este arquivo a cada sessão antes de qualquer ação.**
+> Instruções operacionais para Claude Code no `crm-web`. **Leia este arquivo a cada sessão antes de qualquer ação.**
 >
-> Este documento é diretivo, não descritivo. Cada regra tem trigger explícito. Siga as regras, não improvise.
+> Documento diretivo, não descritivo. Cada regra tem trigger explícito.
+>
+> **Para regras de domínio e backend, ver `../crm-api/CLAUDE.md`.** Este arquivo cobre só o frontend.
 
 ---
 
-## 1. Você está no projeto DigiChat
+## 1. Você está no projeto DigiChat Web
 
-CRM omnichannel WhatsApp multi-tenant em desenvolvimento. Stack: NestJS 11 + Fastify + Prisma + Postgres + Redis + BullMQ + Zod + Next.js 16 + Tailwind + shadcn/ui + Kubb.
+Frontend Next.js 16 (App Router) do CRM omnichannel WhatsApp multi-tenant DigiChat. Stack: Next.js 16 + React 19 + Tailwind 4 + shadcn/ui + TanStack Query 5 + Zustand + React Hook Form + Zod + socket.io-client + Kubb.
 
-Filosofia: AGPLv3 open-source, dev solo com Claude Code, médio-termo (sem over-engineering, sem Clean Architecture, sem DDD ortodoxo).
+Filosofia: AGPLv3 open-source, dev solo com Claude Code, médio-termo. Sem over-engineering.
+
+Backend correspondente vive em `../crm-api/` (NestJS + Fastify + Prisma + Postgres + Redis + BullMQ).
 
 ---
 
-## 2. Antes de QUALQUER ação, leia estes arquivos
+## 2. Antes de QUALQUER ação, leia
 
-A cada sessão nova, sempre nesta ordem:
+A cada sessão nova, sempre:
 
-1. **Este arquivo** (`CLAUDE.md` raiz) — você está aqui
-2. **`ROADMAP.md`** — confirme em qual fase estamos. NUNCA implemente algo de fase futura sem autorização explícita.
-3. **`WORKFLOW.md`** — como trabalhamos com Superpowers
-4. **`ARCHITECTURE.md`** — fundação técnica do projeto
+1. **Este arquivo** (`CLAUDE.md` raiz crm-web) — você está aqui
+2. **`ROADMAP.md`** raiz crm-web — confirme em qual fase/sprint estamos
+3. **`ARCHITECTURE.md`** raiz crm-web — fundação técnica do projeto inteiro (cópia da do crm-api, serve como referência canônica)
+4. **`design-system.md`** raiz crm-web — cores, tipografia, espaçamento, componentes
+5. **`WORKFLOW.md`** raiz crm-web — workflow Superpowers
 
-Não pule essa leitura mesmo que pareça redundante. Decisões mudam. Documentos são fonte da verdade.
+Não pule essa leitura mesmo que pareça redundante. Decisões mudam.
 
 ---
 
 ## 3. Triggers de leitura por contexto
 
-### Antes de criar/modificar query Prisma
-
-**LEIA SEMPRE:** `docs/conventions/multi-tenant-checklist.md`
-
-Toda query precisa filtrar por `companyId`. Se você esquecer, é bug crítico de segurança.
-
-### Antes de criar endpoint REST
-
-**LEIA SEMPRE:** `docs/conventions/api-conventions.md`
-
-Padrões de URL, paginação cursor-based, naming camelCase, OpenAPI gerado automaticamente.
-
-### Antes de criar/modificar lógica de erro
-
-**LEIA SEMPRE:** `docs/conventions/error-handling.md`
-
-Hierarquia de exceções, formato de resposta, mensagens em pt-BR.
-
-### Antes de escrever testes
-
-**LEIA SEMPRE:** `docs/conventions/testing-strategy.md`
-
-O que testar (domain services), o que NÃO testar, padrões de teste e2e com isolamento multi-tenant.
-
-### Antes de implementar área específica do produto
-
-**LEIA SEMPRE:** o audit correspondente em `crm-specs/audits/`:
-
-- Implementar Canais → `audit-04-canais.md`
-- Implementar Configurações (Departments, Tags, Users, etc) → `audit-03A-cadastros-base.md`, `audit-03B-comportamento-global.md`, `audit-03C-integracoes.md`
-- Implementar Bot/Fluxo → `audit-05-bot-fluxo.md`
-- Implementar Atendimentos/Tickets → `audit-06-atendimentos.md`
-
 ### Antes de modificar UI / componente
 
-**LEIA SEMPRE (no `crm-web`):** `design-system.md`
+**LEIA SEMPRE:** `design-system.md`
 
-Cores, tipografia, espaçamento, componentes, estados.
+Cores, tipografia, espaçamento, componentes shadcn/ui, estados.
 
-### Antes de criar integração externa
+### Antes de consumir endpoint do backend
 
-**LEIA SEMPRE:** `docs/integrations/<provider>.md` se existir, ou criar com base na doc oficial.
+**Confira `lib/generated/`** (gerado por Kubb).
 
-Para Gupshup especificamente, contratos críticos estão em `docs/integrations/gupshup.md`.
+- Se faltar tipo/hook/schema do endpoint → rodar `pnpm generate:api` (com crm-api rodando) ou `pnpm generate:api:from-snapshot`.
+- Se ainda faltar → é gap no backend. Reportar e adicionar lá. **Nunca** inventar tipo local nem `as Type` pra contornar.
+- `lib/generated/` é código gerado. **Não editar à mão.**
+
+### Antes de implementar UI de área específica do produto
+
+**LEIA o audit** em `../crm-specs/audits/` (se acessível):
+
+- Canais → `audit-04-canais.md`
+- Configurações (Departments, Tags, Users, etc) → `audit-03A/03B/03C-*.md`
+- Bot/Fluxo → `audit-05-bot-fluxo.md`
+- Atendimentos/Tickets → `audit-06-atendimentos.md`
+
+Audits são o contrato visual e comportamental.
+
+### Antes de adicionar dependência nova (npm package)
+
+**Pergunte ao humano antes.** Lista de libs aprovadas em `ARCHITECTURE.md` §4 (Frontend `crm-web`). Se não estiver lá, requer aprovação.
 
 ---
 
-## 4. Regras não-negociáveis (NUNCA quebrar)
+## 4. Regras não-negociáveis
 
-### Multi-tenant
+### TypeScript estrito
 
-1. **Toda query Prisma filtra por `companyId`.** Sem exceção, exceto `Plan` e `_PrismaMigrations`.
-2. **Service recebe `companyId` como argumento explícito.** Nunca pega do request implicitamente.
-3. **`companyId` vem do JWT via `@CurrentCompany()`.** Nunca do body do request.
-4. **Cache keys, sockets rooms, queue jobs** sempre prefixados/incluem `companyId`.
+1. **Sem `any` ou `as Type`** sem comentário justificando.
+2. **TypeScript strict ligado** (`strict`, `noUncheckedIndexedAccess`). Não relaxar.
 
-### Arquitetura de 3 camadas
+### Tipos vêm do backend
 
-5. **Toda feature tem 3 camadas:** Controller → Application Service → Domain Service.
-6. **Sem exceção** mesmo em CRUDs simples — consistência total.
-7. **Sem repositório separado de Prisma.** Domain service acessa Prisma direto.
-8. **Sem Clean Architecture, sem Hexagonal, sem DDD ortodoxo.**
+3. **DTOs do backend são fonte da verdade.** Importe de `@/lib/generated` — types, schemas Zod e hooks TanStack Query.
+4. **Forms** usam o mesmo schema Zod do backend (via `@hookform/resolvers/zod`) sempre que possível.
+5. **`lib/generated/` não é editável.** Para customizar, ajustar schema no backend e regenerar.
 
-### Schemas Zod
+### Texto pro usuário em pt-BR
 
-9. **DTOs são schemas Zod**, não classes com decoradores.
-10. **Type derivado** via `z.infer<typeof Schema>`, não declarado separadamente.
-11. **Schema NUNCA aceita `companyId`** no body de input.
+6. **Strings visíveis** (labels, mensagens, erros) em pt-BR.
+7. **Identificadores no código em inglês** (variáveis, funções, componentes).
 
-### Erros
+### Server vs Client Components
 
-12. **Mensagens de erro em pt-BR.**
-13. **Sem stack trace pro cliente.**
-14. **Códigos HTTP semânticos.** Ver tabela em `docs/conventions/error-handling.md`.
-
-### Testes
-
-15. **Domain services com regra de negócio têm testes unitários.**
-16. **Cada feature crítica tem teste e2e de isolamento multi-tenant.**
-17. **TDD enforçado pelo Superpowers** — testes antes de implementação.
-
-### Working Hours
-
-18. **Bot NÃO é bloqueado por working hours.** Bot responde sempre. Working hours aplica apenas em transferência bot→humano e em ticket sem bot.
+8. **Default é Server Component.** Adicionar `'use client'` só em componentes que precisam de hooks de interatividade (useState, useEffect, useQuery, etc).
+9. **Não misturar** lógica que pertence ao server (fetch, secrets) dentro de Client Components.
 
 ### Pastas read-only (referência arquitetural)
 
-19. **`/home/rodrigo-digigov/referencias/chatwoot` é apenas referência arquitetural para leitura.** NUNCA modifique, crie ou delete arquivos nesta pasta. Use apenas para consulta de padrões de modelagem.
+10. **`/home/rodrigo-digigov/referencias/chatwoot`** é apenas referência arquitetural pra leitura. NUNCA modifique, crie ou delete arquivos lá.
 
 ### Branch e PR
 
-20. **`main` é branch protegida.** Push direto em `main` falha no remoto. Toda mudança vai em branch separada e é mergeada via Pull Request.
-21. **Padrão de nome de branch:** prefixo coerente com o Conventional Commit do trabalho.
-    - `feat/<slug>` — nova feature
-    - `fix/<slug>` — bugfix
-    - `chore/<slug>` — infra, deps, CI, tooling
-    - `docs/<slug>` — documentação
-    - `refactor/<slug>`, `style/<slug>`, `test/<slug>` quando aplicável
-22. **Antes de começar a codar, crie a branch a partir de `origin/main` atualizado.** Nunca trabalhe em cima de `main` local com a intenção de "depois eu mudo de branch".
-23. **Nunca tente bypass:** sem `git push --force` em `main`, sem `--no-verify` para pular hooks, sem desabilitar proteção. Se push for rejeitado, abrir PR é o caminho.
+11. **`main` é branch protegida.** Push direto falha. Toda mudança vai em branch separada e mergeada via PR.
+12. **Padrão de nome de branch:** prefixo Conventional. `feat/<slug>`, `fix/<slug>`, `chore/<slug>`, `docs/<slug>`, `refactor/<slug>`, `style/<slug>`, `test/<slug>`.
+13. **Crie a branch a partir de `origin/main` atualizado** antes do primeiro commit.
+14. **Sem bypass:** sem `git push --force` em main, sem `--no-verify`. PR é o caminho.
+
+### CI: drift de tipos gerados
+
+15. **Se o backend muda OpenAPI, o frontend deve regenerar.** `lib/generated/` regenerado contra `openapi.snapshot.json` deve ter zero diff em CI. Se você atualizar o snapshot, comite o `lib/generated` correspondente no mesmo PR.
 
 ---
 
@@ -145,13 +118,11 @@ Detalhado em `WORKFLOW.md`. Resumo:
 6. Superpowers ativa /execute-plan
    - TDD: testes primeiro
    - Cada step: implementa, valida, code review
-7. Verificação final (testes, lint, build)
+7. Verificação final (testes, lint, typecheck, build)
 8. Merge ou PR
 ```
 
-**Antes de codar:** sempre brainstorm. Mesmo features simples.
-**Implementando:** sempre TDD. Não pule.
-**Antes de declarar pronto:** verificação por evidência (rodar testes, rodar lint, rodar build).
+Antes de codar: sempre brainstorm. Antes de declarar pronto: verificação por evidência (`pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build`).
 
 ---
 
@@ -159,22 +130,20 @@ Detalhado em `WORKFLOW.md`. Resumo:
 
 ### SEMPRE pergunte ao humano antes de:
 
-- Adicionar dependência nova (npm package)
-- Criar nova entidade no schema Prisma
-- Mudar contrato de API público (endpoint existente)
-- Mudar comportamento documentado em audit
+- Adicionar dependência nova
+- Criar componente novo se já existe similar (preferir reuso/extensão)
+- Mudar tema do design-system (cores, tipografia base)
 - Refatorar código existente que não foi pedido
-- Implementar feature de fase futura (não-atual no ROADMAP)
-- Pular regra de algum arquivo de convenção
 - Tomar decisão arquitetural não documentada
+- Implementar feature de fase futura no ROADMAP
+- Pular regra de algum CLAUDE.md de subdiretório
 
 ### NÃO precisa perguntar para:
 
-- Aplicar padrão já estabelecido em outro módulo
-- Adicionar campo claramente útil ao schema (se for em entidade ainda não populada)
+- Aplicar padrão já estabelecido em outro componente
 - Renomear variável local
 - Ajustar formatação/lint
-- Escrever teste pra função recém-criada
+- Escrever teste pra função/componente recém-criado
 - Atualizar documentação que está desatualizada
 
 **Quando em dúvida sobre se deve perguntar: pergunte.**
@@ -183,13 +152,11 @@ Detalhado em `WORKFLOW.md`. Resumo:
 
 ## 7. Padrões de erro a evitar (TOP 7)
 
-Estes são os erros mais comuns que Claude Code comete. Evite explicitamente:
-
-1. **Esquecer `companyId` em query.** Mais grave de todos. Sempre `where: { companyId, ... }`.
-2. **Inventar regra de negócio.** Quando não está clara, pergunte. Não improvise.
-3. **Reescrever código existente sem ser pedido.** Modificação cirúrgica, não refactor lateral.
-4. **Adicionar lib não-aprovada.** Use só o que está em `ARCHITECTURE.md` seção 3.
-5. **Misturar camadas.** Controller não tem regra de negócio. Service não retorna Response. Domain service não emite eventos.
+1. **Editar `lib/generated/` à mão.** É sobrescrito no próximo `pnpm generate:api`.
+2. **Inventar tipo local porque o backend não expôs.** Reporte como gap, não faça shim.
+3. **Reescrever component existente sem ser pedido.** Modificação cirúrgica, não refactor lateral.
+4. **Adicionar lib não-aprovada.** Use só o que está em `ARCHITECTURE.md` §4 frontend.
+5. **Misturar Server Component e Client Component sem critério.** Default Server; `'use client'` só onde precisa.
 6. **`any` ou `as Type` sem comentário.** TypeScript estrito é não-negociável.
 7. **Criar arquivos não pedidos.** Se feature pediu X, não crie testes/docs/configs extras sem necessidade.
 
@@ -197,23 +164,13 @@ Estes são os erros mais comuns que Claude Code comete. Evite explicitamente:
 
 ## 8. Subdiretórios com `CLAUDE.md` próprio
 
-Quando trabalhando dentro destas pastas, leia também o `CLAUDE.md` específico delas:
+Quando trabalhando dentro destas pastas, leia também o `CLAUDE.md` específico:
 
-**Backend (`crm-api/`):**
-
-- `src/modules/CLAUDE.md` — convenções de módulos
-- `src/modules/tickets/CLAUDE.md` — regras específicas de Ticket
-- `src/modules/bot-engine/CLAUDE.md` — regras do Bot Engine
-- `src/modules/channels/CLAUDE.md` — Channel Adapter pattern
-- `prisma/CLAUDE.md` — convenções de schema e migrations
-
-**Frontend (`crm-web/`):**
-
-- `components/CLAUDE.md` — convenções de componentes
 - `app/CLAUDE.md` — convenções de rotas e layouts
-- `lib/generated/CLAUDE.md` — aviso de "código gerado, não editar"
+- `components/CLAUDE.md` — convenções de componentes
+- `lib/CLAUDE.md` — aviso da pasta `lib/generated/` (gerada, não editar)
 
-Claude Code lê `CLAUDE.md` da pasta atual automaticamente. Não precisa puxar manualmente.
+Claude Code lê `CLAUDE.md` da pasta atual automaticamente.
 
 ---
 
@@ -221,11 +178,12 @@ Claude Code lê `CLAUDE.md` da pasta atual automaticamente. Não precisa puxar m
 
 Hierarquia de busca:
 
-1. **Audit da feature** em `crm-specs/audits/` — primeira consulta
-2. **Spec descritiva do sistema atual** em `crm-specs/areas/` — comportamento atual
-3. **Chatwoot** clonado localmente em `/home/rodrigo-digigov/referencias/chatwoot` — referência arquitetural **read-only** (ver regra 19)
-4. **Doc oficial** da lib (Prisma, NestJS, Zod, etc) — nunca chutar API
-5. **Pergunta ao humano** — se nada acima resolver
+1. **Audit da feature** em `../crm-specs/audits/` (se acessível) — primeira consulta pra UI/comportamento
+2. **Spec descritiva do sistema atual** em `../crm-specs/areas/`
+3. **Backend correspondente** em `../crm-api/` — schemas Zod, audits, ARCHITECTURE.md
+4. **Chatwoot** clonado em `/home/rodrigo-digigov/referencias/chatwoot` — referência **read-only** de padrões de UI/socket (Vue, traduzir mentalmente pra React)
+5. **Doc oficial** da lib (Next.js, Tailwind, shadcn, TanStack Query, Zod, etc) — nunca chutar API
+6. **Pergunta ao humano** — se nada acima resolver
 
 NÃO improvise comportamento crítico. Pergunte.
 
@@ -235,17 +193,16 @@ NÃO improvise comportamento crítico. Pergunte.
 
 Verifique:
 
-- [ ] Documentação atualizada se você descobriu algo novo
-- [ ] `ARCHITECTURE.md` atualizado se houve decisão arquitetural
-- [ ] Migration criada e testada se mudou schema
-- [ ] Testes passando localmente
-- [ ] Lint e typecheck OK
+- [ ] Documentação atualizada se descobriu algo novo
+- [ ] `ARCHITECTURE.md` atualizado se houve decisão arquitetural relevante
+- [ ] `lib/generated/` regenerado se o backend mudou OpenAPI
+- [ ] Testes passando (`pnpm test`)
+- [ ] Lint, typecheck, format e build OK
 - [ ] Commit message segue Conventional Commits
-- [ ] Multi-tenant checklist passou (releia se modificou queries)
 
 Reporte ao humano:
 
 - O que foi feito
 - O que ficou pendente
-- Decisões tomadas que não estavam no plano (se houve)
+- Decisões tomadas que não estavam no plano
 - Próximo passo sugerido
