@@ -51,6 +51,17 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Generate API types from snapshot
+        run: pnpm generate:api:from-snapshot
+
+      - name: Detect API types drift
+        run: |
+          if ! git diff --exit-code --stat lib/generated; then
+            echo "::error::lib/generated/ está dessincronizado com openapi.snapshot.json."
+            echo "Rode 'pnpm generate:api:from-snapshot' localmente e comite a saída."
+            exit 1
+          fi
+
       - name: Test
         run: pnpm test
 
