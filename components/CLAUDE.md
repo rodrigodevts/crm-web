@@ -48,7 +48,7 @@ components/
 ```tsx
 // components/tickets/TicketCard.tsx
 
-'use client';  // se usar hooks ou interatividade
+'use client'; // se usar hooks ou interatividade
 
 import { type Ticket } from '@/lib/generated/types';
 import { cn } from '@/lib/utils';
@@ -70,10 +70,10 @@ export function TicketCard({
   return (
     <div
       className={cn(
-        'rounded-lg p-3 cursor-pointer transition-colors',
-        'hover:bg-bg-muted',
+        'bg-bg-base shadow-card cursor-pointer rounded-md p-5 transition-shadow',
+        'hover:shadow-md',
         isSelected && 'bg-primary-50 dark:bg-primary-900/30',
-        isPinned && 'border-l-2 border-primary',
+        isPinned && 'border-primary-500 border-l-2',
       )}
       onClick={onClick}
     >
@@ -84,6 +84,7 @@ export function TicketCard({
 ```
 
 **Regras:**
+
 - `'use client'` só quando precisa (hooks, eventos, state)
 - Default Server Component quando possível (Next.js 15)
 - Props interface acima do componente, com `interface` (não `type`)
@@ -98,7 +99,7 @@ export function TicketCard({
 
 ```tsx
 // ❌ ERRADO
-type Ticket = { id: string; protocol: string; /* ... */ };
+type Ticket = { id: string; protocol: string /* ... */ };
 
 // ✅ CORRETO
 import { type Ticket } from '@/lib/generated/types';
@@ -110,7 +111,7 @@ Se o tipo precisa de ajuste local, estenda:
 import { type Ticket } from '@/lib/generated/types';
 
 interface TicketWithUI extends Ticket {
-  isPinned: boolean;  // estado local de UI, não vem do backend
+  isPinned: boolean; // estado local de UI, não vem do backend
 }
 ```
 
@@ -122,7 +123,7 @@ interface TicketWithUI extends Ticket {
 // ❌ ERRADO — hook manual
 const { data } = useQuery({
   queryKey: ['tickets', id],
-  queryFn: () => fetch(`/api/v1/tickets/${id}`).then(r => r.json()),
+  queryFn: () => fetch(`/api/v1/tickets/${id}`).then((r) => r.json()),
 });
 
 // ✅ CORRETO — hook gerado
@@ -167,11 +168,11 @@ Todo componente **deve funcionar em light e dark**. Use:
 - Sempre via tokens (`bg-primary`, `text-text`, `border-border`)
 
 ```tsx
-// ❌ ERRADO
+// ❌ ERRADO — cores hardcoded
 <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 
-// ✅ CORRETO (tokens semânticos do design-system)
-<div className="bg-bg text-text">
+// ✅ CORRETO — tokens semânticos via Tailwind 4
+<div className="bg-bg-base text-text-primary">
 ```
 
 ---

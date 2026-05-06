@@ -1,512 +1,451 @@
-# DESIGN SYSTEM — DigiChat
+# Design System — DigiChat
 
-> Documento vivo da identidade visual do produto. Atualize quando decisões visuais mudarem.
+> **Versão:** 2 (tokens Dreams Chat + Variables sincronizadas com Figma)
+> **Última atualização:** 06/05/2026
 >
-> **Versão:** 1
-> **Última atualização:** 27/04/2026
->
-> **Nota:** "DigiChat" é nome temporário. Substituir quando decisão definitiva for tomada.
+> Identidade visual e tokens da plataforma. Espelha o que está no Figma (collection `DigiChat Tokens`).
 
 ---
 
-## Sumário
+## Identidade
 
-1. Princípios de design
-2. Cores
-3. Tipografia
-4. Espaçamento e layout
-5. Componentes (base shadcn/ui)
-6. Iconografia
-7. Estados e feedback
-8. Acessibilidade
-9. Aplicação prática (Tailwind + shadcn/ui)
+**Tom:** friendly, moderno, denso (alta densidade de informação).
+**Plataforma alvo primária:** desktop (1440-1920px).
+**Dark mode:** suportado, definido pós-MVP.
+**Inspiração visual:** template Dreams Chat (https://dreamschat.dreamstechnologies.com).
+**Inspiração estrutural:** Izing/Chatwoot.
+**Acessibilidade:** WCAG AA mínimo.
 
 ---
 
-## 1. Princípios de design
+## Cores
 
-**Tom:** friendly/moderno. SaaS contemporâneo, leve, sem ser infantil. Confiável o suficiente para prefeitura, moderno o suficiente para parecer produto novo.
+### Primary (azul vibrante)
 
-**Usuário primário:** atendente que fica 8h por dia na tela. Densidade de informação média-alta, fadiga ocular minimizada.
+Cor base do produto, usada em ações primárias, links, badges informativos e elementos selecionáveis.
 
-**Usuário secundário:** gestor/supervisor. Dashboards e relatórios precisam funcionar bem mas não dominam o design.
+| Token               | Hex       | Uso típico                                |
+| ------------------- | --------- | ----------------------------------------- |
+| `color/primary/50`  | `#eff6ff` | Backgrounds sutis (hover de itens)        |
+| `color/primary/100` | `#dbeafe` | Estados leves                             |
+| `color/primary/200` | `#bfdbfe` |                                           |
+| `color/primary/300` | `#93c5fd` |                                           |
+| `color/primary/400` | `#60a5fa` |                                           |
+| `color/primary/500` | `#1b84ff` | **Cor principal** — botões, badges, links |
+| `color/primary/600` | `#1565db` | Hover/pressed                             |
+| `color/primary/700` | `#1949b6` |                                           |
+| `color/primary/800` | `#1e3a8a` |                                           |
+| `color/primary/900` | `#1e3175` |                                           |
+| `color/primary/950` | `#172554` |                                           |
+
+### Neutral (cinzas — Slate Tailwind)
+
+Para fundos, bordas, divisores, textos secundários.
+
+| Token               | Hex       |
+| ------------------- | --------- |
+| `color/neutral/50`  | `#f8fafc` |
+| `color/neutral/100` | `#f1f5f9` |
+| `color/neutral/200` | `#e2e8f0` |
+| `color/neutral/300` | `#cbd5e1` |
+| `color/neutral/400` | `#94a3b8` |
+| `color/neutral/500` | `#64748b` |
+| `color/neutral/600` | `#475569` |
+| `color/neutral/700` | `#334155` |
+| `color/neutral/800` | `#1e293b` |
+| `color/neutral/900` | `#0f172a` |
+| `color/neutral/950` | `#020617` |
+
+### Semantic (uso direto sem pensar em escala)
+
+| Token                            | Hex       | Uso                               |
+| -------------------------------- | --------- | --------------------------------- |
+| `color/semantic/text-primary`    | `#141b27` | Texto principal (nome, headings)  |
+| `color/semantic/text-secondary`  | `#72767d` | Texto secundário (preview, hora)  |
+| `color/semantic/text-muted`      | `#9aa0a6` | Texto desativado, hints           |
+| `color/semantic/text-inverse`    | `#ffffff` | Texto sobre fundo escuro          |
+| `color/semantic/text-link`       | `#1b84ff` | Links inline                      |
+| `color/semantic/bg-base`         | `#ffffff` | Fundo principal                   |
+| `color/semantic/bg-subtle`       | `#f8f9fa` | Fundo de áreas sutis (sidebar)    |
+| `color/semantic/bg-muted`        | `#f1f3f5` | Hover background                  |
+| `color/semantic/bg-inverse`      | `#141b27` | Áreas com fundo escuro (tooltips) |
+| `color/semantic/border-default`  | `#e5e7eb` | Bordas e divisores padrão         |
+| `color/semantic/border-muted`    | `#f3f4f6` | Bordas muito sutis                |
+| `color/semantic/border-strong`   | `#d1d5db` | Bordas com mais destaque          |
+| `color/semantic/shadow-card-key` | `#f3f3f3` | Cor da sombra de cards            |
+
+### Status
+
+Cores semânticas para estados (sucesso, alerta, erro, info).
+
+**Success (verde):**
+| Token | Hex | Uso |
+|---|---|---|
+| `color/status/success/50` | `#ecfdf5` | Background de notificação |
+| `color/status/success/100` | `#d1fae5` | |
+| `color/status/success/500` | `#0cc68c` | **Status online, progresso, ok** |
+| `color/status/success/600` | `#059669` | Hover |
+| `color/status/success/700` | `#047857` | |
+
+**Warning (amarelo/âmbar):**
+| Token | Hex |
+|---|---|
+| `color/status/warning/50` | `#fffbeb` |
+| `color/status/warning/100` | `#fef3c7` |
+| `color/status/warning/500` | `#ffc107` |
+| `color/status/warning/600` | `#d97706` |
+| `color/status/warning/700` | `#b45309` |
+
+**Danger (vermelho):**
+| Token | Hex | Uso |
+|---|---|---|
+| `color/status/danger/50` | `#fef2f2` | Background de erro |
+| `color/status/danger/100` | `#fee2e2` | |
+| `color/status/danger/500` | `#fd3a55` | **Badge não-lidos, erros, ações destrutivas** |
+| `color/status/danger/600` | `#dc2626` | Hover |
+| `color/status/danger/700` | `#b91c1c` | |
+
+**Info:**
+| Token | Hex |
+|---|---|
+| `color/status/info/500` | `#1b84ff` (alias do primary/500) |
+
+---
+
+## Tipografia
+
+### Famílias
+
+Duas fontes diferentes para criar contraste visual entre conteúdo e ações:
+
+| Token                    | Família            | Uso                                                   |
+| ------------------------ | ------------------ | ----------------------------------------------------- |
+| `typography/family/sans` | **Archivo**        | Texto comum (nomes, mensagens, headings)              |
+| `typography/family/ui`   | **Inter**          | Tabs, botões de ação primária (contraste com Archivo) |
+| `typography/family/mono` | **JetBrains Mono** | Código, IDs, valores técnicos                         |
+
+**Razão da distinção sans vs ui:** Archivo é amigável e densa, ideal pra conteúdo conversacional. Inter é mais "executiva" e reforça hierarquia em elementos de ação. Padrão importado do Dreams Chat.
+
+### Tamanhos
+
+| Token                  | Pixels | Uso típico                        |
+| ---------------------- | ------ | --------------------------------- |
+| `typography/size/xs`   | 10px   | Badges contadores, labels mínimos |
+| `typography/size/sm`   | 12px   | Tags, captions, hora              |
+| `typography/size/base` | 14px   | **Texto padrão** (preview, body)  |
+| `typography/size/md`   | 16px   | Headings menores, nome de contato |
+| `typography/size/lg`   | 18px   | Subseções                         |
+| `typography/size/xl`   | 20px   | Headings de seção                 |
+| `typography/size/2xl`  | 24px   | Headings importantes              |
+| `typography/size/3xl`  | 30px   | Page titles                       |
+| `typography/size/4xl`  | 36px   | Display                           |
+
+### Pesos
+
+| Token                        | Valor |
+| ---------------------------- | ----- |
+| `typography/weight/regular`  | 400   |
+| `typography/weight/medium`   | 500   |
+| `typography/weight/semibold` | 600   |
+| `typography/weight/bold`     | 700   |
+
+### Line-height
+
+| Token                            | Valor (multiplicador) | Uso                  |
+| -------------------------------- | --------------------- | -------------------- |
+| `typography/line-height/tight`   | 1.2                   | Headings             |
+| `typography/line-height/snug`    | 1.35                  | Subheadings          |
+| `typography/line-height/normal`  | 1.5                   | **Body padrão**      |
+| `typography/line-height/relaxed` | 1.7                   | Texto longo, leitura |
+
+---
+
+## Espaçamento
+
+Escala alinhada com Tailwind (múltiplos de 4 com fracionários permitidos).
+
+| Token         | Pixels |
+| ------------- | ------ |
+| `spacing/0`   | 0      |
+| `spacing/0_5` | 2      |
+| `spacing/1`   | 4      |
+| `spacing/1_5` | 6      |
+| `spacing/2`   | 8      |
+| `spacing/2_5` | 10     |
+| `spacing/3`   | 12     |
+| `spacing/3_5` | 14     |
+| `spacing/4`   | 16     |
+| `spacing/5`   | 20     |
+| `spacing/6`   | 24     |
+| `spacing/7`   | 28     |
+| `spacing/8`   | 32     |
+| `spacing/10`  | 40     |
+| `spacing/12`  | 48     |
+| `spacing/14`  | 56     |
+| `spacing/16`  | 64     |
+| `spacing/20`  | 80     |
+| `spacing/24`  | 96     |
+| `spacing/32`  | 128    |
+
+**Nota sobre nomes com underscore:** Figma não permite ponto em nomes de Variables. Tokens fracionários (`0_5`, `1_5`, `2_5`, `3_5`) são exportados pra Tailwind/CSS como `0.5`, `1.5`, etc.
+
+---
+
+## Border radius
+
+| Token         | Pixels | Uso                                            |
+| ------------- | ------ | ---------------------------------------------- |
+| `radius/none` | 0      |                                                |
+| `radius/sm`   | 4      | Status indicators, badges pequenos             |
+| `radius/md`   | 8      | **Cards padrão**, botões                       |
+| `radius/lg`   | 12     | Modais, painéis maiores                        |
+| `radius/xl`   | 16     | Containers grandes                             |
+| `radius/pill` | 15     | Tags/badges em formato pill (Dreams Chat)      |
+| `radius/full` | 9999   | Avatares, badges circulares, pílulas perfeitas |
+
+---
+
+## Sizes específicos
+
+Tamanhos padronizados de elementos recorrentes.
+
+| Token             | Pixels | Uso                                        |
+| ----------------- | ------ | ------------------------------------------ |
+| `size/avatar/sm`  | 32     | Avatar pequeno (lista compacta)            |
+| `size/avatar/md`  | 48     | **Avatar padrão (card de ticket)**         |
+| `size/avatar/lg`  | 64     | Avatar grande (perfil)                     |
+| `size/icon/sm`    | 16     | Ícone pequeno                              |
+| `size/icon/md`    | 20     | Ícone padrão                               |
+| `size/icon/lg`    | 24     | Ícone grande                               |
+| `size/status-dot` | 14     | Bolinha de status online (canto do avatar) |
+
+---
+
+## Sombras
+
+| Token (Effect Style no Figma) | Valor                         | Uso                                      |
+| ----------------------------- | ----------------------------- | ---------------------------------------- |
+| `shadow/sm`                   | `0 1px 2px rgba(0,0,0,0.05)`  | Sombra muito sutil                       |
+| `shadow/card`                 | `0 1px 5px 1px #f3f3f3`       | **Sombra padrão de cards** (Dreams Chat) |
+| `shadow/md`                   | `0 4px 6px rgba(0,0,0,0.07)`  | Hover de cards, dropdowns                |
+| `shadow/lg`                   | `0 10px 15px rgba(0,0,0,0.1)` | Modais, popovers                         |
+
+**Nota:** Figma Variables não suportam shadow nativamente. Sombras ficam como Effect Styles no Figma. A Variable `color/semantic/shadow-card-key` (`#f3f3f3`) representa a cor da sombra principal.
+
+---
+
+## Componentes
+
+### Card de ticket (anatomia)
+
+Componente mais visível do produto. Especificação detalhada em `crm-specs/audits/audit-06-atendimentos.md`.
+
+**Card "rico" (com tags + barra 24h):**
+
+- Altura: ~123px
+- Padding: `spacing/5` (20px)
+- Border radius: `radius/md` (8px)
+- Background: `color/semantic/bg-base`
+- Shadow: `shadow/card`
+- Avatar: `size/avatar/md` (48px) com `radius/full`
+- Status indicator: `size/status-dot` (14px) com cor por estado:
+  - Online: `color/status/success/500`
+  - Ausente/idle: `color/status/warning/500`
+  - Offline: `color/neutral/400`
+- Nome: `typography/family/sans`, `typography/size/md` (16px), `typography/weight/semibold`, cor `color/semantic/text-primary`
+- Preview: `typography/family/sans`, `typography/size/base` (14px), `typography/weight/regular`, cor `color/semantic/text-secondary`
+- Hora: `typography/family/sans`, `typography/size/base`, cor `color/semantic/text-secondary`
+- Badge não-lidos: pill com background `color/status/danger/500`, texto `color/semantic/text-inverse`, `typography/size/sm`
+- Tags: pill com background `color/primary/500`, texto inverso, `radius/pill` (15px), `typography/size/sm`, máximo 3 visíveis + indicador "+N"
+- Barra 24h (WhatsApp window): ver seção própria abaixo
+
+**Card "simples" (sem tags, sem barra):**
+
+- Altura: ~88px
+- Mesmas regras acima sem a área de tags e barra
+
+### Barra 24h (WhatsApp window indicator)
+
+Indicador visual do tempo restante da janela de 24h da Meta.
+
+| Tempo restante | Cor da barra                                          | Cor de fundo                   |
+| -------------- | ----------------------------------------------------- | ------------------------------ |
+| > 12h          | `color/status/success/500`                            | `color/semantic/border-strong` |
+| 6-12h          | `color/status/success/500` (60% width)                | `color/semantic/border-strong` |
+| 1-6h           | `color/status/warning/500`                            | `color/semantic/border-strong` |
+| < 1h           | `color/status/danger/500` (com pulse animation)       | `color/semantic/border-strong` |
+| Fora da janela | (sem barra, indicador "Janela expirada — enviar HSM") | —                              |
+
+A barra **não é exibida** quando:
+
+- Ticket está em modo bot ativo (`isBot=true` E `flowExecution.status=RUNNING`)
+- Canal não tem janela 24h (Baileys, futuro)
+- `lastInboundAt` é nulo (nunca houve mensagem inbound)
+
+Implementação detalhada virá na Sprint que implementa o card de ticket.
+
+### Tabs (header da lista)
+
+- Família: `typography/family/ui` (Inter)
+- Peso: `typography/weight/medium`
+- Tamanho: `typography/size/base`
+- Cor texto ativo: `color/semantic/text-primary`
+- Cor texto inativo: `color/semantic/text-secondary`
+- Underline ativo: `color/primary/500`
+- Badge contador: pill pequeno, background `color/primary/500`, `typography/size/xs` (10px)
+
+### Botões de ação primária
+
+- Família: `typography/family/ui` (Inter)
+- Peso: `typography/weight/medium`
+- Tamanho: `typography/size/base`
+- Background: `color/primary/500`
+- Hover: `color/primary/600`
+- Active: `color/primary/700`
+- Texto: `color/semantic/text-inverse`
+- Padding: `spacing/3` vertical, `spacing/4` horizontal
+- Radius: `radius/md`
+
+### Botões secundários
+
+- Background: `color/semantic/bg-base`
+- Borda: `color/semantic/border-default`
+- Texto: `color/semantic/text-primary`
+- Hover background: `color/semantic/bg-muted`
+
+### Inputs
+
+- Background: `color/semantic/bg-base`
+- Borda: `color/semantic/border-default`
+- Borda focus: `color/primary/500`
+- Texto: `color/semantic/text-primary`
+- Placeholder: `color/semantic/text-muted`
+- Padding: `spacing/3` vertical, `spacing/4` horizontal
+- Radius: `radius/md`
+
+---
+
+## Iconografia
+
+**Biblioteca:** lucide-react (https://lucide.dev)
+**Tamanhos padrão:** `size/icon/sm` (16), `size/icon/md` (20), `size/icon/lg` (24)
+**Cor padrão:** `color/semantic/text-secondary` (cinza médio)
+**Cor ativa/hover:** `color/semantic/text-primary`
+**Cor primária:** `color/primary/500` (botões e ações)
+
+Ícones específicos da sidebar de Atendimentos seguem padrão Tabler Icons (mantém compatibilidade com referências do Dreams Chat).
+
+---
+
+## Estados e feedback
+
+### Loading
+
+- Skeletons com `color/semantic/bg-muted` em formato dos elementos que vão aparecer
+- Spinner: rotação 360° infinita, cor `color/primary/500`
+- Estado loading não deixa tela branca — sempre skeleton ou spinner visível
+
+### Empty state
+
+- Ilustração ou ícone grande (`size/icon/lg` ou maior) em `color/neutral/300`
+- Título em `typography/size/md`, `text-primary`
+- Subtítulo em `typography/size/base`, `text-secondary`
+- CTA opcional como botão primário
+
+### Error
+
+- Background sutil em `color/status/danger/50`
+- Borda em `color/status/danger/500` (1px)
+- Ícone alerta em `color/status/danger/500`
+- Texto em `color/semantic/text-primary`
+- Botão de retry secundário
+
+### Hover
+
+- Itens de lista: background muda pra `color/semantic/bg-muted`
+- Cards: shadow muda de `shadow/card` pra `shadow/md`
+- Botões primários: background muda pra `color/primary/600`
+- Texto interativo: cor muda pra `color/primary/500` se não era
+
+### Focus (acessibilidade)
+
+- Outline `2px solid color/primary/500` com offset 2px em qualquer elemento focável via teclado
+- Nunca remover outline sem substituir por outro indicador visual
+
+---
+
+## Densidade de informação
+
+DigiChat é produto pra atendentes que passam 8h/dia na tela. Densidade alta é prioridade sobre "respiro".
 
 **Princípios:**
 
-1. **Densidade média.** Atendente precisa ver muitos tickets, mensagens, status simultaneamente. Padding moderado, não excessivamente espaçado tipo Notion. Inspiração: Linear, Vercel.
-2. **Cantos arredondados moderados.** 6-8px nos cards e botões. Nem brutalmente quadrado, nem excessivamente arredondado.
-3. **Hierarquia clara.** Distinção visual forte entre primário, secundário e terciário. Atendente em estresse precisa decidir rápido.
-4. **Foco no conteúdo.** Chrome (header, sidebar, painéis) discreto. O conteúdo (mensagens, ticket atual) é a estrela.
-5. **Cores comunicam estado.** Status do ticket, status de mensagem, status de canal — cada um com cor consistente em todo o produto.
-6. **Light + dark verdadeiros.** Não dark = "light com cores invertidas". Cada modo é desenhado consciente de fadiga ocular.
+- Padding de cards moderado (não usar `spacing/8` quando `spacing/5` resolve)
+- Listas com `spacing/3` entre itens, não `spacing/6`
+- Headings sem grandes margens superiores
+- Sidebar fina (72px de largura, 96px só se precisar de labels)
+
+**Mas:** legibilidade prevalece. Texto sempre `typography/size/base` mínimo (14px), nunca abaixo. Exceções: badges contadores (xs/10px) e captions (sm/12px).
 
 ---
 
-## 2. Cores
+## Responsividade
 
-### 2.1 Cor primária: Sky
+**Decisão MVP:** desktop-first.
 
-A cor de ações primárias, links, destaques de seleção, ícones principais.
+Breakpoints (Tailwind padrão):
 
-| Token             | Light         | Dark                 |
-| ----------------- | ------------- | -------------------- |
-| `primary-50`      | `#F0F9FF`     | `#082F49`            |
-| `primary-100`     | `#E0F2FE`     | `#0C4A6E`            |
-| `primary-200`     | `#BAE6FD`     | `#075985`            |
-| `primary-300`     | `#7DD3FC`     | `#0369A1`            |
-| `primary-400`     | `#38BDF8`     | `#0284C7`            |
-| **`primary-500`** | **`#0EA5E9`** | **`#0EA5E9`** ← base |
-| `primary-600`     | `#0284C7`     | `#38BDF8`            |
-| `primary-700`     | `#0369A1`     | `#7DD3FC`            |
-| `primary-800`     | `#075985`     | `#BAE6FD`            |
-| `primary-900`     | `#0C4A6E`     | `#E0F2FE`            |
-| `primary-950`     | `#082F49`     | `#F0F9FF`            |
+- `sm`: 640px
+- `md`: 768px
+- `lg`: 1024px
+- `xl`: 1280px
+- `2xl`: 1536px
 
-**Uso típico:**
-- Botão primário: bg `primary-500`, hover `primary-600`, texto branco
-- Link: texto `primary-600` (light) / `primary-400` (dark)
-- Foco visível em inputs: ring `primary-500`
-- Ícone de ação principal: `primary-500`
-- Background de seleção: `primary-100` (light) / `primary-900` (dark)
+**Comportamento esperado:**
 
-### 2.2 Cores semânticas
+- < 768px: layout mobile colapsa (sidebar overlay, lista fullscreen, conversa em outra rota)
+- 768-1024: layout tablet (sidebar fixa, lista 320px, conversa restante)
+- > 1024px: layout desktop completo (sidebar 72px, lista 400px, conversa restante)
 
-Comunicam estado consistentemente em todo o produto.
-
-| Status      | Token         | Light                   | Dark                    | Uso                                                                |
-| ----------- | ------------- | ----------------------- | ----------------------- | ------------------------------------------------------------------ |
-| **Sucesso** | `success`     | `#10B981` (emerald-500) | `#34D399` (emerald-400) | Conexão estabelecida, ticket resolvido, mensagem entregue          |
-| **Atenção** | `warning`     | `#F59E0B` (amber-500)   | `#FBBF24` (amber-400)   | Fora da janela 24h, conexão instável, ticket prestes a inativo     |
-| **Erro**    | `destructive` | `#EF4444` (red-500)     | `#F87171` (red-400)     | Conexão falhou, ticket pendente urgente, ação destrutiva (excluir) |
-| **Info**    | `info`        | `#3B82F6` (blue-500)    | `#60A5FA` (blue-400)    | Notas, dicas, info secundária                                      |
-
-**Importante:**
-- **Verde NÃO é cor primária** mesmo o WhatsApp sendo verde. Sky (azul) diferencia da identidade do app cliente.
-- **Vermelho destructive ≠ vermelho de status `PENDING`** do ticket. Pendente usa âmbar/amarelo (atenção, aguardando), destructive usa vermelho-intenso (perigo, exclusão).
-
-### 2.3 Cores neutras (escala de cinza)
-
-Base do produto. Usar Slate do Tailwind (tonalidade neutro-azulada, casa com Sky).
-
-| Token             | Light                 | Dark                  | Uso                                  |
-| ----------------- | --------------------- | --------------------- | ------------------------------------ |
-| `bg` (background) | `#FFFFFF`             | `#0F172A` (slate-900) | Fundo geral da app                   |
-| `bg-subtle`       | `#F8FAFC` (slate-50)  | `#1E293B` (slate-800) | Fundo de seções secundárias, sidebar |
-| `bg-muted`        | `#F1F5F9` (slate-100) | `#334155` (slate-700) | Fundo de cards inativos, badges      |
-| `border`          | `#E2E8F0` (slate-200) | `#334155` (slate-700) | Bordas padrão                        |
-| `border-subtle`   | `#F1F5F9` (slate-100) | `#1E293B` (slate-800) | Divisores discretos                  |
-| `text`            | `#0F172A` (slate-900) | `#F8FAFC` (slate-50)  | Texto principal                      |
-| `text-muted`      | `#64748B` (slate-500) | `#94A3B8` (slate-400) | Texto secundário, labels             |
-| `text-subtle`     | `#94A3B8` (slate-400) | `#64748B` (slate-500) | Placeholders, texto desabilitado     |
-
-### 2.4 Cores específicas do produto
-
-**Status do ticket** (usadas em badges e bordas laterais de cards):
-
-| Status                              | Light                            | Dark      |
-| ----------------------------------- | -------------------------------- | --------- |
-| `PENDING`                           | `#F59E0B` (warning)              | `#FBBF24` |
-| `OPEN` (atribuído ao usuário atual) | `#10B981` (success)              | `#34D399` |
-| `OPEN` (outro atendente)            | `#94A3B8` (slate-400)            | `#64748B` |
-| `CLOSED`                            | `#94A3B8` (slate-400, esmaecido) | `#475569` |
-| Fora da janela 24h                  | `#EF4444` (destructive, sutil)   | `#F87171` |
-
-**Mensagens** (bolhas):
-
-| Tipo                     | Light                            | Dark                        |
-| ------------------------ | -------------------------------- | --------------------------- |
-| Bolha entrante (cliente) | `#E0F2FE` (primary-100)          | `#075985` (primary-700)     |
-| Bolha saída (atendente)  | `#FFFFFF` com borda              | `#1E293B` com borda         |
-| Bolha saída (bot)        | `#FFFFFF` com borda + ícone robô | `#1E293B` com borda + ícone |
-| Bolha sistema            | `#F1F5F9` (bg-muted) sutil       | `#334155`                   |
-
-**Cores de tags/etiquetas:**
-
-Tags são definidas pelo usuário (cor hex livre). Mas o seletor de cor expõe paleta sugerida com 12 cores acessíveis em ambos os temas:
-
-```
-Sky:     #0EA5E9    Indigo:  #6366F1    Violet:  #8B5CF6
-Pink:    #EC4899    Rose:    #F43F5E    Red:     #EF4444
-Orange:  #F97316    Amber:   #F59E0B    Lime:    #84CC16
-Emerald: #10B981    Teal:    #14B8A6    Cyan:    #06B6D4
-```
+Mobile não é prioridade no MVP mas componentes não devem quebrar.
 
 ---
 
-## 3. Tipografia
+## Dark mode
 
-### 3.1 Família
+**Status:** definido pós-MVP.
 
-**Geist Sans** para texto. **Geist Mono** para código (logs, IDs técnicos como protocolo `#NNNNN`).
+A collection `DigiChat Tokens` no Figma tem apenas modo `Light` no momento. Quando implementar dark, criar segundo modo na mesma collection com:
 
-Carregar via `next/font/google` ou pacote oficial. Auto-hospedagem, sem layout shift.
+- Variables `color/semantic/*` → invertidas (text claro, bg escuro, etc)
+- Variables `color/primary/*` → mantidas iguais (paleta funciona em dark)
+- Variables `color/neutral/*` → mantidas iguais
+- Variables `color/status/*` → ajustadas se contraste ruim
 
-```typescript
-// app/layout.tsx
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-
-<html lang="pt-BR" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-```
-
-### 3.2 Escala de tamanhos
-
-| Token       | Tamanho | Line-height | Uso                              |
-| ----------- | ------- | ----------- | -------------------------------- |
-| `text-xs`   | 12px    | 16px        | Legendas, badges, timestamps     |
-| `text-sm`   | 14px    | 20px        | Texto secundário, labels, botões |
-| `text-base` | 16px    | 24px        | Texto primário (default)         |
-| `text-lg`   | 18px    | 28px        | Texto destacado                  |
-| `text-xl`   | 20px    | 28px        | Subtítulos                       |
-| `text-2xl`  | 24px    | 32px        | Títulos de seção                 |
-| `text-3xl`  | 30px    | 36px        | Títulos de página                |
-
-### 3.3 Pesos
-
-| Peso | Token Tailwind  | Uso                                 |
-| ---- | --------------- | ----------------------------------- |
-| 400  | `font-normal`   | Corpo padrão                        |
-| 500  | `font-medium`   | Texto destacado, labels importantes |
-| 600  | `font-semibold` | Títulos, botões primários           |
-| 700  | `font-bold`     | Reservado, raro (pra ênfase forte)  |
-
-### 3.4 Espaçamento de letras (letter-spacing)
-
-- Default: normal (0)
-- Títulos `text-2xl` e `text-3xl`: `tracking-tight` (-0.025em)
-- Texto técnico/mono: normal
-
-### 3.5 Sem fonte de título separada
-
-Decisão consciente: uma família de fonte para tudo. Hierarquia via tamanho, peso e espaçamento. Reduz complexidade.
+Implementação técnica via `next-themes` (já instalado no `crm-web`).
 
 ---
 
-## 4. Espaçamento e layout
+## Como exportar tokens pra código
 
-### 4.1 Escala de espaçamento (Tailwind padrão)
+Variables do Figma → CSS Variables → Tailwind config → Código.
 
-```
-0.5 → 2px    1 → 4px      2 → 8px       3 → 12px
-4 → 16px     5 → 20px     6 → 24px      8 → 32px
-10 → 40px    12 → 48px    16 → 64px     20 → 80px
-```
+Veja `app/globals.css` no `crm-web/` pra implementação concreta — Tailwind 4 não usa mais `tailwind.config.*`; toda configuração vai no bloco `@theme` do CSS.
 
-### 4.2 Padding padrão por contexto
+Quando atualizar tokens no Figma:
 
-| Contexto                         | Padding                                |
-| -------------------------------- | -------------------------------------- |
-| Card padrão                      | `p-4` (16px)                           |
-| Card compacto (lista de tickets) | `p-3` (12px)                           |
-| Painel lateral                   | `p-4`                                  |
-| Modal                            | `p-6` (24px)                           |
-| Página principal                 | `p-6`                                  |
-| Botão                            | `px-4 py-2` (md) ou `px-3 py-1.5` (sm) |
-| Input                            | `px-3 py-2`                            |
+1. Atualizar Variables no Figma
+2. Atualizar `app/globals.css` (bloco `@theme`) correspondente
+3. Atualizar este documento (`design-system.md`)
 
-### 4.3 Border radius
-
-| Elemento           | Token          | Valor |
-| ------------------ | -------------- | ----- |
-| Botão, input, card | `rounded-lg`   | 8px   |
-| Badge, chip        | `rounded-md`   | 6px   |
-| Avatar             | `rounded-full` | 50%   |
-| Modal              | `rounded-xl`   | 12px  |
-| Bolha de mensagem  | `rounded-2xl`  | 16px  |
-
-### 4.4 Layout principal
-
-**Atendimentos (tela mais usada):**
-```
-┌─────────────────────────────────────────────────────┐
-│ Header global (h-14)                                │
-├──────────┬─────────────────────────┬────────────────┤
-│ Sidebar  │ Lista de tickets        │ Chat          │
-│ ícones   │ (~315px)                │ + Painel info │
-│ (~64px)  │                         │ (~380px)      │
-│          │                         │               │
-└──────────┴─────────────────────────┴────────────────┘
-```
-
-**Outras telas:** sidebar de ícones + área de conteúdo única.
-
-### 4.5 Breakpoints
-
-| Token | Largura | Uso                                  |
-| ----- | ------- | ------------------------------------ |
-| `sm`  | 640px   | Mobile horizontal                    |
-| `md`  | 768px   | Tablet                               |
-| `lg`  | 1024px  | Desktop pequeno (mínimo confortável) |
-| `xl`  | 1280px  | Desktop padrão (target principal)    |
-| `2xl` | 1536px  | Desktop grande                       |
-
-**Decisão de produto:** o produto é **desktop-first**. Mobile responsivo limitado a leitura/aprovação básica. Atendimento full em desktop.
+Manter os 3 sincronizados é responsabilidade do mantenedor (você). Não tem automação no MVP.
 
 ---
 
-## 5. Componentes (base shadcn/ui)
-
-Usaremos shadcn/ui como biblioteca base. Componentes copy-paste, customizáveis. Não é dependência npm — é código no nosso repo.
-
-### 5.1 Componentes shadcn/ui que vamos usar
-
-**Inputs e formulários:**
-- `Button`, `Input`, `Textarea`, `Select`, `Checkbox`, `Switch`, `RadioGroup`, `Slider`
-- `Form` (com React Hook Form + Zod)
-- `DatePicker`, `Combobox`
-
-**Layout:**
-- `Card`, `Sheet` (drawer lateral), `Dialog` (modal), `Drawer` (mobile)
-- `Tabs`, `Accordion`, `Collapsible`
-- `Separator`, `ScrollArea`
-
-**Feedback:**
-- `Toast` (notificações), `Alert`, `Badge`, `Progress`, `Skeleton`
-
-**Navegação:**
-- `Breadcrumb`, `Pagination`, `Command` (palette de comandos)
-- `DropdownMenu`, `ContextMenu`, `Popover`, `HoverCard`, `Tooltip`
-
-**Dados:**
-- `Table`, `Avatar`
-
-**Específicos a configurar:**
-- `Toggle` (light/dark theme switcher)
-- `Resizable` (panels redimensionáveis no atendimento)
-
-### 5.2 Componentes customizados próprios (não vêm do shadcn)
-
-- `TicketCard` (card na sidebar de tickets)
-- `MessageBubble` (3 variantes: bot, atendente, sistema)
-- `ChannelStatusCard` (card de canal com status)
-- `WorkingHoursEditor` (editor visual de horário por dia)
-- `ChatComposer` (composer livre + HSM)
-- `ContactInfoPanel` (5 abas do painel lateral)
-
-### 5.3 Padrão de variantes
-
-Cada componente tem variantes consistentes. Exemplo do Button:
-
-```typescript
-variants: {
-  variant: {
-    primary: 'bg-primary text-white hover:bg-primary-600',
-    secondary: 'bg-bg-muted text-text hover:bg-bg-muted/80',
-    outline: 'border border-border bg-transparent hover:bg-bg-muted',
-    ghost: 'bg-transparent hover:bg-bg-muted',
-    destructive: 'bg-destructive text-white hover:bg-destructive/90',
-    link: 'text-primary underline-offset-4 hover:underline',
-  },
-  size: {
-    sm: 'h-8 px-3 text-sm',
-    md: 'h-9 px-4 text-sm',  // default
-    lg: 'h-10 px-6 text-base',
-    icon: 'h-9 w-9',
-  },
-}
-```
-
----
-
-## 6. Iconografia
-
-### 6.1 Biblioteca
-
-**lucide-react** (lib oficial usada pelo shadcn/ui). 1500+ ícones, consistentes, tree-shakable.
-
-### 6.2 Tamanhos padrão
-
-| Contexto        | Tamanho |
-| --------------- | ------- |
-| Inline em texto | 16px    |
-| Botão padrão    | 16px    |
-| Botão pequeno   | 14px    |
-| Ícone de seção  | 20px    |
-| Avatar fallback | 24px    |
-| Empty state     | 48px    |
-
-### 6.3 Stroke width
-
-Default Lucide: 2. Mantemos.
-
-### 6.4 Cores de ícones
-
-Por padrão herdam cor do texto (`currentColor`). Quando precisa destaque, aplica cor primária ou semântica.
-
----
-
-## 7. Estados e feedback
-
-### 7.1 Estados de hover
-
-- Botão primário: escurece 5-10% (de `primary-500` para `primary-600`)
-- Card clicável: levanta levemente (sombra mais forte) ou bg muted
-- Item de lista: bg `primary-50` (light) / `primary-900/30` (dark)
-
-### 7.2 Estados de focus
-
-Sempre visível. Outline azul `primary-500` com `ring-2 ring-offset-2`. Não use `outline: none` sem fallback.
-
-### 7.3 Estados de loading
-
-- **Skeleton:** `animate-pulse bg-bg-muted` para placeholders enquanto carrega
-- **Spinner:** indicador circular pequeno em botões durante submit
-- **Progress bar:** para uploads de mídia, sincronização de templates
-
-### 7.4 Estados vazios
-
-Importante. Vários lugares no produto começam vazios (sem departamentos, sem fluxos, sem mensagens). Sempre dar:
-
-- Ícone (lucide-react, 48px)
-- Título curto ("Nenhum ticket pendente")
-- Descrição (1-2 linhas explicando)
-- Ação principal quando fizer sentido ("Iniciar atendimento")
-
-### 7.5 Toasts
-
-- Sucesso: `success` color, ícone check, auto-dismiss 4s
-- Erro: `destructive`, ícone X, fica até clicar
-- Info: `info`, ícone i, auto-dismiss 4s
-- Warning: `warning`, ícone alerta, auto-dismiss 6s
-
-Posição: canto superior direito.
-
----
-
-## 8. Acessibilidade
-
-**Target: WCAG 2.1 AA.** Não AAA (rigoroso demais pro nosso uso), mas AA é não-negociável.
-
-### 8.1 Contraste
-
-- Texto normal: ratio mínimo 4.5:1 contra background
-- Texto grande (18px+): ratio mínimo 3:1
-- Componentes UI (bordas, ícones): ratio mínimo 3:1
-
-Verificar com lighthouse/axe automaticamente em CI.
-
-### 8.2 Foco
-
-Todo elemento interativo tem foco visível (ring azul). Skip links no header pra navegação por teclado.
-
-### 8.3 Labels e ARIA
-
-- Todo input tem `<label>` associado
-- Ícones-só-de-botão têm `aria-label`
-- Modais têm `aria-labelledby` e `aria-describedby`
-- Live regions para toasts e atualizações de status
-
-### 8.4 Navegação por teclado
-
-- Tab navega em ordem lógica
-- Enter/Space ativa botões
-- Esc fecha modais e popovers
-- Arrow keys navegam em listas, menus, abas
-- Cmd/Ctrl+K abre command palette (futuro)
-
----
-
-## 9. Aplicação prática
-
-### 9.1 Setup inicial do projeto
-
-**Instalar shadcn/ui:**
-```bash
-pnpm dlx shadcn@latest init
-```
-
-Configuração sugerida:
-- Style: Default
-- Base color: Slate
-- CSS variables: Yes
-
-**Customizar tema em `app/globals.css`:**
-
-Substituir variáveis padrão pelas cores do nosso design system. Sky como primary, Slate como neutral.
-
-### 9.2 Como começar a montar o tema
-
-Recomendo usar **Tweakcn** (https://tweakcn.com) para gerar tema visualmente:
-
-1. Acesse Tweakcn
-2. Configure cor primária Sky (`#0EA5E9`)
-3. Configure base color Slate
-4. Ajuste radius para 0.5rem (8px)
-5. Configure fonte Geist
-6. Exporte CSS variables
-7. Cole em `globals.css`
-
-Alternativa: copiar do shadcn theme generator (https://ui.shadcn.com/themes) e ajustar.
-
-### 9.3 Themes prontos pra começar
-
-Bons pontos de partida (todos shadcn/ui based):
-
-- **Linear-like:** dense, dark-first, functional
-- **Cal.com:** friendly, light-default, agendamento
-- **Vercel Dashboard:** moderno, clean
-
-Se quiser começar rápido, copiar tema do Cal.com bate bem com nossa identidade.
-
-### 9.4 Toggle de tema
-
-Implementar com `next-themes`:
-
-```bash
-pnpm add next-themes
-```
-
-```tsx
-// app/layout.tsx
-import { ThemeProvider } from 'next-themes';
-
-<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-  {children}
-</ThemeProvider>
-```
-
-Toggle no header: ícone Sol/Lua, alterna entre `light`, `dark`, `system`.
-
-### 9.5 Fontes Geist
-
-```bash
-pnpm add geist
-```
-
-```tsx
-// app/layout.tsx
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="pt-BR" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="font-sans">{children}</body>
-    </html>
-  );
-}
-```
-
-Em `tailwind.config.ts`:
-```typescript
-fontFamily: {
-  sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
-  mono: ['var(--font-geist-mono)', 'ui-monospace', 'monospace'],
-}
-```
-
----
-
-## Anexo: Checklist de revisão visual
-
-Antes de mergear PR com mudança visual, verificar:
-
-- [ ] Funciona em light e dark
-- [ ] Foco visível em todos os elementos interativos
-- [ ] Contraste WCAG AA
-- [ ] Espaçamento consistente com tokens (não pixels mágicos)
-- [ ] Estados vazios tratados
-- [ ] Estados de loading tratados
-- [ ] Estados de erro tratados
-- [ ] Responsividade até `sm` (mobile pode quebrar mas não pode ser inacessível)
-- [ ] Ícones com `aria-label` quando necessário
+## Referências externas
+
+- **Inspiração visual:** Dreams Chat (https://dreamschat.dreamstechnologies.com/react/chat)
+- **Inspiração estrutural:** Chatwoot (em `~/referencias/chatwoot/`), Izing/Whaticket
+- **Componentes base:** shadcn/ui (https://ui.shadcn.com)
+- **Ícones:** lucide-react, Tabler Icons (referência)
+- **Fontes:** Archivo (Google Fonts), Inter (Google Fonts), JetBrains Mono (Google Fonts)
