@@ -42,3 +42,6 @@ Thumbs.db
 
 # Note: lib/generated/ is intentionally NOT ignored — it is a build artifact
 # from Kubb that ships with the repo so CI runs without booting the API.
+
+# git worktrees (isolated workspaces for Superpowers execution)
+.worktrees/
