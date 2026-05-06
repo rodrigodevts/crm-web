@@ -2,7 +2,7 @@
 
 > Documento vivo. Atualize a cada decisão arquitetural significativa. Em caso de conflito entre código e documento, o documento ganha — o código deve ser corrigido.
 >
-> **Versão:** 6 (stack atualizada: Fastify + Zod + nestjs-zod + Scalar + Kubb, naming camelCase)
+> **Versão:** 7 (tipografia ajustada: Archivo + Inter, paleta Dreams Chat aplicada)
 > **Última atualização:** 27/04/2026
 
 ---
@@ -102,6 +102,7 @@ CRM omnichannel multi-tenant focado em WhatsApp, com filas de atendimento, chatb
 ### 3.1 As 3 camadas
 
 **Controller** — camada de transporte HTTP:
+
 - Recebe request, valida via schema Zod (`ZodValidationPipe`)
 - Extrai contexto (`@CurrentUser`, `@CurrentCompany`)
 - Chama application service
@@ -110,6 +111,7 @@ CRM omnichannel multi-tenant focado em WhatsApp, com filas de atendimento, chatb
 - **Nunca** acessa Prisma diretamente
 
 **Application Service** — camada de orquestração:
+
 - Recebe input já validado do controller
 - Chama domain service(s)
 - Coordena transações (`prisma.$transaction`)
@@ -121,6 +123,7 @@ CRM omnichannel multi-tenant focado em WhatsApp, com filas de atendimento, chatb
 - **Não tem** regras de negócio puras (essas vivem no domain)
 
 **Domain Service** — camada de regras de negócio:
+
 - Lógica do "o que pode/não pode acontecer"
 - Validações de negócio (ex: "não pode aceitar ticket que já foi aceito")
 - Cálculos (ex: "calcular `totalDurationSec`")
@@ -190,16 +193,19 @@ src/modules/feature-name/
 // schemas/create-ticket.schema.ts
 import { z } from 'nestjs-zod/z';
 
-export const CreateTicketSchema = z.object({
-  contactId: z.string().uuid(),
-  channelConnectionId: z.string().uuid(),
-  initialMessage: z.string().min(1).max(4096).optional(),
-}).describe('Dados para criar novo ticket');
+export const CreateTicketSchema = z
+  .object({
+    contactId: z.string().uuid(),
+    channelConnectionId: z.string().uuid(),
+    initialMessage: z.string().min(1).max(4096).optional(),
+  })
+  .describe('Dados para criar novo ticket');
 
 export type CreateTicketDto = z.infer<typeof CreateTicketSchema>;
 ```
 
 O schema serve **três propósitos** simultaneamente:
+
 1. **Validação** em runtime (via `ZodValidationPipe`)
 2. **Tipo TypeScript** (via `z.infer`)
 3. **OpenAPI** (gerado automaticamente via `@nestjs/swagger` + `nestjs-zod`)
@@ -215,22 +221,26 @@ Comando alvo: `pnpm nest g feature <nome>` cria toda a estrutura.
 ### 3.5 Exemplo concreto: aceitar ticket
 
 **Schema (Zod):**
+
 ```typescript
 // schemas/accept-ticket-response.schema.ts
 import { z } from 'nestjs-zod/z';
 
-export const AcceptTicketResponseSchema = z.object({
-  id: z.string().uuid(),
-  protocol: z.string(),
-  status: z.literal('OPEN'),
-  assignedUserId: z.string().uuid(),
-  acceptedAt: z.string().datetime(),
-}).describe('Resposta ao aceitar ticket');
+export const AcceptTicketResponseSchema = z
+  .object({
+    id: z.string().uuid(),
+    protocol: z.string(),
+    status: z.literal('OPEN'),
+    assignedUserId: z.string().uuid(),
+    acceptedAt: z.string().datetime(),
+  })
+  .describe('Resposta ao aceitar ticket');
 
 export type AcceptTicketResponseDto = z.infer<typeof AcceptTicketResponseSchema>;
 ```
 
 **Controller:**
+
 ```typescript
 import { ZodSerializerDto } from 'nestjs-zod';
 
@@ -249,6 +259,7 @@ export class TicketsController {
 ```
 
 **Application Service:**
+
 ```typescript
 async accept(
   ticketId: string,
@@ -289,6 +300,7 @@ async accept(
 ```
 
 **Domain Service:**
+
 ```typescript
 async accept(
   ticketId: string,
@@ -369,17 +381,18 @@ Cada um expõe operações relacionadas. Application service compõe.
 
 ### Frontend (`crm-web`)
 
-| Componente                                   | Versão                                 |
-| -------------------------------------------- | -------------------------------------- |
-| Next.js                                      | 15+ App Router                         |
-| Tailwind CSS                                 | 4+                                     |
-| shadcn/ui                                    | latest                                 |
-| TanStack Query                               | 5+                                     |
-| Zustand                                      | latest                                 |
-| React Hook Form + Zod                        | latest (Zod compartilhado com backend) |
-| socket.io-client                             | 4+                                     |
-| React Flow                                   | 12+ (Fase 6)                           |
-| `@kubb/cli` + `@kubb/swagger-tanstack-query` | latest                                 | Geração automática de tipos TS e hooks TanStack Query a partir do OpenAPI do backend |
+| Componente                                   | Versão                                                                               |
+| -------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| Next.js                                      | 15+ App Router                                                                       |
+| Tailwind CSS                                 | 4+ (CSS-first via `@theme` em `app/globals.css` — sem `tailwind.config`)             |
+| Tipografia                                   | Archivo (sans/conteúdo) + Inter (UI/ações) + JetBrains Mono — via `next/font/google` |
+| shadcn/ui                                    | latest                                                                               |
+| TanStack Query                               | 5+                                                                                   |
+| Zustand                                      | latest                                                                               |
+| React Hook Form + Zod                        | latest (Zod compartilhado com backend)                                               |
+| socket.io-client                             | 4+                                                                                   |
+| React Flow                                   | 12+ (Fase 6)                                                                         |
+| `@kubb/cli` + `@kubb/swagger-tanstack-query` | latest                                                                               | Geração automática de tipos TS e hooks TanStack Query a partir do OpenAPI do backend |
 
 ### Infraestrutura
 
@@ -476,6 +489,7 @@ crm-web/
 ```
 
 **Sobre a pasta `lib/generated/`:**
+
 - Gerada por `pnpm generate:api` (script no `package.json`)
 - Lê o OpenAPI spec do backend (URL ou arquivo local)
 - Gera tipos TS, hooks TanStack Query, e cliente HTTP
@@ -561,6 +575,7 @@ Company (tenant)
 **IDs:** UUID v7 (ordenável temporalmente).
 
 **Constraints únicos:**
+
 - `Contact` único por `(companyId, phoneNumber)`
 - `ChannelConnection` único por `(companyId, phoneNumber)` e `(companyId, name)`
 - 1 Ticket OPEN/PENDING por `(contact, channelConnection)` — enforce no app
@@ -643,6 +658,7 @@ export interface ChannelCapabilities {
 ### 8.5 Documentação Gupshup
 
 Contratos críticos documentados em `crm-api/docs/integrations/gupshup.md`:
+
 - Formato de webhook entrante (request body, headers de assinatura)
 - Endpoint de envio de mensagem (todos os tipos: text, media, interactive, template)
 - Endpoint de listagem de templates
@@ -873,6 +889,7 @@ Atendente lê sem enviar "azul" automaticamente. Read enviado junto da próxima 
 Contratos críticos documentados em **`crm-api/docs/integrations/gupshup.md`** com exemplos reais. Linka pra doc oficial em `https://docs.gupshup.io/` para detalhes secundários.
 
 Tópicos cobertos:
+
 - Webhook entrante (formato, assinatura, headers)
 - API de envio (todos os tipos de mensagem)
 - API de listagem de templates HSM
@@ -908,7 +925,7 @@ DeepWiki documentação: https://deepwiki.com/chatwoot/chatwoot
 Validados durante auditorias:
 
 - Multi-tenancy via foreign key (Account/companyId)
-- Polimorfismo de canais (Channel::* / Channel adapters)
+- Polimorfismo de canais (Channel::\* / Channel adapters)
 - Pub-sub interno (Wisper / EventEmitter)
 - State machine de Conversation (mapeada em nosso Ticket)
 - Namespacing de API por escopo (Platform/Application/Public)

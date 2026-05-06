@@ -51,11 +51,13 @@ Parênteses não aparecem na URL. `app/(dashboard)/tickets/page.tsx` → `/ticke
 Princípio: server-side por padrão, client-side quando necessário.
 
 Server Components podem:
+
 - Fazer fetch direto a APIs (com cookies de autenticação)
 - Acessar variáveis de ambiente sem expor ao cliente
 - Compor com Client Components
 
 Client Components não podem:
+
 - Ser async
 - Importar Server Components diretamente (use `children` slot)
 
@@ -67,11 +69,11 @@ Client Components não podem:
 // app/(dashboard)/layout.tsx
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen">
+    <div className="bg-bg-subtle flex h-screen">
       <Sidebar />
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="bg-bg-base flex-1 overflow-auto">{children}</main>
       </div>
     </div>
   );
@@ -105,7 +107,7 @@ Acesso ao param:
 ```tsx
 // Server Component
 export default async function TicketPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;  // params é Promise no Next.js 15
+  const { id } = await params; // params é Promise no Next.js 15
   return <TicketDetail id={id} />;
 }
 ```
