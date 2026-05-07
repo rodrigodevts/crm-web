@@ -12,6 +12,7 @@ const TITLES: Record<string, string> = {
   '/configuracoes/canais': 'Canais',
   '/configuracoes/integracoes': 'Integrações',
   '/configuracoes/preferencias': 'Preferências',
+  '/ajuda': 'Ajuda',
 };
 
 export function getRouteTitle(pathname: string): string {
