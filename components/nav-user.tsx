@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
-import { LogOut, MoreVertical, UserCircle } from 'lucide-react';
+import { EllipsisVerticalIcon, LogOutIcon, UserCircleIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,13 +54,16 @@ export function NavUser() {
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
+                {/* avatarUrl ainda não existe no backend (Fase 4); AvatarImage renderiza vazio
+                    e o fallback assume — mantemos a primitive pra preparar upload futuro. */}
+                <AvatarImage src={undefined} alt={user.name} />
                 <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
                 <span className="text-muted-foreground truncate text-xs">{user.email}</span>
               </div>
-              <MoreVertical className="ml-auto size-4" />
+              <EllipsisVerticalIcon className="ml-auto size-4" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -72,6 +75,7 @@ export function NavUser() {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarImage src={undefined} alt={user.name} />
                   <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
@@ -83,13 +87,13 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={() => router.push('/configuracoes/preferencias')}>
-                <UserCircle />
+                <UserCircleIcon />
                 Meu perfil
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={handleLogout} disabled={logout.isPending}>
-              <LogOut />
+              <LogOutIcon />
               {logout.isPending ? 'Saindo…' : 'Sair'}
             </DropdownMenuItem>
           </DropdownMenuContent>

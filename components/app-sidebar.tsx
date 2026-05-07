@@ -2,9 +2,11 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   BarChart3,
   Bot,
+  ChevronDown,
   HelpCircle,
   Megaphone,
   MessageSquare,
@@ -19,11 +21,18 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 const navMain: NavMainItem[] = [
   { title: 'Atendimentos', url: '/atendimentos', icon: MessageSquare },
@@ -33,10 +42,63 @@ const navMain: NavMainItem[] = [
   { title: 'Dashboard', url: '/dashboard', icon: BarChart3 },
 ];
 
-const navSecondary: NavSecondaryItem[] = [
-  { title: 'Configurações', url: '/configuracoes', icon: Settings },
-  { title: 'Ajuda', url: '/ajuda', icon: HelpCircle },
-];
+const settingsSubItems = [
+  { href: '/configuracoes/departamentos', label: 'Departamentos' },
+  { href: '/configuracoes/tags', label: 'Tags' },
+  { href: '/configuracoes/usuarios', label: 'Usuários' },
+  { href: '/configuracoes/quick-replies', label: 'Quick Replies' },
+  { href: '/configuracoes/canais', label: 'Canais' },
+  { href: '/configuracoes/integracoes', label: 'Integrações' },
+  { href: '/configuracoes/preferencias', label: 'Preferências' },
+] as const;
+
+const navSecondary: NavSecondaryItem[] = [{ title: 'Ajuda', url: '/ajuda', icon: HelpCircle }];
+
+function isRouteActive(pathname: string, url: string): boolean {
+  return pathname === url || pathname.startsWith(`${url}/`);
+}
+
+function ConfiguracoesMenu() {
+  const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
+  const settingsActive = isRouteActive(pathname, '/configuracoes');
+
+  return (
+    <SidebarGroup>
+      <SidebarGroupContent>
+        <SidebarMenu>
+          <Collapsible defaultOpen={settingsActive} className="group/collapsible">
+            <SidebarMenuItem>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton tooltip="Configurações" isActive={settingsActive}>
+                  <Settings />
+                  <span>Configurações</span>
+                  <ChevronDown
+                    aria-hidden
+                    className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180"
+                  />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {settingsSubItems.map((sub) => (
+                    <SidebarMenuSubItem key={sub.href}>
+                      <SidebarMenuSubButton asChild isActive={isRouteActive(pathname, sub.href)}>
+                        <Link href={sub.href} onClick={() => setOpenMobile(false)}>
+                          {sub.label}
+                        </Link>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </SidebarMenuItem>
+          </Collapsible>
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  );
+}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -46,7 +108,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5!">
               <Link href="/atendimentos">
-                <MessagesSquare className="h-5 w-5" />
+                <MessagesSquare className="size-5!" />
                 <span className="text-base font-semibold">DigiChat</span>
               </Link>
             </SidebarMenuButton>
@@ -55,6 +117,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />
+        <ConfiguracoesMenu />
         <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
