@@ -17,7 +17,10 @@ function Separator({
       decorative={decorative}
       orientation={orientation}
       className={cn(
-        'bg-border shrink-0 data-horizontal:h-px data-horizontal:w-full data-vertical:w-px data-vertical:self-stretch',
+        // Radix renderiza `data-orientation="horizontal|vertical"`. As classes shorthand
+        // `data-horizontal:` do template shadcn/ui esperam um atributo `[data-horizontal]`
+        // que o Radix não emite, então usamos o attribute selector explícito.
+        'bg-border shrink-0 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px data-[orientation=vertical]:self-stretch',
         className,
       )}
       {...props}
