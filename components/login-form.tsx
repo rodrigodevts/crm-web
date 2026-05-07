@@ -57,7 +57,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <div className="bg-card text-card-foreground ring-foreground/10 grid overflow-hidden rounded-xl ring-1 md:grid-cols-2">
+      <div className="bg-card text-card-foreground ring-foreground/10 grid w-full overflow-hidden rounded-xl ring-1 md:grid-cols-2">
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8" noValidate>
           <FieldGroup>
             <div className="flex flex-col items-center gap-2 text-center">
