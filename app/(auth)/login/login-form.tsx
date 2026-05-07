@@ -37,6 +37,7 @@ export function LoginForm() {
       await login.mutateAsync({ data: values });
       router.push('/atendimentos');
     } catch (err: unknown) {
+      // erro do axios via TanStack Query vem tipado como `unknown`; estrutura conhecida.
       const status = (err as { response?: { status?: number } })?.response?.status;
       if (status === 401) {
         setSubmitError('E-mail ou senha incorretos.');

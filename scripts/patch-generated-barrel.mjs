@@ -11,7 +11,16 @@ const BARREL = resolve(process.cwd(), 'lib/generated/client/index.ts');
 const RE_EXPORT_LINE =
   'export type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";';
 
-const content = await readFile(BARREL, 'utf8');
+let content;
+try {
+  content = await readFile(BARREL, 'utf8');
+} catch (e) {
+  if (e.code === 'ENOENT') {
+    console.error('patch-generated-barrel: barrel not found — was kubb generate successful?');
+    process.exit(1);
+  }
+  throw e;
+}
 
 if (content.includes(RE_EXPORT_LINE)) {
   // already patched — idempotent
