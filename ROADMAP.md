@@ -131,7 +131,7 @@
 
 ### 4.8 Gaps remanescentes (pra fechar Fase 0 antes da Fase 1)
 
-- [ ] Página de register (formulário + criação de conta + multi-tenant scope)
+- [ ] **Sistema de convite de usuários** — admin convida (email + role) → usuário acessa `/aceitar-convite/[token]` → define nome + senha → auto-login. Spec em `docs/superpowers/specs/2026-05-07-invite-flow-design.md`. Substitui o item descartado de "Página de register" (modelo self-signup público não cabe no produto — Sprint 0.15 Fase A/B foram revertidas em PR #16 / crm-api PR #39). E-mail transacional fica fora deste sprint (sprint futura).
 - [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
 - [ ] RBAC efetivo (atualmente o gate é só "tem `access_token`"; falta diferenciar `ADMIN` × `AGENT` × `SUPER_ADMIN` em rota e UI)
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
