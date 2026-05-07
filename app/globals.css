@@ -5,7 +5,7 @@
  *
  * Tailwind 4 usa configuração CSS-first via @theme.
  * Sincronizado com tokens do Figma (collection "DigiChat Tokens" v2).
- * Atualizado em: 06/05/2026
+ * Atualizado em: 07/05/2026
  *
  * Quando atualizar tokens no Figma, atualize aqui também e em design-system.md.
  */
@@ -84,6 +84,34 @@
   /* Semantic — Shadow key color */
   --color-shadow-card-key: #f3f3f3;
 
+  /* ============= shadcn/ui aliases ============= */
+  /*
+   * Nomes esperados pelos componentes shadcn (Button, Card, Input, etc.).
+   * Tailwind 4 só gera utilities (`bg-card`, `bg-primary`, etc.) a partir de
+   * variáveis prefixadas com `--color-`. Apontamos cada alias pro token
+   * semântico correspondente — o `.dark` block abaixo pode sobrescrever
+   * pontualmente quando o spec exige cor diferente em dark mode.
+   */
+  --color-background: var(--color-bg-base);
+  --color-foreground: var(--color-text-primary);
+  --color-card: var(--color-bg-base);
+  --color-card-foreground: var(--color-text-primary);
+  --color-popover: var(--color-bg-base);
+  --color-popover-foreground: var(--color-text-primary);
+  --color-primary: var(--color-primary-500);
+  --color-primary-foreground: var(--color-text-inverse);
+  --color-secondary: var(--color-bg-muted);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-bg-muted);
+  --color-muted-foreground: var(--color-text-secondary);
+  --color-accent: var(--color-bg-muted);
+  --color-accent-foreground: var(--color-text-primary);
+  --color-destructive: var(--color-danger-500);
+  --color-destructive-foreground: var(--color-text-inverse);
+  --color-border: var(--color-border-default);
+  --color-input: var(--color-border-default);
+  --color-ring: var(--color-primary-500);
+
   /* ============= Tipografia ============= */
 
   /* Famílias (carregadas via next/font/google em layout.tsx) */
@@ -126,32 +154,7 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ============= shadcn/ui compatibility ============= */
-/* shadcn/ui usa nomes próprios de variáveis. Mapeamos elas pros nossos tokens. */
 @layer base {
-  :root {
-    --background: var(--color-bg-base);
-    --foreground: var(--color-text-primary);
-    --card: var(--color-bg-base);
-    --card-foreground: var(--color-text-primary);
-    --popover: var(--color-bg-base);
-    --popover-foreground: var(--color-text-primary);
-    --primary: var(--color-primary-500);
-    --primary-foreground: var(--color-text-inverse);
-    --secondary: var(--color-bg-muted);
-    --secondary-foreground: var(--color-text-primary);
-    --muted: var(--color-bg-muted);
-    --muted-foreground: var(--color-text-secondary);
-    --accent: var(--color-bg-muted);
-    --accent-foreground: var(--color-text-primary);
-    --destructive: var(--color-danger-500);
-    --destructive-foreground: var(--color-text-inverse);
-    --border: var(--color-border-default);
-    --input: var(--color-border-default);
-    --ring: var(--color-primary-500);
-    --radius: 8px;
-  }
-
   /* Dark mode (definição preliminar — refinar pós-MVP) */
   .dark {
     --color-bg-base: #0f172a;
@@ -171,21 +174,9 @@
 
     --color-shadow-card-key: rgba(0, 0, 0, 0.3);
 
-    /* shadcn mappings (re-aplicados no dark) */
-    --background: var(--color-bg-base);
-    --foreground: var(--color-text-primary);
-    --card: var(--color-bg-subtle);
-    --card-foreground: var(--color-text-primary);
-    --popover: var(--color-bg-subtle);
-    --popover-foreground: var(--color-text-primary);
-    --secondary: var(--color-bg-muted);
-    --secondary-foreground: var(--color-text-primary);
-    --muted: var(--color-bg-muted);
-    --muted-foreground: var(--color-text-secondary);
-    --accent: var(--color-bg-muted);
-    --accent-foreground: var(--color-text-primary);
-    --border: var(--color-border-default);
-    --input: var(--color-border-default);
+    /* Cards e popovers ganham um cinza escuro distinto do background pra dar destaque */
+    --color-card: var(--color-bg-subtle);
+    --color-popover: var(--color-bg-subtle);
   }
 
   body {
