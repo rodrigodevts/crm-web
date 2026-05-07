@@ -8,22 +8,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/LoginDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
             }
           }
         },
@@ -37,22 +29,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/RefreshDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
             }
           }
         },
@@ -66,18 +50,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LogoutDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/LogoutDto" } }
           }
         },
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["auth"]
       }
     },
@@ -89,11 +65,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/HealthResponseDto" } }
             }
           }
         },
@@ -107,18 +79,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateUserDto" } }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["users"]
       },
       "get": {
@@ -128,33 +92,21 @@
             "name": "role",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string",
-              "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"]
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"] }
           },
           {
             "name": "active",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "default": true,
-              "type": "boolean"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "default": true, "type": "boolean" }
           },
           {
             "name": "departmentId",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
             "schema": {
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
@@ -165,46 +117,25 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["users"]
       }
     },
@@ -212,68 +143,31 @@
       "get": {
         "operationId": "UsersController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["users"]
       },
       "patch": {
         "operationId": "UsersController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["users"]
       },
       "delete": {
         "operationId": "UsersController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["users"]
       }
     },
@@ -281,20 +175,9 @@
       "post": {
         "operationId": "UsersController_forceLogout",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["users"]
       }
     },
@@ -306,11 +189,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -322,22 +201,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMeDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateMeDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -348,11 +219,7 @@
       "get": {
         "operationId": "CompaniesMeController_findMine",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "patch": {
@@ -361,18 +228,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanyMeDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateCompanyMeDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -383,18 +242,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompanyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateCompanyDto" } }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["companies"]
       },
       "get": {
@@ -407,10 +258,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "default": true,
-              "type": "boolean"
-            }
+            "schema": { "default": true, "type": "boolean" }
           },
           {
             "name": "search",
@@ -419,11 +267,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
@@ -432,9 +276,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -443,19 +285,10 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -463,68 +296,31 @@
       "get": {
         "operationId": "CompaniesController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "patch": {
         "operationId": "CompaniesController_updateById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateCompanyDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "delete": {
         "operationId": "CompaniesController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -535,18 +331,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateDepartmentDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateDepartmentDto" } }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["departments"]
       },
       "get": {
@@ -559,10 +347,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "default": true,
-              "type": "boolean"
-            }
+            "schema": { "default": true, "type": "boolean" }
           },
           {
             "name": "search",
@@ -571,11 +356,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "sort",
@@ -584,11 +365,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "default": "createdAt",
-              "type": "string",
-              "enum": ["createdAt", "name"]
-            }
+            "schema": { "default": "createdAt", "type": "string", "enum": ["createdAt", "name"] }
           },
           {
             "name": "cursor",
@@ -597,9 +374,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -608,19 +383,10 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["departments"]
       }
     },
@@ -628,68 +394,31 @@
       "get": {
         "operationId": "DepartmentsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["departments"]
       },
       "patch": {
         "operationId": "DepartmentsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateDepartmentDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateDepartmentDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["departments"]
       },
       "delete": {
         "operationId": "DepartmentsController_softDelete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["departments"]
       }
     },
@@ -700,85 +429,43 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTagDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateTagDto" } }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["tags"]
       },
       "get": {
         "operationId": "TagsController_list",
         "parameters": [
-          {
-            "name": "active",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "boolean"
-            }
-          },
+          { "name": "active", "required": false, "in": "query", "schema": { "type": "boolean" } },
           {
             "name": "scope",
             "required": false,
             "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["CONTACT", "TICKET", "BOTH"]
-            }
+            "schema": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] }
           },
           {
             "name": "search",
             "required": false,
             "in": "query",
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
-          {
-            "name": "cursor",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
+          { "name": "cursor", "required": false, "in": "query", "schema": { "type": "string" } },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           },
           {
             "name": "sort",
             "required": false,
             "in": "query",
-            "schema": {
-              "default": "createdAt",
-              "type": "string",
-              "enum": ["createdAt", "name"]
-            }
+            "schema": { "default": "createdAt", "type": "string", "enum": ["createdAt", "name"] }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["tags"]
       }
     },
@@ -786,77 +473,37 @@
       "get": {
         "operationId": "TagsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["tags"]
       },
       "patch": {
         "operationId": "TagsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateTagDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateTagDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["tags"]
       },
       "delete": {
         "operationId": "TagsController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          },
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
           {
             "name": "hard",
             "required": false,
             "in": "query",
-            "schema": {
-              "default": false,
-              "type": "boolean"
-            }
+            "schema": { "default": false, "type": "boolean" }
           }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["tags"]
       }
     },
@@ -868,17 +515,11 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCloseReasonDto"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateCloseReasonDto" }
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["close-reasons"]
       },
       "get": {
@@ -892,15 +533,7 @@
               "description": "Filtros para listagem de motivos de fechamento"
             },
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
@@ -923,11 +556,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
@@ -936,9 +565,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -947,12 +574,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           },
           {
             "name": "sort",
@@ -968,11 +590,7 @@
             }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["close-reasons"]
       }
     },
@@ -984,17 +602,11 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReorderCloseReasonsDto"
-              }
+              "schema": { "$ref": "#/components/schemas/ReorderCloseReasonsDto" }
             }
           }
         },
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["close-reasons"]
       }
     },
@@ -1002,68 +614,33 @@
       "get": {
         "operationId": "CloseReasonsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["close-reasons"]
       },
       "patch": {
         "operationId": "CloseReasonsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCloseReasonDto"
-              }
+              "schema": { "$ref": "#/components/schemas/UpdateCloseReasonDto" }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["close-reasons"]
       },
       "delete": {
         "operationId": "CloseReasonsController_softDelete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["close-reasons"]
       }
     },
@@ -1071,11 +648,7 @@
       "get": {
         "operationId": "CompanySettingsController_findMine",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["company-settings"]
       },
       "patch": {
@@ -1085,18 +658,111 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanySettingsDto"
-              }
+              "schema": { "$ref": "#/components/schemas/UpdateCompanySettingsDto" }
             }
+          }
+        },
+        "responses": { "200": { "description": "" } },
+        "tags": ["company-settings"]
+      }
+    },
+    "/api/v1/invitations": {
+      "post": {
+        "operationId": "InvitationsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateInvitationDto" } }
+          }
+        },
+        "responses": { "201": { "description": "" } },
+        "tags": ["invitations"]
+      },
+      "get": {
+        "operationId": "InvitationsController_list",
+        "parameters": [
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
+            "schema": {
+              "default": "PENDING",
+              "type": "string",
+              "enum": ["PENDING", "ACCEPTED", "REVOKED"]
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
+          }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["invitations"]
+      }
+    },
+    "/api/v1/invitations/{id}/revoke": {
+      "post": {
+        "operationId": "InvitationsController_revoke",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": { "204": { "description": "" } },
+        "tags": ["invitations"]
+      }
+    },
+    "/api/v1/invitations/{id}/resend": {
+      "post": {
+        "operationId": "InvitationsController_resend",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["invitations"]
+      }
+    },
+    "/api/v1/invitations/by-token/{token}": {
+      "get": {
+        "operationId": "InvitationsPublicController_getByToken",
+        "parameters": [
+          { "name": "token", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "" } },
+        "tags": ["invitations"]
+      }
+    },
+    "/api/v1/invitations/by-token/{token}/accept": {
+      "post": {
+        "operationId": "InvitationsPublicController_accept",
+        "parameters": [
+          { "name": "token", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": { "schema": { "$ref": "#/components/schemas/AcceptInvitationDto" } }
           }
         },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
+            }
           }
         },
-        "tags": ["company-settings"]
+        "tags": ["invitations"]
       }
     }
   },
@@ -1110,11 +776,7 @@
   "servers": [],
   "components": {
     "securitySchemes": {
-      "bearer": {
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "type": "http"
-      },
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" },
       "cookie": {
         "type": "apiKey",
         "in": "cookie",
@@ -1131,10 +793,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8
-          }
+          "password": { "type": "string", "minLength": 8 }
         },
         "required": ["email", "password"],
         "description": "Credenciais de login"
@@ -1155,18 +814,13 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
               },
-              "name": {
-                "type": "string"
-              },
+              "name": { "type": "string" },
               "email": {
                 "type": "string",
                 "format": "email",
                 "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
               },
-              "role": {
-                "type": "string",
-                "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
-              }
+              "role": { "type": "string", "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"] }
             },
             "required": ["id", "companyId", "name", "email", "role"],
             "description": "Dados públicos do usuário (sem hash de senha)"
@@ -1223,21 +877,13 @@
       "CreateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
           "role": {
             "type": "string",
             "enum": ["ADMIN", "SUPERVISOR", "AGENT"],
@@ -1261,25 +907,14 @@
       "UpdateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-          },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
+          "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT"] },
           "departmentIds": {
             "type": "array",
             "items": {
@@ -1288,14 +923,8 @@
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
             }
           },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          }
+          "absenceMessage": { "type": "string", "maxLength": 500, "nullable": true },
+          "absenceActive": { "type": "boolean" }
         },
         "description": "Dados para editar usuário (apenas ADMIN+)",
         "additionalProperties": false
@@ -1313,25 +942,15 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
+          "name": { "type": "string" },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "role": {
-            "type": "string",
-            "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
-          },
-          "absenceMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          },
+          "role": { "type": "string", "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"] },
+          "absenceMessage": { "type": "string", "nullable": true },
+          "absenceActive": { "type": "boolean" },
           "lastSeenAt": {
             "type": "string",
             "format": "date-time",
@@ -1348,9 +967,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                }
+                "name": { "type": "string" }
               },
               "required": ["id", "name"]
             }
@@ -1384,24 +1001,10 @@
       "UpdateMeDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          }
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
+          "absenceMessage": { "type": "string", "maxLength": 500, "nullable": true },
+          "absenceActive": { "type": "boolean" }
         },
         "description": "Dados que o próprio usuário pode editar",
         "additionalProperties": false
@@ -1409,16 +1012,8 @@
       "UpdateCompanyMeDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "timezone": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "timezone": { "type": "string", "minLength": 1, "maxLength": 64 },
           "defaultWorkingHours": {
             "type": "object",
             "properties": {
@@ -1428,14 +1023,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1447,14 +1036,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1466,14 +1049,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1485,14 +1062,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1504,14 +1075,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1523,14 +1088,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1542,14 +1101,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1561,14 +1114,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1579,11 +1126,7 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          }
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true }
         },
         "description": "Campos editáveis pelo ADMIN do próprio tenant",
         "additionalProperties": false
@@ -1594,11 +1137,7 @@
           "company": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 100
-              },
+              "name": { "type": "string", "minLength": 2, "maxLength": 100 },
               "slug": {
                 "type": "string",
                 "minLength": 3,
@@ -1625,14 +1164,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1644,14 +1177,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1663,14 +1190,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1682,14 +1203,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1701,14 +1216,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1720,14 +1229,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1739,14 +1242,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1758,14 +1255,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -1776,11 +1267,7 @@
                 "description": "Horário de funcionamento por dia da semana (e feriado).",
                 "nullable": true
               },
-              "outOfHoursMessage": {
-                "type": "string",
-                "maxLength": 2000,
-                "nullable": true
-              }
+              "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true }
             },
             "required": ["name", "slug", "planId"],
             "additionalProperties": false,
@@ -1789,21 +1276,13 @@
           "admin": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 100
-              },
+              "name": { "type": "string", "minLength": 2, "maxLength": 100 },
               "email": {
                 "type": "string",
                 "format": "email",
                 "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
               },
-              "password": {
-                "type": "string",
-                "minLength": 8,
-                "maxLength": 128
-              }
+              "password": { "type": "string", "minLength": 8, "maxLength": 128 }
             },
             "required": ["name", "email", "password"],
             "additionalProperties": false,
@@ -1817,16 +1296,8 @@
       "UpdateCompanyDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "timezone": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "timezone": { "type": "string", "minLength": 1, "maxLength": 64 },
           "defaultWorkingHours": {
             "type": "object",
             "properties": {
@@ -1836,14 +1307,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1855,14 +1320,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1874,14 +1333,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1893,14 +1346,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1912,14 +1359,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1931,14 +1372,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1950,14 +1385,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1969,14 +1398,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -1987,19 +1410,13 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "planId": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "active": {
-            "type": "boolean"
-          }
+          "active": { "type": "boolean" }
         },
         "description": "Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).",
         "additionalProperties": false
@@ -2007,25 +1424,10 @@
       "CreateDepartmentDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "active": { "default": true, "type": "boolean" },
+          "greetingMessage": { "type": "string", "maxLength": 2000, "nullable": true },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -2035,14 +1437,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2054,14 +1450,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2073,14 +1463,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2092,14 +1476,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2111,14 +1489,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2130,14 +1502,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2149,14 +1515,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2168,14 +1528,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2211,24 +1565,10 @@
       "UpdateDepartmentDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "active": { "type": "boolean" },
+          "greetingMessage": { "type": "string", "maxLength": 2000, "nullable": true },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -2238,14 +1578,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2257,14 +1591,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2276,14 +1604,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2295,14 +1617,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2314,14 +1630,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2333,14 +1643,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2352,14 +1656,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2371,14 +1669,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2429,10 +1721,7 @@
             "type": "string",
             "enum": ["CONTACT", "TICKET", "BOTH"]
           },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          }
+          "active": { "default": true, "type": "boolean" }
         },
         "required": ["name", "color"],
         "additionalProperties": false
@@ -2440,51 +1729,21 @@
       "UpdateTagDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "color": {
-            "type": "string",
-            "pattern": "^#[0-9A-Fa-f]{6}$"
-          },
-          "scope": {
-            "type": "string",
-            "enum": ["CONTACT", "TICKET", "BOTH"]
-          },
-          "active": {
-            "type": "boolean"
-          }
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "scope": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] },
+          "active": { "type": "boolean" }
         },
         "additionalProperties": false
       },
       "CreateCloseReasonDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          },
-          "triggersCsat": {
-            "default": false,
-            "type": "boolean"
-          },
-          "asksDealValue": {
-            "default": false,
-            "type": "boolean"
-          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "message": { "type": "string", "minLength": 1, "maxLength": 2000, "nullable": true },
+          "active": { "default": true, "type": "boolean" },
+          "triggersCsat": { "default": false, "type": "boolean" },
+          "asksDealValue": { "default": false, "type": "boolean" },
           "funnelId": {
             "type": "string",
             "format": "uuid",
@@ -2527,26 +1786,11 @@
       "UpdateCloseReasonDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "triggersCsat": {
-            "type": "boolean"
-          },
-          "asksDealValue": {
-            "type": "boolean"
-          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "message": { "type": "string", "minLength": 1, "maxLength": 2000, "nullable": true },
+          "active": { "type": "boolean" },
+          "triggersCsat": { "type": "boolean" },
+          "asksDealValue": { "type": "boolean" },
           "funnelId": {
             "type": "string",
             "format": "uuid",
@@ -2569,42 +1813,18 @@
       "UpdateCompanySettingsDto": {
         "type": "object",
         "properties": {
-          "hideOtherUsersTickets": {
-            "type": "boolean"
-          },
-          "agentSeeOtherUsersTicketsOnSameChannel": {
-            "type": "boolean"
-          },
-          "agentSeeTicketsWithOtherDefaultAgents": {
-            "type": "boolean"
-          },
-          "hidePhoneFromAgents": {
-            "type": "boolean"
-          },
-          "ignoreGroupMessages": {
-            "type": "boolean"
-          },
-          "showAssignedGroups": {
-            "type": "boolean"
-          },
-          "forceWalletRouting": {
-            "type": "boolean"
-          },
-          "agentCanDeleteContacts": {
-            "type": "boolean"
-          },
-          "agentCanChangeDefaultAgent": {
-            "type": "boolean"
-          },
-          "agentCanEditTags": {
-            "type": "boolean"
-          },
-          "agentCanToggleSignature": {
-            "type": "boolean"
-          },
-          "hideBotTicketsFromAgents": {
-            "type": "boolean"
-          },
+          "hideOtherUsersTickets": { "type": "boolean" },
+          "agentSeeOtherUsersTicketsOnSameChannel": { "type": "boolean" },
+          "agentSeeTicketsWithOtherDefaultAgents": { "type": "boolean" },
+          "hidePhoneFromAgents": { "type": "boolean" },
+          "ignoreGroupMessages": { "type": "boolean" },
+          "showAssignedGroups": { "type": "boolean" },
+          "forceWalletRouting": { "type": "boolean" },
+          "agentCanDeleteContacts": { "type": "boolean" },
+          "agentCanChangeDefaultAgent": { "type": "boolean" },
+          "agentCanEditTags": { "type": "boolean" },
+          "agentCanToggleSignature": { "type": "boolean" },
+          "hideBotTicketsFromAgents": { "type": "boolean" },
           "defaultBotChatFlowId": {
             "type": "string",
             "format": "uuid",
@@ -2613,6 +1833,34 @@
           }
         },
         "description": "Patch das configurações da empresa (presença-baseada)",
+        "additionalProperties": false
+      },
+      "CreateInvitationDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ADMIN", "SUPERVISOR", "AGENT"],
+            "description": "Perfil do convidado. SUPER_ADMIN não é permitido por esta rota."
+          }
+        },
+        "required": ["email", "role"],
+        "description": "Dados para criar convite de usuário no tenant atual",
+        "additionalProperties": false
+      },
+      "AcceptInvitationDto": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 }
+        },
+        "required": ["name", "password"],
+        "description": "Dados para aceitar convite e criar a conta",
         "additionalProperties": false
       }
     }
