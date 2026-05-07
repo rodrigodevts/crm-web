@@ -9,8 +9,9 @@
 */
 export type LogoutDto = {
     /**
+     * @description Refresh token (opcional — fallback do cookie httpOnly refresh_token)
      * @minLength 1
-     * @type string
+     * @type string | undefined
     */
-    refreshToken: string;
+    refreshToken?: string;
 };

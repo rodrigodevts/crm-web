@@ -1,3 +1,4 @@
+export type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 export { authControllerLogin } from "./authControllerLogin.ts";
 export { authControllerLogout } from "./authControllerLogout.ts";
 export { authControllerRefresh } from "./authControllerRefresh.ts";
@@ -22,6 +23,7 @@ export { departmentsControllerList } from "./departmentsControllerList.ts";
 export { departmentsControllerSoftDelete } from "./departmentsControllerSoftDelete.ts";
 export { departmentsControllerUpdate } from "./departmentsControllerUpdate.ts";
 export { healthControllerCheck } from "./healthControllerCheck.ts";
+export { meControllerFindMine } from "./meControllerFindMine.ts";
 export { meControllerUpdateMe } from "./meControllerUpdateMe.ts";
 export { tagsControllerCreate } from "./tagsControllerCreate.ts";
 export { tagsControllerDelete } from "./tagsControllerDelete.ts";

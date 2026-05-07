@@ -1,19 +1,64 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 /**
  * DigiChat — globals.css
  *
- * Tailwind 4 usa configuração CSS-first via @theme.
- * Sincronizado com tokens do Figma (collection "DigiChat Tokens" v2).
- * Atualizado em: 06/05/2026
+ * Base: tema default do shadcn/ui (style new-york, base zinc/neutral, radius 0.625rem,
+ * fontes Geist Sans/Mono). Toda a paleta semântica e os arredondamentos seguem o preset
+ * canônico. Exceção DigiChat: `--primary` (e variantes sidebar/ring) usam o azul Dreams
+ * Chat (#1b84ff).
  *
- * Quando atualizar tokens no Figma, atualize aqui também e em design-system.md.
+ * Atualizado em: 07/05/2026
  */
 
-@theme {
-  /* ============= Cores ============= */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Primary (azul Dreams Chat) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fontes (Geist via package `geist`, com vars expostas via next/font) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* DigiChat brand — escala primary 50..950 (azul Dreams Chat) preservada
+   * pra uso em badges, chart accents e elementos custom da marca. O `--primary`
+   * shadcn (em :root/.dark abaixo) também aponta pro 500. */
   --color-primary-50: #eff6ff;
   --color-primary-100: #dbeafe;
   --color-primary-200: #bfdbfe;
@@ -25,174 +70,96 @@
   --color-primary-800: #1e3a8a;
   --color-primary-900: #1e3175;
   --color-primary-950: #172554;
-
-  /* Neutral (Slate Tailwind) */
-  --color-neutral-50: #f8fafc;
-  --color-neutral-100: #f1f5f9;
-  --color-neutral-200: #e2e8f0;
-  --color-neutral-300: #cbd5e1;
-  --color-neutral-400: #94a3b8;
-  --color-neutral-500: #64748b;
-  --color-neutral-600: #475569;
-  --color-neutral-700: #334155;
-  --color-neutral-800: #1e293b;
-  --color-neutral-900: #0f172a;
-  --color-neutral-950: #020617;
-
-  /* Status — Success */
-  --color-success-50: #ecfdf5;
-  --color-success-100: #d1fae5;
-  --color-success-500: #0cc68c;
-  --color-success-600: #059669;
-  --color-success-700: #047857;
-
-  /* Status — Warning */
-  --color-warning-50: #fffbeb;
-  --color-warning-100: #fef3c7;
-  --color-warning-500: #ffc107;
-  --color-warning-600: #d97706;
-  --color-warning-700: #b45309;
-
-  /* Status — Danger */
-  --color-danger-50: #fef2f2;
-  --color-danger-100: #fee2e2;
-  --color-danger-500: #fd3a55;
-  --color-danger-600: #dc2626;
-  --color-danger-700: #b91c1c;
-
-  /* Status — Info (alias do primary) */
-  --color-info-500: #1b84ff;
-
-  /* Semantic — Text */
-  --color-text-primary: #141b27;
-  --color-text-secondary: #72767d;
-  --color-text-muted: #9aa0a6;
-  --color-text-inverse: #ffffff;
-  --color-text-link: #1b84ff;
-
-  /* Semantic — Background */
-  --color-bg-base: #ffffff;
-  --color-bg-subtle: #f8f9fa;
-  --color-bg-muted: #f1f3f5;
-  --color-bg-inverse: #141b27;
-
-  /* Semantic — Border */
-  --color-border-default: #e5e7eb;
-  --color-border-muted: #f3f4f6;
-  --color-border-strong: #d1d5db;
-
-  /* Semantic — Shadow key color */
-  --color-shadow-card-key: #f3f3f3;
-
-  /* ============= Tipografia ============= */
-
-  /* Famílias (carregadas via next/font/google em layout.tsx) */
-  --font-sans: var(--font-archivo), system-ui, sans-serif;
-  --font-ui: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
-
-  /* Tamanhos */
-  --text-xs: 10px;
-  --text-sm: 12px;
-  --text-base: 14px;
-  --text-md: 16px;
-  --text-lg: 18px;
-  --text-xl: 20px;
-  --text-2xl: 24px;
-  --text-3xl: 30px;
-  --text-4xl: 36px;
-
-  /* Pesos */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-
-  /* ============= Border radius ============= */
-
-  --radius-none: 0;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-pill: 15px;
-  --radius-full: 9999px;
-
-  /* ============= Sombras ============= */
-
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 1px 5px 1px var(--color-shadow-card-key);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* ============= shadcn/ui compatibility ============= */
-/* shadcn/ui usa nomes próprios de variáveis. Mapeamos elas pros nossos tokens. */
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+
+  /* DigiChat — primary é azul Dreams Chat (#1b84ff) */
+  --primary: #1b84ff;
+  --primary-foreground: oklch(0.985 0 0);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: #1b84ff;
+
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+
+  --radius: 0.625rem;
+
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  /* Sidebar item ativo usa nosso azul DigiChat */
+  --sidebar-primary: #1b84ff;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: #1b84ff;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+
+  --primary: #1b84ff;
+  --primary-foreground: oklch(1 0 0);
+
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: #1b84ff;
+
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: #1b84ff;
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: #1b84ff;
+}
+
 @layer base {
-  :root {
-    --background: var(--color-bg-base);
-    --foreground: var(--color-text-primary);
-    --card: var(--color-bg-base);
-    --card-foreground: var(--color-text-primary);
-    --popover: var(--color-bg-base);
-    --popover-foreground: var(--color-text-primary);
-    --primary: var(--color-primary-500);
-    --primary-foreground: var(--color-text-inverse);
-    --secondary: var(--color-bg-muted);
-    --secondary-foreground: var(--color-text-primary);
-    --muted: var(--color-bg-muted);
-    --muted-foreground: var(--color-text-secondary);
-    --accent: var(--color-bg-muted);
-    --accent-foreground: var(--color-text-primary);
-    --destructive: var(--color-danger-500);
-    --destructive-foreground: var(--color-text-inverse);
-    --border: var(--color-border-default);
-    --input: var(--color-border-default);
-    --ring: var(--color-primary-500);
-    --radius: 8px;
+  * {
+    @apply border-border outline-ring/50;
   }
-
-  /* Dark mode (definição preliminar — refinar pós-MVP) */
-  .dark {
-    --color-bg-base: #0f172a;
-    --color-bg-subtle: #1e293b;
-    --color-bg-muted: #334155;
-    --color-bg-inverse: #ffffff;
-
-    --color-text-primary: #f8fafc;
-    --color-text-secondary: #cbd5e1;
-    --color-text-muted: #94a3b8;
-    --color-text-inverse: #141b27;
-    --color-text-link: #60a5fa;
-
-    --color-border-default: #334155;
-    --color-border-muted: #1e293b;
-    --color-border-strong: #475569;
-
-    --color-shadow-card-key: rgba(0, 0, 0, 0.3);
-
-    /* shadcn mappings (re-aplicados no dark) */
-    --background: var(--color-bg-base);
-    --foreground: var(--color-text-primary);
-    --card: var(--color-bg-subtle);
-    --card-foreground: var(--color-text-primary);
-    --popover: var(--color-bg-subtle);
-    --popover-foreground: var(--color-text-primary);
-    --secondary: var(--color-bg-muted);
-    --secondary-foreground: var(--color-text-primary);
-    --muted: var(--color-bg-muted);
-    --muted-foreground: var(--color-text-secondary);
-    --accent: var(--color-bg-muted);
-    --accent-foreground: var(--color-text-primary);
-    --border: var(--color-border-default);
-    --input: var(--color-border-default);
-  }
-
   body {
-    font-family: var(--font-sans);
-    color: var(--color-text-primary);
-    background-color: var(--color-bg-base);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
   }
 }

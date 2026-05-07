@@ -1,12 +1,24 @@
 'use client';
 
+import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryProvider } from '@/components/query-provider';
-import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeProvider, type Theme } from '@/components/theme-provider';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+interface ProvidersProps {
+  children: React.ReactNode;
+  initialTheme?: Theme;
+}
+
+export function Providers({ children, initialTheme }: ProvidersProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <QueryProvider>{children}</QueryProvider>
+    <ThemeProvider initialTheme={initialTheme}>
+      <QueryProvider>
+        <TooltipProvider delayDuration={200}>
+          {children}
+          <Toaster richColors position="top-right" />
+        </TooltipProvider>
+      </QueryProvider>
     </ThemeProvider>
   );
 }

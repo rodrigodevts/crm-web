@@ -4,11 +4,12 @@
 */
 
 import type { MeControllerUpdateMe200, MeControllerUpdateMeMutationRequest, MeControllerUpdateMeMutationResponse } from "../types/MeControllerUpdateMe.ts";
-import { functionSchema } from "./functionSchema.ts";
+import { updateMeDtoSchema } from "./updateMeDtoSchema.ts";
+import { userResponseDtoSchema } from "./userResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const meControllerUpdateMe200Schema = z.any() as unknown as z.ZodType<MeControllerUpdateMe200>
+export const meControllerUpdateMe200Schema = z.lazy(() => userResponseDtoSchema).describe("Usuário do tenant com departamentos populados") as unknown as z.ZodType<MeControllerUpdateMe200>
 
-export const meControllerUpdateMeMutationRequestSchema = z.lazy(() => functionSchema) as unknown as z.ZodType<MeControllerUpdateMeMutationRequest>
+export const meControllerUpdateMeMutationRequestSchema = z.lazy(() => updateMeDtoSchema).describe("Dados que o próprio usuário pode editar") as unknown as z.ZodType<MeControllerUpdateMeMutationRequest>
 
 export const meControllerUpdateMeMutationResponseSchema = z.lazy(() => meControllerUpdateMe200Schema) as unknown as z.ZodType<MeControllerUpdateMeMutationResponse>

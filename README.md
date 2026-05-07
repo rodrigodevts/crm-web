@@ -19,21 +19,13 @@ Licença: AGPL-3.0-or-later.
 
 ## Setup local
 
-```bash
-# 1. Dependências (o script "prepare" ativa os git hooks automaticamente)
-pnpm install
+1. Backend `crm-api` rodando em `http://localhost:3000` com `WEB_ORIGIN=http://localhost:3001` no `.env`.
+2. `cp .env.example .env` no `crm-web`.
+3. `pnpm install`.
+4. `pnpm dev` (porta 3001).
+5. Abrir `http://localhost:3001/login` e autenticar.
 
-# 2. Subir o crm-api em outro terminal
-cd ../crm-api && pnpm start:dev
-
-# 3. Gerar tipos/hooks/schemas a partir do OpenAPI do backend
-pnpm generate:api
-
-# 4. Subir a app em watch mode (porta 3001 — 3000 fica para o crm-api)
-pnpm dev
-```
-
-Abra [http://localhost:3001](http://localhost:3001).
+Auth canônica via cookie httpOnly assinado pelo backend (ver ADR 0001 do `crm-api`). Frontend não persiste tokens em localStorage.
 
 ### Git hooks (Lefthook)
 

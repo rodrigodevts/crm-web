@@ -3,11 +3,12 @@
 * Do not edit manually.
 */
 
-import type { Function } from "./Function.ts";
+import type { UpdateMeDto } from "./UpdateMeDto.ts";
+import type { UserResponseDto } from "./UserResponseDto.ts";
 
-export type MeControllerUpdateMe200 = unknown;
+export type MeControllerUpdateMe200 = UserResponseDto;
 
-export type MeControllerUpdateMeMutationRequest = Function;
+export type MeControllerUpdateMeMutationRequest = UpdateMeDto;
 
 export type MeControllerUpdateMeMutationResponse = MeControllerUpdateMe200;
 

@@ -10,5 +10,5 @@ import { z } from "zod/v4";
  * @description Refresh token para revogar (logout do device)
  */
 export const logoutDtoSchema = z.object({
-    "refreshToken": z.string().min(1)
+    "refreshToken": z.optional(z.string().min(1).describe("Refresh token (opcional — fallback do cookie httpOnly refresh_token)"))
     }).describe("Refresh token para revogar (logout do device)") as unknown as z.ZodType<LogoutDto>

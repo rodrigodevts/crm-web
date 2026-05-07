@@ -1,40 +1,28 @@
 import type { Metadata } from 'next';
-import { Archivo, Inter, JetBrains_Mono } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
 import { Providers } from '@/components/providers';
+import { getThemeFromCookies } from '@/lib/theme-server';
 import './globals.css';
-
-const archivo = Archivo({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-archivo',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jetbrains-mono',
-});
 
 export const metadata: Metadata = {
   title: 'DigiChat',
   description: 'CRM omnichannel WhatsApp multi-tenant',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { theme, resolvedTheme } = await getThemeFromCookies();
+
   return (
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${archivo.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}${
+        resolvedTheme === 'dark' ? 'dark' : ''
+      }`}
     >
-      <body className="font-sans">
-        <Providers>{children}</Providers>
+      <body className="font-sans antialiased">
+        <Providers initialTheme={theme}>{children}</Providers>
       </body>
     </html>
   );

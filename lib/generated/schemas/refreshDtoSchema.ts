@@ -7,8 +7,8 @@ import type { RefreshDto } from "../types/RefreshDto.ts";
 import { z } from "zod/v4";
 
 /**
- * @description Refresh token para renovar par de tokens
+ * @description Refresh token para renovar par de tokens — preferir cookie httpOnly
  */
 export const refreshDtoSchema = z.object({
-    "refreshToken": z.string().min(1)
-    }).describe("Refresh token para renovar par de tokens") as unknown as z.ZodType<RefreshDto>
+    "refreshToken": z.optional(z.string().min(1).describe("Refresh token (opcional — fallback do cookie httpOnly refresh_token)"))
+    }).describe("Refresh token para renovar par de tokens — preferir cookie httpOnly") as unknown as z.ZodType<RefreshDto>

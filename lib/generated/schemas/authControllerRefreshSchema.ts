@@ -4,11 +4,12 @@
 */
 
 import type { AuthControllerRefresh200, AuthControllerRefreshMutationRequest, AuthControllerRefreshMutationResponse } from "../types/AuthControllerRefresh.ts";
+import { authResponseDtoSchema } from "./authResponseDtoSchema.ts";
 import { refreshDtoSchema } from "./refreshDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const authControllerRefresh200Schema = z.any() as unknown as z.ZodType<AuthControllerRefresh200>
+export const authControllerRefresh200Schema = z.lazy(() => authResponseDtoSchema).describe("Dados do usuário autenticado. Tokens trafegam por cookie httpOnly (ver ADR 0001).") as unknown as z.ZodType<AuthControllerRefresh200>
 
-export const authControllerRefreshMutationRequestSchema = z.lazy(() => refreshDtoSchema).describe("Refresh token para renovar par de tokens") as unknown as z.ZodType<AuthControllerRefreshMutationRequest>
+export const authControllerRefreshMutationRequestSchema = z.lazy(() => refreshDtoSchema).describe("Refresh token para renovar par de tokens — preferir cookie httpOnly") as unknown as z.ZodType<AuthControllerRefreshMutationRequest>
 
 export const authControllerRefreshMutationResponseSchema = z.lazy(() => authControllerRefresh200Schema) as unknown as z.ZodType<AuthControllerRefreshMutationResponse>
