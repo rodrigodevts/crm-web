@@ -1,16 +1,15 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import type { AxiosInstance } from 'axios';
 
-// Hoisted mocks
 const refreshMock = vi.fn();
-vi.mock('@/lib/generated/client/authControllerRefresh', () => ({
-  authControllerRefresh: refreshMock,
-}));
 
 describe('apiClient', () => {
   beforeEach(() => {
     vi.resetModules();
     refreshMock.mockReset();
+    vi.doMock('@/lib/generated/client/authControllerRefresh', () => ({
+      authControllerRefresh: refreshMock,
+    }));
   });
 
   it('cria instance com baseURL e withCredentials', async () => {
@@ -52,10 +51,10 @@ describe('apiClient', () => {
   it('em 401 do refresh, redireciona pra /login', async () => {
     refreshMock.mockRejectedValueOnce({ response: { status: 401 } });
 
-    const hrefSetter = vi.fn();
+    const originalLocation = window.location;
     Object.defineProperty(window, 'location', {
       writable: true,
-      value: { href: '', toString: () => '', assign: hrefSetter },
+      value: { ...originalLocation, href: '' },
     });
 
     const { apiClient } = await import('./api-client');
@@ -66,6 +65,9 @@ describe('apiClient', () => {
     (apiClient as AxiosInstance).defaults.adapter = adapter;
 
     await expect(apiClient.get('/me')).rejects.toBeDefined();
+    expect(window.location.href).toBe('/login');
+
+    Object.defineProperty(window, 'location', { writable: true, value: originalLocation });
   });
 
   it('compartilha promise de refresh entre 401s simultâneos', async () => {
@@ -80,7 +82,6 @@ describe('apiClient', () => {
     const adapter = vi.fn();
     const seen = new Set<string>();
     adapter.mockImplementation((config) => {
-      const _key = `${config.method}-${config.url}-${seen.has(config.url ?? '')}`;
       if (!seen.has(config.url ?? '')) {
         seen.add(config.url ?? '');
         return Promise.reject({ response: { status: 401 }, config });

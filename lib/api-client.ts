@@ -41,6 +41,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const status = error?.response?.status;
+    // axios não tipa esse campo de extensão; cast seguro pra marcar retry.
     const originalRequest = error?.config as
       | (InternalAxiosRequestConfig & { _retry?: boolean })
       | undefined;
