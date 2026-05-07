@@ -1,6 +1,4 @@
 import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
-// Import dinâmico via require() pra evitar dependência circular em testes
-// (a chamada acontece dentro do interceptor, não no top-level).
 import type { authControllerRefresh as AuthControllerRefreshFn } from '@/lib/generated/client/authControllerRefresh';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
@@ -24,9 +22,6 @@ let inFlightRefresh: Promise<void> | null = null;
 async function performRefresh(): Promise<void> {
   if (inFlightRefresh) return inFlightRefresh;
 
-  // Passar o próprio apiClient pra que o cookie `refresh_token` seja enviado.
-  // O interceptor abaixo detecta pela URL que essa é a chamada de refresh
-  // e evita loop infinito caso ela mesma retorne 401.
   inFlightRefresh = (async () => {
     const refresh = await getAuthControllerRefresh();
     await refresh({}, { client: apiClient });
@@ -41,7 +36,6 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error) => {
     const status = error?.response?.status;
-    // axios não tipa esse campo de extensão; cast seguro pra marcar retry.
     const originalRequest = error?.config as
       | (InternalAxiosRequestConfig & { _retry?: boolean })
       | undefined;
