@@ -1,20 +1,52 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useAuthControllerLogin } from '@/lib/generated/hooks/useAuthControllerLogin';
+import { apiClientConfig } from '@/lib/api-client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const formSchema = z.object({
+  email: z.string().email('E-mail inválido'),
+  password: z.string().min(8, 'Senha precisa ter pelo menos 8 caracteres'),
+});
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    // Placeholder — auth real entra na próxima sessão.
-    console.log('login submit', { email });
-  }
+type FormValues = z.infer<typeof formSchema>;
+
+export function LoginForm() {
+  const router = useRouter();
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({ resolver: zodResolver(formSchema) });
+
+  const login = useAuthControllerLogin({ client: apiClientConfig });
+
+  const onSubmit = async (values: FormValues) => {
+    setSubmitError(null);
+    try {
+      await login.mutateAsync({ data: values });
+      router.push('/atendimentos');
+    } catch (err: unknown) {
+      const status = (err as { response?: { status?: number } })?.response?.status;
+      if (status === 401) {
+        setSubmitError('E-mail ou senha incorretos.');
+      } else if (typeof status === 'number' && status >= 500) {
+        setSubmitError('Erro no servidor. Tente novamente em instantes.');
+      } else {
+        setSubmitError('Sem conexão com o servidor.');
+      }
+    }
+  };
 
   return (
     <Card className="w-full max-w-sm">
@@ -23,7 +55,7 @@ export function LoginForm() {
         <CardDescription>Acesse sua conta DigiChat</CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
           <div className="space-y-2">
             <Label htmlFor="email">E-mail</Label>
             <Input
@@ -31,10 +63,14 @@ export function LoginForm() {
               type="email"
               placeholder="seu@email.com"
               autoComplete="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              aria-invalid={!!errors.email}
+              {...register('email')}
             />
+            {errors.email ? (
+              <p className="text-danger-600 text-sm" role="alert">
+                {errors.email.message}
+              </p>
+            ) : null}
           </div>
           <div className="space-y-2">
             <Label htmlFor="password">Senha</Label>
@@ -42,13 +78,22 @@ export function LoginForm() {
               id="password"
               type="password"
               autoComplete="current-password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              aria-invalid={!!errors.password}
+              {...register('password')}
             />
+            {errors.password ? (
+              <p className="text-danger-600 text-sm" role="alert">
+                {errors.password.message}
+              </p>
+            ) : null}
           </div>
-          <Button type="submit" className="w-full">
-            Entrar
+          {submitError ? (
+            <p className="text-danger-600 text-sm" role="alert">
+              {submitError}
+            </p>
+          ) : null}
+          <Button type="submit" className="w-full" disabled={login.isPending}>
+            {login.isPending ? 'Entrando…' : 'Entrar'}
           </Button>
         </form>
       </CardContent>
