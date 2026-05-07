@@ -2,7 +2,6 @@ export type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-cl
 export { authControllerLogin } from "./authControllerLogin.ts";
 export { authControllerLogout } from "./authControllerLogout.ts";
 export { authControllerRefresh } from "./authControllerRefresh.ts";
-export { authControllerRegister } from "./authControllerRegister.ts";
 export { closeReasonsControllerCreate } from "./closeReasonsControllerCreate.ts";
 export { closeReasonsControllerFindById } from "./closeReasonsControllerFindById.ts";
 export { closeReasonsControllerList } from "./closeReasonsControllerList.ts";
