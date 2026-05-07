@@ -131,7 +131,7 @@
 
 ### 4.8 Gaps remanescentes (pra fechar Fase 0 antes da Fase 1)
 
-- [ ] Página de register (formulário + criação de conta + multi-tenant scope)
+- [x] Sistema de convite de usuários (Sprint 0.16 Fase B — substitui o gap descartado de "Página de register" do PR #15/#16; admin convida via /configuracoes/usuarios, convidado aceita em /aceitar-convite/[token])
 - [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
 - [ ] RBAC efetivo (atualmente o gate é só "tem `access_token`"; falta diferenciar `ADMIN` × `AGENT` × `SUPER_ADMIN` em rota e UI)
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
