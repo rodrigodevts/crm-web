@@ -131,7 +131,7 @@
 
 ### 4.8 Gaps remanescentes (pra fechar Fase 0 antes da Fase 1)
 
-- [ ] Página de register (formulário + criação de conta + multi-tenant scope)
+- [x] Página de register (formulário + criação de conta + multi-tenant scope) — Sprint 0.15 Fase B
 - [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
 - [ ] RBAC efetivo (atualmente o gate é só "tem `access_token`"; falta diferenciar `ADMIN` × `AGENT` × `SUPER_ADMIN` em rota e UI)
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
