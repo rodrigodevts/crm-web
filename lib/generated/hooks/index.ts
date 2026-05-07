@@ -1,6 +1,7 @@
 export type { AuthControllerLoginMutationKey } from "./useAuthControllerLogin.ts";
 export type { AuthControllerLogoutMutationKey } from "./useAuthControllerLogout.ts";
 export type { AuthControllerRefreshMutationKey } from "./useAuthControllerRefresh.ts";
+export type { AuthControllerRegisterMutationKey } from "./useAuthControllerRegister.ts";
 export type { CloseReasonsControllerCreateMutationKey } from "./useCloseReasonsControllerCreate.ts";
 export type { CloseReasonsControllerFindByIdQueryKey } from "./useCloseReasonsControllerFindById.ts";
 export type { CloseReasonsControllerFindByIdSuspenseQueryKey } from "./useCloseReasonsControllerFindByIdSuspense.ts";
@@ -58,6 +59,9 @@ export { useAuthControllerLogout } from "./useAuthControllerLogout.ts";
 export { authControllerRefreshMutationKey } from "./useAuthControllerRefresh.ts";
 export { authControllerRefreshMutationOptions } from "./useAuthControllerRefresh.ts";
 export { useAuthControllerRefresh } from "./useAuthControllerRefresh.ts";
+export { authControllerRegisterMutationKey } from "./useAuthControllerRegister.ts";
+export { authControllerRegisterMutationOptions } from "./useAuthControllerRegister.ts";
+export { useAuthControllerRegister } from "./useAuthControllerRegister.ts";
 export { closeReasonsControllerCreateMutationKey } from "./useCloseReasonsControllerCreate.ts";
 export { closeReasonsControllerCreateMutationOptions } from "./useCloseReasonsControllerCreate.ts";
 export { useCloseReasonsControllerCreate } from "./useCloseReasonsControllerCreate.ts";

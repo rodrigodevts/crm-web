@@ -1,6 +1,35 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/api/v1/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["auth"]
+      }
+    },
     "/api/v1/auth/login": {
       "post": {
         "operationId": "AuthController_login",
@@ -79,269 +108,6 @@
           }
         },
         "tags": ["auth"]
-      }
-    },
-    "/health": {
-      "get": {
-        "operationId": "HealthController_check",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["health"]
-      }
-    },
-    "/api/v1/users": {
-      "post": {
-        "operationId": "UsersController_create",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      },
-      "get": {
-        "operationId": "UsersController_list",
-        "parameters": [
-          {
-            "name": "role",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string",
-              "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"]
-            }
-          },
-          {
-            "name": "active",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "default": true,
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "departmentId",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
-              "type": "string"
-            }
-          },
-          {
-            "name": "search",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
-          },
-          {
-            "name": "cursor",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "required": false,
-            "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      }
-    },
-    "/api/v1/users/{id}": {
-      "get": {
-        "operationId": "UsersController_findById",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      },
-      "patch": {
-        "operationId": "UsersController_update",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      },
-      "delete": {
-        "operationId": "UsersController_delete",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      }
-    },
-    "/api/v1/users/{id}/force-logout": {
-      "post": {
-        "operationId": "UsersController_forceLogout",
-        "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
-        "tags": ["users"]
-      }
-    },
-    "/api/v1/me": {
-      "get": {
-        "operationId": "MeController_findMine",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["me"]
-      },
-      "patch": {
-        "operationId": "MeController_updateMe",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMeDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
-            }
-          }
-        },
-        "tags": ["me"]
       }
     },
     "/api/v1/companies/me": {
@@ -526,6 +292,269 @@
           }
         },
         "tags": ["companies"]
+      }
+    },
+    "/api/v1/users": {
+      "post": {
+        "operationId": "UsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      },
+      "get": {
+        "operationId": "UsersController_list",
+        "parameters": [
+          {
+            "name": "role",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "type": "string",
+              "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"]
+            }
+          },
+          {
+            "name": "active",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "default": true,
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "departmentId",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "minLength": 1,
+              "maxLength": 100,
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros para listagem de usu\u00e1rios"
+            },
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      }
+    },
+    "/api/v1/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      },
+      "patch": {
+        "operationId": "UsersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      },
+      "delete": {
+        "operationId": "UsersController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      }
+    },
+    "/api/v1/users/{id}/force-logout": {
+      "post": {
+        "operationId": "UsersController_forceLogout",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": ["users"]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "MeController_findMine",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["me"]
+      },
+      "patch": {
+        "operationId": "MeController_updateMe",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateMeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["me"]
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": ["health"]
       }
     },
     "/api/v1/departments": {
@@ -1102,7 +1131,7 @@
   },
   "info": {
     "title": "DigiChat API",
-    "description": "CRM omnichannel WhatsApp multi-tenant — REST API",
+    "description": "CRM omnichannel WhatsApp multi-tenant \u2014 REST API",
     "version": "0.0.1",
     "contact": {}
   },
@@ -1123,21 +1152,44 @@
       }
     },
     "schemas": {
-      "LoginDto": {
+      "RegisterDto": {
         "type": "object",
         "properties": {
-          "email": {
+          "companyName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "companySlug": {
+            "description": "Opcional. Se omitido, ser\u00e1 derivado de companyName.",
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 63,
+            "pattern": "^[a-z0-9](-?[a-z0-9]+)*$"
+          },
+          "adminName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "adminEmail": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
           "password": {
             "type": "string",
-            "minLength": 8
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "acceptTerms": {
+            "type": "boolean",
+            "enum": [true]
           }
         },
-        "required": ["email", "password"],
-        "description": "Credenciais de login"
+        "required": ["companyName", "adminName", "adminEmail", "password", "acceptTerms"],
+        "description": "Self-signup de tenant: cria Company + ADMIN em transa\u00e7\u00e3o \u00fanica e auto-loga via cookies httpOnly",
+        "additionalProperties": false
       },
       "AuthResponseDto": {
         "type": "object",
@@ -1169,242 +1221,49 @@
               }
             },
             "required": ["id", "companyId", "name", "email", "role"],
-            "description": "Dados públicos do usuário (sem hash de senha)"
+            "description": "Dados p\u00fablicos do usu\u00e1rio (sem hash de senha)"
           }
         },
         "required": ["user"],
-        "description": "Dados do usuário autenticado. Tokens trafegam por cookie httpOnly (ver ADR 0001)."
+        "description": "Dados do usu\u00e1rio autenticado. Tokens trafegam por cookie httpOnly (ver ADR 0001)."
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          }
+        },
+        "required": ["email", "password"],
+        "description": "Credenciais de login"
       },
       "RefreshDto": {
         "type": "object",
         "properties": {
           "refreshToken": {
-            "description": "Refresh token (opcional — fallback do cookie httpOnly refresh_token)",
+            "description": "Refresh token (opcional \u2014 fallback do cookie httpOnly refresh_token)",
             "type": "string",
             "minLength": 1
           }
         },
-        "description": "Refresh token para renovar par de tokens — preferir cookie httpOnly"
+        "description": "Refresh token para renovar par de tokens \u2014 preferir cookie httpOnly"
       },
       "LogoutDto": {
         "type": "object",
         "properties": {
           "refreshToken": {
-            "description": "Refresh token (opcional — fallback do cookie httpOnly refresh_token)",
+            "description": "Refresh token (opcional \u2014 fallback do cookie httpOnly refresh_token)",
             "type": "string",
             "minLength": 1
           }
         },
         "description": "Refresh token para revogar (logout do device)"
-      },
-      "HealthResponseDto": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "description": "Status fixo \"ok\" quando a app está viva",
-            "enum": ["ok"]
-          },
-          "uptime": {
-            "type": "number",
-            "minimum": 0,
-            "description": "Uptime do processo em segundos"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
-            "description": "Timestamp ISO 8601 UTC"
-          }
-        },
-        "required": ["status", "uptime", "timestamp"],
-        "description": "Resposta do health check"
-      },
-      "CreateUserDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"],
-            "description": "Perfil do usuário no tenant. SUPER_ADMIN não é permitido por esta rota."
-          },
-          "departmentIds": {
-            "default": [],
-            "description": "UUIDs dos departamentos. Pode ser vazio.",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-            }
-          }
-        },
-        "required": ["name", "email", "password", "role"],
-        "description": "Dados para criar usuário no tenant atual",
-        "additionalProperties": false
-      },
-      "UpdateUserDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-          },
-          "departmentIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid",
-              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-            }
-          },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          }
-        },
-        "description": "Dados para editar usuário (apenas ADMIN+)",
-        "additionalProperties": false
-      },
-      "UserResponseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "companyId": {
-            "type": "string",
-            "format": "uuid",
-            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
-          },
-          "role": {
-            "type": "string",
-            "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
-          },
-          "absenceMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          },
-          "lastSeenAt": {
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
-            "nullable": true
-          },
-          "departments": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid",
-                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": ["id", "name"]
-            }
-          },
-          "createdAt": {
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
-          },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time",
-            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
-          }
-        },
-        "required": [
-          "id",
-          "companyId",
-          "name",
-          "email",
-          "role",
-          "absenceMessage",
-          "absenceActive",
-          "lastSeenAt",
-          "departments",
-          "createdAt",
-          "updatedAt"
-        ],
-        "description": "Usuário do tenant com departamentos populados"
-      },
-      "UpdateMeDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          }
-        },
-        "description": "Dados que o próprio usuário pode editar",
-        "additionalProperties": false
       },
       "UpdateCompanyMeDto": {
         "type": "object",
@@ -1576,7 +1435,7 @@
               }
             },
             "additionalProperties": false,
-            "description": "Horário de funcionamento por dia da semana (e feriado).",
+            "description": "Hor\u00e1rio de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
           "outOfHoursMessage": {
@@ -1585,7 +1444,7 @@
             "nullable": true
           }
         },
-        "description": "Campos editáveis pelo ADMIN do próprio tenant",
+        "description": "Campos edit\u00e1veis pelo ADMIN do pr\u00f3prio tenant",
         "additionalProperties": false
       },
       "CreateCompanyDto": {
@@ -1773,7 +1632,7 @@
                   }
                 },
                 "additionalProperties": false,
-                "description": "Horário de funcionamento por dia da semana (e feriado).",
+                "description": "Hor\u00e1rio de funcionamento por dia da semana (e feriado).",
                 "nullable": true
               },
               "outOfHoursMessage": {
@@ -1807,11 +1666,11 @@
             },
             "required": ["name", "email", "password"],
             "additionalProperties": false,
-            "description": "Primeiro ADMIN do tenant — criado junto com a empresa"
+            "description": "Primeiro ADMIN do tenant \u2014 criado junto com a empresa"
           }
         },
         "required": ["company", "admin"],
-        "description": "Cria empresa + CompanySettings (defaults) + 1º ADMIN do tenant em uma transação",
+        "description": "Cria empresa + CompanySettings (defaults) + 1\u00ba ADMIN do tenant em uma transa\u00e7\u00e3o",
         "additionalProperties": false
       },
       "UpdateCompanyDto": {
@@ -1984,7 +1843,7 @@
               }
             },
             "additionalProperties": false,
-            "description": "Horário de funcionamento por dia da semana (e feriado).",
+            "description": "Hor\u00e1rio de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
           "outOfHoursMessage": {
@@ -2001,8 +1860,217 @@
             "type": "boolean"
           }
         },
-        "description": "Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).",
+        "description": "Campos edit\u00e1veis pelo SUPER_ADMIN. N\u00e3o inclui slug (imut\u00e1vel).",
         "additionalProperties": false
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ADMIN", "SUPERVISOR", "AGENT"],
+            "description": "Perfil do usu\u00e1rio no tenant. SUPER_ADMIN n\u00e3o \u00e9 permitido por esta rota."
+          },
+          "departmentIds": {
+            "default": [],
+            "description": "UUIDs dos departamentos. Pode ser vazio.",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          }
+        },
+        "required": ["name", "email", "password", "role"],
+        "description": "Dados para criar usu\u00e1rio no tenant atual",
+        "additionalProperties": false
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
+          },
+          "departmentIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            }
+          },
+          "absenceMessage": {
+            "type": "string",
+            "maxLength": 500,
+            "nullable": true
+          },
+          "absenceActive": {
+            "type": "boolean"
+          }
+        },
+        "description": "Dados para editar usu\u00e1rio (apenas ADMIN+)",
+        "additionalProperties": false
+      },
+      "UserResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "companyId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
+          },
+          "absenceMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "absenceActive": {
+            "type": "boolean"
+          },
+          "lastSeenAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "nullable": true
+          },
+          "departments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": ["id", "name"]
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "companyId",
+          "name",
+          "email",
+          "role",
+          "absenceMessage",
+          "absenceActive",
+          "lastSeenAt",
+          "departments",
+          "createdAt",
+          "updatedAt"
+        ],
+        "description": "Usu\u00e1rio do tenant com departamentos populados"
+      },
+      "UpdateMeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 100
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 128
+          },
+          "absenceMessage": {
+            "type": "string",
+            "maxLength": 500,
+            "nullable": true
+          },
+          "absenceActive": {
+            "type": "boolean"
+          }
+        },
+        "description": "Dados que o pr\u00f3prio usu\u00e1rio pode editar",
+        "additionalProperties": false
+      },
+      "HealthResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status fixo \"ok\" quando a app est\u00e1 viva",
+            "enum": ["ok"]
+          },
+          "uptime": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Uptime do processo em segundos"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "description": "Timestamp ISO 8601 UTC"
+          }
+        },
+        "required": ["status", "uptime", "timestamp"],
+        "description": "Resposta do health check"
       },
       "CreateDepartmentDto": {
         "type": "object",
@@ -2183,7 +2251,7 @@
               }
             },
             "additionalProperties": false,
-            "description": "Horário de funcionamento por dia da semana (e feriado).",
+            "description": "Hor\u00e1rio de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
           "slaResponseMinutes": {
@@ -2386,7 +2454,7 @@
               }
             },
             "additionalProperties": false,
-            "description": "Horário de funcionamento por dia da semana (e feriado).",
+            "description": "Hor\u00e1rio de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
           "slaResponseMinutes": {
@@ -2406,7 +2474,7 @@
             "enum": ["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]
           }
         },
-        "description": "Campos editáveis em departamento. Strict.",
+        "description": "Campos edit\u00e1veis em departamento. Strict.",
         "additionalProperties": false
       },
       "CreateTagDto": {
@@ -2416,7 +2484,7 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 100,
-            "description": "Nome único da tag dentro do tenant"
+            "description": "Nome \u00fanico da tag dentro do tenant"
           },
           "color": {
             "description": "Cor hex no formato #RRGGBB; normalizada para uppercase",
@@ -2563,7 +2631,7 @@
             }
           }
         },
-        "description": "Patch do motivo de fechamento (presença-baseada)",
+        "description": "Patch do motivo de fechamento (presen\u00e7a-baseada)",
         "additionalProperties": false
       },
       "UpdateCompanySettingsDto": {
@@ -2612,7 +2680,7 @@
             "nullable": true
           }
         },
-        "description": "Patch das configurações da empresa (presença-baseada)",
+        "description": "Patch das configura\u00e7\u00f5es da empresa (presen\u00e7a-baseada)",
         "additionalProperties": false
       }
     }

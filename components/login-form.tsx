@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -144,6 +145,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                   <span className="sr-only">Entrar com Meta</span>
                 </Button>
               </Field>
+              <FieldDescription className="text-center">
+                Não tem conta?{' '}
+                <Link href="/register" className="underline-offset-4 hover:underline">
+                  Criar conta
+                </Link>
+              </FieldDescription>
             </FieldGroup>
           </form>
           <div className="from-primary to-primary-700 relative hidden bg-linear-to-br md:block">
