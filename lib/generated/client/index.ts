@@ -1,5 +1,3 @@
-// Re-export Kubb client types so hooks can import them via "../client".
-// Must be preserved after `pnpm generate:api` — re-add if regeneration removes it.
 export type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 export { authControllerLogin } from "./authControllerLogin.ts";
 export { authControllerLogout } from "./authControllerLogout.ts";

@@ -19,8 +19,8 @@
     "format:check": "prettier --check --no-error-on-unmatched-pattern \"{app,components,lib,hooks,stores}/**/*.{ts,tsx,css}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate:api": "kubb generate",
-    "generate:api:from-snapshot": "API_OPENAPI_URL=./openapi.snapshot.json kubb generate",
+    "generate:api": "kubb generate && node scripts/patch-generated-barrel.mjs",
+    "generate:api:from-snapshot": "API_OPENAPI_URL=./openapi.snapshot.json kubb generate && node scripts/patch-generated-barrel.mjs",
     "prepare": "lefthook install"
   },
   "dependencies": {
