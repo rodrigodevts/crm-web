@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import { Providers } from '@/components/providers';
-import { themeInitScript } from '@/components/theme-provider';
+import { getThemeFromCookies } from '@/lib/theme-server';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -10,20 +10,19 @@ export const metadata: Metadata = {
   description: 'CRM omnichannel WhatsApp multi-tenant',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { theme, resolvedTheme } = await getThemeFromCookies();
+
   return (
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}${
+        resolvedTheme === 'dark' ? 'dark' : ''
+      }`}
     >
-      <head>
-        {/* Seta a classe `dark` no <html> ANTES do React hidratar pra evitar
-            flash de tema. Renderizado fora do React tree. */}
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
       <body className="font-sans antialiased">
-        <Providers>{children}</Providers>
+        <Providers initialTheme={theme}>{children}</Providers>
       </body>
     </html>
   );

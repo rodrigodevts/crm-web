@@ -20,20 +20,28 @@ interface ThemeContextValue {
 }
 
 const STORAGE_KEY = 'theme';
+const COOKIE_KEY = 'theme';
+const RESOLVED_COOKIE_KEY = 'theme-resolved';
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-function readStoredTheme(): Theme {
-  if (typeof window === 'undefined') return 'system';
+function readStoredTheme(initial: Theme): Theme {
+  if (typeof window === 'undefined') return initial;
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === 'light' || stored === 'dark' || stored === 'system') {
       return stored;
     }
   } catch {
-    // localStorage indisponível (incognito strict, etc)
+    /* localStorage indisponível */
   }
-  return 'system';
+  return initial;
+}
+
+function writeCookie(name: string, value: string) {
+  if (typeof document === 'undefined') return;
+  document.cookie = `${name}=${value}; Path=/; Max-Age=${COOKIE_MAX_AGE}; SameSite=Lax`;
 }
 
 function subscribeToColorScheme(callback: () => void) {
@@ -55,8 +63,13 @@ function applyTheme(resolved: 'light' | 'dark') {
   document.documentElement.classList.toggle('dark', resolved === 'dark');
 }
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => readStoredTheme());
+interface ThemeProviderProps {
+  children: ReactNode;
+  initialTheme?: Theme;
+}
+
+export function ThemeProvider({ children, initialTheme = 'system' }: ThemeProviderProps) {
+  const [theme, setThemeState] = useState<Theme>(() => readStoredTheme(initialTheme));
 
   const systemPrefersDark = useSyncExternalStore(
     subscribeToColorScheme,
@@ -71,14 +84,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     applyTheme(resolvedTheme);
+    writeCookie(RESOLVED_COOKIE_KEY, resolvedTheme);
   }, [resolvedTheme]);
 
   const setTheme = useCallback((next: Theme) => {
     try {
       window.localStorage.setItem(STORAGE_KEY, next);
     } catch {
-      // localStorage indisponível
+      /* localStorage indisponível */
     }
+    writeCookie(COOKIE_KEY, next);
     setThemeState(next);
   }, []);
 
@@ -97,11 +112,3 @@ export function useTheme(): ThemeContextValue {
   }
   return ctx;
 }
-
-/**
- * Snippet inline a ser injetado no <head> via dangerouslySetInnerHTML.
- * Roda antes do React hidratar e seta a classe `dark` no <html> pra
- * evitar flash de tema. NÃO é renderizado por componente React (por isso
- * fora do React tree — diferente do que o next-themes faz).
- */
-export const themeInitScript = `(function(){try{var t=localStorage.getItem('${STORAGE_KEY}')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme:dark)').matches);if(d)document.documentElement.classList.add('dark');}catch(e){}})()`;
