@@ -101,10 +101,12 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </Button>
             </div>
           </form>
-          <div className="bg-muted relative hidden md:block">
+          <div className="from-primary to-primary-700 relative hidden bg-linear-to-br md:block">
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-8 text-center">
-              <span className="text-foreground text-3xl font-bold tracking-tight">DigiChat</span>
-              <p className="text-muted-foreground max-w-xs text-sm">
+              <span className="text-primary-foreground text-3xl font-bold tracking-tight">
+                DigiChat
+              </span>
+              <p className="text-primary-foreground/80 max-w-xs text-sm">
                 CRM omnichannel WhatsApp multi-tenant. Atendimento, automação e métricas num lugar
                 só.
               </p>
