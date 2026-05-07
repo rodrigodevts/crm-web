@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+@custom-variant dark (&:is(.dark *));
+
 /**
  * DigiChat — globals.css
  *
@@ -113,6 +115,17 @@
   --color-input: var(--color-border-default);
   --color-ring: var(--color-primary-500);
 
+  /* shadcn sidebar primitive — mapeia pra nossos tokens semânticos.
+   * O .dark block abaixo sobrescreve o que precisa diferenciar em dark mode. */
+  --color-sidebar: var(--color-bg-subtle);
+  --color-sidebar-foreground: var(--color-text-primary);
+  --color-sidebar-primary: var(--color-primary-500);
+  --color-sidebar-primary-foreground: var(--color-text-inverse);
+  --color-sidebar-accent: var(--color-bg-muted);
+  --color-sidebar-accent-foreground: var(--color-text-primary);
+  --color-sidebar-border: var(--color-border-default);
+  --color-sidebar-ring: var(--color-primary-500);
+
   /* ============= Tipografia ============= */
 
   /* Famílias (carregadas via next/font/google em layout.tsx) */
@@ -191,6 +204,10 @@
     /* Cards e popovers ganham um cinza escuro distinto do background pra dar destaque */
     --color-card: var(--color-bg-subtle);
     --color-popover: var(--color-bg-subtle);
+
+    /* Em dark, sidebar usa um cinza levemente mais escuro pro contraste com cards/popovers */
+    --color-sidebar: #0b1220;
+    --color-sidebar-accent: var(--color-bg-muted);
   }
 
   body {

@@ -1,19 +1,32 @@
 'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   BarChart3,
   Bot,
-  ChevronsLeft,
-  ChevronsRight,
+  ChevronDown,
   Megaphone,
   MessageSquare,
   Settings,
   Users,
 } from 'lucide-react';
-import { useLayoutStore } from '@/stores/layout-store';
-import { AppSidebarItem } from './app-sidebar-item';
-import { AppSidebarSection, type SidebarSubItem } from './app-sidebar-section';
-import { cn } from '@/lib/utils';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  SidebarRail,
+  useSidebar,
+} from '@/components/ui/sidebar';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 const TOP_LEVEL = [
   { href: '/atendimentos', icon: MessageSquare, label: 'Atendimentos' },
@@ -23,7 +36,7 @@ const TOP_LEVEL = [
   { href: '/dashboard', icon: BarChart3, label: 'Dashboard' },
 ] as const;
 
-const SETTINGS_SUB_ITEMS: SidebarSubItem[] = [
+const SETTINGS_SUB_ITEMS = [
   { href: '/configuracoes/departamentos', label: 'Departamentos' },
   { href: '/configuracoes/tags', label: 'Tags' },
   { href: '/configuracoes/usuarios', label: 'Usuários' },
@@ -31,73 +44,84 @@ const SETTINGS_SUB_ITEMS: SidebarSubItem[] = [
   { href: '/configuracoes/canais', label: 'Canais' },
   { href: '/configuracoes/integracoes', label: 'Integrações' },
   { href: '/configuracoes/preferencias', label: 'Preferências' },
-];
+] as const;
 
-interface AppSidebarProps {
-  onNavigate?: () => void;
-  variant?: 'desktop' | 'mobile';
+function isRouteActive(pathname: string, href: string): boolean {
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function AppSidebar({ onNavigate, variant = 'desktop' }: AppSidebarProps) {
-  const collapsed = useLayoutStore((s) => s.sidebarCollapsed) && variant === 'desktop';
-  const toggle = useLayoutStore((s) => s.toggleSidebar);
+export function AppSidebar() {
+  const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
+  const settingsActive = isRouteActive(pathname, '/configuracoes');
+
+  const handleNavigate = () => setOpenMobile(false);
 
   return (
-    <aside
-      aria-label="Navegação principal"
-      className={cn(
-        'bg-bg-subtle border-border-default flex h-full flex-col border-r transition-[width]',
-        variant === 'desktop' && (collapsed ? 'w-16' : 'w-60'),
-        variant === 'mobile' && 'w-72',
-      )}
-    >
-      <div className="border-border-default border-b px-4 py-4">
-        <span
-          className={cn(
-            'text-text-primary text-lg font-semibold',
-            collapsed && variant === 'desktop' && 'text-center',
-          )}
-        >
-          {collapsed && variant === 'desktop' ? 'D' : 'DigiChat'}
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="px-4 py-4">
+        <span className="text-text-primary text-lg font-semibold group-data-[collapsible=icon]:hidden">
+          DigiChat
         </span>
-      </div>
+        <span className="text-text-primary hidden text-center text-lg font-semibold group-data-[collapsible=icon]:block">
+          D
+        </span>
+      </SidebarHeader>
 
-      <nav className="flex-1 space-y-1 overflow-y-auto px-2 py-3">
-        {TOP_LEVEL.map((item) => (
-          <AppSidebarItem
-            key={item.href}
-            href={item.href}
-            icon={item.icon}
-            label={item.label}
-            collapsed={collapsed}
-            onNavigate={onNavigate}
-          />
-        ))}
-        <AppSidebarSection
-          href="/configuracoes"
-          icon={Settings}
-          label="Configurações"
-          collapsed={collapsed}
-          items={SETTINGS_SUB_ITEMS}
-          onNavigate={onNavigate}
-        />
-      </nav>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {TOP_LEVEL.map((item) => {
+                const active = isRouteActive(pathname, item.href);
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton asChild isActive={active} tooltip={item.label}>
+                      <Link href={item.href} onClick={handleNavigate}>
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
 
-      {variant === 'desktop' ? (
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
-          className={cn(
-            'border-border-default text-text-secondary hover:bg-bg-muted flex items-center gap-2 border-t px-4 py-3 text-sm',
-            'focus-visible:ring-primary-500 focus-visible:ring-2 focus-visible:outline-none',
-            collapsed && 'justify-center',
-          )}
-        >
-          {collapsed ? <ChevronsRight className="h-4 w-4" /> : <ChevronsLeft className="h-4 w-4" />}
-          {collapsed ? null : <span>Recolher</span>}
-        </button>
-      ) : null}
-    </aside>
+              <Collapsible defaultOpen={settingsActive} className="group/collapsible">
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                    <SidebarMenuButton isActive={settingsActive} tooltip="Configurações">
+                      <Settings />
+                      <span>Configurações</span>
+                      <ChevronDown
+                        aria-hidden
+                        className="ml-auto h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180"
+                      />
+                    </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                    <SidebarMenuSub>
+                      {SETTINGS_SUB_ITEMS.map((sub) => (
+                        <SidebarMenuSubItem key={sub.href}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={isRouteActive(pathname, sub.href)}
+                          >
+                            <Link href={sub.href} onClick={handleNavigate}>
+                              {sub.label}
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+              </Collapsible>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarRail />
+    </Sidebar>
   );
 }

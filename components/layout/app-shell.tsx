@@ -1,38 +1,28 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { CurrentUserProvider } from '@/contexts/current-user-context';
-import { useLayoutStore } from '@/stores/layout-store';
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 import { AppHeader } from './app-header';
 import { AppSidebar } from './app-sidebar';
-import { MobileSidebarDrawer } from './mobile-sidebar-drawer';
 
 interface AppShellProps {
   user: UserResponseDto;
-  sidebarCollapsedInitial: boolean;
+  defaultSidebarOpen: boolean;
   children: ReactNode;
 }
 
-export function AppShell({ user, sidebarCollapsedInitial, children }: AppShellProps) {
-  const hydrate = useLayoutStore((s) => s.hydrate);
-
-  useEffect(() => {
-    hydrate(sidebarCollapsedInitial);
-  }, [hydrate, sidebarCollapsedInitial]);
-
+export function AppShell({ user, defaultSidebarOpen, children }: AppShellProps) {
   return (
     <CurrentUserProvider user={user}>
-      <div className="bg-bg-base text-text-primary flex h-screen overflow-hidden">
-        <div className="hidden md:block">
-          <AppSidebar />
-        </div>
-        <MobileSidebarDrawer />
-        <div className="flex flex-1 flex-col">
+      <SidebarProvider defaultOpen={defaultSidebarOpen}>
+        <AppSidebar />
+        <SidebarInset>
           <AppHeader />
           <main className="flex-1 overflow-auto">{children}</main>
-        </div>
-      </div>
+        </SidebarInset>
+      </SidebarProvider>
     </CurrentUserProvider>
   );
 }

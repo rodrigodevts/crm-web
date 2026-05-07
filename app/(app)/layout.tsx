@@ -9,11 +9,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     redirect('/login');
   }
 
+  // shadcn `SidebarProvider` lê o cookie `sidebar_state` (default `true` se ausente).
+  // Mantemos o mesmo comportamento server-side pra evitar flash no first paint.
   const cookieStore = await cookies();
-  const sidebarCollapsedInitial = cookieStore.get('digichat_sidebar')?.value === 'collapsed';
+  const defaultSidebarOpen = cookieStore.get('sidebar_state')?.value !== 'false';
 
   return (
-    <AppShell user={user} sidebarCollapsedInitial={sidebarCollapsedInitial}>
+    <AppShell user={user} defaultSidebarOpen={defaultSidebarOpen}>
       {children}
     </AppShell>
   );
