@@ -2,8 +2,8 @@
 
 > Plano de fases do **frontend** (`crm-web`). Para escopo backend, ver `../crm-api/ROADMAP.md` — fonte canônica.
 >
-> **Versão:** 7 (fatia frontend)
-> **Última atualização:** 06/05/2026
+> **Versão:** 8 (fatia frontend)
+> **Última atualização:** 07/05/2026
 >
 > **Documento companheiro:** `ARCHITECTURE.md` (raiz crm-web).
 
@@ -83,15 +83,15 @@
 - [x] `lib/generated/` populado contra OpenAPI do backend
 - [x] `lib/CLAUDE.md` documentando "código gerado, não editar"
 
-### 4.3 Sprint 0.13 — Fechamento de gaps (esta sprint)
+### 4.3 Sprint 0.13 — Fechamento de gaps (entregue, PR #11)
 
-- [ ] LICENSE AGPLv3
-- [ ] Deps `zustand` e `socket.io-client`
-- [ ] `openapi.snapshot.json` + script `generate:api:from-snapshot`
-- [ ] CI: drift detection em `lib/generated/`
-- [ ] Smoke test do tipo gerado em `lib/generated.test.ts`
-- [ ] CLAUDE.md raiz adaptado pro escopo frontend
-- [ ] ROADMAP.md raiz adaptado pro escopo frontend (este documento)
+- [x] LICENSE AGPLv3
+- [x] Deps `zustand` e `socket.io-client`
+- [x] `openapi.snapshot.json` + script `generate:api:from-snapshot`
+- [x] CI: drift detection em `lib/generated/`
+- [x] Smoke test do tipo gerado em `lib/generated.test.ts`
+- [x] CLAUDE.md raiz adaptado pro escopo frontend
+- [x] ROADMAP.md raiz adaptado pro escopo frontend (este documento)
 
 ### 4.4 Documentação base
 
@@ -110,11 +110,34 @@
 ### 4.6 Pendente (próximas sprints da Fase 0 ou Fase 4)
 
 - [ ] Tela de register
-- [ ] Layout base Izing-like (sidebar + header + área principal)
-- [ ] Páginas dummy de Atendimentos
-- [ ] Telas básicas de Configurações
-- [ ] Tema final do design-system aplicado (paleta refinada)
+- [x] Layout base Izing-like (sidebar + header + área principal) — Sprint 0.14, PR #13
+- [x] Páginas dummy de Atendimentos — 13 rotas placeholder, Sprint 0.14, PR #13
+- [ ] Telas básicas de Configurações (placeholders entregues; conteúdo real pendente)
+- [ ] Tema final do design-system consolidado (Sprint 0.14 adotou shadcn radix-nova v4 + azul DigiChat; revisão final pendente)
 - [ ] E2E real (Playwright contra backend)
+
+### 4.7 Sprint 0.14 — App Shell pós-login (entregue, PR #13)
+
+- [x] Auth real ponta a ponta (login + cookies httpOnly + refresh interceptor + logout)
+- [x] `proxy.ts` Next 16 com cookie gate
+- [x] `(app)` route group protegido com Server Component fetching `/me` e redirect 401
+- [x] AppSidebar (5 itens + Configurações expansível com 7 sub-itens + NavSecondary)
+- [x] SiteHeader com title slot dinâmico + ThemeToggle
+- [x] Drawer mobile via Sheet + atalho Cmd/Ctrl+B
+- [x] NavUser com nome real + Sair (mutation + queryClient.clear + redirect)
+- [x] 13 páginas placeholder
+- [x] Theme provider próprio cookie-based SSR (sem `next-themes`, compatível React 19)
+- [x] Backend Me/Auth integrado (consome `crm-api` PRs #34/#36/#37)
+
+### 4.8 Gaps remanescentes (pra fechar Fase 0 antes da Fase 1)
+
+- [ ] Página de register (formulário + criação de conta + multi-tenant scope)
+- [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
+- [ ] RBAC efetivo (atualmente o gate é só "tem `access_token`"; falta diferenciar `ADMIN` × `AGENT` × `SUPER_ADMIN` em rota e UI)
+- [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
+- [ ] Telas reais de Configurações (Departamentos, Tags, Usuários, Quick Replies, Canais, Integrações, Preferências)
+- [ ] E2E real (Playwright contra `crm-api` rodando em ambiente de teste)
+- [ ] Tema final consolidado (decidir entre paleta Dreams Chat aplicada na PR #12 e a base radix-nova com azul DigiChat usada na Sprint 0.14)
 
 ---
 
@@ -202,15 +225,15 @@
 
 ## 6. Rastreamento
 
-| Fase    | Início  | Fim | Status       | Notas                                            |
-| ------- | ------- | --- | ------------ | ------------------------------------------------ |
-| Fase 0  | 2026-04 | —   | em andamento | Sprint 0.13 (bootstrap gap closure) em execução. |
-| Fase 1  | —       | —   | aguardando   | —                                                |
-| Fase 2  | —       | —   | aguardando   | —                                                |
-| Fase 3a | —       | —   | aguardando   | —                                                |
-| Fase 3b | —       | —   | aguardando   | —                                                |
-| Fase 4  | —       | —   | aguardando   | —                                                |
-| Fase 5  | —       | —   | aguardando   | Pré-req da Fase 8 backend.                       |
-| Fase 6  | —       | —   | aguardando   | —                                                |
-| Fase 7  | —       | —   | aguardando   | —                                                |
-| Fase 8  | —       | —   | aguardando   | Requer Fase 5 backend.                           |
+| Fase    | Início  | Fim | Status       | Notas                                                                                                                     |
+| ------- | ------- | --- | ------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| Fase 0  | 2026-04 | —   | em andamento | Sprint 0.13 (bootstrap gap closure) e 0.14 (app shell pós-login) entregues. Próxima: fechar gaps de §4.8 ou abrir Fase 1. |
+| Fase 1  | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 2  | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 3a | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 3b | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 4  | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 5  | —       | —   | aguardando   | Pré-req da Fase 8 backend.                                                                                                |
+| Fase 6  | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 7  | —       | —   | aguardando   | —                                                                                                                         |
+| Fase 8  | —       | —   | aguardando   | Requer Fase 5 backend.                                                                                                    |
