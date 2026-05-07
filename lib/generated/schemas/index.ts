@@ -1,7 +1,6 @@
 export { authControllerLogin200Schema, authControllerLoginMutationRequestSchema, authControllerLoginMutationResponseSchema } from "./authControllerLoginSchema.ts";
 export { authControllerLogout204Schema, authControllerLogoutMutationRequestSchema, authControllerLogoutMutationResponseSchema } from "./authControllerLogoutSchema.ts";
 export { authControllerRefresh200Schema, authControllerRefreshMutationRequestSchema, authControllerRefreshMutationResponseSchema } from "./authControllerRefreshSchema.ts";
-export { authControllerRegister201Schema, authControllerRegisterMutationRequestSchema, authControllerRegisterMutationResponseSchema } from "./authControllerRegisterSchema.ts";
 export { authResponseDtoSchema } from "./authResponseDtoSchema.ts";
 export { closeReasonsControllerCreate201Schema, closeReasonsControllerCreateMutationRequestSchema, closeReasonsControllerCreateMutationResponseSchema } from "./closeReasonsControllerCreateSchema.ts";
 export { closeReasonsControllerFindById200Schema, closeReasonsControllerFindByIdPathParamsSchema, closeReasonsControllerFindByIdQueryResponseSchema } from "./closeReasonsControllerFindByIdSchema.ts";
@@ -35,7 +34,6 @@ export { logoutDtoSchema } from "./logoutDtoSchema.ts";
 export { meControllerFindMine200Schema, meControllerFindMineQueryResponseSchema } from "./meControllerFindMineSchema.ts";
 export { meControllerUpdateMe200Schema, meControllerUpdateMeMutationRequestSchema, meControllerUpdateMeMutationResponseSchema } from "./meControllerUpdateMeSchema.ts";
 export { refreshDtoSchema } from "./refreshDtoSchema.ts";
-export { registerDtoSchema } from "./registerDtoSchema.ts";
 export { reorderCloseReasonsDtoSchema } from "./reorderCloseReasonsDtoSchema.ts";
 export { tagsControllerCreate201Schema, tagsControllerCreateMutationRequestSchema, tagsControllerCreateMutationResponseSchema } from "./tagsControllerCreateSchema.ts";
 export { tagsControllerDelete204Schema, tagsControllerDeleteMutationResponseSchema, tagsControllerDeletePathParamsSchema, tagsControllerDeleteQueryParamsSchema } from "./tagsControllerDeleteSchema.ts";
