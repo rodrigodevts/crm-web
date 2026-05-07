@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useLayoutStore } from '@/stores/layout-store';
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { AppSidebar } from './app-sidebar';
 
 const MD_BREAKPOINT_PX = 768;
@@ -22,11 +22,11 @@ export function MobileSidebarDrawer() {
   }, [open, setOpen]);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="fixed inset-y-0 left-0 h-full w-72 max-w-full translate-x-0 translate-y-0 rounded-none border-0 p-0 sm:rounded-none">
-        <DialogTitle className="sr-only">Menu de navegação</DialogTitle>
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetContent side="left" className="w-72 p-0">
+        <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
         <AppSidebar variant="mobile" onNavigate={() => setOpen(false)} />
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }
