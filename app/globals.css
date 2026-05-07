@@ -155,6 +155,19 @@
 }
 
 @layer base {
+  /*
+   * Tailwind v4 mudou o default da classe `border` (sem cor) de gray-200
+   * pra currentColor. Componentes shadcn dependem do comportamento antigo,
+   * então restauramos o default usando o token semântico.
+   */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-border, currentColor);
+  }
+
   /* Dark mode (definição preliminar — refinar pós-MVP) */
   .dark {
     --color-bg-base: #0f172a;
