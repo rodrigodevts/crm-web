@@ -34,7 +34,7 @@
 
 1. Telas funcionando em ambiente de desenvolvimento contra crm-api real.
 2. Testes passando (`pnpm test`).
-3. `pnpm typecheck`, `pnpm lint`, `pnpm build` verdes.
+3. `pnpm typecheck`, `pnpm lint`, `pnpm format:check` verdes localmente; `pnpm build` cai pra CI (limitação conhecida — ver `CLAUDE.md` §11).
 4. `pnpm generate:api:from-snapshot && git diff --exit-code lib/generated` zero diff.
 5. Documentação atualizada (`ARCHITECTURE.md` se houver mudança arquitetural).
 6. Validação manual end-to-end conforme checklist da fase.
