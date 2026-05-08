@@ -4,12 +4,13 @@
 */
 
 import type { UsersControllerFindById200, UsersControllerFindByIdPathParams, UsersControllerFindByIdQueryResponse } from "../types/UsersControllerFindById.ts";
+import { userResponseDtoSchema } from "./userResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const usersControllerFindByIdPathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<UsersControllerFindByIdPathParams>
 
-export const usersControllerFindById200Schema = z.any() as unknown as z.ZodType<UsersControllerFindById200>
+export const usersControllerFindById200Schema = z.lazy(() => userResponseDtoSchema).describe("Usuário do tenant com departamentos populados") as unknown as z.ZodType<UsersControllerFindById200>
 
 export const usersControllerFindByIdQueryResponseSchema = z.lazy(() => usersControllerFindById200Schema) as unknown as z.ZodType<UsersControllerFindByIdQueryResponse>

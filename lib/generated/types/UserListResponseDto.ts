@@ -4,23 +4,16 @@
 */
 
 
-export const itemsRoleEnum2 = {
+export const itemsRoleEnum = {
+    SUPER_ADMIN: "SUPER_ADMIN",
     ADMIN: "ADMIN",
     SUPERVISOR: "SUPERVISOR",
     AGENT: "AGENT"
 } as const;
 
-export type ItemsRoleEnum2Key = (typeof itemsRoleEnum2)[keyof typeof itemsRoleEnum2];
+export type ItemsRoleEnumKey = (typeof itemsRoleEnum)[keyof typeof itemsRoleEnum];
 
-export const itemsStatusEnum = {
-    PENDING: "PENDING",
-    ACCEPTED: "ACCEPTED",
-    REVOKED: "REVOKED"
-} as const;
-
-export type ItemsStatusEnumKey = (typeof itemsStatusEnum)[keyof typeof itemsStatusEnum];
-
-export type InvitationListResponseDto = {
+export type UserListResponseDto = {
     /**
      * @type array
     */
@@ -30,41 +23,54 @@ export type InvitationListResponseDto = {
         */
         id: string;
         /**
+         * @type string, uuid
+        */
+        companyId: string;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
          * @type string, email
         */
         email: string;
         /**
          * @type string
         */
-        role: ItemsRoleEnum2Key;
+        role: ItemsRoleEnumKey;
         /**
          * @type string
         */
-        status: ItemsStatusEnumKey;
+        absenceMessage: string | null;
         /**
-         * @type string, uuid
+         * @type boolean
         */
-        invitedById: string;
-        /**
-         * @type string
-        */
-        invitedByName: string;
-        /**
-         * @type string, uuid
-        */
-        acceptedById: string | null;
+        absenceActive: boolean;
         /**
          * @type string, date-time
         */
-        acceptedAt: string | null;
+        lastSeenAt: string | null;
         /**
-         * @type string, date-time
+         * @type array
         */
-        revokedAt: string | null;
+        departments: {
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @type string
+            */
+            name: string;
+        }[];
         /**
          * @type string, date-time
         */
         createdAt: string;
+        /**
+         * @type string, date-time
+        */
+        updatedAt: string;
     }[];
     /**
      * @type object

@@ -59,6 +59,7 @@ export { updateDepartmentDtoSchema } from "./updateDepartmentDtoSchema.ts";
 export { updateMeDtoSchema } from "./updateMeDtoSchema.ts";
 export { updateTagDtoSchema } from "./updateTagDtoSchema.ts";
 export { updateUserDtoSchema } from "./updateUserDtoSchema.ts";
+export { userListResponseDtoSchema } from "./userListResponseDtoSchema.ts";
 export { userResponseDtoSchema } from "./userResponseDtoSchema.ts";
 export { usersControllerCreate201Schema, usersControllerCreateMutationRequestSchema, usersControllerCreateMutationResponseSchema } from "./usersControllerCreateSchema.ts";
 export { usersControllerDelete204Schema, usersControllerDeleteMutationResponseSchema, usersControllerDeletePathParamsSchema } from "./usersControllerDeleteSchema.ts";

@@ -4,6 +4,7 @@
 */
 
 import type { UpdateUserDto } from "./UpdateUserDto.ts";
+import type { UserResponseDto } from "./UserResponseDto.ts";
 
 export type UsersControllerUpdatePathParams = {
     /**
@@ -12,7 +13,7 @@ export type UsersControllerUpdatePathParams = {
     id: string;
 };
 
-export type UsersControllerUpdate200 = unknown;
+export type UsersControllerUpdate200 = UserResponseDto;
 
 export type UsersControllerUpdateMutationRequest = UpdateUserDto;
 

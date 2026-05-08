@@ -91,7 +91,7 @@ export type { DepartmentsControllerUpdate200, DepartmentsControllerUpdateMutatio
 export type { HealthControllerCheck200, HealthControllerCheckQuery, HealthControllerCheckQueryResponse } from "./types/HealthControllerCheck.ts";
 export type { HealthResponseDto, HealthResponseDtoStatusEnumKey } from "./types/HealthResponseDto.ts";
 export type { InvitationCreatedDto, InvitationCreatedDtoRoleEnumKey, InvitationCreatedDtoStatusEnumKey } from "./types/InvitationCreatedDto.ts";
-export type { InvitationListResponseDto, ItemsRoleEnumKey, ItemsStatusEnumKey } from "./types/InvitationListResponseDto.ts";
+export type { InvitationListResponseDto, ItemsRoleEnum2Key, ItemsStatusEnumKey } from "./types/InvitationListResponseDto.ts";
 export type { InvitationsControllerCreate201, InvitationsControllerCreateMutation, InvitationsControllerCreateMutationRequest, InvitationsControllerCreateMutationResponse } from "./types/InvitationsControllerCreate.ts";
 export type { InvitationsControllerList200, InvitationsControllerListQuery, InvitationsControllerListQueryParams, InvitationsControllerListQueryParamsStatusEnumKey, InvitationsControllerListQueryResponse } from "./types/InvitationsControllerList.ts";
 export type { InvitationsControllerResend200, InvitationsControllerResendMutation, InvitationsControllerResendMutationResponse, InvitationsControllerResendPathParams } from "./types/InvitationsControllerResend.ts";
@@ -118,6 +118,7 @@ export type { UpdateDepartmentDto, UpdateDepartmentDtoDistributionModeEnumKey } 
 export type { UpdateMeDto } from "./types/UpdateMeDto.ts";
 export type { UpdateTagDto, UpdateTagDtoScopeEnumKey } from "./types/UpdateTagDto.ts";
 export type { UpdateUserDto, UpdateUserDtoRoleEnumKey } from "./types/UpdateUserDto.ts";
+export type { ItemsRoleEnumKey, UserListResponseDto } from "./types/UserListResponseDto.ts";
 export type { UserResponseDto, UserResponseDtoRoleEnumKey } from "./types/UserResponseDto.ts";
 export type { UsersControllerCreate201, UsersControllerCreateMutation, UsersControllerCreateMutationRequest, UsersControllerCreateMutationResponse } from "./types/UsersControllerCreate.ts";
 export type { UsersControllerDelete204, UsersControllerDeleteMutation, UsersControllerDeleteMutationResponse, UsersControllerDeletePathParams } from "./types/UsersControllerDelete.ts";
@@ -406,6 +407,7 @@ export { updateDepartmentDtoSchema } from "./schemas/updateDepartmentDtoSchema.t
 export { updateMeDtoSchema } from "./schemas/updateMeDtoSchema.ts";
 export { updateTagDtoSchema } from "./schemas/updateTagDtoSchema.ts";
 export { updateUserDtoSchema } from "./schemas/updateUserDtoSchema.ts";
+export { userListResponseDtoSchema } from "./schemas/userListResponseDtoSchema.ts";
 export { userResponseDtoSchema } from "./schemas/userResponseDtoSchema.ts";
 export { usersControllerCreate201Schema, usersControllerCreateMutationRequestSchema, usersControllerCreateMutationResponseSchema } from "./schemas/usersControllerCreateSchema.ts";
 export { usersControllerDelete204Schema, usersControllerDeleteMutationResponseSchema, usersControllerDeletePathParamsSchema } from "./schemas/usersControllerDeleteSchema.ts";
@@ -424,7 +426,7 @@ export { departmentsControllerListQueryParamsSortEnum } from "./types/Department
 export { healthResponseDtoStatusEnum } from "./types/HealthResponseDto.ts";
 export { invitationCreatedDtoRoleEnum } from "./types/InvitationCreatedDto.ts";
 export { invitationCreatedDtoStatusEnum } from "./types/InvitationCreatedDto.ts";
-export { itemsRoleEnum } from "./types/InvitationListResponseDto.ts";
+export { itemsRoleEnum2 } from "./types/InvitationListResponseDto.ts";
 export { itemsStatusEnum } from "./types/InvitationListResponseDto.ts";
 export { invitationsControllerListQueryParamsStatusEnum } from "./types/InvitationsControllerList.ts";
 export { publicInvitationDtoRoleEnum } from "./types/PublicInvitationDto.ts";
@@ -433,5 +435,6 @@ export { tagsControllerListQueryParamsSortEnum } from "./types/TagsControllerLis
 export { updateDepartmentDtoDistributionModeEnum } from "./types/UpdateDepartmentDto.ts";
 export { updateTagDtoScopeEnum } from "./types/UpdateTagDto.ts";
 export { updateUserDtoRoleEnum } from "./types/UpdateUserDto.ts";
+export { itemsRoleEnum } from "./types/UserListResponseDto.ts";
 export { userResponseDtoRoleEnum } from "./types/UserResponseDto.ts";
 export { usersControllerListQueryParamsRoleEnum } from "./types/UsersControllerList.ts";

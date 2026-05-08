@@ -5,13 +5,14 @@
 
 import type { UsersControllerUpdate200, UsersControllerUpdateMutationRequest, UsersControllerUpdateMutationResponse, UsersControllerUpdatePathParams } from "../types/UsersControllerUpdate.ts";
 import { updateUserDtoSchema } from "./updateUserDtoSchema.ts";
+import { userResponseDtoSchema } from "./userResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const usersControllerUpdatePathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<UsersControllerUpdatePathParams>
 
-export const usersControllerUpdate200Schema = z.any() as unknown as z.ZodType<UsersControllerUpdate200>
+export const usersControllerUpdate200Schema = z.lazy(() => userResponseDtoSchema).describe("Usuário do tenant com departamentos populados") as unknown as z.ZodType<UsersControllerUpdate200>
 
 export const usersControllerUpdateMutationRequestSchema = z.lazy(() => updateUserDtoSchema).describe("Dados para editar usuário (apenas ADMIN+)") as unknown as z.ZodType<UsersControllerUpdateMutationRequest>
 
