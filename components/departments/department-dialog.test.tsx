@@ -86,7 +86,7 @@ describe('DepartmentDialog', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Novo departamento' }));
-    await user.type(screen.getByLabelText('Nome'), 'Vendas');
+    await user.type(screen.getByLabelText(/^Nome/), 'Vendas');
     await user.click(screen.getByRole('button', { name: 'Criar departamento' }));
 
     await waitFor(() => {
@@ -107,7 +107,7 @@ describe('DepartmentDialog', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Novo departamento' }));
-    await user.type(screen.getByLabelText('Nome'), 'Suporte');
+    await user.type(screen.getByLabelText(/^Nome/), 'Suporte');
     await user.click(screen.getByRole('button', { name: 'Criar departamento' }));
 
     expect(await screen.findByText('Já existe um departamento com este nome')).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('DepartmentDialog', () => {
       </Wrapper>,
     );
 
-    const nameInput = screen.getByLabelText('Nome') as HTMLInputElement;
+    const nameInput = screen.getByLabelText(/^Nome/) as HTMLInputElement;
     expect(nameInput.value).toBe('Suporte');
     // o trigger do Select exibe o label do valor selecionado
     expect(screen.getAllByText('Balanceado').length).toBeGreaterThan(0);

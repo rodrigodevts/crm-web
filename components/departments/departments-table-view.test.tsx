@@ -22,33 +22,32 @@ const baseItem = (overrides: Partial<Item> = {}): Item => ({
   ...overrides,
 });
 
+const noopHandlers = {
+  onEdit: vi.fn(),
+  onDeactivate: vi.fn(),
+  onReactivate: vi.fn(),
+};
+
 describe('DepartmentsTableView', () => {
   it('renderiza skeletons no estado loading', () => {
     const { container } = render(
-      <DepartmentsTableView state="loading" items={[]} onEdit={vi.fn()} onDelete={vi.fn()} />,
+      <DepartmentsTableView state="loading" items={[]} {...noopHandlers} />,
     );
     expect(container.querySelectorAll('[data-slot="skeleton"]').length).toBeGreaterThan(0);
   });
 
   it('renderiza mensagem de erro no estado error', () => {
-    render(<DepartmentsTableView state="error" items={[]} onEdit={vi.fn()} onDelete={vi.fn()} />);
+    render(<DepartmentsTableView state="error" items={[]} {...noopHandlers} />);
     expect(screen.getByText('Erro ao carregar departamentos.')).toBeInTheDocument();
   });
 
   it('renderiza empty state quando ready e items vazio', () => {
-    render(<DepartmentsTableView state="ready" items={[]} onEdit={vi.fn()} onDelete={vi.fn()} />);
+    render(<DepartmentsTableView state="ready" items={[]} {...noopHandlers} />);
     expect(screen.getByText('Nenhum departamento cadastrado.')).toBeInTheDocument();
   });
 
   it('renderiza linha completa com nome, distribuição, SLA, ativo e atualizado', () => {
-    render(
-      <DepartmentsTableView
-        state="ready"
-        items={[baseItem()]}
-        onEdit={vi.fn()}
-        onDelete={vi.fn()}
-      />,
-    );
+    render(<DepartmentsTableView state="ready" items={[baseItem()]} {...noopHandlers} />);
     expect(screen.getByText('Suporte')).toBeInTheDocument();
     expect(screen.getByText('Manual')).toBeInTheDocument();
     expect(screen.getByText(/Resposta: 30min/)).toBeInTheDocument();
@@ -61,8 +60,7 @@ describe('DepartmentsTableView', () => {
       <DepartmentsTableView
         state="ready"
         items={[baseItem({ slaResponseMinutes: null, slaResolutionMinutes: null })]}
-        onEdit={vi.fn()}
-        onDelete={vi.fn()}
+        {...noopHandlers}
       />,
     );
     expect(screen.getByText('—')).toBeInTheDocument();
@@ -73,8 +71,7 @@ describe('DepartmentsTableView', () => {
       <DepartmentsTableView
         state="ready"
         items={[baseItem({ active: false })]}
-        onEdit={vi.fn()}
-        onDelete={vi.fn()}
+        {...noopHandlers}
       />,
     );
     expect(screen.getByText('Inativo')).toBeInTheDocument();
@@ -85,33 +82,64 @@ describe('DepartmentsTableView', () => {
     const user = userEvent.setup();
     const item = baseItem();
     render(
-      <DepartmentsTableView state="ready" items={[item]} onEdit={onEdit} onDelete={vi.fn()} />,
+      <DepartmentsTableView
+        state="ready"
+        items={[item]}
+        onEdit={onEdit}
+        onDeactivate={vi.fn()}
+        onReactivate={vi.fn()}
+      />,
     );
     await user.click(screen.getByRole('button', { name: /editar departamento suporte/i }));
     expect(onEdit).toHaveBeenCalledWith(item);
   });
 
-  it('aciona onDelete ao clicar em "Desativar"', async () => {
-    const onDelete = vi.fn();
+  it('aciona onDeactivate ao clicar em "Desativar" em item ativo', async () => {
+    const onDeactivate = vi.fn();
     const user = userEvent.setup();
     const item = baseItem();
     render(
-      <DepartmentsTableView state="ready" items={[item]} onEdit={vi.fn()} onDelete={onDelete} />,
+      <DepartmentsTableView
+        state="ready"
+        items={[item]}
+        onEdit={vi.fn()}
+        onDeactivate={onDeactivate}
+        onReactivate={vi.fn()}
+      />,
     );
     await user.click(screen.getByRole('button', { name: /desativar departamento suporte/i }));
-    expect(onDelete).toHaveBeenCalledWith(item);
+    expect(onDeactivate).toHaveBeenCalledWith(item);
   });
 
-  it('oculta ação "Desativar" para item já inativo', () => {
+  it('aciona onReactivate ao clicar em "Reativar" em item inativo', async () => {
+    const onReactivate = vi.fn();
+    const user = userEvent.setup();
+    const item = baseItem({ active: false, name: 'Vendas' });
+    render(
+      <DepartmentsTableView
+        state="ready"
+        items={[item]}
+        onEdit={vi.fn()}
+        onDeactivate={vi.fn()}
+        onReactivate={onReactivate}
+      />,
+    );
+    await user.click(screen.getByRole('button', { name: /reativar departamento vendas/i }));
+    expect(onReactivate).toHaveBeenCalledWith(item);
+  });
+
+  it('item inativo não mostra "Desativar" e mostra "Reativar"', () => {
     render(
       <DepartmentsTableView
         state="ready"
         items={[baseItem({ active: false, name: 'Vendas' })]}
-        onEdit={vi.fn()}
-        onDelete={vi.fn()}
+        {...noopHandlers}
       />,
     );
     expect(screen.queryByRole('button', { name: /desativar departamento vendas/i })).toBeNull();
+    expect(
+      screen.getByRole('button', { name: /reativar departamento vendas/i }),
+    ).toBeInTheDocument();
   });
 
   it('renderiza label pt-BR para cada distributionMode', () => {
@@ -124,8 +152,7 @@ describe('DepartmentsTableView', () => {
           baseItem({ id: '3', name: 'C', distributionMode: 'BALANCED' }),
           baseItem({ id: '4', name: 'D', distributionMode: 'SEQUENTIAL' }),
         ]}
-        onEdit={vi.fn()}
-        onDelete={vi.fn()}
+        {...noopHandlers}
       />,
     );
     expect(screen.getByText('Manual')).toBeInTheDocument();

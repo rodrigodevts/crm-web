@@ -2,10 +2,16 @@
 
 import { useDeferredValue, useId, useMemo, useState } from 'react';
 import { SearchIcon } from 'lucide-react';
-import { useDepartmentsControllerList } from '@/lib/generated/hooks/useDepartmentsControllerList';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import {
+  useDepartmentsControllerList,
+  departmentsControllerListQueryKey,
+} from '@/lib/generated/hooks/useDepartmentsControllerList';
+import { useDepartmentsControllerUpdate } from '@/lib/generated/hooks/useDepartmentsControllerUpdate';
 import { apiClient } from '@/lib/api-client';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import {
   Select,
   SelectContent,
@@ -19,7 +25,7 @@ import {
   type DepartmentsTableState,
 } from './departments-table-view';
 import { DepartmentDialog } from './department-dialog';
-import { DeleteDepartmentDialog } from './delete-department-dialog';
+import { DeactivateDepartmentDialog } from './deactivate-department-dialog';
 
 const PAGE_LIMIT = 50;
 
@@ -37,7 +43,7 @@ export function DepartmentsTable() {
   const [status, setStatus] = useState<StatusFilter>('active');
 
   const [editTarget, setEditTarget] = useState<DepartmentListItem | null>(null);
-  const [deleteTarget, setDeleteTarget] = useState<DepartmentListItem | null>(null);
+  const [deactivateTarget, setDeactivateTarget] = useState<DepartmentListItem | null>(null);
 
   const params = useMemo(
     () => ({
@@ -48,7 +54,22 @@ export function DepartmentsTable() {
     [deferredSearch, status],
   );
 
+  const queryClient = useQueryClient();
   const query = useDepartmentsControllerList(params, { client: { client: apiClient } });
+  const reactivate = useDepartmentsControllerUpdate({ client: { client: apiClient } });
+
+  const handleReactivate = async (item: DepartmentListItem) => {
+    try {
+      await reactivate.mutateAsync({ id: item.id, data: { active: true } });
+      toast.success(`Departamento "${item.name}" reativado.`);
+      void queryClient.invalidateQueries({
+        queryKey: departmentsControllerListQueryKey(),
+        exact: false,
+      });
+    } catch {
+      toast.error('Não foi possível reativar o departamento. Tente novamente.');
+    }
+  };
 
   const items: DepartmentListItem[] = query.data?.items ?? [];
   const hasMore = query.data?.pagination.hasMore ?? false;
@@ -62,23 +83,21 @@ export function DepartmentsTable() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="relative w-full max-w-sm">
-          <SearchIcon
-            aria-hidden="true"
-            className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
-          />
-          <Label htmlFor={`${filterId}-search`} className="sr-only">
-            Buscar por nome
-          </Label>
-          <Input
+        <Label htmlFor={`${filterId}-search`} className="sr-only">
+          Buscar por nome
+        </Label>
+        <InputGroup className="w-full max-w-sm">
+          <InputGroupAddon>
+            <SearchIcon aria-hidden="true" className="size-4" />
+          </InputGroupAddon>
+          <InputGroupInput
             id={`${filterId}-search`}
             type="search"
             placeholder="Buscar por nome…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-8"
           />
-        </div>
+        </InputGroup>
         <div className="flex items-center gap-2">
           <Label htmlFor={`${filterId}-status`} className="text-muted-foreground text-sm">
             Status
@@ -102,7 +121,8 @@ export function DepartmentsTable() {
         state={tableState}
         items={items}
         onEdit={(item) => setEditTarget(item)}
-        onDelete={(item) => setDeleteTarget(item)}
+        onDeactivate={(item) => setDeactivateTarget(item)}
+        onReactivate={(item) => void handleReactivate(item)}
         emptyMessage={
           status === 'active'
             ? 'Nenhum departamento ativo encontrado.'
@@ -125,11 +145,11 @@ export function DepartmentsTable() {
         }}
       />
 
-      <DeleteDepartmentDialog
-        department={deleteTarget}
-        open={!!deleteTarget}
+      <DeactivateDepartmentDialog
+        department={deactivateTarget}
+        open={!!deactivateTarget}
         onOpenChange={(next) => {
-          if (!next) setDeleteTarget(null);
+          if (!next) setDeactivateTarget(null);
         }}
       />
     </div>

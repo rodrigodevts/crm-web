@@ -71,7 +71,7 @@ describe('InviteUserDialog', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Convidar usuário' }));
-    await user.type(screen.getByLabelText('E-mail'), 'novo@example.com');
+    await user.type(screen.getByLabelText(/^E-mail/), 'novo@example.com');
     await user.click(screen.getByRole('button', { name: /criar convite/i }));
 
     await waitFor(() => {
@@ -95,7 +95,7 @@ describe('InviteUserDialog', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Convidar usuário' }));
-    await user.type(screen.getByLabelText('E-mail'), 'taken@example.com');
+    await user.type(screen.getByLabelText(/^E-mail/), 'taken@example.com');
     await user.click(screen.getByRole('button', { name: /criar convite/i }));
 
     expect(await screen.findByText('Email já cadastrado')).toBeInTheDocument();
@@ -113,7 +113,7 @@ describe('InviteUserDialog', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Convidar usuário' }));
-    await user.type(screen.getByLabelText('E-mail'), 'dup@example.com');
+    await user.type(screen.getByLabelText(/^E-mail/), 'dup@example.com');
     await user.click(screen.getByRole('button', { name: /criar convite/i }));
 
     expect(

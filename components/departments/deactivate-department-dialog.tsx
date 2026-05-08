@@ -2,7 +2,7 @@
 
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { useDepartmentsControllerSoftDelete } from '@/lib/generated/hooks/useDepartmentsControllerSoftDelete';
+import { useDepartmentsControllerUpdate } from '@/lib/generated/hooks/useDepartmentsControllerUpdate';
 import { departmentsControllerListQueryKey } from '@/lib/generated/hooks/useDepartmentsControllerList';
 import type { DepartmentListResponseDto } from '@/lib/generated/types/DepartmentListResponseDto';
 import { apiClient } from '@/lib/api-client';
@@ -19,25 +19,25 @@ import {
 
 type DepartmentLite = Pick<DepartmentListResponseDto['items'][number], 'id' | 'name'>;
 
-interface DeleteDepartmentDialogProps {
+interface DeactivateDepartmentDialogProps {
   department: DepartmentLite | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export function DeleteDepartmentDialog({
+export function DeactivateDepartmentDialog({
   department,
   open,
   onOpenChange,
-}: DeleteDepartmentDialogProps) {
+}: DeactivateDepartmentDialogProps) {
   const queryClient = useQueryClient();
-  const softDelete = useDepartmentsControllerSoftDelete({ client: { client: apiClient } });
+  const update = useDepartmentsControllerUpdate({ client: { client: apiClient } });
 
   const handleConfirm = async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!department) return;
     event.preventDefault();
     try {
-      await softDelete.mutateAsync({ id: department.id });
+      await update.mutateAsync({ id: department.id, data: { active: false } });
       toast.success(`Departamento "${department.name}" desativado.`);
       void queryClient.invalidateQueries({
         queryKey: departmentsControllerListQueryKey(),
@@ -57,18 +57,19 @@ export function DeleteDepartmentDialog({
             Desativar departamento {department ? `"${department.name}"` : ''}?
           </AlertDialogTitle>
           <AlertDialogDescription>
-            Ele deixa de aparecer nas listas de ativos. A ação pode ser desfeita reativando o
-            departamento depois.
+            Ele deixa de aparecer no filtro &quot;Ativos&quot; e não recebe novos atendimentos. Você
+            pode reativá-lo depois pelo filtro &quot;Inativos&quot; e marcando &quot;Ativo&quot; na
+            edição.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={softDelete.isPending}>Cancelar</AlertDialogCancel>
+          <AlertDialogCancel disabled={update.isPending}>Cancelar</AlertDialogCancel>
           <AlertDialogAction
             variant="destructive"
-            disabled={softDelete.isPending}
+            disabled={update.isPending}
             onClick={handleConfirm}
           >
-            {softDelete.isPending ? 'Desativando…' : 'Desativar'}
+            {update.isPending ? 'Desativando…' : 'Desativar'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

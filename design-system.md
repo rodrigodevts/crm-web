@@ -323,6 +323,31 @@ Implementação detalhada virá na Sprint que implementa o card de ticket.
 - Padding: `spacing/3` vertical, `spacing/4` horizontal
 - Radius: `radius/md`
 
+#### Inputs com ícone, prefixo ou ação inline
+
+Sempre via `<InputGroup>` de `components/ui/input-group.tsx` (shadcn). Combina ícone (`<InputGroupAddon>`) ou texto fixo (`<InputGroupText>`) com `<InputGroupInput>` ou `<InputGroupTextarea>` num único container com bordas e foco coordenados. Não compor manualmente com `relative + absolute` — fica frágil e divergente entre telas.
+
+```tsx
+<InputGroup>
+  <InputGroupAddon>
+    <SearchIcon className="size-4" />
+  </InputGroupAddon>
+  <InputGroupInput placeholder="Buscar…" />
+</InputGroup>
+```
+
+#### Campos obrigatórios vs opcionais
+
+**Padrão do projeto:** marcar a **minoria**. Nos forms do app a maioria dos campos é opcional (defaults razoáveis no backend), então marcamos os obrigatórios com asterisco vermelho via `<FieldLabel required>`. Se algum form futuro tiver maioria de campos obrigatórios, inverter localmente para marcar os opcionais com tag `(opcional)`.
+
+```tsx
+<FieldLabel htmlFor="name" required>
+  Nome
+</FieldLabel>
+```
+
+O `required` no `FieldLabel` (`components/ui/field.tsx`) renderiza um asterisco em `text-destructive` com `aria-hidden`, sem poluir o accessible-name lido por screen readers. O `<input>` em si declara obrigatoriedade via `aria-invalid`/`required` derivados do schema Zod do form.
+
 ---
 
 ## Iconografia

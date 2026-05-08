@@ -225,7 +225,9 @@ export function DepartmentDialog({ mode, department, open, onOpenChange }: Depar
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor={`${fieldId}-name`}>Nome</FieldLabel>
+              <FieldLabel htmlFor={`${fieldId}-name`} required>
+                Nome
+              </FieldLabel>
               <Input
                 id={`${fieldId}-name`}
                 autoComplete="off"

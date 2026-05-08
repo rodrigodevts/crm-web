@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import type { AxiosAdapter, AxiosRequestConfig } from 'axios';
 import { apiClient } from '@/lib/api-client';
-import { DeleteDepartmentDialog } from './delete-department-dialog';
+import { DeactivateDepartmentDialog } from './deactivate-department-dialog';
 
 const toastSuccess = vi.fn();
 const toastError = vi.fn();
@@ -26,7 +26,7 @@ const originalAdapter = apiClient.defaults.adapter;
 
 const dept = { id: '00000000-0000-7000-8000-000000000010', name: 'Suporte' };
 
-describe('DeleteDepartmentDialog', () => {
+describe('DeactivateDepartmentDialog', () => {
   beforeEach(() => {
     toastSuccess.mockReset();
     toastError.mockReset();
@@ -36,14 +36,14 @@ describe('DeleteDepartmentDialog', () => {
     apiClient.defaults.adapter = originalAdapter;
   });
 
-  it('confirma soft-delete e exibe toast de sucesso', async () => {
+  it('confirma desativação via PATCH active=false e exibe toast', async () => {
     const requests: AxiosRequestConfig[] = [];
     apiClient.defaults.adapter = vi.fn().mockImplementation((config) => {
       requests.push(config);
       return Promise.resolve({
-        data: '',
-        status: 204,
-        statusText: 'No Content',
+        data: { ...dept, active: false },
+        status: 200,
+        statusText: 'OK',
         headers: {},
         config,
       });
@@ -54,7 +54,7 @@ describe('DeleteDepartmentDialog', () => {
 
     render(
       <Wrapper>
-        <DeleteDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
+        <DeactivateDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 
@@ -63,8 +63,9 @@ describe('DeleteDepartmentDialog', () => {
     await waitFor(() => {
       expect(toastSuccess).toHaveBeenCalledWith('Departamento "Suporte" desativado.');
     });
-    expect(requests[0]?.method).toBe('delete');
+    expect(requests[0]?.method).toBe('patch');
     expect(requests[0]?.url).toContain(`/departments/${dept.id}`);
+    expect(requests[0]?.data).toEqual(JSON.stringify({ active: false }));
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
@@ -80,7 +81,7 @@ describe('DeleteDepartmentDialog', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <DeleteDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
+        <DeactivateDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 
@@ -102,7 +103,7 @@ describe('DeleteDepartmentDialog', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <DeleteDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
+        <DeactivateDepartmentDialog department={dept} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 

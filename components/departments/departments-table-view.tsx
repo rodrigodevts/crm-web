@@ -1,4 +1,4 @@
-import { PencilIcon, BanIcon } from 'lucide-react';
+import { PencilIcon, BanIcon, RotateCcwIcon } from 'lucide-react';
 import type { DepartmentListResponseDto } from '@/lib/generated/types/DepartmentListResponseDto';
 import type { ItemsDistributionModeEnumKey } from '@/lib/generated/types/DepartmentListResponseDto';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,8 @@ export interface DepartmentsTableViewProps {
   state: DepartmentsTableState;
   items: DepartmentListItem[];
   onEdit: (item: DepartmentListItem) => void;
-  onDelete: (item: DepartmentListItem) => void;
+  onDeactivate: (item: DepartmentListItem) => void;
+  onReactivate: (item: DepartmentListItem) => void;
   emptyMessage?: string;
 }
 
@@ -55,7 +56,8 @@ export function DepartmentsTableView({
   state,
   items,
   onEdit,
-  onDelete,
+  onDeactivate,
+  onReactivate,
   emptyMessage = 'Nenhum departamento cadastrado.',
 }: DepartmentsTableViewProps) {
   return (
@@ -121,13 +123,23 @@ export function DepartmentsTableView({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => onDelete(item)}
+                        onClick={() => onDeactivate(item)}
                         aria-label={`Desativar departamento ${item.name}`}
                       >
                         <BanIcon className="size-4" />
                         Desativar
                       </Button>
-                    ) : null}
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onReactivate(item)}
+                        aria-label={`Reativar departamento ${item.name}`}
+                      >
+                        <RotateCcwIcon className="size-4" />
+                        Reativar
+                      </Button>
+                    )}
                   </div>
                 </TableCell>
               </TableRow>
