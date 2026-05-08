@@ -156,6 +156,31 @@ export function CreateTicketForm() {
 
 Schemas Zod são exportados pelo Kubb a partir do OpenAPI. Mesmo schema do backend, validação consistente.
 
+### Marcação de campos obrigatórios
+
+Padrão do projeto: marcar a **minoria**. Como a maioria dos forms tem mais campos opcionais que obrigatórios, marcamos os obrigatórios com asterisco vermelho via `<FieldLabel required>` (definido em `components/ui/field.tsx`):
+
+```tsx
+<FieldLabel htmlFor="name" required>
+  Nome
+</FieldLabel>
+```
+
+O asterisco é renderizado com `aria-hidden`, então não polui o accessible-name lido por screen readers. Se algum form tiver maioria de campos obrigatórios, inverter localmente: marcar os opcionais com `(opcional)` no texto da label e omitir o `required`.
+
+### Inputs com ícone, prefixo ou ação inline
+
+Use `<InputGroup>` de `@/components/ui/input-group` (shadcn) — não compor manualmente com `relative + absolute`. Veja `design-system.md` (seção _Inputs com ícone, prefixo ou ação inline_).
+
+```tsx
+<InputGroup>
+  <InputGroupAddon>
+    <SearchIcon className="size-4" />
+  </InputGroupAddon>
+  <InputGroupInput type="search" placeholder="Buscar…" />
+</InputGroup>
+```
+
 ---
 
 ## Tema light/dark

@@ -18,37 +18,21 @@ export type UserResponseDtoRoleEnumKey = (typeof userResponseDtoRoleEnum)[keyof 
 */
 export type UserResponseDto = {
     /**
-     * @type string, uuid
+     * @type boolean
     */
-    id: string;
-    /**
-     * @type string, uuid
-    */
-    companyId: string;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string, email
-    */
-    email: string;
-    /**
-     * @type string
-    */
-    role: UserResponseDtoRoleEnumKey;
+    absenceActive: boolean;
     /**
      * @type string
     */
     absenceMessage: string | null;
     /**
-     * @type boolean
+     * @type string, uuid
     */
-    absenceActive: boolean;
+    companyId: string;
     /**
      * @type string, date-time
     */
-    lastSeenAt: string | null;
+    createdAt: string;
     /**
      * @type array
     */
@@ -63,9 +47,25 @@ export type UserResponseDto = {
         name: string;
     }[];
     /**
+     * @type string, email
+    */
+    email: string;
+    /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
      * @type string, date-time
     */
-    createdAt: string;
+    lastSeenAt: string | null;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
+     * @type string
+    */
+    role: UserResponseDtoRoleEnumKey;
     /**
      * @type string, date-time
     */

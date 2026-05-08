@@ -143,7 +143,9 @@ export function InviteUserDialog() {
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="invite-email">E-mail</FieldLabel>
+              <FieldLabel htmlFor="invite-email" required>
+                E-mail
+              </FieldLabel>
               <Input
                 id="invite-email"
                 type="email"
@@ -163,7 +165,9 @@ export function InviteUserDialog() {
               ) : null}
             </Field>
             <Field>
-              <FieldLabel htmlFor="invite-role">Perfil</FieldLabel>
+              <FieldLabel htmlFor="invite-role" required>
+                Perfil
+              </FieldLabel>
               <Controller
                 control={control}
                 name="role"

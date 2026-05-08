@@ -62,9 +62,9 @@ describe('AcceptInviteForm', () => {
     expect(screen.getByText('Acme Atendimentos')).toBeInTheDocument();
     expect(screen.getByDisplayValue('maria@example.com')).toBeDisabled();
     expect(screen.getByDisplayValue('Atendente')).toBeDisabled();
-    expect(screen.getByLabelText('Nome')).toBeInTheDocument();
-    expect(screen.getByLabelText('Senha')).toBeInTheDocument();
-    expect(screen.getByLabelText('Confirmar senha')).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Nome/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Senha/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Confirmar senha/)).toBeInTheDocument();
   });
 
   it('valida nome curto, senha curta e senhas divergentes', async () => {
@@ -75,9 +75,9 @@ describe('AcceptInviteForm', () => {
       </Wrapper>,
     );
 
-    await user.type(screen.getByLabelText('Nome'), 'M');
-    await user.type(screen.getByLabelText('Senha'), '123');
-    await user.type(screen.getByLabelText('Confirmar senha'), 'outra');
+    await user.type(screen.getByLabelText(/^Nome/), 'M');
+    await user.type(screen.getByLabelText(/^Senha/), '123');
+    await user.type(screen.getByLabelText(/^Confirmar senha/), 'outra');
     await user.click(screen.getByRole('button', { name: /aceitar convite/i }));
 
     expect(await screen.findByText(/mínimo 2 caracteres/i)).toBeInTheDocument();
@@ -103,9 +103,9 @@ describe('AcceptInviteForm', () => {
       </Wrapper>,
     );
 
-    await user.type(screen.getByLabelText('Nome'), 'Maria');
-    await user.type(screen.getByLabelText('Senha'), 'senha-segura-123');
-    await user.type(screen.getByLabelText('Confirmar senha'), 'senha-segura-123');
+    await user.type(screen.getByLabelText(/^Nome/), 'Maria');
+    await user.type(screen.getByLabelText(/^Senha/), 'senha-segura-123');
+    await user.type(screen.getByLabelText(/^Confirmar senha/), 'senha-segura-123');
     await user.click(screen.getByRole('button', { name: /aceitar convite/i }));
 
     await waitFor(() => {
@@ -123,9 +123,9 @@ describe('AcceptInviteForm', () => {
       </Wrapper>,
     );
 
-    await user.type(screen.getByLabelText('Nome'), 'Maria');
-    await user.type(screen.getByLabelText('Senha'), 'senha-segura-123');
-    await user.type(screen.getByLabelText('Confirmar senha'), 'senha-segura-123');
+    await user.type(screen.getByLabelText(/^Nome/), 'Maria');
+    await user.type(screen.getByLabelText(/^Senha/), 'senha-segura-123');
+    await user.type(screen.getByLabelText(/^Confirmar senha/), 'senha-segura-123');
     await user.click(screen.getByRole('button', { name: /aceitar convite/i }));
 
     expect(await screen.findByText(/não está mais disponível/i)).toBeInTheDocument();

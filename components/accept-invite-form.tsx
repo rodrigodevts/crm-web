@@ -101,7 +101,9 @@ export function AcceptInviteForm({ token, email, role, companyName }: Props) {
               />
             </Field>
             <Field>
-              <FieldLabel htmlFor="name">Nome</FieldLabel>
+              <FieldLabel htmlFor="name" required>
+                Nome
+              </FieldLabel>
               <Input
                 id="name"
                 type="text"
@@ -116,7 +118,9 @@ export function AcceptInviteForm({ token, email, role, companyName }: Props) {
               ) : null}
             </Field>
             <Field>
-              <FieldLabel htmlFor="password">Senha</FieldLabel>
+              <FieldLabel htmlFor="password" required>
+                Senha
+              </FieldLabel>
               <Input
                 id="password"
                 type="password"
@@ -131,7 +135,9 @@ export function AcceptInviteForm({ token, email, role, companyName }: Props) {
               ) : null}
             </Field>
             <Field>
-              <FieldLabel htmlFor="confirmPassword">Confirmar senha</FieldLabel>
+              <FieldLabel htmlFor="confirmPassword" required>
+                Confirmar senha
+              </FieldLabel>
               <Input
                 id="confirmPassword"
                 type="password"

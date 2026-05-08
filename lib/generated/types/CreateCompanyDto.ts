@@ -9,10 +9,14 @@
 */
 export type CreateCompanyDto = {
     /**
-     * @description Dados da empresa (tenant) sendo criada
+     * @description Primeiro ADMIN do tenant — criado junto com a empresa
      * @type object
     */
-    company: {
+    admin: {
+        /**
+         * @type string, email
+        */
+        email: string;
         /**
          * @minLength 2
          * @maxLength 100
@@ -20,23 +24,17 @@ export type CreateCompanyDto = {
         */
         name: string;
         /**
-         * @minLength 3
-         * @maxLength 63
-         * @pattern ^[a-z0-9](-?[a-z0-9]+)*$
+         * @minLength 8
+         * @maxLength 128
          * @type string
         */
-        slug: string;
-        /**
-         * @type string, uuid
-        */
-        planId: string;
-        /**
-         * @minLength 1
-         * @maxLength 64
-         * @default "America/Sao_Paulo"
-         * @type string | undefined
-        */
-        timezone?: string;
+        password: string;
+    };
+    /**
+     * @description Dados da empresa (tenant) sendo criada
+     * @type object
+    */
+    company: {
         /**
          * @description Horário de funcionamento por dia da semana (e feriado).
          * @type object
@@ -45,67 +43,37 @@ export type CreateCompanyDto = {
             /**
              * @type array | undefined
             */
-            monday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            tuesday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            wednesday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            thursday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
             friday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            holiday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            monday?: {
                 /**
                  * @pattern ^\d{2}:\d{2}$
                  * @type string
@@ -150,7 +118,37 @@ export type CreateCompanyDto = {
             /**
              * @type array | undefined
             */
-            holiday?: {
+            thursday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            tuesday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            wednesday?: {
                 /**
                  * @pattern ^\d{2}:\d{2}$
                  * @type string
@@ -164,31 +162,33 @@ export type CreateCompanyDto = {
             }[];
         } | null;
         /**
-         * @maxLength 2000
-         * @type string
-        */
-        outOfHoursMessage?: string | null;
-    };
-    /**
-     * @description Primeiro ADMIN do tenant — criado junto com a empresa
-     * @type object
-    */
-    admin: {
-        /**
          * @minLength 2
          * @maxLength 100
          * @type string
         */
         name: string;
         /**
-         * @type string, email
-        */
-        email: string;
-        /**
-         * @minLength 8
-         * @maxLength 128
+         * @maxLength 2000
          * @type string
         */
-        password: string;
+        outOfHoursMessage?: string | null;
+        /**
+         * @type string, uuid
+        */
+        planId: string;
+        /**
+         * @minLength 3
+         * @maxLength 63
+         * @pattern ^[a-z0-9](-?[a-z0-9]+)*$
+         * @type string
+        */
+        slug: string;
+        /**
+         * @minLength 1
+         * @maxLength 64
+         * @default "America/Sao_Paulo"
+         * @type string | undefined
+        */
+        timezone?: string;
     };
 };

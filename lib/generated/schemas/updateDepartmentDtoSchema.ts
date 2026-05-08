@@ -10,28 +10,23 @@ import { z } from "zod/v4";
  * @description Campos editáveis em departamento. Strict.
  */
 export const updateDepartmentDtoSchema = z.object({
-    "name": z.optional(z.string().min(2).max(100)),
-"active": z.optional(z.boolean()),
+    "active": z.optional(z.boolean()),
+"distributionMode": z.optional(z.enum(["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"])),
 "greetingMessage": z.string().max(2000).nullish(),
+"name": z.optional(z.string().min(2).max(100)),
 "outOfHoursMessage": z.string().max(2000).nullish(),
+"slaResolutionMinutes": z.int().min(1).max(43200).nullish(),
+"slaResponseMinutes": z.int().min(1).max(43200).nullish(),
 "workingHours": z.object({
-    "monday": z.optional(z.array(z.object({
+    "friday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"tuesday": z.optional(z.array(z.object({
+"holiday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"wednesday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"thursday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"friday": z.optional(z.array(z.object({
+"monday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
@@ -43,12 +38,17 @@ export const updateDepartmentDtoSchema = z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"holiday": z.optional(z.array(z.object({
+"thursday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"tuesday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"wednesday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     })))
-    }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish(),
-"slaResponseMinutes": z.int().min(1).max(43200).nullish(),
-"slaResolutionMinutes": z.int().min(1).max(43200).nullish(),
-"distributionMode": z.optional(z.enum(["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]))
+    }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish()
     }).describe("Campos editáveis em departamento. Strict.") as unknown as z.ZodType<UpdateDepartmentDto>

@@ -17,15 +17,28 @@ export type UpdateUserDtoRoleEnumKey = (typeof updateUserDtoRoleEnum)[keyof type
 */
 export type UpdateUserDto = {
     /**
+     * @type boolean | undefined
+    */
+    absenceActive?: boolean;
+    /**
+     * @maxLength 500
+     * @type string
+    */
+    absenceMessage?: string | null;
+    /**
+     * @type array | undefined
+    */
+    departmentIds?: string[];
+    /**
+     * @type string | undefined, email
+    */
+    email?: string;
+    /**
      * @minLength 2
      * @maxLength 100
      * @type string | undefined
     */
     name?: string;
-    /**
-     * @type string | undefined, email
-    */
-    email?: string;
     /**
      * @minLength 8
      * @maxLength 128
@@ -36,17 +49,4 @@ export type UpdateUserDto = {
      * @type string | undefined
     */
     role?: UpdateUserDtoRoleEnumKey;
-    /**
-     * @type array | undefined
-    */
-    departmentIds?: string[];
-    /**
-     * @maxLength 500
-     * @type string
-    */
-    absenceMessage?: string | null;
-    /**
-     * @type boolean | undefined
-    */
-    absenceActive?: boolean;
 };

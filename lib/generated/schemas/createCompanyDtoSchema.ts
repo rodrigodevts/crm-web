@@ -10,29 +10,22 @@ import { z } from "zod/v4";
  * @description Cria empresa + CompanySettings (defaults) + 1º ADMIN do tenant em uma transação
  */
 export const createCompanyDtoSchema = z.object({
-    "company": z.object({
-    "name": z.string().min(2).max(100),
-"slug": z.string().min(3).max(63).regex(/^[a-z0-9](-?[a-z0-9]+)*$/),
-"planId": z.uuid(),
-"timezone": z.optional(z.string().min(1).max(64).default("America/Sao_Paulo")),
-"defaultWorkingHours": z.object({
-    "monday": z.optional(z.array(z.object({
+    "admin": z.object({
+    "email": z.email(),
+"name": z.string().min(2).max(100),
+"password": z.string().min(8).max(128)
+    }).describe("Primeiro ADMIN do tenant — criado junto com a empresa"),
+"company": z.object({
+    "defaultWorkingHours": z.object({
+    "friday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"tuesday": z.optional(z.array(z.object({
+"holiday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"wednesday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"thursday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"friday": z.optional(z.array(z.object({
+"monday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
@@ -44,16 +37,23 @@ export const createCompanyDtoSchema = z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"holiday": z.optional(z.array(z.object({
+"thursday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"tuesday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"wednesday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     })))
     }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish(),
-"outOfHoursMessage": z.string().max(2000).nullish()
-    }).describe("Dados da empresa (tenant) sendo criada"),
-"admin": z.object({
-    "name": z.string().min(2).max(100),
-"email": z.email(),
-"password": z.string().min(8).max(128)
-    }).describe("Primeiro ADMIN do tenant — criado junto com a empresa")
+"name": z.string().min(2).max(100),
+"outOfHoursMessage": z.string().max(2000).nullish(),
+"planId": z.uuid(),
+"slug": z.string().min(3).max(63).regex(/^[a-z0-9](-?[a-z0-9]+)*$/),
+"timezone": z.optional(z.string().min(1).max(64).default("America/Sao_Paulo"))
+    }).describe("Dados da empresa (tenant) sendo criada")
     }).describe("Cria empresa + CompanySettings (defaults) + 1º ADMIN do tenant em uma transação") as unknown as z.ZodType<CreateCompanyDto>

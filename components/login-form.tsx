@@ -67,7 +67,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
                 <p className="text-muted-foreground text-balance">Acesse sua conta DigiChat</p>
               </div>
               <Field>
-                <FieldLabel htmlFor="email">E-mail</FieldLabel>
+                <FieldLabel htmlFor="email" required>
+                  E-mail
+                </FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -84,7 +86,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<'div'>) 
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Senha</FieldLabel>
+                  <FieldLabel htmlFor="password" required>
+                    Senha
+                  </FieldLabel>
                   <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
                     Esqueceu sua senha?
                   </a>

@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { DepartmentResponseDto } from "./DepartmentResponseDto.ts";
 import type { UpdateDepartmentDto } from "./UpdateDepartmentDto.ts";
 
 export type DepartmentsControllerUpdatePathParams = {
@@ -12,7 +13,7 @@ export type DepartmentsControllerUpdatePathParams = {
     id: string;
 };
 
-export type DepartmentsControllerUpdate200 = unknown;
+export type DepartmentsControllerUpdate200 = DepartmentResponseDto;
 
 export type DepartmentsControllerUpdateMutationRequest = UpdateDepartmentDto;
 
