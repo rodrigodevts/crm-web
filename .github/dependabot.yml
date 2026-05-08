@@ -1,21 +1,19 @@
+# Dependabot config — apenas atualizações de GitHub Actions.
+#
+# Atualizações de pacotes npm foram desabilitadas (decisão maio/2026):
+# upgrades automáticos como o Next 15 → 16 (PR #9) introduziram bugs
+# difíceis de detectar — o build local quebrou desde aquele PR e só foi
+# diagnosticado meses depois. Deps npm passam a ser atualizadas
+# manualmente, com revisão deliberada de release notes e testes manuais.
+#
+# Pra reativar npm, restaurar o bloco `package-ecosystem: npm` que estava
+# aqui (ver git log deste arquivo).
+#
+# Security alerts continuam via GitHub UI (Settings → Code security →
+# Dependabot alerts) e podem disparar PRs independentes desta config.
+
 version: 2
 updates:
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-      day: monday
-    open-pull-requests-limit: 5
-    versioning-strategy: increase-if-necessary
-    groups:
-      minor-and-patch:
-        update-types:
-          - minor
-          - patch
-    commit-message:
-      prefix: chore(deps)
-      prefix-development: chore(deps-dev)
-
   - package-ecosystem: github-actions
     directory: /
     schedule:
