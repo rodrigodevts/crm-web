@@ -10,17 +10,16 @@ import {
 import { useInvitationsControllerRevoke } from '@/lib/generated/hooks/useInvitationsControllerRevoke';
 import { useInvitationsControllerResend } from '@/lib/generated/hooks/useInvitationsControllerResend';
 import { apiClient } from '@/lib/api-client';
-import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
 import type { InvitationsControllerListQueryParamsStatusEnumKey } from '@/lib/generated/types/InvitationsControllerList';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   InvitationsTableView,
   type InvitationsTableState,
   type InvitationAction,
+  type InvitationListItem,
 } from './invitations-table-view';
 
 type InvitationStatus = InvitationsControllerListQueryParamsStatusEnumKey;
-type InvitationListItem = InvitationListResponseDto['items'][number];
 
 const STATUS_EMPTY_LABEL: Record<InvitationStatus, string> = {
   PENDING: 'pendente',

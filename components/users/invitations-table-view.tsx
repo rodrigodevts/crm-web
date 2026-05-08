@@ -38,7 +38,7 @@ const STATUS_VARIANT: Record<InvitationStatus, 'default' | 'secondary' | 'outlin
   REVOKED: 'outline',
 };
 
-const ROLE_LABEL: Record<string, string> = {
+const ROLE_LABEL: Record<InvitationListItem['role'], string> = {
   ADMIN: 'Administrador',
   SUPERVISOR: 'Supervisor',
   AGENT: 'Atendente',
@@ -99,7 +99,7 @@ export function InvitationsTableView({
             items.map((item) => (
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.email}</TableCell>
-                <TableCell>{ROLE_LABEL[item.role] ?? item.role}</TableCell>
+                <TableCell>{ROLE_LABEL[item.role]}</TableCell>
                 <TableCell>
                   <Badge variant={STATUS_VARIANT[item.status]}>{STATUS_LABEL[item.status]}</Badge>
                 </TableCell>
