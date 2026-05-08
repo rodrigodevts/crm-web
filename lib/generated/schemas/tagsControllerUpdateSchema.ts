@@ -4,6 +4,7 @@
 */
 
 import type { TagsControllerUpdate200, TagsControllerUpdateMutationRequest, TagsControllerUpdateMutationResponse, TagsControllerUpdatePathParams } from "../types/TagsControllerUpdate.ts";
+import { tagResponseDtoSchema } from "./tagResponseDtoSchema.ts";
 import { updateTagDtoSchema } from "./updateTagDtoSchema.ts";
 import { z } from "zod/v4";
 
@@ -11,7 +12,7 @@ export const tagsControllerUpdatePathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<TagsControllerUpdatePathParams>
 
-export const tagsControllerUpdate200Schema = z.any() as unknown as z.ZodType<TagsControllerUpdate200>
+export const tagsControllerUpdate200Schema = z.lazy(() => tagResponseDtoSchema) as unknown as z.ZodType<TagsControllerUpdate200>
 
 export const tagsControllerUpdateMutationRequestSchema = z.lazy(() => updateTagDtoSchema) as unknown as z.ZodType<TagsControllerUpdateMutationRequest>
 

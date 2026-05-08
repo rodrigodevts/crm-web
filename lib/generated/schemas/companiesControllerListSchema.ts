@@ -7,7 +7,7 @@ import type { CompaniesControllerList200, CompaniesControllerListQueryParams, Co
 import { z } from "zod/v4";
 
 export const companiesControllerListQueryParamsSchema = z.object({
-    "active": z.boolean().default(true),
+    "active": z.optional(z.union([z.boolean(), z.enum(["true", "false"])])),
 "search": z.optional(z.string().min(1).max(100)),
 "cursor": z.optional(z.string()),
 "limit": z.coerce.number().int().min(1).max(100).default(20)

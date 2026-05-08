@@ -4,10 +4,11 @@
 */
 
 import type { TagsControllerList200, TagsControllerListQueryParams, TagsControllerListQueryResponse } from "../types/TagsControllerList.ts";
+import { tagListResponseDtoSchema } from "./tagListResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const tagsControllerListQueryParamsSchema = z.object({
-    "active": z.optional(z.boolean()),
+    "active": z.optional(z.union([z.boolean(), z.enum(["true", "false"])])),
 "scope": z.optional(z.enum(["CONTACT", "TICKET", "BOTH"])),
 "search": z.optional(z.string().min(1).max(100)),
 "cursor": z.optional(z.string()),
@@ -15,6 +16,6 @@ export const tagsControllerListQueryParamsSchema = z.object({
 "sort": z.enum(["createdAt", "name"]).default("createdAt")
     }) as unknown as z.ZodType<TagsControllerListQueryParams>
 
-export const tagsControllerList200Schema = z.any() as unknown as z.ZodType<TagsControllerList200>
+export const tagsControllerList200Schema = z.lazy(() => tagListResponseDtoSchema) as unknown as z.ZodType<TagsControllerList200>
 
 export const tagsControllerListQueryResponseSchema = z.lazy(() => tagsControllerList200Schema) as unknown as z.ZodType<TagsControllerListQueryResponse>

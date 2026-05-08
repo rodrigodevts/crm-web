@@ -5,9 +5,10 @@
 
 import type { TagsControllerCreate201, TagsControllerCreateMutationRequest, TagsControllerCreateMutationResponse } from "../types/TagsControllerCreate.ts";
 import { createTagDtoSchema } from "./createTagDtoSchema.ts";
+import { tagResponseDtoSchema } from "./tagResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const tagsControllerCreate201Schema = z.any() as unknown as z.ZodType<TagsControllerCreate201>
+export const tagsControllerCreate201Schema = z.lazy(() => tagResponseDtoSchema) as unknown as z.ZodType<TagsControllerCreate201>
 
 export const tagsControllerCreateMutationRequestSchema = z.lazy(() => createTagDtoSchema) as unknown as z.ZodType<TagsControllerCreateMutationRequest>
 

@@ -5,6 +5,13 @@
 
 import type { DepartmentListResponseDto } from "./DepartmentListResponseDto.ts";
 
+export const departmentsControllerListQueryParamsActiveEnum = {
+    true: "true",
+    false: "false"
+} as const;
+
+export type DepartmentsControllerListQueryParamsActiveEnumKey = (typeof departmentsControllerListQueryParamsActiveEnum)[keyof typeof departmentsControllerListQueryParamsActiveEnum];
+
 export const departmentsControllerListQueryParamsSortEnum = {
     createdAt: "createdAt",
     name: "name"
@@ -13,11 +20,7 @@ export const departmentsControllerListQueryParamsSortEnum = {
 export type DepartmentsControllerListQueryParamsSortEnumKey = (typeof departmentsControllerListQueryParamsSortEnum)[keyof typeof departmentsControllerListQueryParamsSortEnum];
 
 export type DepartmentsControllerListQueryParams = {
-    /**
-     * @default true
-     * @type boolean | undefined
-    */
-    active?: boolean;
+    active?: (boolean | DepartmentsControllerListQueryParamsActiveEnumKey);
     /**
      * @minLength 1
      * @maxLength 100

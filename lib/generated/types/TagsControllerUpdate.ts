@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { TagResponseDto } from "./TagResponseDto.ts";
 import type { UpdateTagDto } from "./UpdateTagDto.ts";
 
 export type TagsControllerUpdatePathParams = {
@@ -12,7 +13,7 @@ export type TagsControllerUpdatePathParams = {
     id: string;
 };
 
-export type TagsControllerUpdate200 = unknown;
+export type TagsControllerUpdate200 = TagResponseDto;
 
 export type TagsControllerUpdateMutationRequest = UpdateTagDto;
 

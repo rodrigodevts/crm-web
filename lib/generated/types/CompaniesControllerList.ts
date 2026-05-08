@@ -4,12 +4,15 @@
 */
 
 
+export const companiesControllerListQueryParamsActiveEnum = {
+    true: "true",
+    false: "false"
+} as const;
+
+export type CompaniesControllerListQueryParamsActiveEnumKey = (typeof companiesControllerListQueryParamsActiveEnum)[keyof typeof companiesControllerListQueryParamsActiveEnum];
+
 export type CompaniesControllerListQueryParams = {
-    /**
-     * @default true
-     * @type boolean | undefined
-    */
-    active?: boolean;
+    active?: (boolean | CompaniesControllerListQueryParamsActiveEnumKey);
     /**
      * @minLength 1
      * @maxLength 100

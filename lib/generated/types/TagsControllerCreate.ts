@@ -4,8 +4,9 @@
 */
 
 import type { CreateTagDto } from "./CreateTagDto.ts";
+import type { TagResponseDto } from "./TagResponseDto.ts";
 
-export type TagsControllerCreate201 = unknown;
+export type TagsControllerCreate201 = TagResponseDto;
 
 export type TagsControllerCreateMutationRequest = CreateTagDto;
 
