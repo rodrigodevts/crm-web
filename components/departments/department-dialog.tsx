@@ -271,27 +271,27 @@ export function DepartmentDialog({ mode, department, open, onOpenChange }: Depar
               </FieldDescription>
             </Field>
 
-            <Field>
-              <div className="flex items-center gap-3">
-                <Controller
-                  control={control}
-                  name="active"
-                  render={({ field }) => (
-                    <Switch
-                      id={`${fieldId}-active`}
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  )}
-                />
-                <FieldLabel htmlFor={`${fieldId}-active`} className="font-normal">
+            <div className="flex items-center justify-between gap-3 rounded-md border px-3 py-2">
+              <div className="flex flex-col">
+                <FieldLabel htmlFor={`${fieldId}-active`} className="text-sm font-medium">
                   Ativo
                 </FieldLabel>
+                <FieldDescription>
+                  Departamentos inativos não recebem novos atendimentos.
+                </FieldDescription>
               </div>
-              <FieldDescription>
-                Departamentos inativos não recebem novos atendimentos.
-              </FieldDescription>
-            </Field>
+              <Controller
+                control={control}
+                name="active"
+                render={({ field }) => (
+                  <Switch
+                    id={`${fieldId}-active`}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                )}
+              />
+            </div>
 
             <Field>
               <FieldLabel htmlFor={`${fieldId}-greeting`}>Mensagem de saudação</FieldLabel>
