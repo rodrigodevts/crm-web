@@ -1,3 +1,5 @@
+'use client';
+
 import type { UserListResponseDto } from '@/lib/generated/types/UserListResponseDto';
 import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
 import { LoginForm } from '@/components/login-form';
