@@ -10,7 +10,6 @@ import { CopyIcon } from 'lucide-react';
 import { useInvitationsControllerCreate } from '@/lib/generated/hooks/useInvitationsControllerCreate';
 import { invitationsControllerListQueryKey } from '@/lib/generated/hooks/useInvitationsControllerList';
 import { apiClient } from '@/lib/api-client';
-import { parseInvitationCreated } from '@/lib/api/invitations';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -90,8 +89,7 @@ export function InviteUserDialog() {
     setSubmitError(null);
     setEmailError(null);
     try {
-      const raw = await create.mutateAsync({ data: values });
-      const created = parseInvitationCreated(raw);
+      const created = await create.mutateAsync({ data: values });
 
       toast.success(`Convite criado para ${created.email}`, {
         description: 'Compartilhe o link manualmente até o disparo automático ser implementado.',

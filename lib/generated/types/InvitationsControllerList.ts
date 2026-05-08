@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { InvitationListResponseDto } from "./InvitationListResponseDto.ts";
 
 export const invitationsControllerListQueryParamsStatusEnum = {
     PENDING: "PENDING",
@@ -31,7 +32,7 @@ export type InvitationsControllerListQueryParams = {
     limit?: number;
 };
 
-export type InvitationsControllerList200 = unknown;
+export type InvitationsControllerList200 = InvitationListResponseDto;
 
 export type InvitationsControllerListQueryResponse = InvitationsControllerList200;
 

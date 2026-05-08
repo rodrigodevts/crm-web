@@ -4,8 +4,9 @@
 */
 
 import type { CreateInvitationDto } from "./CreateInvitationDto.ts";
+import type { InvitationCreatedDto } from "./InvitationCreatedDto.ts";
 
-export type InvitationsControllerCreate201 = unknown;
+export type InvitationsControllerCreate201 = InvitationCreatedDto;
 
 export type InvitationsControllerCreateMutationRequest = CreateInvitationDto;
 
