@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         resolvedTheme === 'dark' ? 'dark' : ''
       }`}
     >
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased" suppressHydrationWarning>
         <Providers initialTheme={theme}>{children}</Providers>
       </body>
     </html>
