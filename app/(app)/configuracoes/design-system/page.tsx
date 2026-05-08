@@ -5,6 +5,12 @@ import { DriftBanner } from './_sections/drift-banner';
 import { TokensColors } from './_sections/tokens-colors';
 import { TokensTypography } from './_sections/tokens-typography';
 import { TokensSpacing } from './_sections/tokens-spacing';
+import { PrimitivesButtons } from './_sections/primitives-buttons';
+import { PrimitivesForms } from './_sections/primitives-forms';
+import { PrimitivesFeedback } from './_sections/primitives-feedback';
+import { PrimitivesOverlays } from './_sections/primitives-overlays';
+import { PrimitivesData } from './_sections/primitives-data';
+import { PrimitivesCharts } from './_sections/primitives-charts';
 
 export const metadata: Metadata = { title: 'Design System — DigiChat' };
 
@@ -29,6 +35,15 @@ export default function Page() {
             <TokensColors />
             <TokensTypography />
             <TokensSpacing />
+          </Section>
+
+          <Section id="primitivos" title="Primitivos">
+            <PrimitivesButtons />
+            <PrimitivesForms />
+            <PrimitivesFeedback />
+            <PrimitivesOverlays />
+            <PrimitivesData />
+            <PrimitivesCharts />
           </Section>
         </main>
       </div>
