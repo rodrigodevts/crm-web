@@ -6,8 +6,14 @@ import { useDepartmentsControllerList } from '@/lib/generated/hooks/useDepartmen
 import { useDepartmentsControllerFindById } from '@/lib/generated/hooks/useDepartmentsControllerFindById';
 import { apiClient } from '@/lib/api-client';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   DepartmentsTableView,
   type DepartmentListItem,
@@ -18,11 +24,18 @@ import { DeleteDepartmentDialog } from './delete-department-dialog';
 
 const PAGE_LIMIT = 50;
 
+type StatusFilter = 'active' | 'inactive';
+
+const STATUS_OPTIONS: ReadonlyArray<{ value: StatusFilter; label: string }> = [
+  { value: 'active', label: 'Ativos' },
+  { value: 'inactive', label: 'Inativos' },
+];
+
 export function DepartmentsTable() {
   const filterId = useId();
   const [search, setSearch] = useState('');
   const deferredSearch = useDeferredValue(search);
-  const [showInactive, setShowInactive] = useState(false);
+  const [status, setStatus] = useState<StatusFilter>('active');
 
   const [editTarget, setEditTarget] = useState<DepartmentListItem | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<DepartmentListItem | null>(null);
@@ -31,9 +44,9 @@ export function DepartmentsTable() {
     () => ({
       limit: PAGE_LIMIT,
       ...(deferredSearch.trim().length > 0 ? { search: deferredSearch.trim() } : {}),
-      active: !showInactive,
+      active: status === 'active',
     }),
-    [deferredSearch, showInactive],
+    [deferredSearch, status],
   );
 
   const query = useDepartmentsControllerList(params, { client: { client: apiClient } });
@@ -72,17 +85,23 @@ export function DepartmentsTable() {
             className="pl-8"
           />
         </div>
-        <Label
-          htmlFor={`${filterId}-inactive`}
-          className="hover:bg-accent inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors"
-        >
-          <Switch
-            id={`${filterId}-inactive`}
-            checked={showInactive}
-            onCheckedChange={setShowInactive}
-          />
-          <span>Mostrar inativos</span>
-        </Label>
+        <div className="flex items-center gap-2">
+          <Label htmlFor={`${filterId}-status`} className="text-muted-foreground text-sm">
+            Status
+          </Label>
+          <Select value={status} onValueChange={(v) => setStatus(v as StatusFilter)}>
+            <SelectTrigger id={`${filterId}-status`} className="w-36">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {STATUS_OPTIONS.map((opt) => (
+                <SelectItem key={opt.value} value={opt.value}>
+                  {opt.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <DepartmentsTableView
