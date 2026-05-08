@@ -11,12 +11,8 @@ import {
 import { useInvitationsControllerRevoke } from '@/lib/generated/hooks/useInvitationsControllerRevoke';
 import { useInvitationsControllerResend } from '@/lib/generated/hooks/useInvitationsControllerResend';
 import { apiClient } from '@/lib/api-client';
-import {
-  parseInvitationCreated,
-  parseInvitationList,
-  type InvitationStatus,
-  type InvitationResponse,
-} from '@/lib/api/invitations';
+import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
+import type { InvitationsControllerListQueryParamsStatusEnumKey } from '@/lib/generated/types/InvitationsControllerList';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -29,6 +25,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+type InvitationStatus = InvitationsControllerListQueryParamsStatusEnumKey;
+type InvitationListItem = InvitationListResponseDto['items'][number];
 
 const STATUS_LABEL: Record<InvitationStatus, string> = {
   PENDING: 'Pendente',
@@ -82,7 +81,7 @@ export function InvitationsTable() {
   const revoke = useInvitationsControllerRevoke({ client: { client: apiClient } });
   const resend = useInvitationsControllerResend({ client: { client: apiClient } });
 
-  const items: InvitationResponse[] = query.data ? parseInvitationList(query.data).items : [];
+  const items: InvitationListItem[] = query.data?.items ?? [];
 
   const invalidateAll = () =>
     queryClient.invalidateQueries({
@@ -90,12 +89,11 @@ export function InvitationsTable() {
       exact: false,
     });
 
-  const onCopyById = async (item: InvitationResponse) => {
+  const onCopyById = async (item: InvitationListItem) => {
     // Não temos inviteUrl no GET (apenas no Create/Resend response). Resolução simples:
     // chama resend, copia a URL retornada, atualiza a lista.
     try {
-      const raw = await resend.mutateAsync({ id: item.id });
-      const refreshed = parseInvitationCreated(raw);
+      const refreshed = await resend.mutateAsync({ id: item.id });
       const ok = await copyToClipboard(refreshed.inviteUrl);
       if (ok) toast.info('Link copiado para a área de transferência');
       else toast.error('Não foi possível copiar o link');
@@ -105,10 +103,9 @@ export function InvitationsTable() {
     }
   };
 
-  const onResend = async (item: InvitationResponse) => {
+  const onResend = async (item: InvitationListItem) => {
     try {
-      const raw = await resend.mutateAsync({ id: item.id });
-      const refreshed = parseInvitationCreated(raw);
+      const refreshed = await resend.mutateAsync({ id: item.id });
       toast.success(`Novo link gerado para ${refreshed.email}`, {
         action: {
           label: 'Copiar link',
@@ -126,7 +123,7 @@ export function InvitationsTable() {
     }
   };
 
-  const onRevoke = async (item: InvitationResponse) => {
+  const onRevoke = async (item: InvitationListItem) => {
     if (!window.confirm(`Revogar o convite de ${item.email}?`)) return;
     try {
       await revoke.mutateAsync({ id: item.id });

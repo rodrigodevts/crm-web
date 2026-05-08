@@ -4,12 +4,13 @@
 */
 
 import type { InvitationsControllerResend200, InvitationsControllerResendMutationResponse, InvitationsControllerResendPathParams } from "../types/InvitationsControllerResend.ts";
+import { invitationCreatedDtoSchema } from "./invitationCreatedDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const invitationsControllerResendPathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<InvitationsControllerResendPathParams>
 
-export const invitationsControllerResend200Schema = z.any() as unknown as z.ZodType<InvitationsControllerResend200>
+export const invitationsControllerResend200Schema = z.lazy(() => invitationCreatedDtoSchema).describe("Convite recém-criado ou reenviado, com URL de aceite") as unknown as z.ZodType<InvitationsControllerResend200>
 
 export const invitationsControllerResendMutationResponseSchema = z.lazy(() => invitationsControllerResend200Schema) as unknown as z.ZodType<InvitationsControllerResendMutationResponse>

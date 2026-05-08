@@ -4,12 +4,13 @@
 */
 
 import type { InvitationsPublicControllerGetByToken200, InvitationsPublicControllerGetByTokenPathParams, InvitationsPublicControllerGetByTokenQueryResponse } from "../types/InvitationsPublicControllerGetByToken.ts";
+import { publicInvitationDtoSchema } from "./publicInvitationDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const invitationsPublicControllerGetByTokenPathParamsSchema = z.object({
     "token": z.string()
     }) as unknown as z.ZodType<InvitationsPublicControllerGetByTokenPathParams>
 
-export const invitationsPublicControllerGetByToken200Schema = z.any() as unknown as z.ZodType<InvitationsPublicControllerGetByToken200>
+export const invitationsPublicControllerGetByToken200Schema = z.lazy(() => publicInvitationDtoSchema).describe("Dados públicos para a tela de aceite (sem id, sem token, sem companyId)") as unknown as z.ZodType<InvitationsPublicControllerGetByToken200>
 
 export const invitationsPublicControllerGetByTokenQueryResponseSchema = z.lazy(() => invitationsPublicControllerGetByToken200Schema) as unknown as z.ZodType<InvitationsPublicControllerGetByTokenQueryResponse>

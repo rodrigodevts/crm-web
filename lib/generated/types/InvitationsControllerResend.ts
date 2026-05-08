@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { InvitationCreatedDto } from "./InvitationCreatedDto.ts";
 
 export type InvitationsControllerResendPathParams = {
     /**
@@ -11,7 +12,7 @@ export type InvitationsControllerResendPathParams = {
     id: string;
 };
 
-export type InvitationsControllerResend200 = unknown;
+export type InvitationsControllerResend200 = InvitationCreatedDto;
 
 export type InvitationsControllerResendMutationResponse = InvitationsControllerResend200;
 
