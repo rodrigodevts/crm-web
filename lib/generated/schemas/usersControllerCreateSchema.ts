@@ -5,9 +5,10 @@
 
 import type { UsersControllerCreate201, UsersControllerCreateMutationRequest, UsersControllerCreateMutationResponse } from "../types/UsersControllerCreate.ts";
 import { createUserDtoSchema } from "./createUserDtoSchema.ts";
+import { userResponseDtoSchema } from "./userResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const usersControllerCreate201Schema = z.any() as unknown as z.ZodType<UsersControllerCreate201>
+export const usersControllerCreate201Schema = z.lazy(() => userResponseDtoSchema).describe("Usuário do tenant com departamentos populados") as unknown as z.ZodType<UsersControllerCreate201>
 
 export const usersControllerCreateMutationRequestSchema = z.lazy(() => createUserDtoSchema).describe("Dados para criar usuário no tenant atual") as unknown as z.ZodType<UsersControllerCreateMutationRequest>
 

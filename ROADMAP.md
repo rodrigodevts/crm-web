@@ -133,9 +133,9 @@
 
 - [x] Sistema de convite de usuários (Sprint 0.16 Fase B — substitui o gap descartado de "Página de register" do PR #15/#16; admin convida via /configuracoes/usuarios, convidado aceita em /aceitar-convite/[token])
 - [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
-- [ ] RBAC efetivo (atualmente o gate é só "tem `access_token`"; falta diferenciar `ADMIN` × `AGENT` × `SUPER_ADMIN` em rota e UI)
+- [ ] RBAC efetivo — baseline pronto (PR #19: sidebar oculta + redirect 403 nas rotas `/configuracoes/*` + toast 403 no interceptor); falta sprint dedicada com `<RequireRole>`, mapa de rotas com permissões e ações condicionais granulares
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
-- [ ] Telas reais de Configurações (Departamentos, Tags, Usuários, Quick Replies, Canais, Integrações, Preferências)
+- [ ] Telas reais de Configurações (Departamentos, Tags, Usuários (lista + convites entregues; CRUD edit/delete pendente), Quick Replies, Canais, Integrações, Preferências)
 - [ ] E2E real (Playwright contra `crm-api` rodando em ambiente de teste)
 - [ ] Tema final consolidado (decidir entre paleta Dreams Chat aplicada na PR #12 e a base radix-nova com azul DigiChat usada na Sprint 0.14)
 

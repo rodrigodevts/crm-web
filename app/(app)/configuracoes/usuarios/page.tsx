@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { InviteUserDialog } from '@/components/users/invite-user-dialog';
 import { InvitationsTable } from '@/components/users/invitations-table';
+import { UsersTable } from '@/components/users/users-table';
 
 export const metadata: Metadata = { title: 'Usuários — DigiChat' };
 
@@ -18,15 +19,14 @@ export default function Page() {
       </header>
 
       <section className="flex flex-col gap-3">
+        <h2 className="text-text-primary text-lg font-medium">Usuários ativos</h2>
+        <UsersTable />
+      </section>
+
+      <section className="flex flex-col gap-3">
         <h2 className="text-text-primary text-lg font-medium">Convites</h2>
         <InvitationsTable />
       </section>
-
-      {/*
-        TODO (gap §4.8): listagem de usuários ativos (UsersTable) ainda não implementada
-        nesta sprint. O hook gerado já existe em lib/generated/hooks/useUsersControllerList.ts;
-        sprint dedicada cobre essa parte separadamente.
-      */}
     </div>
   );
 }

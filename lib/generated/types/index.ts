@@ -32,7 +32,7 @@ export type { DepartmentsControllerUpdate200, DepartmentsControllerUpdateMutatio
 export type { HealthControllerCheck200, HealthControllerCheckQuery, HealthControllerCheckQueryResponse } from "./HealthControllerCheck.ts";
 export type { HealthResponseDto, HealthResponseDtoStatusEnumKey } from "./HealthResponseDto.ts";
 export type { InvitationCreatedDto, InvitationCreatedDtoRoleEnumKey, InvitationCreatedDtoStatusEnumKey } from "./InvitationCreatedDto.ts";
-export type { InvitationListResponseDto, ItemsRoleEnumKey, ItemsStatusEnumKey } from "./InvitationListResponseDto.ts";
+export type { InvitationListResponseDto, ItemsRoleEnum2Key, ItemsStatusEnumKey } from "./InvitationListResponseDto.ts";
 export type { InvitationsControllerCreate201, InvitationsControllerCreateMutation, InvitationsControllerCreateMutationRequest, InvitationsControllerCreateMutationResponse } from "./InvitationsControllerCreate.ts";
 export type { InvitationsControllerList200, InvitationsControllerListQuery, InvitationsControllerListQueryParams, InvitationsControllerListQueryParamsStatusEnumKey, InvitationsControllerListQueryResponse } from "./InvitationsControllerList.ts";
 export type { InvitationsControllerResend200, InvitationsControllerResendMutation, InvitationsControllerResendMutationResponse, InvitationsControllerResendPathParams } from "./InvitationsControllerResend.ts";
@@ -59,6 +59,7 @@ export type { UpdateDepartmentDto, UpdateDepartmentDtoDistributionModeEnumKey } 
 export type { UpdateMeDto } from "./UpdateMeDto.ts";
 export type { UpdateTagDto, UpdateTagDtoScopeEnumKey } from "./UpdateTagDto.ts";
 export type { UpdateUserDto, UpdateUserDtoRoleEnumKey } from "./UpdateUserDto.ts";
+export type { ItemsRoleEnumKey, UserListResponseDto } from "./UserListResponseDto.ts";
 export type { UserResponseDto, UserResponseDtoRoleEnumKey } from "./UserResponseDto.ts";
 export type { UsersControllerCreate201, UsersControllerCreateMutation, UsersControllerCreateMutationRequest, UsersControllerCreateMutationResponse } from "./UsersControllerCreate.ts";
 export type { UsersControllerDelete204, UsersControllerDeleteMutation, UsersControllerDeleteMutationResponse, UsersControllerDeletePathParams } from "./UsersControllerDelete.ts";
@@ -77,7 +78,7 @@ export { departmentsControllerListQueryParamsSortEnum } from "./DepartmentsContr
 export { healthResponseDtoStatusEnum } from "./HealthResponseDto.ts";
 export { invitationCreatedDtoRoleEnum } from "./InvitationCreatedDto.ts";
 export { invitationCreatedDtoStatusEnum } from "./InvitationCreatedDto.ts";
-export { itemsRoleEnum } from "./InvitationListResponseDto.ts";
+export { itemsRoleEnum2 } from "./InvitationListResponseDto.ts";
 export { itemsStatusEnum } from "./InvitationListResponseDto.ts";
 export { invitationsControllerListQueryParamsStatusEnum } from "./InvitationsControllerList.ts";
 export { publicInvitationDtoRoleEnum } from "./PublicInvitationDto.ts";
@@ -86,5 +87,6 @@ export { tagsControllerListQueryParamsSortEnum } from "./TagsControllerList.ts";
 export { updateDepartmentDtoDistributionModeEnum } from "./UpdateDepartmentDto.ts";
 export { updateTagDtoScopeEnum } from "./UpdateTagDto.ts";
 export { updateUserDtoRoleEnum } from "./UpdateUserDto.ts";
+export { itemsRoleEnum } from "./UserListResponseDto.ts";
 export { userResponseDtoRoleEnum } from "./UserResponseDto.ts";
 export { usersControllerListQueryParamsRoleEnum } from "./UsersControllerList.ts";

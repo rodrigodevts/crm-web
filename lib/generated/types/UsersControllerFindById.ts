@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { UserResponseDto } from "./UserResponseDto.ts";
 
 export type UsersControllerFindByIdPathParams = {
     /**
@@ -11,7 +12,7 @@ export type UsersControllerFindByIdPathParams = {
     id: string;
 };
 
-export type UsersControllerFindById200 = unknown;
+export type UsersControllerFindById200 = UserResponseDto;
 
 export type UsersControllerFindByIdQueryResponse = UsersControllerFindById200;
 

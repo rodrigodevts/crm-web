@@ -4,8 +4,9 @@
 */
 
 import type { CreateUserDto } from "./CreateUserDto.ts";
+import type { UserResponseDto } from "./UserResponseDto.ts";
 
-export type UsersControllerCreate201 = unknown;
+export type UsersControllerCreate201 = UserResponseDto;
 
 export type UsersControllerCreateMutationRequest = CreateUserDto;
 

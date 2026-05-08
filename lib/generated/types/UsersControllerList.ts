@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { UserListResponseDto } from "./UserListResponseDto.ts";
 
 export const usersControllerListQueryParamsRoleEnum = {
     ADMIN: "ADMIN",
@@ -46,7 +47,7 @@ export type UsersControllerListQueryParams = {
     limit?: number;
 };
 
-export type UsersControllerList200 = unknown;
+export type UsersControllerList200 = UserListResponseDto;
 
 export type UsersControllerListQueryResponse = UsersControllerList200;
 
