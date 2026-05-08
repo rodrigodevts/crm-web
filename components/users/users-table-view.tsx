@@ -10,11 +10,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-type UserListItem = UserListResponseDto['items'][number];
+export type UserListItem = UserListResponseDto['items'][number];
 
 export type UsersTableState = 'loading' | 'error' | 'ready';
 
-interface Props {
+export interface UsersTableViewProps {
   state: UsersTableState;
   items: UserListItem[];
 }
@@ -43,7 +43,7 @@ function formatDepartments(departments: UserListItem['departments']): string {
   return departments.map((d) => d.name).join(', ');
 }
 
-export function UsersTableView({ state, items }: Props) {
+export function UsersTableView({ state, items }: UsersTableViewProps) {
   return (
     <div className="rounded-md border">
       <Table>
