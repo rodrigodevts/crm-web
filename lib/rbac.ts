@@ -3,14 +3,37 @@ import type { UserResponseDtoRoleEnumKey } from '@/lib/generated/types/UserRespo
 export type Role = UserResponseDtoRoleEnumKey;
 
 /**
- * Áreas administrativas (Configurações, gestão de usuários, etc.) ficam restritas
- * a ADMIN e SUPER_ADMIN. Espelha as restrições `@Roles('ADMIN')` no backend
- * (ex.: crm-api/src/modules/invitations/controllers/invitations.controller.ts).
+ * Mapa estático de prefixos de rota acessíveis por role. Default deny:
+ * rota fora do mapa retorna false. Match é por prefixo — `/configuracoes`
+ * cobre `/configuracoes/usuarios`, etc.
+ */
+const ROUTE_ACCESS: Record<Role, ReadonlyArray<string>> = {
+  AGENT: ['/atendimentos', '/contatos', '/campanhas'],
+  SUPERVISOR: ['/atendimentos', '/contatos', '/campanhas', '/bot-fluxo', '/dashboard'],
+  ADMIN: ['/atendimentos', '/contatos', '/campanhas', '/bot-fluxo', '/dashboard', '/configuracoes'],
+  SUPER_ADMIN: [
+    '/atendimentos',
+    '/contatos',
+    '/campanhas',
+    '/bot-fluxo',
+    '/dashboard',
+    '/configuracoes',
+  ],
+};
+
+export function canAccessRoute(role: Role, route: string): boolean {
+  const allowed = ROUTE_ACCESS[role];
+  return allowed.some((prefix) => route === prefix || route.startsWith(`${prefix}/`));
+}
+
+/**
+ * Áreas administrativas (Configurações, gestão de usuários, etc.) ficam
+ * restritas a ADMIN e SUPER_ADMIN. Espelha as restrições `@Roles('ADMIN')`
+ * no backend (ex.: crm-api/src/modules/invitations/controllers/invitations.controller.ts).
  *
- * RBAC efetivo (gate por rota servidor + helpers granulares + sidebar dinâmica
- * de configurações) está mapeado no ROADMAP §4.8 como sprint dedicada — este
- * helper é a base mínima pra esconder o que o backend nega.
+ * RBAC efetivo (helpers granulares + diferenciação SUPERVISOR vs ADMIN nas
+ * features) está mapeado no ROADMAP §4.8 como sprint dedicada.
  */
 export function canAccessAdminAreas(role: Role): boolean {
-  return role === 'ADMIN' || role === 'SUPER_ADMIN';
+  return canAccessRoute(role, '/configuracoes');
 }
