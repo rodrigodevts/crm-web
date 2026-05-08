@@ -550,6 +550,44 @@
         "required": ["email", "role"],
         "type": "object"
       },
+      "CreateQuickReplyDto": {
+        "additionalProperties": false,
+        "properties": {
+          "active": {
+            "default": true,
+            "type": "boolean"
+          },
+          "mediaMimeType": {
+            "pattern": "^[a-z]+\\/[a-z0-9.\\-+]+$",
+            "type": "string"
+          },
+          "mediaUrl": {
+            "format": "uri",
+            "type": "string"
+          },
+          "message": {
+            "description": "Conteúdo da mensagem; pode conter placeholders {{nome}}, {{protocolo}} etc.",
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "scope": {
+            "default": "PERSONAL",
+            "description": "COMPANY = visível ao tenant inteiro; PERSONAL = só ao usuário criador",
+            "enum": ["COMPANY", "PERSONAL"],
+            "type": "string"
+          },
+          "shortcut": {
+            "description": "Atalho do composer; sem prefixo \"/\"",
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "type": "string"
+          }
+        },
+        "required": ["shortcut", "message"],
+        "type": "object"
+      },
       "CreateTagDto": {
         "additionalProperties": false,
         "properties": {
@@ -1569,6 +1607,158 @@
         "required": ["email", "role", "companyName"],
         "type": "object"
       },
+      "QuickReplyListResponseDto": {
+        "properties": {
+          "items": {
+            "items": {
+              "properties": {
+                "active": {
+                  "type": "boolean"
+                },
+                "companyId": {
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                  "type": "string"
+                },
+                "createdAt": {
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                  "type": "string"
+                },
+                "id": {
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                  "type": "string"
+                },
+                "mediaMimeType": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "mediaUrl": {
+                  "nullable": true,
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "ownerUserId": {
+                  "format": "uuid",
+                  "nullable": true,
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                  "type": "string"
+                },
+                "scope": {
+                  "enum": ["COMPANY", "PERSONAL"],
+                  "type": "string"
+                },
+                "shortcut": {
+                  "type": "string"
+                },
+                "updatedAt": {
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "companyId",
+                "shortcut",
+                "message",
+                "mediaUrl",
+                "mediaMimeType",
+                "scope",
+                "ownerUserId",
+                "active",
+                "createdAt",
+                "updatedAt"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "pagination": {
+            "properties": {
+              "hasMore": {
+                "type": "boolean"
+              },
+              "nextCursor": {
+                "nullable": true,
+                "type": "string"
+              }
+            },
+            "required": ["nextCursor", "hasMore"],
+            "type": "object"
+          }
+        },
+        "required": ["items", "pagination"],
+        "type": "object"
+      },
+      "QuickReplyResponseDto": {
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "companyId": {
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+            "type": "string"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+            "type": "string"
+          },
+          "mediaMimeType": {
+            "nullable": true,
+            "type": "string"
+          },
+          "mediaUrl": {
+            "nullable": true,
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "ownerUserId": {
+            "format": "uuid",
+            "nullable": true,
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+            "type": "string"
+          },
+          "scope": {
+            "enum": ["COMPANY", "PERSONAL"],
+            "type": "string"
+          },
+          "shortcut": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "companyId",
+          "shortcut",
+          "message",
+          "mediaUrl",
+          "mediaMimeType",
+          "scope",
+          "ownerUserId",
+          "active",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
       "RefreshDto": {
         "description": "Refresh token para renovar par de tokens — preferir cookie httpOnly",
         "properties": {
@@ -2400,6 +2590,36 @@
           "password": {
             "maxLength": 128,
             "minLength": 8,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "UpdateQuickReplyDto": {
+        "additionalProperties": false,
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "mediaMimeType": {
+            "nullable": true,
+            "pattern": "^[a-z]+\\/[a-z0-9.\\-+]+$",
+            "type": "string"
+          },
+          "mediaUrl": {
+            "format": "uri",
+            "nullable": true,
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "type": "string"
+          },
+          "shortcut": {
+            "maxLength": 50,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9_-]+$",
             "type": "string"
           }
         },
@@ -3630,6 +3850,217 @@
           }
         },
         "tags": ["me"]
+      }
+    },
+    "/api/v1/quick-replies": {
+      "get": {
+        "operationId": "QuickRepliesController_list",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "enum": ["true", "false"],
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "scope",
+            "required": false,
+            "schema": {
+              "enum": ["COMPANY", "PERSONAL"],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Quando true, retorna apenas PERSONAL próprias",
+            "in": "query",
+            "name": "mine",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "enum": ["true", "false"],
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "createdAt",
+              "enum": ["createdAt", "shortcut"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuickReplyListResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": ["quick-replies"]
+      },
+      "post": {
+        "operationId": "QuickRepliesController_create",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuickReplyDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuickReplyResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": ["quick-replies"]
+      }
+    },
+    "/api/v1/quick-replies/{id}": {
+      "delete": {
+        "operationId": "QuickRepliesController_delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Soft-delete: marca active=false"
+          }
+        },
+        "tags": ["quick-replies"]
+      },
+      "get": {
+        "operationId": "QuickRepliesController_findById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuickReplyResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": ["quick-replies"]
+      },
+      "patch": {
+        "operationId": "QuickRepliesController_update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateQuickReplyDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuickReplyResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": ["quick-replies"]
       }
     },
     "/api/v1/tags": {

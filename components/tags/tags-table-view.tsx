@@ -1,8 +1,5 @@
 import { PencilIcon, BanIcon, RotateCcwIcon } from 'lucide-react';
-import type {
-  ItemsScopeEnumKey,
-  TagListResponseDto,
-} from '@/lib/generated/types/TagListResponseDto';
+import type { TagListResponseDto } from '@/lib/generated/types/TagListResponseDto';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -28,7 +25,9 @@ export interface TagsTableViewProps {
   emptyMessage?: string;
 }
 
-const SCOPE_LABEL: Record<ItemsScopeEnumKey, string> = {
+type TagScope = TagListItem['scope'];
+
+const SCOPE_LABEL: Record<TagScope, string> = {
   CONTACT: 'Contato',
   TICKET: 'Ticket',
   BOTH: 'Ambos',

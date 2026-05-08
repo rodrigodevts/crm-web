@@ -31,6 +31,11 @@ export { invitationsPublicControllerAccept } from "./invitationsPublicController
 export { invitationsPublicControllerGetByToken } from "./invitationsPublicControllerGetByToken.ts";
 export { meControllerFindMine } from "./meControllerFindMine.ts";
 export { meControllerUpdateMe } from "./meControllerUpdateMe.ts";
+export { quickRepliesControllerCreate } from "./quickRepliesControllerCreate.ts";
+export { quickRepliesControllerDelete } from "./quickRepliesControllerDelete.ts";
+export { quickRepliesControllerFindById } from "./quickRepliesControllerFindById.ts";
+export { quickRepliesControllerList } from "./quickRepliesControllerList.ts";
+export { quickRepliesControllerUpdate } from "./quickRepliesControllerUpdate.ts";
 export { tagsControllerCreate } from "./tagsControllerCreate.ts";
 export { tagsControllerDelete } from "./tagsControllerDelete.ts";
 export { tagsControllerFindById } from "./tagsControllerFindById.ts";
