@@ -11,8 +11,8 @@ export const tagsControllerDeletePathParamsSchema = z.object({
     }) as unknown as z.ZodType<TagsControllerDeletePathParams>
 
 export const tagsControllerDeleteQueryParamsSchema = z.object({
-    "hard": z.boolean().default(false)
-    }) as unknown as z.ZodType<TagsControllerDeleteQueryParams>
+    "hard": z.optional(z.union([z.boolean(), z.enum(["true", "false"])]))
+    }).optional() as unknown as z.ZodType<TagsControllerDeleteQueryParams>
 
 export const tagsControllerDelete204Schema = z.any() as unknown as z.ZodType<TagsControllerDelete204>
 

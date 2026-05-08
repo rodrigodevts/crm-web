@@ -11,12 +11,15 @@ export type TagsControllerDeletePathParams = {
     id: string;
 };
 
+export const tagsControllerDeleteQueryParamsHardEnum = {
+    true: "true",
+    false: "false"
+} as const;
+
+export type TagsControllerDeleteQueryParamsHardEnumKey = (typeof tagsControllerDeleteQueryParamsHardEnum)[keyof typeof tagsControllerDeleteQueryParamsHardEnum];
+
 export type TagsControllerDeleteQueryParams = {
-    /**
-     * @default false
-     * @type boolean | undefined
-    */
-    hard?: boolean;
+    hard?: (boolean | TagsControllerDeleteQueryParamsHardEnumKey);
 };
 
 export type TagsControllerDelete204 = unknown;

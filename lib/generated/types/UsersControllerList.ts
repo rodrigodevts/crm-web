@@ -14,16 +14,19 @@ export const usersControllerListQueryParamsRoleEnum = {
 
 export type UsersControllerListQueryParamsRoleEnumKey = (typeof usersControllerListQueryParamsRoleEnum)[keyof typeof usersControllerListQueryParamsRoleEnum];
 
+export const usersControllerListQueryParamsActiveEnum = {
+    true: "true",
+    false: "false"
+} as const;
+
+export type UsersControllerListQueryParamsActiveEnumKey = (typeof usersControllerListQueryParamsActiveEnum)[keyof typeof usersControllerListQueryParamsActiveEnum];
+
 export type UsersControllerListQueryParams = {
     /**
      * @type string | undefined
     */
     role?: UsersControllerListQueryParamsRoleEnumKey;
-    /**
-     * @default true
-     * @type boolean | undefined
-    */
-    active?: boolean;
+    active?: (boolean | UsersControllerListQueryParamsActiveEnumKey);
     /**
      * @type string | undefined, uuid
     */

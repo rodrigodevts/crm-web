@@ -8,7 +8,7 @@ import { departmentListResponseDtoSchema } from "./departmentListResponseDtoSche
 import { z } from "zod/v4";
 
 export const departmentsControllerListQueryParamsSchema = z.object({
-    "active": z.boolean().default(true),
+    "active": z.optional(z.union([z.boolean(), z.enum(["true", "false"])])),
 "search": z.optional(z.string().min(1).max(100)),
 "sort": z.enum(["createdAt", "name"]).default("createdAt"),
 "cursor": z.optional(z.string()),

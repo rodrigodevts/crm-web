@@ -49,6 +49,8 @@ export { meControllerUpdateMe200Schema, meControllerUpdateMeMutationRequestSchem
 export { publicInvitationDtoSchema } from "./publicInvitationDtoSchema.ts";
 export { refreshDtoSchema } from "./refreshDtoSchema.ts";
 export { reorderCloseReasonsDtoSchema } from "./reorderCloseReasonsDtoSchema.ts";
+export { tagListResponseDtoSchema } from "./tagListResponseDtoSchema.ts";
+export { tagResponseDtoSchema } from "./tagResponseDtoSchema.ts";
 export { tagsControllerCreate201Schema, tagsControllerCreateMutationRequestSchema, tagsControllerCreateMutationResponseSchema } from "./tagsControllerCreateSchema.ts";
 export { tagsControllerDelete204Schema, tagsControllerDeleteMutationResponseSchema, tagsControllerDeletePathParamsSchema, tagsControllerDeleteQueryParamsSchema } from "./tagsControllerDeleteSchema.ts";
 export { tagsControllerFindById200Schema, tagsControllerFindByIdPathParamsSchema, tagsControllerFindByIdQueryResponseSchema } from "./tagsControllerFindByIdSchema.ts";

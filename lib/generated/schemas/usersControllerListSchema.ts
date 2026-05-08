@@ -9,7 +9,7 @@ import { z } from "zod/v4";
 
 export const usersControllerListQueryParamsSchema = z.object({
     "role": z.optional(z.enum(["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"])),
-"active": z.boolean().default(true),
+"active": z.optional(z.union([z.boolean(), z.enum(["true", "false"])])),
 "departmentId": z.optional(z.uuid()),
 "search": z.optional(z.string().min(1).max(100)),
 "cursor": z.optional(z.string()),

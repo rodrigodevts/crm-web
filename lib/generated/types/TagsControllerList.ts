@@ -3,6 +3,14 @@
 * Do not edit manually.
 */
 
+import type { TagListResponseDto } from "./TagListResponseDto.ts";
+
+export const tagsControllerListQueryParamsActiveEnum = {
+    true: "true",
+    false: "false"
+} as const;
+
+export type TagsControllerListQueryParamsActiveEnumKey = (typeof tagsControllerListQueryParamsActiveEnum)[keyof typeof tagsControllerListQueryParamsActiveEnum];
 
 export const tagsControllerListQueryParamsScopeEnum = {
     CONTACT: "CONTACT",
@@ -20,10 +28,7 @@ export const tagsControllerListQueryParamsSortEnum = {
 export type TagsControllerListQueryParamsSortEnumKey = (typeof tagsControllerListQueryParamsSortEnum)[keyof typeof tagsControllerListQueryParamsSortEnum];
 
 export type TagsControllerListQueryParams = {
-    /**
-     * @type boolean | undefined
-    */
-    active?: boolean;
+    active?: (boolean | TagsControllerListQueryParamsActiveEnumKey);
     /**
      * @type string | undefined
     */
@@ -52,7 +57,7 @@ export type TagsControllerListQueryParams = {
     sort?: TagsControllerListQueryParamsSortEnumKey;
 };
 
-export type TagsControllerList200 = unknown;
+export type TagsControllerList200 = TagListResponseDto;
 
 export type TagsControllerListQueryResponse = TagsControllerList200;
 

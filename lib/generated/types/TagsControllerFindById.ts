@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { TagResponseDto } from "./TagResponseDto.ts";
 
 export type TagsControllerFindByIdPathParams = {
     /**
@@ -11,7 +12,7 @@ export type TagsControllerFindByIdPathParams = {
     id: string;
 };
 
-export type TagsControllerFindById200 = unknown;
+export type TagsControllerFindById200 = TagResponseDto;
 
 export type TagsControllerFindByIdQueryResponse = TagsControllerFindById200;
 
