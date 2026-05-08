@@ -39,11 +39,17 @@ describe('canAccessRoute', () => {
     { role: 'ADMIN', route: '/configuracoes', expected: true },
     { role: 'ADMIN', route: '/configuracoes/usuarios', expected: true },
     { role: 'ADMIN', route: '/configuracoes/design-system', expected: true },
+    { role: 'ADMIN', route: '/contatos', expected: true },
+    { role: 'ADMIN', route: '/campanhas', expected: true },
 
     // SUPER_ADMIN: tudo
     { role: 'SUPER_ADMIN', route: '/atendimentos', expected: true },
     { role: 'SUPER_ADMIN', route: '/configuracoes', expected: true },
     { role: 'SUPER_ADMIN', route: '/configuracoes/usuarios', expected: true },
+    { role: 'SUPER_ADMIN', route: '/contatos', expected: true },
+    { role: 'SUPER_ADMIN', route: '/campanhas', expected: true },
+    { role: 'SUPER_ADMIN', route: '/bot-fluxo', expected: true },
+    { role: 'SUPER_ADMIN', route: '/dashboard', expected: true },
 
     // Default deny: rotas fora do mapa
     { role: 'AGENT', route: '/qualquer-coisa', expected: false },
