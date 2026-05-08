@@ -6,10 +6,21 @@ export type Role = UserResponseDtoRoleEnumKey;
  * Mapa estático de prefixos de rota acessíveis por role. Default deny:
  * rota fora do mapa retorna false. Match é por prefixo — `/configuracoes`
  * cobre `/configuracoes/usuarios`, etc.
+ *
+ * AGENT e SUPERVISOR têm acesso explícito a `/configuracoes/quick-replies`
+ * (única tela admin onde precisam entrar pra criar/editar suas PERSONAL).
+ * O restante de `/configuracoes/*` segue restrito a ADMIN e SUPER_ADMIN.
  */
 const ROUTE_ACCESS: Record<Role, ReadonlyArray<string>> = {
-  AGENT: ['/atendimentos', '/contatos', '/campanhas'],
-  SUPERVISOR: ['/atendimentos', '/contatos', '/campanhas', '/bot-fluxo', '/dashboard'],
+  AGENT: ['/atendimentos', '/contatos', '/campanhas', '/configuracoes/quick-replies'],
+  SUPERVISOR: [
+    '/atendimentos',
+    '/contatos',
+    '/campanhas',
+    '/bot-fluxo',
+    '/dashboard',
+    '/configuracoes/quick-replies',
+  ],
   ADMIN: ['/atendimentos', '/contatos', '/campanhas', '/bot-fluxo', '/dashboard', '/configuracoes'],
   SUPER_ADMIN: [
     '/atendimentos',

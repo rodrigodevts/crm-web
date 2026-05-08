@@ -6,8 +6,14 @@ const PUBLIC_PATHS = ['/login', '/register', '/aceitar-convite'];
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // Forward o pathname pra Server Components — Next 16 não expõe via headers()
+  // por padrão; layouts usam pra gates RBAC dependentes da rota atual.
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+  const passThrough = { request: { headers: requestHeaders } };
+
   if (PUBLIC_PATHS.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
-    return NextResponse.next();
+    return NextResponse.next(passThrough);
   }
 
   const accessToken = request.cookies.get('access_token');
@@ -15,7 +21,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  return NextResponse.next();
+  return NextResponse.next(passThrough);
 }
 
 export const config = {

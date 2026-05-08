@@ -135,7 +135,7 @@
 - [x] Showcase `/configuracoes/design-system` (catálogo descritivo de tokens + primitivos shadcn + compostos do projeto, Sprint 0.17)
 - [ ] RBAC efetivo — baseline pronto (PR #19: sidebar oculta + redirect 403 nas rotas `/configuracoes/*` + toast 403 no interceptor); falta sprint dedicada com `<RequireRole>`, mapa de rotas com permissões e ações condicionais granulares
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
-- [ ] Telas reais de Configurações (Departamentos entregue na Sprint 0.18 — listagem + criação + edição + soft-delete; Tags entregue na Sprint 0.19 — listagem + criação + edição + soft-delete + reativar; Usuários (lista + convites entregues; CRUD edit/delete pendente), Quick Replies, Canais, Integrações, Preferências pendentes)
+- [ ] Telas reais de Configurações (Departamentos entregue na Sprint 0.18 — listagem + criação + edição + soft-delete; Tags entregue na Sprint 0.19 — listagem + criação + edição + soft-delete + reativar; Quick Replies entregue na Sprint 0.20 — listagem + criação + edição + soft-delete + reativar com escopo COMPANY/PERSONAL e RBAC dedicado por rota liberando AGENT/SUPERVISOR; Usuários (lista + convites entregues; CRUD edit/delete pendente), Canais, Integrações, Preferências pendentes)
 - [ ] E2E real (Playwright contra `crm-api` rodando em ambiente de teste)
 - [ ] Tema final consolidado (decidir entre paleta Dreams Chat aplicada na PR #12 e a base radix-nova com azul DigiChat usada na Sprint 0.14)
 
