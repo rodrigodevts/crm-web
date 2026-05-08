@@ -118,7 +118,7 @@ Detalhado em `WORKFLOW.md`. Resumo:
 6. Superpowers ativa /execute-plan
    - TDD: testes primeiro
    - Cada step: implementa, valida, code review
-7. Verificação final (testes, lint, typecheck, build)
+7. Verificação final (testes, lint, typecheck, format)
 8. Merge ou PR
 ```
 
