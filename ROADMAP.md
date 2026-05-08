@@ -132,7 +132,7 @@
 ### 4.8 Gaps remanescentes (pra fechar Fase 0 antes da Fase 1)
 
 - [x] Sistema de convite de usuários (Sprint 0.16 Fase B — substitui o gap descartado de "Página de register" do PR #15/#16; admin convida via /configuracoes/usuarios, convidado aceita em /aceitar-convite/[token])
-- [ ] Showcase `/design-system` (catálogo de componentes shadcn aplicados ao tema DigiChat)
+- [x] Showcase `/configuracoes/design-system` (catálogo descritivo de tokens + primitivos shadcn + compostos do projeto, Sprint 0.17)
 - [ ] RBAC efetivo — baseline pronto (PR #19: sidebar oculta + redirect 403 nas rotas `/configuracoes/*` + toast 403 no interceptor); falta sprint dedicada com `<RequireRole>`, mapa de rotas com permissões e ações condicionais granulares
 - [ ] Upload de avatar (NavUser já tem `<AvatarImage>` preparado; backend e fluxo pendentes)
 - [ ] Telas reais de Configurações (Departamentos, Tags, Usuários (lista + convites entregues; CRUD edit/delete pendente), Quick Replies, Canais, Integrações, Preferências)

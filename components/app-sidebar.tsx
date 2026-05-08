@@ -52,6 +52,7 @@ const settingsSubItems = [
   { href: '/configuracoes/canais', label: 'Canais' },
   { href: '/configuracoes/integracoes', label: 'Integrações' },
   { href: '/configuracoes/preferencias', label: 'Preferências' },
+  { href: '/configuracoes/design-system', label: 'Design System' },
 ] as const;
 
 const navSecondary: NavSecondaryItem[] = [{ title: 'Ajuda', url: '/ajuda', icon: HelpCircle }];
