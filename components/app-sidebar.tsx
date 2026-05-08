@@ -17,6 +17,8 @@ import {
 import { NavMain, type NavMainItem } from '@/components/nav-main';
 import { NavSecondary, type NavSecondaryItem } from '@/components/nav-secondary';
 import { NavUser } from '@/components/nav-user';
+import { useCurrentUser } from '@/contexts/current-user-context';
+import { canAccessAdminAreas } from '@/lib/rbac';
 import {
   Sidebar,
   SidebarContent,
@@ -101,6 +103,9 @@ function ConfiguracoesMenu() {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const user = useCurrentUser();
+  const showAdminAreas = canAccessAdminAreas(user.role);
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -117,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMain} />
-        <ConfiguracoesMenu />
+        {showAdminAreas ? <ConfiguracoesMenu /> : null}
         <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

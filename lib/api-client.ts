@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios';
+import { toast } from 'sonner';
 import type { authControllerRefresh as AuthControllerRefreshFn } from '@/lib/generated/client/authControllerRefresh';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
@@ -39,6 +40,13 @@ apiClient.interceptors.response.use(
     const originalRequest = error?.config as
       | (InternalAxiosRequestConfig & { _retry?: boolean })
       | undefined;
+
+    if (status === 403 && typeof window !== 'undefined') {
+      // Backend negou por permissão. Toast genérico — UI condicional cobre os
+      // caminhos esperados; isto pega chamadas que escaparam (ex.: AGENT
+      // navegando direto pra rota admin antes do gate server redirecionar).
+      toast.error('Você não tem permissão para essa ação.');
+    }
 
     if (status !== 401 || !originalRequest || originalRequest._retry) {
       return Promise.reject(error);
