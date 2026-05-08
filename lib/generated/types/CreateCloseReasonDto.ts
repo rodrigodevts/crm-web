@@ -9,18 +9,6 @@
 */
 export type CreateCloseReasonDto = {
     /**
-     * @minLength 1
-     * @maxLength 100
-     * @type string
-    */
-    name: string;
-    /**
-     * @minLength 1
-     * @maxLength 2000
-     * @type string
-    */
-    message?: string | null;
-    /**
      * @default true
      * @type boolean | undefined
     */
@@ -29,18 +17,30 @@ export type CreateCloseReasonDto = {
      * @default false
      * @type boolean | undefined
     */
-    triggersCsat?: boolean;
-    /**
-     * @default false
-     * @type boolean | undefined
-    */
     asksDealValue?: boolean;
+    /**
+     * @type array | undefined
+    */
+    departmentIds?: string[];
     /**
      * @type string, uuid
     */
     funnelId?: string | null;
     /**
-     * @type array | undefined
+     * @minLength 1
+     * @maxLength 2000
+     * @type string
     */
-    departmentIds?: string[];
+    message?: string | null;
+    /**
+     * @minLength 1
+     * @maxLength 100
+     * @type string
+    */
+    name: string;
+    /**
+     * @default false
+     * @type boolean | undefined
+    */
+    triggersCsat?: boolean;
 };

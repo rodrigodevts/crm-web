@@ -10,28 +10,23 @@ import { z } from "zod/v4";
  * @description Dados para criar departamento
  */
 export const createDepartmentDtoSchema = z.object({
-    "name": z.string().min(2).max(100),
-"active": z.optional(z.boolean().default(true)),
+    "active": z.optional(z.boolean().default(true)),
+"distributionMode": z.optional(z.enum(["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]).default("MANUAL")),
 "greetingMessage": z.string().max(2000).nullish(),
+"name": z.string().min(2).max(100),
 "outOfHoursMessage": z.string().max(2000).nullish(),
+"slaResolutionMinutes": z.int().min(1).max(43200).nullish(),
+"slaResponseMinutes": z.int().min(1).max(43200).nullish(),
 "workingHours": z.object({
-    "monday": z.optional(z.array(z.object({
+    "friday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"tuesday": z.optional(z.array(z.object({
+"holiday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"wednesday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"thursday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"friday": z.optional(z.array(z.object({
+"monday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
@@ -43,12 +38,17 @@ export const createDepartmentDtoSchema = z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"holiday": z.optional(z.array(z.object({
+"thursday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"tuesday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"wednesday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     })))
-    }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish(),
-"slaResponseMinutes": z.int().min(1).max(43200).nullish(),
-"slaResolutionMinutes": z.int().min(1).max(43200).nullish(),
-"distributionMode": z.optional(z.enum(["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]).default("MANUAL"))
+    }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish()
     }).describe("Dados para criar departamento") as unknown as z.ZodType<CreateDepartmentDto>

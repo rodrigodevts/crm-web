@@ -4,6 +4,7 @@
 */
 
 import type { DepartmentsControllerList200, DepartmentsControllerListQueryParams, DepartmentsControllerListQueryResponse } from "../types/DepartmentsControllerList.ts";
+import { departmentListResponseDtoSchema } from "./departmentListResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const departmentsControllerListQueryParamsSchema = z.object({
@@ -14,6 +15,6 @@ export const departmentsControllerListQueryParamsSchema = z.object({
 "limit": z.coerce.number().int().min(1).max(100).default(20)
     }) as unknown as z.ZodType<DepartmentsControllerListQueryParams>
 
-export const departmentsControllerList200Schema = z.any() as unknown as z.ZodType<DepartmentsControllerList200>
+export const departmentsControllerList200Schema = z.lazy(() => departmentListResponseDtoSchema) as unknown as z.ZodType<DepartmentsControllerList200>
 
 export const departmentsControllerListQueryResponseSchema = z.lazy(() => departmentsControllerList200Schema) as unknown as z.ZodType<DepartmentsControllerListQueryResponse>

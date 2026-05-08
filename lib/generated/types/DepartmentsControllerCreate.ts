@@ -4,8 +4,9 @@
 */
 
 import type { CreateDepartmentDto } from "./CreateDepartmentDto.ts";
+import type { DepartmentResponseDto } from "./DepartmentResponseDto.ts";
 
-export type DepartmentsControllerCreate201 = unknown;
+export type DepartmentsControllerCreate201 = DepartmentResponseDto;
 
 export type DepartmentsControllerCreateMutationRequest = CreateDepartmentDto;
 

@@ -17,6 +17,10 @@ export type PublicInvitationDtoRoleEnumKey = (typeof publicInvitationDtoRoleEnum
 */
 export type PublicInvitationDto = {
     /**
+     * @type string
+    */
+    companyName: string;
+    /**
      * @type string, email
     */
     email: string;
@@ -24,8 +28,4 @@ export type PublicInvitationDto = {
      * @type string
     */
     role: PublicInvitationDtoRoleEnumKey;
-    /**
-     * @type string
-    */
-    companyName: string;
 };

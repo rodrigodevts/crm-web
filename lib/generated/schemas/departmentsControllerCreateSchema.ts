@@ -5,9 +5,10 @@
 
 import type { DepartmentsControllerCreate201, DepartmentsControllerCreateMutationRequest, DepartmentsControllerCreateMutationResponse } from "../types/DepartmentsControllerCreate.ts";
 import { createDepartmentDtoSchema } from "./createDepartmentDtoSchema.ts";
+import { departmentResponseDtoSchema } from "./departmentResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const departmentsControllerCreate201Schema = z.any() as unknown as z.ZodType<DepartmentsControllerCreate201>
+export const departmentsControllerCreate201Schema = z.lazy(() => departmentResponseDtoSchema).describe("Departamento. Sem deletedAt, sem users.") as unknown as z.ZodType<DepartmentsControllerCreate201>
 
 export const departmentsControllerCreateMutationRequestSchema = z.lazy(() => createDepartmentDtoSchema).describe("Dados para criar departamento") as unknown as z.ZodType<DepartmentsControllerCreateMutationRequest>
 

@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { DepartmentListResponseDto } from "./DepartmentListResponseDto.ts";
 
 export const departmentsControllerListQueryParamsSortEnum = {
     createdAt: "createdAt",
@@ -41,7 +42,7 @@ export type DepartmentsControllerListQueryParams = {
     limit?: number;
 };
 
-export type DepartmentsControllerList200 = unknown;
+export type DepartmentsControllerList200 = DepartmentListResponseDto;
 
 export type DepartmentsControllerListQueryResponse = DepartmentsControllerList200;
 

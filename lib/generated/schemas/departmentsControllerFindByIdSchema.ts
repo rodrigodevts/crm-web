@@ -4,12 +4,13 @@
 */
 
 import type { DepartmentsControllerFindById200, DepartmentsControllerFindByIdPathParams, DepartmentsControllerFindByIdQueryResponse } from "../types/DepartmentsControllerFindById.ts";
+import { departmentDetailResponseDtoSchema } from "./departmentDetailResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const departmentsControllerFindByIdPathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<DepartmentsControllerFindByIdPathParams>
 
-export const departmentsControllerFindById200Schema = z.any() as unknown as z.ZodType<DepartmentsControllerFindById200>
+export const departmentsControllerFindById200Schema = z.lazy(() => departmentDetailResponseDtoSchema).describe("Departamento com lista mínima dos usuários atribuídos") as unknown as z.ZodType<DepartmentsControllerFindById200>
 
 export const departmentsControllerFindByIdQueryResponseSchema = z.lazy(() => departmentsControllerFindById200Schema) as unknown as z.ZodType<DepartmentsControllerFindByIdQueryResponse>

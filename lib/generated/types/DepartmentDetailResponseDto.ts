@@ -4,19 +4,94 @@
 */
 
 
+export const departmentDetailResponseDtoDistributionModeEnum = {
+    MANUAL: "MANUAL",
+    RANDOM: "RANDOM",
+    BALANCED: "BALANCED",
+    SEQUENTIAL: "SEQUENTIAL"
+} as const;
+
+export type DepartmentDetailResponseDtoDistributionModeEnumKey = (typeof departmentDetailResponseDtoDistributionModeEnum)[keyof typeof departmentDetailResponseDtoDistributionModeEnum];
+
+export const usersRoleEnum = {
+    SUPER_ADMIN: "SUPER_ADMIN",
+    ADMIN: "ADMIN",
+    SUPERVISOR: "SUPERVISOR",
+    AGENT: "AGENT"
+} as const;
+
+export type UsersRoleEnumKey = (typeof usersRoleEnum)[keyof typeof usersRoleEnum];
+
 /**
- * @description Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).
+ * @description Departamento com lista mínima dos usuários atribuídos
 */
-export type UpdateCompanyDto = {
+export type DepartmentDetailResponseDto = {
     /**
-     * @type boolean | undefined
+     * @type boolean
     */
-    active?: boolean;
+    active: boolean;
+    /**
+     * @type string, uuid
+    */
+    companyId: string;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
+    /**
+     * @type string
+    */
+    distributionMode: DepartmentDetailResponseDtoDistributionModeEnumKey;
+    /**
+     * @type string
+    */
+    greetingMessage: string | null;
+    /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
+     * @type string
+    */
+    outOfHoursMessage: string | null;
+    /**
+     * @type number
+    */
+    slaResolutionMinutes: number | null;
+    /**
+     * @type number
+    */
+    slaResponseMinutes: number | null;
+    /**
+     * @type string, date-time
+    */
+    updatedAt: string;
+    /**
+     * @type array
+    */
+    users: {
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
+         * @type string
+        */
+        role: UsersRoleEnumKey;
+    }[];
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
     */
-    defaultWorkingHours?: {
+    workingHours: {
         /**
          * @type array | undefined
         */
@@ -138,25 +213,4 @@ export type UpdateCompanyDto = {
             to: string;
         }[];
     } | null;
-    /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string | undefined
-    */
-    name?: string;
-    /**
-     * @maxLength 2000
-     * @type string
-    */
-    outOfHoursMessage?: string | null;
-    /**
-     * @type string | undefined, uuid
-    */
-    planId?: string;
-    /**
-     * @minLength 1
-     * @maxLength 64
-     * @type string | undefined
-    */
-    timezone?: string;
 };

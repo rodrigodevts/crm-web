@@ -3,15 +3,25 @@
 * Do not edit manually.
 */
 
-import type { UpdateCompanyDto } from "../types/UpdateCompanyDto.ts";
+import type { DepartmentResponseDto } from "../types/DepartmentResponseDto.ts";
 import { z } from "zod/v4";
 
 /**
- * @description Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).
+ * @description Departamento. Sem deletedAt, sem users.
  */
-export const updateCompanyDtoSchema = z.object({
-    "active": z.optional(z.boolean()),
-"defaultWorkingHours": z.object({
+export const departmentResponseDtoSchema = z.object({
+    "active": z.boolean(),
+"companyId": z.uuid(),
+"createdAt": z.iso.datetime({ offset: true }),
+"distributionMode": z.enum(["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]),
+"greetingMessage": z.nullable(z.string()),
+"id": z.uuid(),
+"name": z.string(),
+"outOfHoursMessage": z.nullable(z.string()),
+"slaResolutionMinutes": z.nullable(z.number()),
+"slaResponseMinutes": z.nullable(z.number()),
+"updatedAt": z.iso.datetime({ offset: true }),
+"workingHours": z.nullable(z.object({
     "friday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
@@ -44,9 +54,5 @@ export const updateCompanyDtoSchema = z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     })))
-    }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish(),
-"name": z.optional(z.string().min(2).max(100)),
-"outOfHoursMessage": z.string().max(2000).nullish(),
-"planId": z.optional(z.uuid()),
-"timezone": z.optional(z.string().min(1).max(64))
-    }).describe("Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).") as unknown as z.ZodType<UpdateCompanyDto>
+    }).describe("Horário de funcionamento por dia da semana (e feriado)."))
+    }).describe("Departamento. Sem deletedAt, sem users.") as unknown as z.ZodType<DepartmentResponseDto>

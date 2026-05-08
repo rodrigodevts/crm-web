@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { DepartmentDetailResponseDto } from "./DepartmentDetailResponseDto.ts";
 
 export type DepartmentsControllerFindByIdPathParams = {
     /**
@@ -11,7 +12,7 @@ export type DepartmentsControllerFindByIdPathParams = {
     id: string;
 };
 
-export type DepartmentsControllerFindById200 = unknown;
+export type DepartmentsControllerFindById200 = DepartmentDetailResponseDto;
 
 export type DepartmentsControllerFindByIdQueryResponse = DepartmentsControllerFindById200;
 

@@ -11,6 +11,6 @@ import { z } from "zod/v4";
  */
 export const healthResponseDtoSchema = z.object({
     "status": z.enum(["ok"]).describe("Status fixo \"ok\" quando a app está viva"),
-"uptime": z.number().min(0).describe("Uptime do processo em segundos"),
-"timestamp": z.iso.datetime({ offset: true }).describe("Timestamp ISO 8601 UTC")
+"timestamp": z.iso.datetime({ offset: true }).describe("Timestamp ISO 8601 UTC"),
+"uptime": z.number().min(0).describe("Uptime do processo em segundos")
     }).describe("Resposta do health check") as unknown as z.ZodType<HealthResponseDto>

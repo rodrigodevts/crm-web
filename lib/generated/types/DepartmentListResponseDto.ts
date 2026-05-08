@@ -4,42 +4,69 @@
 */
 
 
-/**
- * @description Cria empresa + CompanySettings (defaults) + 1º ADMIN do tenant em uma transação
-*/
-export type CreateCompanyDto = {
+export const itemsDistributionModeEnum = {
+    MANUAL: "MANUAL",
+    RANDOM: "RANDOM",
+    BALANCED: "BALANCED",
+    SEQUENTIAL: "SEQUENTIAL"
+} as const;
+
+export type ItemsDistributionModeEnumKey = (typeof itemsDistributionModeEnum)[keyof typeof itemsDistributionModeEnum];
+
+export type DepartmentListResponseDto = {
     /**
-     * @description Primeiro ADMIN do tenant — criado junto com a empresa
-     * @type object
+     * @type array
     */
-    admin: {
+    items: {
         /**
-         * @type string, email
+         * @type boolean
         */
-        email: string;
+        active: boolean;
         /**
-         * @minLength 2
-         * @maxLength 100
+         * @type string, uuid
+        */
+        companyId: string;
+        /**
+         * @type string, date-time
+        */
+        createdAt: string;
+        /**
+         * @type string
+        */
+        distributionMode: ItemsDistributionModeEnumKey;
+        /**
+         * @type string
+        */
+        greetingMessage: string | null;
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
          * @type string
         */
         name: string;
         /**
-         * @minLength 8
-         * @maxLength 128
          * @type string
         */
-        password: string;
-    };
-    /**
-     * @description Dados da empresa (tenant) sendo criada
-     * @type object
-    */
-    company: {
+        outOfHoursMessage: string | null;
+        /**
+         * @type number
+        */
+        slaResolutionMinutes: number | null;
+        /**
+         * @type number
+        */
+        slaResponseMinutes: number | null;
+        /**
+         * @type string, date-time
+        */
+        updatedAt: string;
         /**
          * @description Horário de funcionamento por dia da semana (e feriado).
          * @type object
         */
-        defaultWorkingHours?: {
+        workingHours: {
             /**
              * @type array | undefined
             */
@@ -161,34 +188,18 @@ export type CreateCompanyDto = {
                 to: string;
             }[];
         } | null;
+    }[];
+    /**
+     * @type object
+    */
+    pagination: {
         /**
-         * @minLength 2
-         * @maxLength 100
+         * @type boolean
+        */
+        hasMore: boolean;
+        /**
          * @type string
         */
-        name: string;
-        /**
-         * @maxLength 2000
-         * @type string
-        */
-        outOfHoursMessage?: string | null;
-        /**
-         * @type string, uuid
-        */
-        planId: string;
-        /**
-         * @minLength 3
-         * @maxLength 63
-         * @pattern ^[a-z0-9](-?[a-z0-9]+)*$
-         * @type string
-        */
-        slug: string;
-        /**
-         * @minLength 1
-         * @maxLength 64
-         * @default "America/Sao_Paulo"
-         * @type string | undefined
-        */
-        timezone?: string;
+        nextCursor: string | null;
     };
 };

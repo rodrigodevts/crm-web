@@ -18,26 +18,43 @@ export type CreateDepartmentDtoDistributionModeEnumKey = (typeof createDepartmen
 */
 export type CreateDepartmentDto = {
     /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string
-    */
-    name: string;
-    /**
      * @default true
      * @type boolean | undefined
     */
     active?: boolean;
+    /**
+     * @default "MANUAL"
+     * @type string | undefined
+    */
+    distributionMode?: CreateDepartmentDtoDistributionModeEnumKey;
     /**
      * @maxLength 2000
      * @type string
     */
     greetingMessage?: string | null;
     /**
+     * @minLength 2
+     * @maxLength 100
+     * @type string
+    */
+    name: string;
+    /**
      * @maxLength 2000
      * @type string
     */
     outOfHoursMessage?: string | null;
+    /**
+     * @minLength 1
+     * @maxLength 43200
+     * @type integer
+    */
+    slaResolutionMinutes?: number | null;
+    /**
+     * @minLength 1
+     * @maxLength 43200
+     * @type integer
+    */
+    slaResponseMinutes?: number | null;
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
@@ -46,67 +63,37 @@ export type CreateDepartmentDto = {
         /**
          * @type array | undefined
         */
-        monday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        tuesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        wednesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        thursday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
         friday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        holiday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        monday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -151,7 +138,37 @@ export type CreateDepartmentDto = {
         /**
          * @type array | undefined
         */
-        holiday?: {
+        thursday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        tuesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        wednesday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -164,21 +181,4 @@ export type CreateDepartmentDto = {
             to: string;
         }[];
     } | null;
-    /**
-     * @minLength 1
-     * @maxLength 43200
-     * @type integer
-    */
-    slaResponseMinutes?: number | null;
-    /**
-     * @minLength 1
-     * @maxLength 43200
-     * @type integer
-    */
-    slaResolutionMinutes?: number | null;
-    /**
-     * @default "MANUAL"
-     * @type string | undefined
-    */
-    distributionMode?: CreateDepartmentDtoDistributionModeEnumKey;
 };

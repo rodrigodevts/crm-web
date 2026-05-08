@@ -4,19 +4,68 @@
 */
 
 
+export const departmentResponseDtoDistributionModeEnum = {
+    MANUAL: "MANUAL",
+    RANDOM: "RANDOM",
+    BALANCED: "BALANCED",
+    SEQUENTIAL: "SEQUENTIAL"
+} as const;
+
+export type DepartmentResponseDtoDistributionModeEnumKey = (typeof departmentResponseDtoDistributionModeEnum)[keyof typeof departmentResponseDtoDistributionModeEnum];
+
 /**
- * @description Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).
+ * @description Departamento. Sem deletedAt, sem users.
 */
-export type UpdateCompanyDto = {
+export type DepartmentResponseDto = {
     /**
-     * @type boolean | undefined
+     * @type boolean
     */
-    active?: boolean;
+    active: boolean;
+    /**
+     * @type string, uuid
+    */
+    companyId: string;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
+    /**
+     * @type string
+    */
+    distributionMode: DepartmentResponseDtoDistributionModeEnumKey;
+    /**
+     * @type string
+    */
+    greetingMessage: string | null;
+    /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
+     * @type string
+    */
+    outOfHoursMessage: string | null;
+    /**
+     * @type number
+    */
+    slaResolutionMinutes: number | null;
+    /**
+     * @type number
+    */
+    slaResponseMinutes: number | null;
+    /**
+     * @type string, date-time
+    */
+    updatedAt: string;
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
     */
-    defaultWorkingHours?: {
+    workingHours: {
         /**
          * @type array | undefined
         */
@@ -138,25 +187,4 @@ export type UpdateCompanyDto = {
             to: string;
         }[];
     } | null;
-    /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string | undefined
-    */
-    name?: string;
-    /**
-     * @maxLength 2000
-     * @type string
-    */
-    outOfHoursMessage?: string | null;
-    /**
-     * @type string | undefined, uuid
-    */
-    planId?: string;
-    /**
-     * @minLength 1
-     * @maxLength 64
-     * @type string | undefined
-    */
-    timezone?: string;
 };

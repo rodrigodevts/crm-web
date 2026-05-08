@@ -4,6 +4,7 @@
 */
 
 import type { DepartmentsControllerUpdate200, DepartmentsControllerUpdateMutationRequest, DepartmentsControllerUpdateMutationResponse, DepartmentsControllerUpdatePathParams } from "../types/DepartmentsControllerUpdate.ts";
+import { departmentResponseDtoSchema } from "./departmentResponseDtoSchema.ts";
 import { updateDepartmentDtoSchema } from "./updateDepartmentDtoSchema.ts";
 import { z } from "zod/v4";
 
@@ -11,7 +12,7 @@ export const departmentsControllerUpdatePathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<DepartmentsControllerUpdatePathParams>
 
-export const departmentsControllerUpdate200Schema = z.any() as unknown as z.ZodType<DepartmentsControllerUpdate200>
+export const departmentsControllerUpdate200Schema = z.lazy(() => departmentResponseDtoSchema).describe("Departamento. Sem deletedAt, sem users.") as unknown as z.ZodType<DepartmentsControllerUpdate200>
 
 export const departmentsControllerUpdateMutationRequestSchema = z.lazy(() => updateDepartmentDtoSchema).describe("Campos editáveis em departamento. Strict.") as unknown as z.ZodType<DepartmentsControllerUpdateMutationRequest>
 
