@@ -3,7 +3,6 @@
 import { useDeferredValue, useId, useMemo, useState } from 'react';
 import { SearchIcon } from 'lucide-react';
 import { useDepartmentsControllerList } from '@/lib/generated/hooks/useDepartmentsControllerList';
-import { useDepartmentsControllerFindById } from '@/lib/generated/hooks/useDepartmentsControllerFindById';
 import { apiClient } from '@/lib/api-client';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -51,11 +50,6 @@ export function DepartmentsTable() {
 
   const query = useDepartmentsControllerList(params, { client: { client: apiClient } });
 
-  // Hook gerado já controla enabled com base no id; passamos undefined quando não há alvo.
-  const detailQuery = useDepartmentsControllerFindById(editTarget?.id, {
-    client: { client: apiClient },
-  });
-
   const items: DepartmentListItem[] = query.data?.items ?? [];
   const hasMore = query.data?.pagination.hasMore ?? false;
 
@@ -67,7 +61,7 @@ export function DepartmentsTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <div className="relative w-full max-w-sm">
           <SearchIcon
             aria-hidden="true"
@@ -119,7 +113,7 @@ export function DepartmentsTable() {
 
       <DepartmentDialog
         mode="edit"
-        department={detailQuery.data ?? undefined}
+        department={editTarget ?? undefined}
         open={!!editTarget}
         onOpenChange={(next) => {
           if (!next) setEditTarget(null);
