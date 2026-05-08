@@ -33,8 +33,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-
 const SHORTCUT_REGEX = /^[a-zA-Z0-9_-]+$/;
 const MIME_REGEX = /^[a-z]+\/[a-z0-9.\-+]+$/;
 const URL_REGEX = /^https?:\/\/.+/;
@@ -69,7 +67,6 @@ const formSchema = z
       .trim()
       .refine((v) => v === '' || MIME_REGEX.test(v), 'Tipo MIME inválido'),
     scope: z.enum(['COMPANY', 'PERSONAL']),
-    active: z.boolean(),
   })
   .superRefine((data, ctx) => {
     const hasUrl = data.mediaUrl.length > 0;
@@ -98,7 +95,6 @@ const DEFAULT_VALUES: FormValues = {
   mediaUrl: '',
   mediaMimeType: '',
   scope: 'PERSONAL',
-  active: true,
 };
 
 function toFormValues(quickReply: QuickReplyResponseDto): FormValues {
@@ -108,7 +104,6 @@ function toFormValues(quickReply: QuickReplyResponseDto): FormValues {
     mediaUrl: quickReply.mediaUrl ?? '',
     mediaMimeType: quickReply.mediaMimeType ?? '',
     scope: quickReply.scope,
-    active: quickReply.active,
   };
 }
 
@@ -181,7 +176,6 @@ export function QuickReplyDialog({ mode, quickReply, open, onOpenChange }: Quick
           shortcut: trimmedShortcut,
           message: trimmedMessage,
           scope: isAgent ? 'PERSONAL' : values.scope,
-          active: values.active,
           ...(trimmedUrl ? { mediaUrl: trimmedUrl } : {}),
           ...(trimmedMime ? { mediaMimeType: trimmedMime } : {}),
         };
@@ -191,7 +185,6 @@ export function QuickReplyDialog({ mode, quickReply, open, onOpenChange }: Quick
         const payload: UpdateQuickReplyDto = {
           shortcut: trimmedShortcut,
           message: trimmedMessage,
-          active: values.active,
           mediaUrl: trimmedUrl.length > 0 ? trimmedUrl : null,
           mediaMimeType: trimmedMime.length > 0 ? trimmedMime : null,
         };
@@ -371,7 +364,7 @@ export function QuickReplyDialog({ mode, quickReply, open, onOpenChange }: Quick
               />
               {isEdit ? (
                 <FieldDescription>
-                  Para mudar o escopo, crie uma nova resposta e desative esta.
+                  Para mudar o escopo, crie uma nova resposta e apague esta.
                 </FieldDescription>
               ) : isAgent ? (
                 <FieldDescription>
@@ -383,28 +376,6 @@ export function QuickReplyDialog({ mode, quickReply, open, onOpenChange }: Quick
                 </FieldDescription>
               )}
             </Field>
-
-            <div className="flex items-center justify-between gap-3 rounded-md border px-3 py-2">
-              <div className="flex flex-col">
-                <FieldLabel htmlFor={`${fieldId}-active`} className="text-sm font-medium">
-                  Ativa
-                </FieldLabel>
-                <FieldDescription>
-                  Respostas inativas não aparecem no autocomplete do composer.
-                </FieldDescription>
-              </div>
-              <Controller
-                control={control}
-                name="active"
-                render={({ field }) => (
-                  <Switch
-                    id={`${fieldId}-active`}
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                )}
-              />
-            </div>
 
             {errors.root ? (
               <FieldDescription className="text-destructive" role="alert">

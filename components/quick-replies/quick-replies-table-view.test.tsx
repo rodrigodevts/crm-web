@@ -23,8 +23,7 @@ const baseItem = (overrides: Partial<Item> = {}): Item => ({
 
 const noopHandlers = {
   onEdit: vi.fn(),
-  onDeactivate: vi.fn(),
-  onReactivate: vi.fn(),
+  onDelete: vi.fn(),
 };
 
 const allowAll = () => true;
@@ -56,12 +55,12 @@ describe('QuickRepliesTableView', () => {
       <QuickRepliesTableView
         state="ready"
         items={[]}
-        emptyMessage="Nenhuma resposta rápida ativa encontrada."
+        emptyMessage="Nenhuma resposta rápida encontrada."
         canEditItem={allowAll}
         {...noopHandlers}
       />,
     );
-    expect(screen.getByText('Nenhuma resposta rápida ativa encontrada.')).toBeInTheDocument();
+    expect(screen.getByText('Nenhuma resposta rápida encontrada.')).toBeInTheDocument();
   });
 
   it('renderiza atalho com prefixo "/" e fonte mono', () => {
@@ -140,20 +139,7 @@ describe('QuickRepliesTableView', () => {
         {...noopHandlers}
       />,
     );
-    // Pelo menos uma célula com traço (—)
     expect(container.textContent).toContain('—');
-  });
-
-  it('exibe badge "Inativo" quando active é false', () => {
-    render(
-      <QuickRepliesTableView
-        state="ready"
-        items={[baseItem({ active: false })]}
-        canEditItem={allowAll}
-        {...noopHandlers}
-      />,
-    );
-    expect(screen.getByText('Inativo')).toBeInTheDocument();
   });
 
   it('aciona onEdit ao clicar em "Editar"', async () => {
@@ -166,16 +152,15 @@ describe('QuickRepliesTableView', () => {
         items={[item]}
         canEditItem={allowAll}
         onEdit={onEdit}
-        onDeactivate={vi.fn()}
-        onReactivate={vi.fn()}
+        onDelete={vi.fn()}
       />,
     );
     await user.click(screen.getByRole('button', { name: /editar resposta r[áa]pida saudacao/i }));
     expect(onEdit).toHaveBeenCalledWith(item);
   });
 
-  it('aciona onDeactivate ao clicar em "Desativar" em item ativo', async () => {
-    const onDeactivate = vi.fn();
+  it('aciona onDelete ao clicar em "Apagar"', async () => {
+    const onDelete = vi.fn();
     const user = userEvent.setup();
     const item = baseItem();
     render(
@@ -184,50 +169,14 @@ describe('QuickRepliesTableView', () => {
         items={[item]}
         canEditItem={allowAll}
         onEdit={vi.fn()}
-        onDeactivate={onDeactivate}
-        onReactivate={vi.fn()}
+        onDelete={onDelete}
       />,
     );
-    await user.click(
-      screen.getByRole('button', { name: /desativar resposta r[áa]pida saudacao/i }),
-    );
-    expect(onDeactivate).toHaveBeenCalledWith(item);
+    await user.click(screen.getByRole('button', { name: /apagar resposta r[áa]pida saudacao/i }));
+    expect(onDelete).toHaveBeenCalledWith(item);
   });
 
-  it('aciona onReactivate ao clicar em "Reativar" em item inativo', async () => {
-    const onReactivate = vi.fn();
-    const user = userEvent.setup();
-    const item = baseItem({ active: false, shortcut: 'oi' });
-    render(
-      <QuickRepliesTableView
-        state="ready"
-        items={[item]}
-        canEditItem={allowAll}
-        onEdit={vi.fn()}
-        onDeactivate={vi.fn()}
-        onReactivate={onReactivate}
-      />,
-    );
-    await user.click(screen.getByRole('button', { name: /reativar resposta r[áa]pida oi/i }));
-    expect(onReactivate).toHaveBeenCalledWith(item);
-  });
-
-  it('item inativo não mostra "Desativar" e mostra "Reativar"', () => {
-    render(
-      <QuickRepliesTableView
-        state="ready"
-        items={[baseItem({ active: false, shortcut: 'oi' })]}
-        canEditItem={allowAll}
-        {...noopHandlers}
-      />,
-    );
-    expect(screen.queryByRole('button', { name: /desativar resposta r[áa]pida oi/i })).toBeNull();
-    expect(
-      screen.getByRole('button', { name: /reativar resposta r[áa]pida oi/i }),
-    ).toBeInTheDocument();
-  });
-
-  it('oculta ações quando canEditItem retorna false', () => {
+  it('oculta ações e mostra "Apenas leitura" quando canEditItem retorna false', () => {
     render(
       <QuickRepliesTableView
         state="ready"
@@ -237,18 +186,7 @@ describe('QuickRepliesTableView', () => {
       />,
     );
     expect(screen.queryByRole('button', { name: /editar resposta r[áa]pida corp/i })).toBeNull();
-    expect(screen.queryByRole('button', { name: /desativar resposta r[áa]pida corp/i })).toBeNull();
-  });
-
-  it('mostra "Apenas leitura" quando canEditItem retorna false', () => {
-    render(
-      <QuickRepliesTableView
-        state="ready"
-        items={[baseItem({ shortcut: 'corp', scope: 'COMPANY' })]}
-        canEditItem={() => false}
-        {...noopHandlers}
-      />,
-    );
+    expect(screen.queryByRole('button', { name: /apagar resposta r[áa]pida corp/i })).toBeNull();
     expect(screen.getByText(/apenas leitura/i)).toBeInTheDocument();
   });
 });

@@ -117,7 +117,6 @@ describe('QuickReplyDialog', () => {
     expect(body.shortcut).toBe('oi');
     expect(body.message).toBe('Olá!');
     expect(body.scope).toBe('PERSONAL'); // default
-    expect(body.active).toBe(true);
   });
 
   it('mostra mensagem inline distinta para 409 atalho duplicado', async () => {

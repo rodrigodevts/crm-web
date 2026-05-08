@@ -1,11 +1,4 @@
-import {
-  PencilIcon,
-  BanIcon,
-  RotateCcwIcon,
-  BuildingIcon,
-  UserIcon,
-  PaperclipIcon,
-} from 'lucide-react';
+import { PencilIcon, TrashIcon, BuildingIcon, UserIcon, PaperclipIcon } from 'lucide-react';
 import type { QuickReplyListResponseDto } from '@/lib/generated/types/QuickReplyListResponseDto';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -28,12 +21,11 @@ export interface QuickRepliesTableViewProps {
   items: QuickReplyListItem[];
   canEditItem: (item: QuickReplyListItem) => boolean;
   onEdit: (item: QuickReplyListItem) => void;
-  onDeactivate: (item: QuickReplyListItem) => void;
-  onReactivate: (item: QuickReplyListItem) => void;
+  onDelete: (item: QuickReplyListItem) => void;
   emptyMessage?: string;
 }
 
-const COLUMN_COUNT = 7;
+const COLUMN_COUNT = 6;
 
 function formatDate(iso: string): string {
   try {
@@ -51,8 +43,7 @@ export function QuickRepliesTableView({
   items,
   canEditItem,
   onEdit,
-  onDeactivate,
-  onReactivate,
+  onDelete,
   emptyMessage = 'Nenhuma resposta rápida cadastrada.',
 }: QuickRepliesTableViewProps) {
   return (
@@ -64,7 +55,6 @@ export function QuickRepliesTableView({
             <TableHead>Mensagem</TableHead>
             <TableHead>Escopo</TableHead>
             <TableHead>Mídia</TableHead>
-            <TableHead>Status</TableHead>
             <TableHead>Atualizado em</TableHead>
             <TableHead className="text-right">Ações</TableHead>
           </TableRow>
@@ -131,11 +121,6 @@ export function QuickRepliesTableView({
                       </span>
                     )}
                   </TableCell>
-                  <TableCell>
-                    <Badge variant={item.active ? 'default' : 'outline'}>
-                      {item.active ? 'Ativo' : 'Inativo'}
-                    </Badge>
-                  </TableCell>
                   <TableCell>{formatDate(item.updatedAt)}</TableCell>
                   <TableCell className="text-right">
                     {editable ? (
@@ -149,27 +134,16 @@ export function QuickRepliesTableView({
                           <PencilIcon className="size-4" />
                           Editar
                         </Button>
-                        {item.active ? (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => onDeactivate(item)}
-                            aria-label={`Desativar resposta rápida ${item.shortcut}`}
-                          >
-                            <BanIcon className="size-4" />
-                            Desativar
-                          </Button>
-                        ) : (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => onReactivate(item)}
-                            aria-label={`Reativar resposta rápida ${item.shortcut}`}
-                          >
-                            <RotateCcwIcon className="size-4" />
-                            Reativar
-                          </Button>
-                        )}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-destructive hover:text-destructive"
+                          onClick={() => onDelete(item)}
+                          aria-label={`Apagar resposta rápida ${item.shortcut}`}
+                        >
+                          <TrashIcon className="size-4" />
+                          Apagar
+                        </Button>
                       </div>
                     ) : (
                       <span className="text-muted-foreground text-xs">Apenas leitura</span>

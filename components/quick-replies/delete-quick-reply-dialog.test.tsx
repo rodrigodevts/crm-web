@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
 import type { AxiosAdapter, AxiosRequestConfig } from 'axios';
 import { apiClient } from '@/lib/api-client';
-import { DeactivateQuickReplyDialog } from './deactivate-quick-reply-dialog';
+import { DeleteQuickReplyDialog } from './delete-quick-reply-dialog';
 
 const toastSuccess = vi.fn();
 const toastError = vi.fn();
@@ -26,7 +26,7 @@ const originalAdapter = apiClient.defaults.adapter;
 
 const quickReply = { id: '00000000-0000-7000-8000-000000000010', shortcut: 'saudacao' };
 
-describe('DeactivateQuickReplyDialog', () => {
+describe('DeleteQuickReplyDialog', () => {
   beforeEach(() => {
     toastSuccess.mockReset();
     toastError.mockReset();
@@ -36,14 +36,14 @@ describe('DeactivateQuickReplyDialog', () => {
     apiClient.defaults.adapter = originalAdapter;
   });
 
-  it('confirma desativação via PATCH active=false e exibe toast', async () => {
+  it('confirma deleção via DELETE e exibe toast', async () => {
     const requests: AxiosRequestConfig[] = [];
     apiClient.defaults.adapter = vi.fn().mockImplementation((config) => {
       requests.push(config);
       return Promise.resolve({
-        data: { ...quickReply, active: false },
-        status: 200,
-        statusText: 'OK',
+        data: '',
+        status: 204,
+        statusText: 'No Content',
         headers: {},
         config,
       });
@@ -54,18 +54,17 @@ describe('DeactivateQuickReplyDialog', () => {
 
     render(
       <Wrapper>
-        <DeactivateQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
+        <DeleteQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 
-    await user.click(screen.getByRole('button', { name: 'Desativar' }));
+    await user.click(screen.getByRole('button', { name: 'Apagar' }));
 
     await waitFor(() => {
-      expect(toastSuccess).toHaveBeenCalledWith('Resposta rápida "/saudacao" desativada.');
+      expect(toastSuccess).toHaveBeenCalledWith('Resposta rápida "/saudacao" apagada.');
     });
-    expect(requests[0]?.method).toBe('patch');
+    expect(requests[0]?.method).toBe('delete');
     expect(requests[0]?.url).toContain(`/quick-replies/${quickReply.id}`);
-    expect(requests[0]?.data).toEqual(JSON.stringify({ active: false }));
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
@@ -81,7 +80,7 @@ describe('DeactivateQuickReplyDialog', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <DeactivateQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
+        <DeleteQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 
@@ -103,15 +102,15 @@ describe('DeactivateQuickReplyDialog', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <DeactivateQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
+        <DeleteQuickReplyDialog quickReply={quickReply} open onOpenChange={onOpenChange} />
       </Wrapper>,
     );
 
-    await user.click(screen.getByRole('button', { name: 'Desativar' }));
+    await user.click(screen.getByRole('button', { name: 'Apagar' }));
 
     await waitFor(() => {
       expect(toastError).toHaveBeenCalledWith(
-        'Não foi possível desativar a resposta rápida. Tente novamente.',
+        'Não foi possível apagar a resposta rápida. Tente novamente.',
       );
     });
     expect(toastSuccess).not.toHaveBeenCalled();
