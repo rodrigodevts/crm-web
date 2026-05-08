@@ -103,6 +103,11 @@ export function DepartmentsTable() {
         items={items}
         onEdit={(item) => setEditTarget(item)}
         onDelete={(item) => setDeleteTarget(item)}
+        emptyMessage={
+          status === 'active'
+            ? 'Nenhum departamento ativo encontrado.'
+            : 'Nenhum departamento inativo encontrado.'
+        }
       />
 
       {hasMore ? (

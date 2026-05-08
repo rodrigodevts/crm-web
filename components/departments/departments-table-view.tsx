@@ -22,6 +22,7 @@ export interface DepartmentsTableViewProps {
   items: DepartmentListItem[];
   onEdit: (item: DepartmentListItem) => void;
   onDelete: (item: DepartmentListItem) => void;
+  emptyMessage?: string;
 }
 
 const DISTRIBUTION_LABEL: Record<ItemsDistributionModeEnumKey, string> = {
@@ -55,6 +56,7 @@ export function DepartmentsTableView({
   items,
   onEdit,
   onDelete,
+  emptyMessage = 'Nenhum departamento cadastrado.',
 }: DepartmentsTableViewProps) {
   return (
     <div className="rounded-md border">
@@ -87,7 +89,7 @@ export function DepartmentsTableView({
           ) : items.length === 0 ? (
             <TableRow>
               <TableCell colSpan={6} className="text-muted-foreground text-center">
-                Nenhum departamento cadastrado.
+                {emptyMessage}
               </TableCell>
             </TableRow>
           ) : (
