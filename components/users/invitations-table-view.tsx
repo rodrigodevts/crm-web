@@ -1,5 +1,3 @@
-'use client';
-
 import { CopyIcon, RefreshCwIcon, BanIcon } from 'lucide-react';
 import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
 import type { InvitationsControllerListQueryParamsStatusEnumKey } from '@/lib/generated/types/InvitationsControllerList';
