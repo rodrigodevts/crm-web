@@ -2,13 +2,22 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import type { AxiosInstance } from 'axios';
 
 const refreshMock = vi.fn();
+const toastErrorMock = vi.fn();
 
 describe('apiClient', () => {
   beforeEach(() => {
     vi.resetModules();
     refreshMock.mockReset();
+    toastErrorMock.mockReset();
     vi.doMock('@/lib/generated/client/authControllerRefresh', () => ({
       authControllerRefresh: refreshMock,
+    }));
+    vi.doMock('sonner', () => ({
+      toast: {
+        error: toastErrorMock,
+        success: vi.fn(),
+        info: vi.fn(),
+      },
     }));
   });
 
@@ -97,5 +106,19 @@ describe('apiClient', () => {
     await Promise.all([p1, p2]);
 
     expect(refreshMock).toHaveBeenCalledOnce();
+  });
+
+  it('em 403, dispara toast de permissão e propaga o erro', async () => {
+    const { apiClient } = await import('./api-client');
+    const adapter = vi.fn().mockRejectedValue({
+      response: { status: 403, data: { message: 'Forbidden' } },
+      config: { url: '/admin-only', method: 'get' },
+    });
+    (apiClient as AxiosInstance).defaults.adapter = adapter;
+
+    await expect(apiClient.get('/admin-only')).rejects.toBeDefined();
+
+    expect(toastErrorMock).toHaveBeenCalledWith('Você não tem permissão para essa ação.');
+    expect(refreshMock).not.toHaveBeenCalled();
   });
 });
