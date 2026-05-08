@@ -1,6 +1,7 @@
 'use client';
 
 import { useDeferredValue, useId, useMemo, useState } from 'react';
+import { SearchIcon } from 'lucide-react';
 import { useDepartmentsControllerList } from '@/lib/generated/hooks/useDepartmentsControllerList';
 import { useDepartmentsControllerFindById } from '@/lib/generated/hooks/useDepartmentsControllerFindById';
 import { apiClient } from '@/lib/api-client';
@@ -53,8 +54,12 @@ export function DepartmentsTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-4">
-        <div className="min-w-60 flex-1">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="relative w-full max-w-sm">
+          <SearchIcon
+            aria-hidden="true"
+            className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
+          />
           <Label htmlFor={`${filterId}-search`} className="sr-only">
             Buscar por nome
           </Label>
@@ -64,16 +69,20 @@ export function DepartmentsTable() {
             placeholder="Buscar por nome…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
+            className="pl-8"
           />
         </div>
-        <div className="flex items-center gap-2">
+        <Label
+          htmlFor={`${filterId}-inactive`}
+          className="hover:bg-accent inline-flex cursor-pointer items-center gap-2 rounded-md border px-3 py-1.5 text-sm transition-colors"
+        >
           <Switch
             id={`${filterId}-inactive`}
             checked={showInactive}
             onCheckedChange={setShowInactive}
           />
-          <Label htmlFor={`${filterId}-inactive`}>Mostrar inativos</Label>
-        </div>
+          <span>Mostrar inativos</span>
+        </Label>
       </div>
 
       <DepartmentsTableView

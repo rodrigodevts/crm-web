@@ -213,7 +213,7 @@ export function DepartmentDialog({ mode, department, open, onOpenChange }: Depar
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg">
+      <DialogContent className="max-h-[calc(100vh-3rem)] max-w-lg overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{isCreate ? 'Novo departamento' : 'Editar departamento'}</DialogTitle>
           <DialogDescription>
@@ -271,7 +271,15 @@ export function DepartmentDialog({ mode, department, open, onOpenChange }: Depar
               </FieldDescription>
             </Field>
 
-            <Field orientation="horizontal">
+            <div className="flex items-center justify-between gap-3 rounded-md border px-3 py-2">
+              <div className="flex flex-col">
+                <FieldLabel htmlFor={`${fieldId}-active`} className="text-sm font-medium">
+                  Ativo
+                </FieldLabel>
+                <FieldDescription>
+                  Departamentos inativos não recebem novos atendimentos.
+                </FieldDescription>
+              </div>
               <Controller
                 control={control}
                 name="active"
@@ -283,8 +291,7 @@ export function DepartmentDialog({ mode, department, open, onOpenChange }: Depar
                   />
                 )}
               />
-              <FieldLabel htmlFor={`${fieldId}-active`}>Ativo</FieldLabel>
-            </Field>
+            </div>
 
             <Field>
               <FieldLabel htmlFor={`${fieldId}-greeting`}>Mensagem de saudação</FieldLabel>
