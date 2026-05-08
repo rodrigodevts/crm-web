@@ -5,9 +5,10 @@
 
 import type { InvitationsControllerCreate201, InvitationsControllerCreateMutationRequest, InvitationsControllerCreateMutationResponse } from "../types/InvitationsControllerCreate.ts";
 import { createInvitationDtoSchema } from "./createInvitationDtoSchema.ts";
+import { invitationCreatedDtoSchema } from "./invitationCreatedDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const invitationsControllerCreate201Schema = z.any() as unknown as z.ZodType<InvitationsControllerCreate201>
+export const invitationsControllerCreate201Schema = z.lazy(() => invitationCreatedDtoSchema).describe("Convite recém-criado ou reenviado, com URL de aceite") as unknown as z.ZodType<InvitationsControllerCreate201>
 
 export const invitationsControllerCreateMutationRequestSchema = z.lazy(() => createInvitationDtoSchema).describe("Dados para criar convite de usuário no tenant atual") as unknown as z.ZodType<InvitationsControllerCreateMutationRequest>
 

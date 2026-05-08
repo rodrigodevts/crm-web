@@ -4,6 +4,7 @@
 */
 
 import type { InvitationsControllerList200, InvitationsControllerListQueryParams, InvitationsControllerListQueryResponse } from "../types/InvitationsControllerList.ts";
+import { invitationListResponseDtoSchema } from "./invitationListResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const invitationsControllerListQueryParamsSchema = z.object({
@@ -12,6 +13,6 @@ export const invitationsControllerListQueryParamsSchema = z.object({
 "limit": z.coerce.number().int().min(1).max(100).default(20)
     }) as unknown as z.ZodType<InvitationsControllerListQueryParams>
 
-export const invitationsControllerList200Schema = z.any() as unknown as z.ZodType<InvitationsControllerList200>
+export const invitationsControllerList200Schema = z.lazy(() => invitationListResponseDtoSchema) as unknown as z.ZodType<InvitationsControllerList200>
 
 export const invitationsControllerListQueryResponseSchema = z.lazy(() => invitationsControllerList200Schema) as unknown as z.ZodType<InvitationsControllerListQueryResponse>

@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { PublicInvitationDto } from "./PublicInvitationDto.ts";
 
 export type InvitationsPublicControllerGetByTokenPathParams = {
     /**
@@ -11,7 +12,7 @@ export type InvitationsPublicControllerGetByTokenPathParams = {
     token: string;
 };
 
-export type InvitationsPublicControllerGetByToken200 = unknown;
+export type InvitationsPublicControllerGetByToken200 = PublicInvitationDto;
 
 export type InvitationsPublicControllerGetByTokenQueryResponse = InvitationsPublicControllerGetByToken200;
 

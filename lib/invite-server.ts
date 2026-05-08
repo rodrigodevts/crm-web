@@ -1,9 +1,9 @@
-import { parsePublicInvitation, type PublicInvitationResponse } from '@/lib/api/invitations';
+import type { PublicInvitationDto } from '@/lib/generated/types/PublicInvitationDto';
 
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
 
 export type InviteFetchResult =
-  | { kind: 'ok'; invitation: PublicInvitationResponse }
+  | { kind: 'ok'; invitation: PublicInvitationDto }
   | { kind: 'invalid'; status: 404 | 410 }
   | { kind: 'error'; status: number };
 
@@ -13,8 +13,8 @@ export async function fetchInvitationByToken(token: string): Promise<InviteFetch
   });
 
   if (response.status === 200) {
-    const data = await response.json();
-    return { kind: 'ok', invitation: parsePublicInvitation(data) };
+    const data = (await response.json()) as PublicInvitationDto;
+    return { kind: 'ok', invitation: data };
   }
 
   if (response.status === 404 || response.status === 410) {

@@ -7,13 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useInvitationsPublicControllerAccept } from '@/lib/generated/hooks/useInvitationsPublicControllerAccept';
 import { apiClient } from '@/lib/api-client';
-import type { InvitationRole } from '@/lib/api/invitations';
+import type { PublicInvitationDtoRoleEnumKey } from '@/lib/generated/types/PublicInvitationDto';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 
-const ROLE_LABEL: Record<InvitationRole, string> = {
+const ROLE_LABEL: Record<PublicInvitationDtoRoleEnumKey, string> = {
   ADMIN: 'Administrador',
   SUPERVISOR: 'Supervisor',
   AGENT: 'Atendente',
@@ -35,7 +35,7 @@ type FormValues = z.infer<typeof formSchema>;
 interface Props {
   token: string;
   email: string;
-  role: InvitationRole;
+  role: PublicInvitationDtoRoleEnumKey;
   companyName: string;
 }
 
