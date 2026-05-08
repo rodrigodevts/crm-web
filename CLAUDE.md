@@ -118,11 +118,11 @@ Detalhado em `WORKFLOW.md`. Resumo:
 6. Superpowers ativa /execute-plan
    - TDD: testes primeiro
    - Cada step: implementa, valida, code review
-7. Verificação final (testes, lint, typecheck, build)
+7. Verificação final (testes, lint, typecheck, format)
 8. Merge ou PR
 ```
 
-Antes de codar: sempre brainstorm. Antes de declarar pronto: verificação por evidência (`pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build`).
+Antes de codar: sempre brainstorm. Antes de declarar pronto: verificação por evidência local com `pnpm format:check && pnpm lint && pnpm typecheck && pnpm test`. **`pnpm build` não entra na verificação local** — ver §11 "Limitações conhecidas".
 
 ---
 
@@ -197,7 +197,7 @@ Verifique:
 - [ ] `ARCHITECTURE.md` atualizado se houve decisão arquitetural relevante
 - [ ] `lib/generated/` regenerado se o backend mudou OpenAPI
 - [ ] Testes passando (`pnpm test`)
-- [ ] Lint, typecheck, format e build OK
+- [ ] Lint, typecheck, format OK
 - [ ] Commit message segue Conventional Commits
 
 Reporte ao humano:
@@ -206,3 +206,26 @@ Reporte ao humano:
 - O que ficou pendente
 - Decisões tomadas que não estavam no plano
 - Próximo passo sugerido
+
+---
+
+## 11. Limitações conhecidas
+
+### `pnpm build` localmente não funciona
+
+Desde o scaffold inicial do projeto (presente em todos os commits desde `3166023`), `pnpm build` falha localmente em prerender de páginas internas do Next.js. O sintoma mudou entre versões do Next:
+
+- **Next 15.5.15:** `Error: <Html> should not be imported outside of pages/_document` em `/404`.
+- **Next 16.x (atual):** `TypeError: Cannot read properties of undefined (reading 'length')` em `/_not-found` ou em qualquer página dentro de `(app)/configuracoes/*` (varia entre builds — não-determinístico). O bug está documentado pelos maintainers do Next.js — ver [#84994](https://github.com/vercel/next.js/issues/84994) e [#85668](https://github.com/vercel/next.js/issues/85668), sem fix definitivo até o momento.
+
+**O CI passa** porque restaura `.next/cache` via `actions/cache@v5` — os logs mostram `Generating static pages using 3 workers (19/19) in 286ms`, evidência de cache hit em vez de geração efetiva. Todas as rotas são marcadas `ƒ` (server-rendered dynamic), nenhuma `○` (static).
+
+**Decisão:** **`pnpm build` fica fora do gate de verificação local.** A verificação real é `pnpm format:check && pnpm lint && pnpm typecheck && pnpm test`. CI continua rodando build a cada PR.
+
+**Quando revisitar:**
+
+- Se Next 16.3+ release notes mencionarem fix pra prerender de `/_not-found` ou metadata duplicate keys.
+- Quando começarmos a deployar (Vercel pode reproduzir CI ou local — testar antes do go-live).
+- Quando habilitarmos Cache Components (`cacheComponents: true` em `next.config.ts`) — provável causa raiz é falta dessa opt-in que muda o modelo default de prerender no Next 16.
+
+**Não tentar "consertar" sem investigação dedicada (sprint própria).** Investigação ad-hoc no meio de outras sprints já consumiu tempo demais.

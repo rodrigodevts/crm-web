@@ -73,6 +73,7 @@ Superpowers ativa skill `brainstorming`. Claude Code:
 4. Aguarda você validar cada seção
 
 **Você revisa criticamente:**
+
 - Faltou algum caso de uso?
 - Algum gap entre design e audit?
 - Decisão de implementação que precisa ajustar?
@@ -100,6 +101,7 @@ Steps:
 ```
 
 **Você revisa o plano:**
+
 - Steps estão na ordem certa?
 - Algum step está fora de escopo?
 - TDD aplicado corretamente?
@@ -128,6 +130,7 @@ Você acompanha mas geralmente não interrompe. Se intervir, sai do workflow Sup
 ### Fase 4: Verificação final
 
 Antes de declarar pronto, Superpowers verifica:
+
 - Todos os testes passando
 - Lint OK
 - Typecheck OK
@@ -138,6 +141,7 @@ Se algo falhar, identifica e corrige. **Sem declarar "deve funcionar" sem evidê
 ### Fase 5: Merge ou PR
 
 Você decide:
+
 - Merge direto pra main (projeto solo, fluxo simples)
 - Abrir PR pra revisar mais calmo
 - Manter branch viva pra continuar amanhã
@@ -164,16 +168,19 @@ Não pule brainstorm mesmo em CRUD. Pode ser que apareça caso edge não documen
 Features complexas (Bot Engine, state machine de Tickets, integrações com retry) merecem workflow mais elaborado:
 
 **Brainstorm mais longo:**
+
 - Mapear todos os caminhos de erro
 - Decidir trade-offs explicitamente
 - Documentar no ADR se decisão arquitetural
 
 **Plano dividido:**
+
 - Plano em sub-features (não 1 plano gigante)
 - Cada sub-feature com seu execute-plan
 - Merge incremental entre sub-features
 
 **Execute com checkpoints:**
+
 - Após cada sub-feature, stop e revise
 - Não acumule mudanças grandes sem validação
 
@@ -197,6 +204,7 @@ Casos onde Superpowers atrapalha mais que ajuda:
 ### Bug de produção urgente
 
 Cliente não pode esperar brainstorm. Vá direto pra fix, mas:
+
 - Crie teste regressivo depois
 - Documente no ADR o "porque foi rápido"
 
@@ -269,6 +277,7 @@ Superpowers tem `code-reviewer` agent que revisa cada step. Critérios:
 - Testes adequados
 
 Issues classificadas:
+
 - **Crítico:** bloqueia progresso até corrigir
 - **Major:** corrigir antes de merge
 - **Minor:** sugestão
@@ -285,12 +294,15 @@ Sua revisão complementa code review automático. Não substitua.
 
 ### Verificação por evidência
 
-Antes de declarar pronto, **rodar comandos**:
+Antes de declarar pronto, **rodar comandos** localmente:
+
 - `pnpm test` — todos passam
-- `pnpm test:e2e` — todos passam
+- `pnpm test:e2e` — todos passam (quando configurado)
 - `pnpm lint` — sem erro
 - `pnpm typecheck` — sem erro
-- `pnpm build` — compila
+- `pnpm format:check` — sem erro
+
+`pnpm build` fica a cargo do CI (limitação conhecida — ver `CLAUDE.md` §11).
 
 Sem "deve funcionar" sem rodar. Sem "provavelmente está OK". Evidência sempre.
 
@@ -304,11 +316,12 @@ Rodar antes de commit:
 
 ```bash
 pnpm test
-pnpm test:e2e
 pnpm lint
 pnpm typecheck
-pnpm build
+pnpm format:check
 ```
+
+`pnpm build` fica a cargo do CI (ver `CLAUDE.md` §11). `pnpm test:e2e` adicionar quando estiver configurado.
 
 Superpowers `verification` skill faz isso automaticamente antes de declarar pronto.
 
@@ -317,6 +330,7 @@ Superpowers `verification` skill faz isso automaticamente antes de declarar pron
 GitHub Actions roda os mesmos comandos a cada push. Bloqueia merge se falhar.
 
 CI também:
+
 - Verifica formato de commit (Conventional Commits)
 - Roda Kubb no `crm-web` se mudou OpenAPI no `crm-api`
 - Faz coverage report (não bloqueia)
