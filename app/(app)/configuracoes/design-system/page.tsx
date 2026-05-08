@@ -11,6 +11,7 @@ import { PrimitivesFeedback } from './_sections/primitives-feedback';
 import { PrimitivesOverlays } from './_sections/primitives-overlays';
 import { PrimitivesData } from './_sections/primitives-data';
 import { PrimitivesCharts } from './_sections/primitives-charts';
+import { Composites } from './_sections/composites';
 
 export const metadata: Metadata = { title: 'Design System — DigiChat' };
 
@@ -45,6 +46,8 @@ export default function Page() {
             <PrimitivesData />
             <PrimitivesCharts />
           </Section>
+
+          <Composites />
         </main>
       </div>
     </div>
