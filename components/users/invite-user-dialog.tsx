@@ -92,16 +92,26 @@ export function InviteUserDialog() {
       const created = await create.mutateAsync({ data: values });
 
       toast.success(`Convite criado para ${created.email}`, {
-        description: 'Compartilhe o link manualmente até o disparo automático ser implementado.',
-        action: {
-          label: 'Copiar link',
-          onClick: () => {
-            void copyToClipboard(created.inviteUrl).then((ok) => {
-              if (ok) toast.info('Link copiado para a área de transferência');
-              else toast.error('Não foi possível copiar o link');
-            });
-          },
-        },
+        description: (
+          <div className="flex flex-col items-start gap-2">
+            <span>Compartilhe o link manualmente até o disparo automático ser implementado.</span>
+            <Button
+              type="button"
+              variant="link"
+              size="sm"
+              className="h-auto gap-1 px-0 py-0"
+              onClick={() => {
+                void copyToClipboard(created.inviteUrl).then((ok) => {
+                  if (ok) toast.info('Link copiado para a área de transferência');
+                  else toast.error('Não foi possível copiar o link');
+                });
+              }}
+            >
+              <CopyIcon className="size-3" />
+              Copiar link
+            </Button>
+          </div>
+        ),
       });
 
       // Invalida todas as variantes paginadas/por status da listagem
