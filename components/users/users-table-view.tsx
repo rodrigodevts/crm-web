@@ -171,7 +171,6 @@ export function UsersTableView({
                           size="sm"
                           onClick={() => onForceLogout(user)}
                           aria-label={`Forçar logout do usuário ${user.name}`}
-                          className="text-destructive"
                         >
                           <LogOutIcon className="size-4" />
                           Forçar logout

@@ -2,6 +2,7 @@
 
 import { toast } from 'sonner';
 import { useUsersControllerForceLogout } from '@/lib/generated/hooks/useUsersControllerForceLogout';
+import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 import { apiClient } from '@/lib/api-client';
 import {
   AlertDialog,
@@ -14,7 +15,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-type UserLite = { id: string; name: string };
+type UserLite = Pick<UserResponseDto, 'id' | 'name'>;
 
 interface ForceLogoutUserDialogProps {
   user: UserLite | null;

@@ -68,7 +68,7 @@ export function UsersTable() {
   const query = useUsersControllerList(params, { client: { client: apiClient } });
   const update = useUsersControllerUpdate({ client: { client: apiClient } });
 
-  const items: UserListItem[] = query.data?.items ?? [];
+  const items: UserListItem[] = useMemo(() => query.data?.items ?? [], [query.data]);
   const hasMore = query.data?.pagination.hasMore ?? false;
 
   const lastActiveAdminId = useMemo(() => {

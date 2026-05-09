@@ -4,6 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { useUsersControllerDelete } from '@/lib/generated/hooks/useUsersControllerDelete';
 import { usersControllerListQueryKey } from '@/lib/generated/hooks/useUsersControllerList';
+import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 import { apiClient } from '@/lib/api-client';
 import {
   AlertDialog,
@@ -16,7 +17,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-type UserLite = { id: string; name: string };
+type UserLite = Pick<UserResponseDto, 'id' | 'name'>;
 
 interface DeactivateUserDialogProps {
   user: UserLite | null;

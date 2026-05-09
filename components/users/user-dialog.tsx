@@ -49,9 +49,7 @@ const formSchema = z.object({
     .max(100, 'Máximo de 100 caracteres'),
   email: z.string().trim().toLowerCase().email('E-mail em formato inválido'),
   role: z.enum(['ADMIN', 'SUPERVISOR', 'AGENT']),
-  // Backend valida UUID; aqui só validamos formato de string para
-  // permitir fixtures de teste com IDs simples e evitar duplicar validação.
-  departmentIds: z.array(z.string().min(1)),
+  departmentIds: z.array(z.string().uuid()),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -63,11 +61,15 @@ const DEFAULT_VALUES: FormValues = {
   departmentIds: [],
 };
 
+function toEditableRole(role: UserResponseDto['role']): EditableRole {
+  return role === 'SUPER_ADMIN' ? 'ADMIN' : role;
+}
+
 function toFormValues(user: UserResponseDto): FormValues {
   return {
     name: user.name,
     email: user.email,
-    role: (user.role === 'SUPER_ADMIN' ? 'ADMIN' : user.role) as EditableRole,
+    role: toEditableRole(user.role),
     departmentIds: user.departments.map((d) => d.id),
   };
 }

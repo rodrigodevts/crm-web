@@ -55,15 +55,29 @@ const targetUser: UserResponseDto = {
   absenceMessage: null,
   absenceActive: false,
   lastSeenAt: null,
-  departments: [{ id: 'd1', name: 'Suporte' }],
+  departments: [{ id: '00000000-0000-7000-8000-0000000000d1', name: 'Suporte' }],
   createdAt: '2026-05-01T00:00:00.000Z',
   updatedAt: '2026-05-01T00:00:00.000Z',
 };
 
 const departmentsList = {
   items: [
-    { id: 'd1', name: 'Suporte', companyId: 'c', active: true, createdAt: '', updatedAt: '' },
-    { id: 'd2', name: 'Vendas', companyId: 'c', active: true, createdAt: '', updatedAt: '' },
+    {
+      id: '00000000-0000-7000-8000-0000000000d1',
+      name: 'Suporte',
+      companyId: 'c',
+      active: true,
+      createdAt: '',
+      updatedAt: '',
+    },
+    {
+      id: '00000000-0000-7000-8000-0000000000d2',
+      name: 'Vendas',
+      companyId: 'c',
+      active: true,
+      createdAt: '',
+      updatedAt: '',
+    },
   ],
   pagination: { nextCursor: null, hasMore: false },
 };
@@ -182,7 +196,7 @@ describe('UserDialog', () => {
         name: 'Maria Atualizada',
         email: 'maria@example.com',
         role: 'AGENT',
-        departmentIds: ['d1'],
+        departmentIds: ['00000000-0000-7000-8000-0000000000d1'],
       });
     });
     await waitFor(() => expect(onOpenChange).toHaveBeenCalledWith(false));
