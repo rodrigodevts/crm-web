@@ -11,6 +11,7 @@ const baseItem = (overrides: Partial<Item> = {}): Item => ({
   name: 'Maria Atendente',
   email: 'maria@example.com',
   role: 'AGENT',
+  active: true,
   absenceMessage: null,
   absenceActive: false,
   lastSeenAt: '2026-05-08T10:30:00.000Z',

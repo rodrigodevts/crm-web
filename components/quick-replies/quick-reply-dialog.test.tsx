@@ -23,6 +23,7 @@ vi.mock('sonner', () => ({
 const fakeUser = (overrides: Partial<UserResponseDto> = {}): UserResponseDto => ({
   absenceActive: false,
   absenceMessage: null,
+  active: true,
   companyId: '00000000-0000-7000-8000-0000000000aa',
   createdAt: '2026-05-01T00:00:00.000Z',
   departments: [],

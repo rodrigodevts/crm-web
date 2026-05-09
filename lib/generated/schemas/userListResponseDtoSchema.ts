@@ -10,6 +10,7 @@ export const userListResponseDtoSchema = z.object({
     "items": z.array(z.object({
     "absenceActive": z.boolean(),
 "absenceMessage": z.nullable(z.string()),
+"active": z.boolean().describe("Falso quando o usuário está soft-deletado (deletedAt != null)."),
 "companyId": z.uuid(),
 "createdAt": z.iso.datetime({ offset: true }),
 "departments": z.array(z.object({

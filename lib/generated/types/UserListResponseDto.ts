@@ -27,6 +27,11 @@ export type UserListResponseDto = {
         */
         absenceMessage: string | null;
         /**
+         * @description Falso quando o usuário está soft-deletado (deletedAt != null).
+         * @type boolean
+        */
+        active: boolean;
+        /**
          * @type string, uuid
         */
         companyId: string;

@@ -8,6 +8,7 @@ const fakeUser: UserResponseDto = {
   name: 'Maria',
   email: 'maria@example.com',
   role: 'AGENT',
+  active: true,
   absenceMessage: null,
   absenceActive: false,
   lastSeenAt: null,

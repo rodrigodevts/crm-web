@@ -12,6 +12,7 @@ import { z } from "zod/v4";
 export const updateUserDtoSchema = z.object({
     "absenceActive": z.optional(z.boolean()),
 "absenceMessage": z.string().max(500).nullish(),
+"active": z.optional(z.boolean().describe("true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN).")),
 "departmentIds": z.optional(z.array(z.uuid())),
 "email": z.optional(z.email()),
 "name": z.optional(z.string().min(2).max(100)),
