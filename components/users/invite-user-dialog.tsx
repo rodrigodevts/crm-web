@@ -97,9 +97,8 @@ export function InviteUserDialog() {
             <span>Compartilhe o link manualmente até o disparo automático ser implementado.</span>
             <Button
               type="button"
-              variant="link"
+              variant="outline"
               size="sm"
-              className="h-auto gap-1 px-0 py-0"
               onClick={() => {
                 void copyToClipboard(created.inviteUrl).then((ok) => {
                   if (ok) toast.info('Link copiado para a área de transferência');
