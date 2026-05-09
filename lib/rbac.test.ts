@@ -14,7 +14,8 @@ describe('canAccessAdminAreas', () => {
 
 describe('canAccessRoute', () => {
   const matrix: ReadonlyArray<{ role: Role; route: string; expected: boolean }> = [
-    // AGENT: só atendimentos / contatos / campanhas
+    // AGENT: atendimentos / contatos / campanhas + a única tela de Configurações
+    // que cria/edita PERSONAL próprias (Quick Replies).
     { role: 'AGENT', route: '/atendimentos', expected: true },
     { role: 'AGENT', route: '/contatos', expected: true },
     { role: 'AGENT', route: '/campanhas', expected: true },
@@ -22,8 +23,11 @@ describe('canAccessRoute', () => {
     { role: 'AGENT', route: '/dashboard', expected: false },
     { role: 'AGENT', route: '/configuracoes', expected: false },
     { role: 'AGENT', route: '/configuracoes/usuarios', expected: false },
+    { role: 'AGENT', route: '/configuracoes/quick-replies', expected: true },
+    { role: 'AGENT', route: '/configuracoes/quick-replies/abc', expected: true },
 
-    // SUPERVISOR: tudo de AGENT + bot-fluxo + dashboard, sem configuracoes
+    // SUPERVISOR: tudo de AGENT + bot-fluxo + dashboard + quick-replies; sem
+    // o resto de configuracoes/*.
     { role: 'SUPERVISOR', route: '/atendimentos', expected: true },
     { role: 'SUPERVISOR', route: '/contatos', expected: true },
     { role: 'SUPERVISOR', route: '/campanhas', expected: true },
@@ -31,6 +35,7 @@ describe('canAccessRoute', () => {
     { role: 'SUPERVISOR', route: '/dashboard', expected: true },
     { role: 'SUPERVISOR', route: '/configuracoes', expected: false },
     { role: 'SUPERVISOR', route: '/configuracoes/tags', expected: false },
+    { role: 'SUPERVISOR', route: '/configuracoes/quick-replies', expected: true },
 
     // ADMIN: tudo
     { role: 'ADMIN', route: '/atendimentos', expected: true },

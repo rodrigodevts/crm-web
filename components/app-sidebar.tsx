@@ -18,7 +18,7 @@ import { NavMain, type NavMainItem } from '@/components/nav-main';
 import { NavSecondary, type NavSecondaryItem } from '@/components/nav-secondary';
 import { NavUser } from '@/components/nav-user';
 import { useCurrentUser } from '@/contexts/current-user-context';
-import { canAccessAdminAreas, canAccessRoute } from '@/lib/rbac';
+import { canAccessRoute, type Role } from '@/lib/rbac';
 import {
   Sidebar,
   SidebarContent,
@@ -61,7 +61,11 @@ function isRouteActive(pathname: string, url: string): boolean {
   return pathname === url || pathname.startsWith(`${url}/`);
 }
 
-function ConfiguracoesMenu() {
+function ConfiguracoesMenu({
+  visibleSubItems,
+}: {
+  visibleSubItems: ReadonlyArray<{ href: string; label: string }>;
+}) {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
   const settingsActive = isRouteActive(pathname, '/configuracoes');
@@ -84,7 +88,7 @@ function ConfiguracoesMenu() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
-                  {settingsSubItems.map((sub) => (
+                  {visibleSubItems.map((sub) => (
                     <SidebarMenuSubItem key={sub.href}>
                       <SidebarMenuSubButton asChild isActive={isRouteActive(pathname, sub.href)}>
                         <Link href={sub.href} onClick={() => setOpenMobile(false)}>
@@ -103,10 +107,14 @@ function ConfiguracoesMenu() {
   );
 }
 
+function getVisibleSettingsSubItems(role: Role): ReadonlyArray<{ href: string; label: string }> {
+  return settingsSubItems.filter((s) => canAccessRoute(role, s.href));
+}
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const user = useCurrentUser();
-  const showAdminAreas = canAccessAdminAreas(user.role);
   const visibleNavMain = navMain.filter((item) => canAccessRoute(user.role, item.url));
+  const visibleSettingsSubItems = getVisibleSettingsSubItems(user.role);
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>
@@ -124,7 +132,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={visibleNavMain} />
-        {showAdminAreas ? <ConfiguracoesMenu /> : null}
+        {visibleSettingsSubItems.length > 0 ? (
+          <ConfiguracoesMenu visibleSubItems={visibleSettingsSubItems} />
+        ) : null}
         <NavSecondary items={navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

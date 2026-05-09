@@ -4,15 +4,14 @@
 */
 
 
-export const itemsScopeEnum2 = {
-    CONTACT: "CONTACT",
-    TICKET: "TICKET",
-    BOTH: "BOTH"
+export const itemsScopeEnum = {
+    COMPANY: "COMPANY",
+    PERSONAL: "PERSONAL"
 } as const;
 
-export type ItemsScopeEnum2Key = (typeof itemsScopeEnum2)[keyof typeof itemsScopeEnum2];
+export type ItemsScopeEnumKey = (typeof itemsScopeEnum)[keyof typeof itemsScopeEnum];
 
-export type TagListResponseDto = {
+export type QuickReplyListResponseDto = {
     /**
      * @type array
     */
@@ -21,10 +20,6 @@ export type TagListResponseDto = {
          * @type boolean
         */
         active: boolean;
-        /**
-         * @type string
-        */
-        color: string;
         /**
          * @type string, uuid
         */
@@ -40,11 +35,27 @@ export type TagListResponseDto = {
         /**
          * @type string
         */
-        name: string;
+        mediaMimeType: string | null;
         /**
          * @type string
         */
-        scope: ItemsScopeEnum2Key;
+        mediaUrl: string | null;
+        /**
+         * @type string
+        */
+        message: string;
+        /**
+         * @type string, uuid
+        */
+        ownerUserId: string | null;
+        /**
+         * @type string
+        */
+        scope: ItemsScopeEnumKey;
+        /**
+         * @type string
+        */
+        shortcut: string;
         /**
          * @type string, date-time
         */
