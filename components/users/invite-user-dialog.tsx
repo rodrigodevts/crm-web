@@ -30,11 +30,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-// Roles convidáveis pelo admin via UI: ADMIN e AGENT.
-// Backend aceita SUPERVISOR também (v. crm-api/src/modules/invitations/schemas/create-invitation.schema.ts),
-// mas o produto restringe à dupla básica enquanto não há especificação de Supervisor.
+// Roles convidáveis pelo admin via UI: ADMIN, SUPERVISOR e AGENT.
+// SUPER_ADMIN não é convidável (decisão de produto + rejeitado pelo backend).
 const ROLE_OPTIONS = [
   { value: 'ADMIN', label: 'Administrador' },
+  { value: 'SUPERVISOR', label: 'Supervisor' },
   { value: 'AGENT', label: 'Atendente' },
 ] as const;
 
@@ -42,7 +42,7 @@ type InvitableRole = (typeof ROLE_OPTIONS)[number]['value'];
 
 const formSchema = z.object({
   email: z.string().trim().toLowerCase().email('Email em formato inválido'),
-  role: z.enum(['ADMIN', 'AGENT']),
+  role: z.enum(['ADMIN', 'SUPERVISOR', 'AGENT']),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -92,16 +92,26 @@ export function InviteUserDialog() {
       const created = await create.mutateAsync({ data: values });
 
       toast.success(`Convite criado para ${created.email}`, {
-        description: 'Compartilhe o link manualmente até o disparo automático ser implementado.',
-        action: {
-          label: 'Copiar link',
-          onClick: () => {
-            void copyToClipboard(created.inviteUrl).then((ok) => {
-              if (ok) toast.info('Link copiado para a área de transferência');
-              else toast.error('Não foi possível copiar o link');
-            });
-          },
-        },
+        description: (
+          <div className="flex flex-col items-start gap-2">
+            <span>Compartilhe o link manualmente até o disparo automático ser implementado.</span>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="text-foreground"
+              onClick={() => {
+                void copyToClipboard(created.inviteUrl).then((ok) => {
+                  if (ok) toast.info('Link copiado para a área de transferência');
+                  else toast.error('Não foi possível copiar o link');
+                });
+              }}
+            >
+              <CopyIcon className="size-3" />
+              Copiar link
+            </Button>
+          </div>
+        ),
       });
 
       // Invalida todas as variantes paginadas/por status da listagem

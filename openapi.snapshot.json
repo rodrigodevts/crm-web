@@ -2659,6 +2659,10 @@
             "nullable": true,
             "type": "string"
           },
+          "active": {
+            "description": "true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN).",
+            "type": "boolean"
+          },
           "departmentIds": {
             "items": {
               "format": "uuid",
@@ -2701,6 +2705,10 @@
                 "absenceMessage": {
                   "nullable": true,
                   "type": "string"
+                },
+                "active": {
+                  "description": "Falso quando o usuário está soft-deletado (deletedAt != null).",
+                  "type": "boolean"
                 },
                 "companyId": {
                   "format": "uuid",
@@ -2764,6 +2772,7 @@
                 "name",
                 "email",
                 "role",
+                "active",
                 "absenceMessage",
                 "absenceActive",
                 "lastSeenAt",
@@ -2801,6 +2810,10 @@
           "absenceMessage": {
             "nullable": true,
             "type": "string"
+          },
+          "active": {
+            "description": "Falso quando o usuário está soft-deletado (deletedAt != null).",
+            "type": "boolean"
           },
           "companyId": {
             "format": "uuid",
@@ -2864,6 +2877,7 @@
           "name",
           "email",
           "role",
+          "active",
           "absenceMessage",
           "absenceActive",
           "lastSeenAt",

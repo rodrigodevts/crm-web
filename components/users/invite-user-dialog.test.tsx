@@ -77,11 +77,15 @@ describe('InviteUserDialog', () => {
     await waitFor(() => {
       expect(toastSuccess).toHaveBeenCalledWith(
         'Convite criado para novo@example.com',
-        expect.objectContaining({
-          action: expect.objectContaining({ label: 'Copiar link' }),
-        }),
+        expect.objectContaining({ description: expect.anything() }),
       );
     });
+
+    // Renderiza a description (JSX) pra confirmar que o botão "Copiar link"
+    // existe nela e está acessível pelo nome.
+    const [, options] = toastSuccess.mock.calls[0] as [string, { description: ReactNode }];
+    const { getByRole } = render(<>{options.description}</>);
+    expect(getByRole('button', { name: /copiar link/i })).toBeInTheDocument();
   });
 
   it('mostra mensagem inline distinta para 409 EMAIL_TAKEN', async () => {

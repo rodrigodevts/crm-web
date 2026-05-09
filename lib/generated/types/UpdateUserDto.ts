@@ -26,6 +26,11 @@ export type UpdateUserDto = {
     */
     absenceMessage?: string | null;
     /**
+     * @description true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN).
+     * @type boolean | undefined
+    */
+    active?: boolean;
+    /**
      * @type array | undefined
     */
     departmentIds?: string[];
