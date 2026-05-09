@@ -1,6 +1,7 @@
 'use client';
 
 import type { UserListResponseDto } from '@/lib/generated/types/UserListResponseDto';
+import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
 import { LoginForm } from '@/components/login-form';
 import { AcceptInviteForm } from '@/components/accept-invite-form';
@@ -58,6 +59,25 @@ const mockUsers: UserItem[] = [
     updatedAt: '2026-05-01T00:00:00.000Z',
   },
 ];
+
+const mockMe: UserResponseDto = {
+  id: '00000000-0000-7000-8000-0000000000ad',
+  companyId: '00000000-0000-7000-8000-0000000000aa',
+  name: 'Admin Demo',
+  email: 'admin@example.com',
+  role: 'ADMIN',
+  active: true,
+  absenceMessage: null,
+  absenceActive: false,
+  lastSeenAt: null,
+  departments: [],
+  createdAt: '2026-05-01T00:00:00.000Z',
+  updatedAt: '2026-05-01T00:00:00.000Z',
+};
+
+const noopUserAction = () => {
+  /* decorativo */
+};
 
 const mockInvitations: InvItem[] = [
   {
@@ -124,15 +144,48 @@ export function Composites() {
 
       <div>
         <h3 className="mb-3 text-base font-medium">UsersTableView — estado ready</h3>
-        <UsersTableView state="ready" items={mockUsers} />
+        <UsersTableView
+          state="ready"
+          items={mockUsers}
+          me={mockMe}
+          canEditItem={() => true}
+          canDeactivateItem={() => true}
+          canForceLogoutItem={() => true}
+          onEdit={noopUserAction}
+          onDeactivate={noopUserAction}
+          onForceLogout={noopUserAction}
+          onReactivate={noopUserAction}
+        />
       </div>
       <div>
         <h3 className="mb-3 text-base font-medium">UsersTableView — estado loading</h3>
-        <UsersTableView state="loading" items={[]} />
+        <UsersTableView
+          state="loading"
+          items={[]}
+          me={mockMe}
+          canEditItem={() => true}
+          canDeactivateItem={() => true}
+          canForceLogoutItem={() => true}
+          onEdit={noopUserAction}
+          onDeactivate={noopUserAction}
+          onForceLogout={noopUserAction}
+          onReactivate={noopUserAction}
+        />
       </div>
       <div>
         <h3 className="mb-3 text-base font-medium">UsersTableView — estado error</h3>
-        <UsersTableView state="error" items={[]} />
+        <UsersTableView
+          state="error"
+          items={[]}
+          me={mockMe}
+          canEditItem={() => true}
+          canDeactivateItem={() => true}
+          canForceLogoutItem={() => true}
+          onEdit={noopUserAction}
+          onDeactivate={noopUserAction}
+          onForceLogout={noopUserAction}
+          onReactivate={noopUserAction}
+        />
       </div>
 
       <div>
