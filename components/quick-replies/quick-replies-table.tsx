@@ -48,6 +48,10 @@ export function QuickRepliesTable() {
   const params = useMemo(
     () => ({
       limit: PAGE_LIMIT,
+      // O backend implementa DELETE como soft-delete (marca active=false). Como
+      // a UI só conhece "Apagar" (sem filtro Status nem botão Reativar), filtra
+      // por active=true pra que items apagados sumam imediatamente da lista.
+      active: true,
       ...(deferredSearch.trim().length > 0 ? { search: deferredSearch.trim() } : {}),
       ...(scope !== 'all' ? { scope } : {}),
       ...(mineOnly ? { mine: true } : {}),
