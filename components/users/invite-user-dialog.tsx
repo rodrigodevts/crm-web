@@ -99,6 +99,7 @@ export function InviteUserDialog() {
               type="button"
               variant="outline"
               size="sm"
+              className="text-foreground"
               onClick={() => {
                 void copyToClipboard(created.inviteUrl).then((ok) => {
                   if (ok) toast.info('Link copiado para a área de transferência');
