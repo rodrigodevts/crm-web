@@ -141,7 +141,7 @@ export function InviteUserDialog() {
   return (
     <Dialog open={open} onOpenChange={(next) => (next ? setOpen(true) : handleClose())}>
       <DialogTrigger asChild>
-        <Button>Convidar usuário</Button>
+        <Button size="lg">Convidar usuário</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

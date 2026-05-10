@@ -8,7 +8,9 @@ export function TagDialogTrigger() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Nova tag</Button>
+      <Button size="lg" onClick={() => setOpen(true)}>
+        Nova tag
+      </Button>
       <TagDialog mode="create" open={open} onOpenChange={setOpen} />
     </>
   );

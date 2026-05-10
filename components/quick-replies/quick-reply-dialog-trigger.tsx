@@ -8,7 +8,9 @@ export function QuickReplyDialogTrigger() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Nova resposta rápida</Button>
+      <Button size="lg" onClick={() => setOpen(true)}>
+        Nova resposta rápida
+      </Button>
       <QuickReplyDialog mode="create" open={open} onOpenChange={setOpen} />
     </>
   );
