@@ -2,8 +2,8 @@
 
 > Documento vivo. Atualize a cada decisão arquitetural significativa. Em caso de conflito entre código e documento, o documento ganha — o código deve ser corrigido.
 >
-> **Versão:** 7 (tipografia ajustada: Archivo + Inter, paleta Dreams Chat aplicada)
-> **Última atualização:** 27/04/2026
+> **Versão:** 8 (tipografia consolidada em Geist; vocabulário Tailwind = shadcn baseline)
+> **Última atualização:** 10/05/2026
 
 ---
 
@@ -381,18 +381,18 @@ Cada um expõe operações relacionadas. Application service compõe.
 
 ### Frontend (`crm-web`)
 
-| Componente                                   | Versão                                                                               |
-| -------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| Next.js                                      | 15+ App Router                                                                       |
-| Tailwind CSS                                 | 4+ (CSS-first via `@theme` em `app/globals.css` — sem `tailwind.config`)             |
-| Tipografia                                   | Archivo (sans/conteúdo) + Inter (UI/ações) + JetBrains Mono — via `next/font/google` |
-| shadcn/ui                                    | latest                                                                               |
-| TanStack Query                               | 5+                                                                                   |
-| Zustand                                      | latest                                                                               |
-| React Hook Form + Zod                        | latest (Zod compartilhado com backend)                                               |
-| socket.io-client                             | 4+                                                                                   |
-| React Flow                                   | 12+ (Fase 6)                                                                         |
-| `@kubb/cli` + `@kubb/swagger-tanstack-query` | latest                                                                               | Geração automática de tipos TS e hooks TanStack Query a partir do OpenAPI do backend |
+| Componente                                   | Versão                                                                   |
+| -------------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| Next.js                                      | 15+ App Router                                                           |
+| Tailwind CSS                                 | 4+ (CSS-first via `@theme` em `app/globals.css` — sem `tailwind.config`) |
+| Tipografia                                   | Geist Sans + Geist Mono — via package `geist` (`next/font` interno)      |
+| shadcn/ui                                    | latest                                                                   |
+| TanStack Query                               | 5+                                                                       |
+| Zustand                                      | latest                                                                   |
+| React Hook Form + Zod                        | latest (Zod compartilhado com backend)                                   |
+| socket.io-client                             | 4+                                                                       |
+| React Flow                                   | 12+ (Fase 6)                                                             |
+| `@kubb/cli` + `@kubb/swagger-tanstack-query` | latest                                                                   | Geração automática de tipos TS e hooks TanStack Query a partir do OpenAPI do backend |
 
 ### Infraestrutura
 

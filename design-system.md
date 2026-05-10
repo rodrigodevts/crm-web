@@ -1,9 +1,9 @@
 # Design System — DigiChat
 
-> **Versão:** 2 (tokens Dreams Chat + Variables sincronizadas com Figma)
-> **Última atualização:** 06/05/2026
+> **Versão:** 3 (vocabulário canônico = shadcn baseline; Figma mantém os nomes Dreams Chat com tabela de equivalência)
+> **Última atualização:** 10/05/2026
 >
-> Identidade visual e tokens da plataforma. Espelha o que está no Figma (collection `DigiChat Tokens`).
+> Identidade visual e tokens da plataforma. Os nomes documentados aqui são os do **Figma** (collection `DigiChat Tokens`); no código, o vocabulário canônico é o **shadcn baseline**. A tabela de equivalência fica em §Cores → "Mapeamento Figma ↔ código".
 
 ---
 
@@ -19,6 +19,8 @@
 ---
 
 ## Cores
+
+> **Nota:** os tokens listados nesta seção são **nomes do Figma** (collection `DigiChat Tokens`). No código (`app/globals.css` + Tailwind 4 `@theme inline`), o vocabulário canônico é o **shadcn baseline** (`bg-background`, `text-foreground`, `border-border`, etc.). A tabela "Mapeamento Figma ↔ código" no fim desta seção documenta a equivalência 1:1.
 
 ### Primary (azul vibrante)
 
@@ -110,21 +112,47 @@ Cores semânticas para estados (sucesso, alerta, erro, info).
 |---|---|
 | `color/status/info/500` | `#1b84ff` (alias do primary/500) |
 
+### Mapeamento Figma ↔ código
+
+Tabela canônica: nome do Figma à esquerda, classe Tailwind real (shadcn baseline) à direita.
+
+| Figma                            | Tailwind class                                                                | CSS var                   |
+| -------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
+| `color/semantic/text-primary`    | `text-foreground`                                                             | `--foreground`            |
+| `color/semantic/text-secondary`  | `text-muted-foreground`                                                       | `--muted-foreground`      |
+| `color/semantic/text-muted`      | `text-muted-foreground`                                                       | `--muted-foreground`      |
+| `color/semantic/text-inverse`    | `text-primary-foreground`                                                     | `--primary-foreground`    |
+| `color/semantic/text-link`       | `text-primary`                                                                | `--primary`               |
+| `color/semantic/bg-base`         | `bg-background`                                                               | `--background`            |
+| `color/semantic/bg-subtle`       | `bg-sidebar` (sidebar) / `bg-muted` (áreas sutis)                             | `--sidebar` / `--muted`   |
+| `color/semantic/bg-muted`        | `bg-muted`                                                                    | `--muted`                 |
+| `color/semantic/bg-inverse`      | `bg-foreground`                                                               | `--foreground`            |
+| `color/semantic/border-default`  | `border-border`                                                               | `--border`                |
+| `color/semantic/border-muted`    | `border-border/50` (alpha)                                                    | `--border`                |
+| `color/semantic/border-strong`   | `border-border` (sem token dedicado no baseline)                              | `--border`                |
+| `color/semantic/shadow-card-key` | `shadow-sm` / `shadow` / `shadow-md` (defaults)                               | —                         |
+| `color/primary/500`              | `bg-primary` / `text-primary` / `ring-primary`                                | `--primary` (`#1b84ff`)   |
+| `color/primary/50..950`          | `bg-primary-50..950` (escala exposta)                                         | `--color-primary-50..950` |
+| `color/status/danger/500`        | `bg-destructive` / `text-destructive`                                         | `--destructive`           |
+| `color/status/success/500`       | (sem token shadcn — usar hex inline ou `bg-emerald-500` quando aparecer caso) | —                         |
+| `color/status/warning/500`       | (sem token shadcn — usar hex inline ou `bg-amber-500` quando aparecer caso)   | —                         |
+
+A escala `color/primary/50..950` é exposta no Tailwind via `@theme inline { --color-primary-50..950 }` em `app/globals.css`. Status (success/warning) só ganham token Tailwind dedicado quando aparecer uso concreto — hoje só `--destructive` está consolidado.
+
 ---
 
 ## Tipografia
 
 ### Famílias
 
-Duas fontes diferentes para criar contraste visual entre conteúdo e ações:
+Estado atual: **Geist** (Vercel Sans + Vercel Mono). Uma família unificada cobre conteúdo e ações — sem distinção `sans` vs `ui`.
 
-| Token                    | Família            | Uso                                                   |
-| ------------------------ | ------------------ | ----------------------------------------------------- |
-| `typography/family/sans` | **Archivo**        | Texto comum (nomes, mensagens, headings)              |
-| `typography/family/ui`   | **Inter**          | Tabs, botões de ação primária (contraste com Archivo) |
-| `typography/family/mono` | **JetBrains Mono** | Código, IDs, valores técnicos                         |
+| Token                    | Família        | Pacote            | CSS var                               |
+| ------------------------ | -------------- | ----------------- | ------------------------------------- |
+| `typography/family/sans` | **Geist Sans** | `geist/font/sans` | `--font-sans` (= `--font-geist-sans`) |
+| `typography/family/mono` | **Geist Mono** | `geist/font/mono` | `--font-mono` (= `--font-geist-mono`) |
 
-**Razão da distinção sans vs ui:** Archivo é amigável e densa, ideal pra conteúdo conversacional. Inter é mais "executiva" e reforça hierarquia em elementos de ação. Padrão importado do Dreams Chat.
+Aplicado em `app/layout.tsx` via `next/font` (sem CDN). Tabs, botões e demais elementos de UI usam `font-sans` por consistência. Geist tem identidade tipográfica boa, peso de página menor (já vem otimizado), e simplifica o stack vs três famílias separadas.
 
 ### Tamanhos
 
@@ -286,7 +314,7 @@ Implementação detalhada virá na Sprint que implementa o card de ticket.
 
 ### Tabs (header da lista)
 
-- Família: `typography/family/ui` (Inter)
+- Família: `typography/family/sans` (Geist Sans)
 - Peso: `typography/weight/medium`
 - Tamanho: `typography/size/base`
 - Cor texto ativo: `color/semantic/text-primary`
@@ -296,7 +324,7 @@ Implementação detalhada virá na Sprint que implementa o card de ticket.
 
 ### Botões de ação primária
 
-- Família: `typography/family/ui` (Inter)
+- Família: `typography/family/sans` (Geist Sans)
 - Peso: `typography/weight/medium`
 - Tamanho: `typography/size/base`
 - Background: `color/primary/500`
@@ -453,17 +481,20 @@ Implementação técnica via `next-themes` (já instalado no `crm-web`).
 
 ## Como exportar tokens pra código
 
-Variables do Figma → CSS Variables → Tailwind config → Código.
+Fluxo real: tokens semantic do Figma → variáveis CSS shadcn em `:root`/`.dark` → classes Tailwind via `@theme inline`.
 
-Veja `app/globals.css` no `crm-web/` pra implementação concreta — Tailwind 4 não usa mais `tailwind.config.*`; toda configuração vai no bloco `@theme` do CSS.
+1. **Tokens semantic** (Figma `color/semantic/*`) viram `--background`, `--foreground`, `--card`, `--border`, etc. em `:root` (light) e `.dark` (dark) dentro de `app/globals.css`.
+2. **`@theme inline {}`** mapeia essas vars pra classes Tailwind: `--color-background: var(--background)` → `bg-background`, `text-background` ficam disponíveis.
+3. **Brand-specific** (escala primary 50..950) entra direto no `@theme inline` como `--color-primary-50..950`, expondo classes `bg-primary-500`, `text-primary-700`, etc. — usadas em badges, charts, accents da marca.
+4. **Tailwind 4 é CSS-first**: não usa mais `tailwind.config.ts`. Toda configuração vive no bloco `@theme` do CSS.
 
-Quando atualizar tokens no Figma:
+Quando os tokens mudam no Figma:
 
-1. Atualizar Variables no Figma
-2. Atualizar `app/globals.css` (bloco `@theme`) correspondente
-3. Atualizar este documento (`design-system.md`)
+1. Atualizar Variables no Figma.
+2. Atualizar `app/globals.css` (bloco `@theme inline` e/ou `:root`/`.dark`).
+3. Atualizar este documento (`design-system.md`) — em particular a tabela §Cores → "Mapeamento Figma ↔ código".
 
-Manter os 3 sincronizados é responsabilidade do mantenedor (você). Não tem automação no MVP.
+Manter os 3 sincronizados é responsabilidade do mantenedor. Não há automação no MVP.
 
 ---
 
@@ -473,4 +504,4 @@ Manter os 3 sincronizados é responsabilidade do mantenedor (você). Não tem au
 - **Inspiração estrutural:** Chatwoot (em `~/referencias/chatwoot/`), Izing/Whaticket
 - **Componentes base:** shadcn/ui (https://ui.shadcn.com)
 - **Ícones:** lucide-react, Tabler Icons (referência)
-- **Fontes:** Archivo (Google Fonts), Inter (Google Fonts), JetBrains Mono (Google Fonts)
+- **Fontes:** Geist Sans + Geist Mono (https://vercel.com/font), via package `geist`

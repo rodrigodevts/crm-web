@@ -70,9 +70,9 @@ export function TicketCard({
   return (
     <div
       className={cn(
-        'bg-bg-base shadow-card cursor-pointer rounded-md p-5 transition-shadow',
+        'bg-card cursor-pointer rounded-md p-5 shadow-sm transition-shadow',
         'hover:shadow-md',
-        isSelected && 'bg-primary-50 dark:bg-primary-900/30',
+        isSelected && 'bg-primary/10',
         isPinned && 'border-primary-500 border-l-2',
       )}
       onClick={onClick}
@@ -190,14 +190,14 @@ Todo componente **deve funcionar em light e dark**. Use:
 - Tokens de cor do design system (variáveis CSS) via Tailwind
 - `cn()` com classes condicionais
 - Nunca cor hardcoded (`bg-blue-500` direto)
-- Sempre via tokens (`bg-primary`, `text-text`, `border-border`)
+- Sempre via tokens shadcn baseline: `bg-background`, `text-foreground`, `text-muted-foreground`, `border-border`, `bg-card`, `bg-muted`, `bg-popover`, `bg-sidebar`, `bg-primary`, `bg-destructive`, `bg-accent` (+ foregrounds correspondentes)
 
 ```tsx
 // ❌ ERRADO — cores hardcoded
 <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
 
-// ✅ CORRETO — tokens semânticos via Tailwind 4
-<div className="bg-bg-base text-text-primary">
+// ✅ CORRETO — tokens semânticos via Tailwind 4 (shadcn baseline)
+<div className="bg-background text-foreground">
 ```
 
 ---

@@ -23,10 +23,10 @@ function Wrapper({ children }: { children: ReactNode }) {
 }
 
 describe('design-system page', () => {
-  it('renderiza o título e o TOC', () => {
+  it('renderiza o título e as seções principais', () => {
     render(<Page />, { wrapper: Wrapper });
     expect(screen.getByRole('heading', { level: 1, name: 'Design System' })).toBeInTheDocument();
-    expect(screen.getByRole('navigation', { name: /Sumário/ })).toBeInTheDocument();
     expect(screen.getByRole('heading', { level: 2, name: 'Tokens' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 2, name: 'Primitivos' })).toBeInTheDocument();
   });
 });

@@ -8,7 +8,9 @@ export function DepartmentDialogTrigger() {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button onClick={() => setOpen(true)}>Novo departamento</Button>
+      <Button size="lg" onClick={() => setOpen(true)}>
+        Novo departamento
+      </Button>
       <DepartmentDialog mode="create" open={open} onOpenChange={setOpen} />
     </>
   );
