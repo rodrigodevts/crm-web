@@ -84,6 +84,7 @@ export type { CompaniesMeControllerFindMine200, CompaniesMeControllerFindMineQue
 export type { CompaniesMeControllerUpdateMine200, CompaniesMeControllerUpdateMineMutation, CompaniesMeControllerUpdateMineMutationRequest, CompaniesMeControllerUpdateMineMutationResponse } from "./types/CompaniesMeControllerUpdateMine.ts";
 export type { CompanySettingsControllerFindMine200, CompanySettingsControllerFindMineQuery, CompanySettingsControllerFindMineQueryResponse } from "./types/CompanySettingsControllerFindMine.ts";
 export type { CompanySettingsControllerUpdateMine200, CompanySettingsControllerUpdateMineMutation, CompanySettingsControllerUpdateMineMutationRequest, CompanySettingsControllerUpdateMineMutationResponse } from "./types/CompanySettingsControllerUpdateMine.ts";
+export type { CompanySettingsResponseDto } from "./types/CompanySettingsResponseDto.ts";
 export type { CreateCloseReasonDto } from "./types/CreateCloseReasonDto.ts";
 export type { CreateCompanyDto } from "./types/CreateCompanyDto.ts";
 export type { CreateDepartmentDto, CreateDepartmentDtoDistributionModeEnumKey } from "./types/CreateDepartmentDto.ts";
@@ -413,6 +414,7 @@ export { companiesMeControllerFindMine200Schema, companiesMeControllerFindMineQu
 export { companiesMeControllerUpdateMine200Schema, companiesMeControllerUpdateMineMutationRequestSchema, companiesMeControllerUpdateMineMutationResponseSchema } from "./schemas/companiesMeControllerUpdateMineSchema.ts";
 export { companySettingsControllerFindMine200Schema, companySettingsControllerFindMineQueryResponseSchema } from "./schemas/companySettingsControllerFindMineSchema.ts";
 export { companySettingsControllerUpdateMine200Schema, companySettingsControllerUpdateMineMutationRequestSchema, companySettingsControllerUpdateMineMutationResponseSchema } from "./schemas/companySettingsControllerUpdateMineSchema.ts";
+export { companySettingsResponseDtoSchema } from "./schemas/companySettingsResponseDtoSchema.ts";
 export { createCloseReasonDtoSchema } from "./schemas/createCloseReasonDtoSchema.ts";
 export { createCompanyDtoSchema } from "./schemas/createCompanyDtoSchema.ts";
 export { createDepartmentDtoSchema } from "./schemas/createDepartmentDtoSchema.ts";

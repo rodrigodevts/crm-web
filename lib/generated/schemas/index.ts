@@ -18,6 +18,7 @@ export { companiesMeControllerFindMine200Schema, companiesMeControllerFindMineQu
 export { companiesMeControllerUpdateMine200Schema, companiesMeControllerUpdateMineMutationRequestSchema, companiesMeControllerUpdateMineMutationResponseSchema } from "./companiesMeControllerUpdateMineSchema.ts";
 export { companySettingsControllerFindMine200Schema, companySettingsControllerFindMineQueryResponseSchema } from "./companySettingsControllerFindMineSchema.ts";
 export { companySettingsControllerUpdateMine200Schema, companySettingsControllerUpdateMineMutationRequestSchema, companySettingsControllerUpdateMineMutationResponseSchema } from "./companySettingsControllerUpdateMineSchema.ts";
+export { companySettingsResponseDtoSchema } from "./companySettingsResponseDtoSchema.ts";
 export { createCloseReasonDtoSchema } from "./createCloseReasonDtoSchema.ts";
 export { createCompanyDtoSchema } from "./createCompanyDtoSchema.ts";
 export { createDepartmentDtoSchema } from "./createDepartmentDtoSchema.ts";
