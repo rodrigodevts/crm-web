@@ -9,8 +9,8 @@ export default function Page() {
     <div className="flex flex-col gap-6 p-6">
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-text-primary text-2xl font-semibold">Quick Replies</h1>
-          <p className="text-text-secondary text-sm">
+          <h1 className="text-foreground text-2xl font-semibold">Quick Replies</h1>
+          <p className="text-muted-foreground text-sm">
             Cadastre atalhos do composer para enviar mensagens recorrentes mais rápido. Pessoais
             ficam visíveis só pra você; globais valem para o tenant inteiro.
           </p>

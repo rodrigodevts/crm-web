@@ -17,8 +17,8 @@ export default function AppError({
   return (
     <div className="flex h-screen items-center justify-center p-6">
       <div className="max-w-md space-y-4 text-center">
-        <h2 className="text-text-primary text-xl font-semibold">Algo deu errado</h2>
-        <p className="text-text-secondary text-sm">
+        <h2 className="text-foreground text-xl font-semibold">Algo deu errado</h2>
+        <p className="text-muted-foreground text-sm">
           Não conseguimos carregar essa parte. Tente recarregar.
         </p>
         <Button onClick={reset}>Tentar novamente</Button>
