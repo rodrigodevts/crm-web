@@ -112,8 +112,8 @@
 - [x] Tela de register substituída por sistema de convite — `/aceitar-convite/[token]` (Sprint 0.16 Fase B, PR #15/#16)
 - [x] Layout base Izing-like (sidebar + header + área principal) — Sprint 0.14, PR #13
 - [x] Páginas dummy de Atendimentos — 13 rotas placeholder, Sprint 0.14, PR #13
-- [ ] Telas reais de Configurações — ver §4.8 pra estado por tela
-- [ ] Tema final consolidado — endereçado em sprint dedicada (§4.8 Sprint 0.23)
+- [x] Telas reais de Configurações — Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências (ver §4.8 pra detalhe por sprint)
+- [x] Tema final consolidado — Sprint 0.23 (PR #33)
 - [ ] E2E real (Playwright contra backend) — não-bloqueante, sprint dedicada quando o stack estabilizar
 
 ### 4.7 Sprint 0.14 — App Shell pós-login (entregue, PR #13)
