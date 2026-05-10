@@ -69,11 +69,11 @@ Client Components não podem:
 // app/(dashboard)/layout.tsx
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="bg-bg-subtle flex h-screen">
+    <div className="bg-sidebar flex h-screen">
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="bg-bg-base flex-1 overflow-auto">{children}</main>
+        <main className="bg-background flex-1 overflow-auto">{children}</main>
       </div>
     </div>
   );
