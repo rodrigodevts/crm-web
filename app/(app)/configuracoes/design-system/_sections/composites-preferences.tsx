@@ -12,10 +12,10 @@ export function CompositesPreferences() {
   return (
     <section id="compostos-preferences" className="flex flex-col gap-6">
       <header>
-        <h3 className="text-text-primary text-base font-semibold">
+        <h3 className="text-foreground text-base font-semibold">
           Preferences (Card de configuração)
         </h3>
-        <p className="text-text-secondary text-sm">
+        <p className="text-muted-foreground text-sm">
           Card temático com header descritivo e linhas de toggle. Usado em{' '}
           <code>/configuracoes/preferencias</code>.
         </p>

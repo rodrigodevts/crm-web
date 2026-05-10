@@ -69,9 +69,9 @@ export function PreferencesForm() {
     return (
       <div
         data-testid="preferences-error"
-        className="border-border-default rounded-md border p-6 text-center"
+        className="border-border rounded-md border p-6 text-center"
       >
-        <p className="text-text-secondary text-sm">
+        <p className="text-muted-foreground text-sm">
           Não conseguimos carregar as preferências. Recarregue a página.
         </p>
       </div>

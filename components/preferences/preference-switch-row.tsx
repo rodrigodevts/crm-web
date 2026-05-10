@@ -38,10 +38,10 @@ export function PreferenceSwitchRow({
   return (
     <div className="flex items-start justify-between gap-4 py-3">
       <div className="flex-1 space-y-1">
-        <Label htmlFor={id} className="text-text-primary text-sm font-medium">
+        <Label htmlFor={id} className="text-foreground text-sm font-medium">
           {label}
         </Label>
-        <p id={helperId} className="text-text-secondary text-sm">
+        <p id={helperId} className="text-muted-foreground text-sm">
           {description}
         </p>
       </div>

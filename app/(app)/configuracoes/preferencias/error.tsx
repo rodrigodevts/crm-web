@@ -17,10 +17,10 @@ export default function PreferencesError({
   return (
     <div className="flex h-full items-center justify-center p-6">
       <div className="max-w-md space-y-4 text-center">
-        <h2 className="text-text-primary text-xl font-semibold">
+        <h2 className="text-foreground text-xl font-semibold">
           Não foi possível carregar as preferências
         </h2>
-        <p className="text-text-secondary text-sm">Tente novamente em instantes.</p>
+        <p className="text-muted-foreground text-sm">Tente novamente em instantes.</p>
         <Button onClick={reset}>Tentar novamente</Button>
       </div>
     </div>

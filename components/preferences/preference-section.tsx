@@ -11,10 +11,10 @@ export function PreferenceSection({ title, description, children }: PreferenceSe
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-text-primary text-lg font-semibold">{title}</h2>
-        <CardDescription className="text-text-secondary text-sm">{description}</CardDescription>
+        <h2 className="text-foreground text-lg font-semibold">{title}</h2>
+        <CardDescription className="text-muted-foreground text-sm">{description}</CardDescription>
       </CardHeader>
-      <CardContent className="divide-border-default divide-y">{children}</CardContent>
+      <CardContent className="divide-border divide-y">{children}</CardContent>
     </Card>
   );
 }

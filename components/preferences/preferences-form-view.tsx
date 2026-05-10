@@ -203,7 +203,7 @@ export function PreferencesFormView({
       ))}
 
       {canEdit ? (
-        <div className="bg-bg-base border-border-default sticky bottom-0 -mx-6 flex justify-end gap-2 border-t px-6 py-4">
+        <div className="bg-background border-border sticky bottom-0 -mx-6 flex justify-end gap-2 border-t px-6 py-4">
           <Button
             type="button"
             variant="outline"
