@@ -4,10 +4,11 @@
 */
 
 import type { CompanySettingsControllerUpdateMine200, CompanySettingsControllerUpdateMineMutationRequest, CompanySettingsControllerUpdateMineMutationResponse } from "../types/CompanySettingsControllerUpdateMine.ts";
+import { companySettingsResponseDtoSchema } from "./companySettingsResponseDtoSchema.ts";
 import { updateCompanySettingsDtoSchema } from "./updateCompanySettingsDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const companySettingsControllerUpdateMine200Schema = z.any() as unknown as z.ZodType<CompanySettingsControllerUpdateMine200>
+export const companySettingsControllerUpdateMine200Schema = z.lazy(() => companySettingsResponseDtoSchema) as unknown as z.ZodType<CompanySettingsControllerUpdateMine200>
 
 export const companySettingsControllerUpdateMineMutationRequestSchema = z.lazy(() => updateCompanySettingsDtoSchema).describe("Patch das configurações da empresa (presença-baseada)") as unknown as z.ZodType<CompanySettingsControllerUpdateMineMutationRequest>
 

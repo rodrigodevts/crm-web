@@ -4,8 +4,9 @@
 */
 
 import type { CompanySettingsControllerFindMine200, CompanySettingsControllerFindMineQueryResponse } from "../types/CompanySettingsControllerFindMine.ts";
+import { companySettingsResponseDtoSchema } from "./companySettingsResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const companySettingsControllerFindMine200Schema = z.any() as unknown as z.ZodType<CompanySettingsControllerFindMine200>
+export const companySettingsControllerFindMine200Schema = z.lazy(() => companySettingsResponseDtoSchema) as unknown as z.ZodType<CompanySettingsControllerFindMine200>
 
 export const companySettingsControllerFindMineQueryResponseSchema = z.lazy(() => companySettingsControllerFindMine200Schema) as unknown as z.ZodType<CompanySettingsControllerFindMineQueryResponse>

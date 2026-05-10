@@ -7,12 +7,23 @@ export type Role = UserResponseDtoRoleEnumKey;
  * rota fora do mapa retorna false. Match é por prefixo — `/configuracoes`
  * cobre `/configuracoes/usuarios`, etc.
  *
- * AGENT e SUPERVISOR têm acesso explícito a `/configuracoes/quick-replies`
- * (única tela admin onde precisam entrar pra criar/editar suas PERSONAL).
+ * AGENT e SUPERVISOR têm acesso explícito a duas telas de Configurações:
+ * - `/configuracoes/quick-replies` — única tela onde criam/editam suas
+ *   PERSONAL próprias.
+ * - `/configuracoes/preferencias` — visualização das flags da empresa
+ *   (toggles disabled). A escrita é bloqueada inline na tela e no backend
+ *   (PATCH apenas ADMIN).
+ *
  * O restante de `/configuracoes/*` segue restrito a ADMIN e SUPER_ADMIN.
  */
 const ROUTE_ACCESS: Record<Role, ReadonlyArray<string>> = {
-  AGENT: ['/atendimentos', '/contatos', '/campanhas', '/configuracoes/quick-replies'],
+  AGENT: [
+    '/atendimentos',
+    '/contatos',
+    '/campanhas',
+    '/configuracoes/quick-replies',
+    '/configuracoes/preferencias',
+  ],
   SUPERVISOR: [
     '/atendimentos',
     '/contatos',
@@ -20,6 +31,7 @@ const ROUTE_ACCESS: Record<Role, ReadonlyArray<string>> = {
     '/bot-fluxo',
     '/dashboard',
     '/configuracoes/quick-replies',
+    '/configuracoes/preferencias',
   ],
   ADMIN: ['/atendimentos', '/contatos', '/campanhas', '/bot-fluxo', '/dashboard', '/configuracoes'],
   SUPER_ADMIN: [

@@ -3,9 +3,10 @@
 * Do not edit manually.
 */
 
+import type { CompanySettingsResponseDto } from "./CompanySettingsResponseDto.ts";
 import type { UpdateCompanySettingsDto } from "./UpdateCompanySettingsDto.ts";
 
-export type CompanySettingsControllerUpdateMine200 = unknown;
+export type CompanySettingsControllerUpdateMine200 = CompanySettingsResponseDto;
 
 export type CompanySettingsControllerUpdateMineMutationRequest = UpdateCompanySettingsDto;
 

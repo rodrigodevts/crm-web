@@ -18,6 +18,7 @@ export type { CompaniesMeControllerFindMine200, CompaniesMeControllerFindMineQue
 export type { CompaniesMeControllerUpdateMine200, CompaniesMeControllerUpdateMineMutation, CompaniesMeControllerUpdateMineMutationRequest, CompaniesMeControllerUpdateMineMutationResponse } from "./CompaniesMeControllerUpdateMine.ts";
 export type { CompanySettingsControllerFindMine200, CompanySettingsControllerFindMineQuery, CompanySettingsControllerFindMineQueryResponse } from "./CompanySettingsControllerFindMine.ts";
 export type { CompanySettingsControllerUpdateMine200, CompanySettingsControllerUpdateMineMutation, CompanySettingsControllerUpdateMineMutationRequest, CompanySettingsControllerUpdateMineMutationResponse } from "./CompanySettingsControllerUpdateMine.ts";
+export type { CompanySettingsResponseDto } from "./CompanySettingsResponseDto.ts";
 export type { CreateCloseReasonDto } from "./CreateCloseReasonDto.ts";
 export type { CreateCompanyDto } from "./CreateCompanyDto.ts";
 export type { CreateDepartmentDto, CreateDepartmentDtoDistributionModeEnumKey } from "./CreateDepartmentDto.ts";

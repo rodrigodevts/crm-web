@@ -3,8 +3,9 @@
 * Do not edit manually.
 */
 
+import type { CompanySettingsResponseDto } from "./CompanySettingsResponseDto.ts";
 
-export type CompanySettingsControllerFindMine200 = unknown;
+export type CompanySettingsControllerFindMine200 = CompanySettingsResponseDto;
 
 export type CompanySettingsControllerFindMineQueryResponse = CompanySettingsControllerFindMine200;
 
