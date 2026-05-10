@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Toc } from './toc';
 import { Section } from './_sections/section';
-import { DriftBanner } from './_sections/drift-banner';
 import { TokensColors } from './_sections/tokens-colors';
 import { TokensTypography } from './_sections/tokens-typography';
 import { TokensSpacing } from './_sections/tokens-spacing';
@@ -31,7 +30,6 @@ export default function Page() {
         </aside>
 
         <main className="flex flex-col gap-12">
-          <DriftBanner />
           <Section id="tokens" title="Tokens">
             <TokensColors />
             <TokensTypography />
