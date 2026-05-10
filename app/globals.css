@@ -7,12 +7,20 @@
 /**
  * DigiChat — globals.css
  *
- * Base: tema default do shadcn/ui (style new-york, base zinc/neutral, radius 0.625rem,
- * fontes Geist Sans/Mono). Toda a paleta semântica e os arredondamentos seguem o preset
- * canônico. Exceção DigiChat: `--primary` (e variantes sidebar/ring) usam o azul Dreams
- * Chat (#1b84ff).
+ * Vocabulário canônico = shadcn baseline (style new-york, base zinc/neutral,
+ * radius 0.625rem, fontes Geist Sans/Mono). Use os tokens semantic shadcn
+ * direto: bg-background, text-foreground, text-muted-foreground, border-border,
+ * bg-card, bg-muted, bg-popover, bg-sidebar, bg-primary, bg-destructive,
+ * bg-accent (+ foregrounds correspondentes).
  *
- * Atualizado em: 07/05/2026
+ * Brand DigiChat aplicada em três variáveis: --primary, --ring e
+ * --sidebar-primary apontam pro azul Dreams Chat (#1b84ff). A escala completa
+ * --color-primary-50..950 é exposta via @theme inline para badges, charts e
+ * accents da marca.
+ *
+ * Modo escuro: classe `.dark` (oklch invertido, mesmas variáveis brand).
+ *
+ * Atualizado em: 10/05/2026
  */
 
 @theme inline {
