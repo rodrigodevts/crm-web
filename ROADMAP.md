@@ -2,7 +2,7 @@
 
 > Plano de fases do **frontend** (`crm-web`). Para escopo backend, ver `../crm-api/ROADMAP.md` — fonte canônica.
 >
-> **Versão:** 10 (Sprint 0.22 Preferências entregue)
+> **Versão:** 11 (Fase 0 concluída — Sprint 0.23 Tema final entregue)
 > **Última atualização:** 10/05/2026
 >
 > **Documento companheiro:** `ARCHITECTURE.md` (raiz crm-web).
@@ -43,18 +43,18 @@
 
 ## 3. Mapa geral de fases
 
-| #   | Nome                                             | Estimativa  | Status       |
-| --- | ------------------------------------------------ | ----------- | ------------ |
-| 0   | Bootstrap do crm-web                             | 1-2 semanas | em andamento |
-| 1   | Tela de canal Gupshup (config + status realtime) | 1-2 semanas | aguardando   |
-| 2   | UI Izing-like de Atendimentos + composer HSM     | 4-5 semanas | aguardando   |
-| 3a  | Editor JSON estruturado de Bot/Fluxo             | 3-4 semanas | aguardando   |
-| 3b  | Templates de fluxo + simulador                   | 2-3 semanas | aguardando   |
-| 4   | Polimento, telas de configurações, CSAT          | 3-4 semanas | aguardando   |
-| 5   | Tela de campanhas + webhooks de saída            | 2-3 semanas | aguardando   |
-| 6   | Builder visual de fluxo (React Flow)             | 3-4 semanas | aguardando   |
-| 7   | UI Baileys (QR code, status)                     | 1 semana    | aguardando   |
-| 8   | Migração / on-premise / docs                     | variável    | aguardando   |
+| #   | Nome                                             | Estimativa  | Status     |
+| --- | ------------------------------------------------ | ----------- | ---------- |
+| 0   | Bootstrap do crm-web                             | 1-2 semanas | concluída  |
+| 1   | Tela de canal Gupshup (config + status realtime) | 1-2 semanas | aguardando |
+| 2   | UI Izing-like de Atendimentos + composer HSM     | 4-5 semanas | aguardando |
+| 3a  | Editor JSON estruturado de Bot/Fluxo             | 3-4 semanas | aguardando |
+| 3b  | Templates de fluxo + simulador                   | 2-3 semanas | aguardando |
+| 4   | Polimento, telas de configurações, CSAT          | 3-4 semanas | aguardando |
+| 5   | Tela de campanhas + webhooks de saída            | 2-3 semanas | aguardando |
+| 6   | Builder visual de fluxo (React Flow)             | 3-4 semanas | aguardando |
+| 7   | UI Baileys (QR code, status)                     | 1 semana    | aguardando |
+| 8   | Migração / on-premise / docs                     | variável    | aguardando |
 
 > Estimativas frontend são menores que as totais do crm-api porque grande parte do trabalho de cada fase está no backend.
 
@@ -139,10 +139,9 @@
 - [x] RBAC baseline (PR #19, refinado na Sprint 0.20 PR #28) — sidebar oculta, redirect 403, toast 403 no interceptor, gate por rota via `x-pathname` no `proxy.ts`
 - [x] **Sprint 0.21 — Usuários CRUD edit/delete + role change** (pareada com PR #49 do crm-api). Tela `/configuracoes/usuarios` ganha CRUD completo: edição de nome/email/role/departments via `UserDialog`, desativação via DELETE soft, reativação inline via PATCH `active=true`, força logout via POST dedicado. Tabs `Usuários | Convites` reorganizam a página com foco nos usuários; convite passa a oferecer ADMIN/SUPERVISOR/AGENT. Gates de proteção: self, SUPER_ADMIN, último ADMIN ativo. Filtros search/role/status na toolbar.
 - [x] **Sprint 0.22 — Preferências (Company settings)** (PR #31, pareada com PR #50 do crm-api). Tela `/configuracoes/preferencias` consumindo `GET/PATCH /companies/me/settings` com 12 toggles em 6 cards (Visibilidade de tickets / Privacidade / Grupos do WhatsApp / Roteamento / Permissões do atendente / Bot). Save explícito via footer sticky `Salvar alterações` / `Descartar alterações`; submit envia apenas campos dirty. RBAC inline: ADMIN/SUPER_ADMIN editam; AGENT/SUPERVISOR vêem switches disabled com tooltip e footer omitido. `lib/rbac.ts` libera `/configuracoes/preferencias` como segunda exceção para AGENT e SUPERVISOR. Componentes shared `PreferenceSection` e `PreferenceSwitchRow` com showcase no `/configuracoes/design-system`. `defaultBotChatFlowId` propositalmente fora do escopo (depende de `ChatFlow` — Fase 3a).
+- [x] **Sprint 0.23 — Tema final consolidado** (PR #33). Vocabulário Tailwind canônico do `crm-web` consolidado em **shadcn baseline**: 16 ghost-tokens (`text-text-primary`, `bg-bg-base`, `border-border-default`, etc) substituídos por seus equivalentes shadcn (`text-foreground`, `bg-background`, `border-border`, `bg-sidebar`, `bg-muted`) em 7 arquivos. `design-system.md` v3 com tabela Figma↔CSS e tipografia consolidada em Geist Sans + Geist Mono (descartado Archivo+Inter+JetBrains da visão antiga). `ARCHITECTURE.md` v8. Paleta primary `#1b84ff` mantida em `--primary`/`--ring`/`--sidebar-primary` + escala `--color-primary-50..950` exposta. Showcase `/configuracoes/design-system` simplificado: removido `DriftBanner` (descrevia o drift que esta sprint resolveu) e TOC lateral (não agregava navegação). CTAs primários do header das telas de configurações elevados pra `size=lg`. Memory `feedback_real_tailwind_tokens` removida.
 
-#### Próxima sprint pra fechar a Fase 0
-
-- **Sprint 0.23 — Tema final consolidado.** Decidir entre paleta Dreams Chat (PR #12) e base radix-nova + azul DigiChat (Sprint 0.14). Ajustar `app/globals.css` e revisar componentes base em modo claro e escuro.
+**Fase 0 concluída em 2026-05-10.** Próximo passo: Fase 1 — Tela de canal Gupshup (vide §5.1).
 
 #### Movido pra fora da Fase 0
 
@@ -241,15 +240,15 @@
 
 ## 6. Rastreamento
 
-| Fase    | Início  | Fim | Status       | Notas                                                                                                                                                                                                                                                                          |
-| ------- | ------- | --- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Fase 0  | 2026-04 | —   | em andamento | Sprints 0.13–0.22 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências). Próxima: 0.23 Tema final, conforme §4.8. Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes. |
-| Fase 1  | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 2  | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 3a | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 3b | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 4  | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 5  | —       | —   | aguardando   | Pré-req da Fase 8 backend.                                                                                                                                                                                                                                                     |
-| Fase 6  | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 7  | —       | —   | aguardando   | —                                                                                                                                                                                                                                                                              |
-| Fase 8  | —       | —   | aguardando   | Requer Fase 5 backend.                                                                                                                                                                                                                                                         |
+| Fase    | Início  | Fim        | Status     | Notas                                                                                                                                                                                                                                             |
+| ------- | ------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fase 0  | 2026-04 | 2026-05-10 | concluída  | Sprints 0.13–0.23 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências, Tema final). Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes. |
+| Fase 1  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 2  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 3a | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 3b | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 4  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 5  | —       | —          | aguardando | Pré-req da Fase 8 backend.                                                                                                                                                                                                                        |
+| Fase 6  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 7  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
+| Fase 8  | —       | —          | aguardando | Requer Fase 5 backend.                                                                                                                                                                                                                            |
