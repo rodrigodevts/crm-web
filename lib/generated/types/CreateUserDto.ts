@@ -17,20 +17,15 @@ export type CreateUserDtoRoleEnumKey = (typeof createUserDtoRoleEnum)[keyof type
 */
 export type CreateUserDto = {
     /**
-     * @description UUIDs dos departamentos. Pode ser vazio.
-     * @type array | undefined
-    */
-    departmentIds?: string[];
-    /**
-     * @type string, email
-    */
-    email: string;
-    /**
      * @minLength 2
      * @maxLength 100
      * @type string
     */
     name: string;
+    /**
+     * @type string, email
+    */
+    email: string;
     /**
      * @minLength 8
      * @maxLength 128
@@ -42,4 +37,9 @@ export type CreateUserDto = {
      * @type string
     */
     role: CreateUserDtoRoleEnumKey;
+    /**
+     * @description UUIDs dos departamentos. Pode ser vazio.
+     * @type array | undefined
+    */
+    departmentIds?: string[];
 };

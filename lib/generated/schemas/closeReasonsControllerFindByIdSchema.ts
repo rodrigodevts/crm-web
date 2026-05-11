@@ -4,12 +4,13 @@
 */
 
 import type { CloseReasonsControllerFindById200, CloseReasonsControllerFindByIdPathParams, CloseReasonsControllerFindByIdQueryResponse } from "../types/CloseReasonsControllerFindById.ts";
+import { closeReasonDetailResponseDtoSchema } from "./closeReasonDetailResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const closeReasonsControllerFindByIdPathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<CloseReasonsControllerFindByIdPathParams>
 
-export const closeReasonsControllerFindById200Schema = z.any() as unknown as z.ZodType<CloseReasonsControllerFindById200>
+export const closeReasonsControllerFindById200Schema = z.lazy(() => closeReasonDetailResponseDtoSchema) as unknown as z.ZodType<CloseReasonsControllerFindById200>
 
 export const closeReasonsControllerFindByIdQueryResponseSchema = z.lazy(() => closeReasonsControllerFindById200Schema) as unknown as z.ZodType<CloseReasonsControllerFindByIdQueryResponse>

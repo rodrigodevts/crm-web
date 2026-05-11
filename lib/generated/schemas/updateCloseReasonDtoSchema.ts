@@ -10,11 +10,11 @@ import { z } from "zod/v4";
  * @description Patch do motivo de fechamento (presença-baseada)
  */
 export const updateCloseReasonDtoSchema = z.object({
-    "active": z.optional(z.boolean()),
-"asksDealValue": z.optional(z.boolean()),
-"departmentIds": z.optional(z.array(z.uuid()).max(50)),
-"funnelId": z.uuid().nullish(),
+    "name": z.optional(z.string().min(1).max(100)),
 "message": z.string().min(1).max(2000).nullish(),
-"name": z.optional(z.string().min(1).max(100)),
-"triggersCsat": z.optional(z.boolean())
+"active": z.optional(z.boolean()),
+"triggersCsat": z.optional(z.boolean()),
+"asksDealValue": z.optional(z.boolean()),
+"funnelId": z.uuid().nullish(),
+"departmentIds": z.optional(z.array(z.uuid()).max(50))
     }).describe("Patch do motivo de fechamento (presença-baseada)") as unknown as z.ZodType<UpdateCloseReasonDto>

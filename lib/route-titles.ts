@@ -10,6 +10,7 @@ const TITLES: Record<string, string> = {
   '/configuracoes/usuarios': 'Usuários',
   '/configuracoes/quick-replies': 'Quick Replies',
   '/configuracoes/canais': 'Canais',
+  '/configuracoes/motivos-fechamento': 'Motivos de fechamento',
   '/configuracoes/integracoes': 'Integrações',
   '/configuracoes/preferencias': 'Preferências',
   '/ajuda': 'Ajuda',

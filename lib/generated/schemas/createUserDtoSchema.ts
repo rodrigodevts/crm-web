@@ -10,9 +10,9 @@ import { z } from "zod/v4";
  * @description Dados para criar usuário no tenant atual
  */
 export const createUserDtoSchema = z.object({
-    "departmentIds": z.optional(z.array(z.uuid()).describe("UUIDs dos departamentos. Pode ser vazio.")),
+    "name": z.string().min(2).max(100),
 "email": z.email(),
-"name": z.string().min(2).max(100),
 "password": z.string().min(8).max(128),
-"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]).describe("Perfil do usuário no tenant. SUPER_ADMIN não é permitido por esta rota.")
+"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]).describe("Perfil do usuário no tenant. SUPER_ADMIN não é permitido por esta rota."),
+"departmentIds": z.optional(z.array(z.uuid()).describe("UUIDs dos departamentos. Pode ser vazio."))
     }).describe("Dados para criar usuário no tenant atual") as unknown as z.ZodType<CreateUserDto>

@@ -9,9 +9,17 @@
 */
 export type UpdateCompanyDto = {
     /**
-     * @type boolean | undefined
+     * @minLength 2
+     * @maxLength 100
+     * @type string | undefined
     */
-    active?: boolean;
+    name?: string;
+    /**
+     * @minLength 1
+     * @maxLength 64
+     * @type string | undefined
+    */
+    timezone?: string;
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
@@ -20,37 +28,67 @@ export type UpdateCompanyDto = {
         /**
          * @type array | undefined
         */
-        friday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        holiday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
         monday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        tuesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        wednesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        thursday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        friday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -95,37 +133,7 @@ export type UpdateCompanyDto = {
         /**
          * @type array | undefined
         */
-        thursday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        tuesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        wednesday?: {
+        holiday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -139,12 +147,6 @@ export type UpdateCompanyDto = {
         }[];
     } | null;
     /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string | undefined
-    */
-    name?: string;
-    /**
      * @maxLength 2000
      * @type string
     */
@@ -154,9 +156,7 @@ export type UpdateCompanyDto = {
     */
     planId?: string;
     /**
-     * @minLength 1
-     * @maxLength 64
-     * @type string | undefined
+     * @type boolean | undefined
     */
-    timezone?: string;
+    active?: boolean;
 };

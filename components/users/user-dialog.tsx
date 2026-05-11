@@ -13,7 +13,6 @@ import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 import type { UpdateUserDto } from '@/lib/generated/types/UpdateUserDto';
 import { apiClient } from '@/lib/api-client';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -24,6 +23,7 @@ import {
 } from '@/components/ui/dialog';
 import { Field, FieldDescription, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { MultiSelectCombobox } from '@/components/ui/multi-select-combobox';
 import {
   Select,
   SelectContent,
@@ -279,51 +279,31 @@ export function UserDialog({ user, open, onOpenChange }: UserDialogProps) {
             </Field>
 
             <Field>
-              <FieldLabel>Departamentos</FieldLabel>
-              <Controller
-                control={control}
-                name="departmentIds"
-                render={({ field }) => (
-                  <div className="max-h-60 overflow-y-auto rounded-md border p-2">
-                    {departmentsQuery.isPending ? (
-                      <div className="flex flex-col gap-2">
-                        <Skeleton className="h-5 w-3/4" />
-                        <Skeleton className="h-5 w-3/4" />
-                        <Skeleton className="h-5 w-3/4" />
-                      </div>
-                    ) : departments.length === 0 ? (
-                      <p className="text-muted-foreground text-sm">
-                        Nenhum departamento ativo cadastrado.
-                      </p>
-                    ) : (
-                      <div className="flex flex-col gap-2">
-                        {departments.map((d) => {
-                          const checked = field.value.includes(d.id);
-                          const id = `${fieldId}-dept-${d.id}`;
-                          return (
-                            <div key={d.id} className="flex items-center gap-2">
-                              <Checkbox
-                                id={id}
-                                checked={checked}
-                                onCheckedChange={(next) => {
-                                  if (next) {
-                                    field.onChange([...field.value, d.id]);
-                                  } else {
-                                    field.onChange(field.value.filter((v) => v !== d.id));
-                                  }
-                                }}
-                              />
-                              <label htmlFor={id} className="text-sm">
-                                {d.name}
-                              </label>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                )}
-              />
+              <FieldLabel htmlFor={`${fieldId}-departments`}>Departamentos</FieldLabel>
+              {departmentsQuery.isPending ? (
+                <Skeleton className="h-9 w-full" />
+              ) : (
+                <Controller
+                  control={control}
+                  name="departmentIds"
+                  render={({ field }) => (
+                    <MultiSelectCombobox
+                      triggerId={`${fieldId}-departments`}
+                      value={field.value ?? []}
+                      onChange={field.onChange}
+                      options={departments}
+                      placeholder={
+                        departments.length === 0
+                          ? 'Nenhum departamento ativo cadastrado.'
+                          : 'Selecione departamentos…'
+                      }
+                      searchPlaceholder="Buscar departamento…"
+                      emptyMessage="Nenhum departamento corresponde à busca."
+                      disabled={departments.length === 0}
+                    />
+                  )}
+                />
+              )}
             </Field>
 
             {errors.root ? (

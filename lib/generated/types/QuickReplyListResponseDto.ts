@@ -4,12 +4,12 @@
 */
 
 
-export const itemsScopeEnum = {
+export const itemsScopeEnum2 = {
     COMPANY: "COMPANY",
     PERSONAL: "PERSONAL"
 } as const;
 
-export type ItemsScopeEnumKey = (typeof itemsScopeEnum)[keyof typeof itemsScopeEnum];
+export type ItemsScopeEnum2Key = (typeof itemsScopeEnum2)[keyof typeof itemsScopeEnum2];
 
 export type QuickReplyListResponseDto = {
     /**
@@ -17,25 +17,21 @@ export type QuickReplyListResponseDto = {
     */
     items: {
         /**
-         * @type boolean
+         * @type string, uuid
         */
-        active: boolean;
+        id: string;
         /**
          * @type string, uuid
         */
         companyId: string;
         /**
-         * @type string, date-time
+         * @type string
         */
-        createdAt: string;
-        /**
-         * @type string, uuid
-        */
-        id: string;
+        shortcut: string;
         /**
          * @type string
         */
-        mediaMimeType: string | null;
+        message: string;
         /**
          * @type string
         */
@@ -43,19 +39,23 @@ export type QuickReplyListResponseDto = {
         /**
          * @type string
         */
-        message: string;
+        mediaMimeType: string | null;
+        /**
+         * @type string
+        */
+        scope: ItemsScopeEnum2Key;
         /**
          * @type string, uuid
         */
         ownerUserId: string | null;
         /**
-         * @type string
+         * @type boolean
         */
-        scope: ItemsScopeEnumKey;
+        active: boolean;
         /**
-         * @type string
+         * @type string, date-time
         */
-        shortcut: string;
+        createdAt: string;
         /**
          * @type string, date-time
         */
@@ -66,12 +66,12 @@ export type QuickReplyListResponseDto = {
     */
     pagination: {
         /**
-         * @type boolean
-        */
-        hasMore: boolean;
-        /**
          * @type string
         */
         nextCursor: string | null;
+        /**
+         * @type boolean
+        */
+        hasMore: boolean;
     };
 };

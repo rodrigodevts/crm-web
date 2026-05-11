@@ -7,8 +7,8 @@ import type { UpdateTagDto } from "../types/UpdateTagDto.ts";
 import { z } from "zod/v4";
 
 export const updateTagDtoSchema = z.object({
-    "active": z.optional(z.boolean()),
+    "name": z.optional(z.string().min(1).max(100)),
 "color": z.optional(z.string().regex(/^#[0-9A-Fa-f]{6}$/)),
-"name": z.optional(z.string().min(1).max(100)),
-"scope": z.optional(z.enum(["CONTACT", "TICKET", "BOTH"]))
+"scope": z.optional(z.enum(["CONTACT", "TICKET", "BOTH"])),
+"active": z.optional(z.boolean())
     }) as unknown as z.ZodType<UpdateTagDto>

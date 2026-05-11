@@ -8,17 +8,17 @@ import { z } from "zod/v4";
 
 export const tagListResponseDtoSchema = z.object({
     "items": z.array(z.object({
-    "active": z.boolean(),
-"color": z.string(),
+    "id": z.uuid(),
 "companyId": z.uuid(),
-"createdAt": z.iso.datetime({ offset: true }),
-"id": z.uuid(),
 "name": z.string(),
+"color": z.string(),
 "scope": z.enum(["CONTACT", "TICKET", "BOTH"]),
+"active": z.boolean(),
+"createdAt": z.iso.datetime({ offset: true }),
 "updatedAt": z.iso.datetime({ offset: true })
     })),
 "pagination": z.object({
-    "hasMore": z.boolean(),
-"nextCursor": z.nullable(z.string())
+    "nextCursor": z.nullable(z.string()),
+"hasMore": z.boolean()
     })
     }) as unknown as z.ZodType<TagListResponseDto>

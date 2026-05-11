@@ -7,15 +7,15 @@ import type { QuickReplyResponseDto } from "../types/QuickReplyResponseDto.ts";
 import { z } from "zod/v4";
 
 export const quickReplyResponseDtoSchema = z.object({
-    "active": z.boolean(),
+    "id": z.uuid(),
 "companyId": z.uuid(),
-"createdAt": z.iso.datetime({ offset: true }),
-"id": z.uuid(),
-"mediaMimeType": z.nullable(z.string()),
-"mediaUrl": z.nullable(z.string()),
-"message": z.string(),
-"ownerUserId": z.nullable(z.uuid()),
-"scope": z.enum(["COMPANY", "PERSONAL"]),
 "shortcut": z.string(),
+"message": z.string(),
+"mediaUrl": z.nullable(z.string()),
+"mediaMimeType": z.nullable(z.string()),
+"scope": z.enum(["COMPANY", "PERSONAL"]),
+"ownerUserId": z.nullable(z.uuid()),
+"active": z.boolean(),
+"createdAt": z.iso.datetime({ offset: true }),
 "updatedAt": z.iso.datetime({ offset: true })
     }) as unknown as z.ZodType<QuickReplyResponseDto>

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { PlaceholderPage } from '@/components/layout/placeholder-page';
+import { ChannelsTable } from '@/components/channels/channels-table';
 
 export const metadata: Metadata = { title: 'Canais — DigiChat' };
 
 export default function Page() {
-  return <PlaceholderPage title="Canais" />;
+  return <ChannelsTable />;
 }

@@ -10,19 +10,19 @@ import { z } from "zod/v4";
  * @description Usuário do tenant com departamentos populados
  */
 export const userResponseDtoSchema = z.object({
-    "absenceActive": z.boolean(),
-"absenceMessage": z.nullable(z.string()),
-"active": z.boolean().describe("Falso quando o usuário está soft-deletado (deletedAt != null)."),
+    "id": z.uuid(),
 "companyId": z.uuid(),
-"createdAt": z.iso.datetime({ offset: true }),
+"name": z.string(),
+"email": z.email(),
+"role": z.enum(["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]),
+"active": z.boolean().describe("Falso quando o usuário está soft-deletado (deletedAt != null)."),
+"absenceMessage": z.nullable(z.string()),
+"absenceActive": z.boolean(),
+"lastSeenAt": z.nullable(z.iso.datetime({ offset: true })),
 "departments": z.array(z.object({
     "id": z.uuid(),
 "name": z.string()
     })),
-"email": z.email(),
-"id": z.uuid(),
-"lastSeenAt": z.nullable(z.iso.datetime({ offset: true })),
-"name": z.string(),
-"role": z.enum(["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]),
+"createdAt": z.iso.datetime({ offset: true }),
 "updatedAt": z.iso.datetime({ offset: true })
     }).describe("Usuário do tenant com departamentos populados") as unknown as z.ZodType<UserResponseDto>

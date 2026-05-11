@@ -4,13 +4,13 @@
 */
 
 
-export const itemsRoleEnum = {
+export const itemsRoleEnum2 = {
     ADMIN: "ADMIN",
     SUPERVISOR: "SUPERVISOR",
     AGENT: "AGENT"
 } as const;
 
-export type ItemsRoleEnumKey = (typeof itemsRoleEnum)[keyof typeof itemsRoleEnum];
+export type ItemsRoleEnum2Key = (typeof itemsRoleEnum2)[keyof typeof itemsRoleEnum2];
 
 export const itemsStatusEnum = {
     PENDING: "PENDING",
@@ -26,25 +26,21 @@ export type InvitationListResponseDto = {
     */
     items: {
         /**
-         * @type string, date-time
-        */
-        acceptedAt: string | null;
-        /**
          * @type string, uuid
         */
-        acceptedById: string | null;
-        /**
-         * @type string, date-time
-        */
-        createdAt: string;
+        id: string;
         /**
          * @type string, email
         */
         email: string;
         /**
-         * @type string, uuid
+         * @type string
         */
-        id: string;
+        role: ItemsRoleEnum2Key;
+        /**
+         * @type string
+        */
+        status: ItemsStatusEnumKey;
         /**
          * @type string, uuid
         */
@@ -54,29 +50,33 @@ export type InvitationListResponseDto = {
         */
         invitedByName: string;
         /**
+         * @type string, uuid
+        */
+        acceptedById: string | null;
+        /**
+         * @type string, date-time
+        */
+        acceptedAt: string | null;
+        /**
          * @type string, date-time
         */
         revokedAt: string | null;
         /**
-         * @type string
+         * @type string, date-time
         */
-        role: ItemsRoleEnumKey;
-        /**
-         * @type string
-        */
-        status: ItemsStatusEnumKey;
+        createdAt: string;
     }[];
     /**
      * @type object
     */
     pagination: {
         /**
-         * @type boolean
-        */
-        hasMore: boolean;
-        /**
          * @type string
         */
         nextCursor: string | null;
+        /**
+         * @type boolean
+        */
+        hasMore: boolean;
     };
 };

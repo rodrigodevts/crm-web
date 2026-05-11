@@ -10,15 +10,15 @@ import { z } from "zod/v4";
  * @description Convite recém-criado ou reenviado, com URL de aceite
  */
 export const invitationCreatedDtoSchema = z.object({
-    "acceptedAt": z.nullable(z.iso.datetime({ offset: true })),
-"acceptedById": z.nullable(z.uuid()),
-"createdAt": z.iso.datetime({ offset: true }),
+    "id": z.uuid(),
 "email": z.email(),
-"id": z.uuid(),
-"inviteUrl": z.url().describe("URL para o convidado aceitar o convite. Plaintext devolvido apenas uma vez."),
+"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]),
+"status": z.enum(["PENDING", "ACCEPTED", "REVOKED"]),
 "invitedById": z.uuid(),
 "invitedByName": z.string(),
+"acceptedById": z.nullable(z.uuid()),
+"acceptedAt": z.nullable(z.iso.datetime({ offset: true })),
 "revokedAt": z.nullable(z.iso.datetime({ offset: true })),
-"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]),
-"status": z.enum(["PENDING", "ACCEPTED", "REVOKED"])
+"createdAt": z.iso.datetime({ offset: true }),
+"inviteUrl": z.url().describe("URL para o convidado aceitar o convite. Plaintext devolvido apenas uma vez.")
     }).describe("Convite recém-criado ou reenviado, com URL de aceite") as unknown as z.ZodType<InvitationCreatedDto>

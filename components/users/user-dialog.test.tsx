@@ -118,6 +118,7 @@ afterEach(() => {
 describe('UserDialog', () => {
   it('preenche o form com dados do user passado e renderiza departamentos', async () => {
     setAdapter({});
+    const user = userEvent.setup();
     render(
       <Wrapper>
         <UserDialog user={targetUser} open onOpenChange={() => {}} />
@@ -129,10 +130,20 @@ describe('UserDialog', () => {
     // Radix Select renderiza um <select> nativo escondido + um span com o
     // valor — o getAllByText cobre os dois sem ambiguidade.
     expect(screen.getAllByText('Atendente').length).toBeGreaterThan(0);
-    // Suporte aparece checked, Vendas aparece unchecked após carregar
-    const suporte = await screen.findByLabelText('Suporte');
-    expect(suporte).toBeChecked();
-    expect(screen.getByLabelText('Vendas')).not.toBeChecked();
+
+    // Aguarda departments terminarem de carregar (skeleton → combobox)
+    const trigger = await screen.findByRole('combobox', { name: /departamentos/i });
+    // Suporte está selecionado: aparece como badge dentro do trigger
+    expect(trigger).toHaveTextContent('Suporte');
+    expect(trigger).not.toHaveTextContent('Vendas');
+
+    // Abrindo o popover, ambas as opções devem existir, com aria-selected
+    // refletindo o estado atual.
+    await user.click(trigger);
+    const suporteOption = await screen.findByRole('option', { name: /suporte/i });
+    const vendasOption = await screen.findByRole('option', { name: /vendas/i });
+    expect(suporteOption).toHaveAttribute('aria-selected', 'true');
+    expect(vendasOption).toHaveAttribute('aria-selected', 'false');
   });
 
   it('valida nome com mínimo de 2 caracteres', async () => {
@@ -287,8 +298,10 @@ describe('UserDialog', () => {
         <UserDialog user={targetUser} open onOpenChange={() => {}} />
       </Wrapper>,
     );
-    const suporte = await screen.findByLabelText('Suporte');
-    await user.click(suporte); // uncheck
+    const trigger = await screen.findByRole('combobox', { name: /departamentos/i });
+    await user.click(trigger);
+    await user.click(await screen.findByRole('option', { name: /suporte/i })); // uncheck
+    await user.keyboard('{Escape}');
     await user.click(screen.getByRole('button', { name: /salvar alterações/i }));
 
     await waitFor(() => {

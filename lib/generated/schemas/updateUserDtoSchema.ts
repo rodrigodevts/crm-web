@@ -10,12 +10,12 @@ import { z } from "zod/v4";
  * @description Dados para editar usuário (apenas ADMIN+)
  */
 export const updateUserDtoSchema = z.object({
-    "absenceActive": z.optional(z.boolean()),
-"absenceMessage": z.string().max(500).nullish(),
-"active": z.optional(z.boolean().describe("true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN).")),
-"departmentIds": z.optional(z.array(z.uuid())),
+    "name": z.optional(z.string().min(2).max(100)),
 "email": z.optional(z.email()),
-"name": z.optional(z.string().min(2).max(100)),
 "password": z.optional(z.string().min(8).max(128)),
-"role": z.optional(z.enum(["ADMIN", "SUPERVISOR", "AGENT"]))
+"role": z.optional(z.enum(["ADMIN", "SUPERVISOR", "AGENT"])),
+"departmentIds": z.optional(z.array(z.uuid())),
+"absenceMessage": z.string().max(500).nullish(),
+"absenceActive": z.optional(z.boolean()),
+"active": z.optional(z.boolean().describe("true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN)."))
     }).describe("Dados para editar usuário (apenas ADMIN+)") as unknown as z.ZodType<UpdateUserDto>

@@ -13,25 +13,21 @@ export type QuickReplyResponseDtoScopeEnumKey = (typeof quickReplyResponseDtoSco
 
 export type QuickReplyResponseDto = {
     /**
-     * @type boolean
+     * @type string, uuid
     */
-    active: boolean;
+    id: string;
     /**
      * @type string, uuid
     */
     companyId: string;
     /**
-     * @type string, date-time
+     * @type string
     */
-    createdAt: string;
-    /**
-     * @type string, uuid
-    */
-    id: string;
+    shortcut: string;
     /**
      * @type string
     */
-    mediaMimeType: string | null;
+    message: string;
     /**
      * @type string
     */
@@ -39,19 +35,23 @@ export type QuickReplyResponseDto = {
     /**
      * @type string
     */
-    message: string;
-    /**
-     * @type string, uuid
-    */
-    ownerUserId: string | null;
+    mediaMimeType: string | null;
     /**
      * @type string
     */
     scope: QuickReplyResponseDtoScopeEnumKey;
     /**
-     * @type string
+     * @type string, uuid
     */
-    shortcut: string;
+    ownerUserId: string | null;
+    /**
+     * @type boolean
+    */
+    active: boolean;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
     /**
      * @type string, date-time
     */

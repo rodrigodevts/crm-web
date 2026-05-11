@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { CloseReasonListResponseDto } from "./CloseReasonListResponseDto.ts";
 
 export const closeReasonsControllerListQueryParamsActiveEnum = {
     true: "true",
@@ -49,7 +50,7 @@ export type CloseReasonsControllerListQueryParams = {
     sort?: CloseReasonsControllerListQueryParamsSortEnumKey;
 };
 
-export type CloseReasonsControllerList200 = unknown;
+export type CloseReasonsControllerList200 = CloseReasonListResponseDto;
 
 export type CloseReasonsControllerListQueryResponse = CloseReasonsControllerList200;
 

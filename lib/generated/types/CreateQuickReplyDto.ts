@@ -13,19 +13,13 @@ export type CreateQuickReplyDtoScopeEnumKey = (typeof createQuickReplyDtoScopeEn
 
 export type CreateQuickReplyDto = {
     /**
-     * @default true
-     * @type boolean | undefined
+     * @description Atalho do composer; sem prefixo \"/\"
+     * @minLength 1
+     * @maxLength 50
+     * @pattern ^[a-zA-Z0-9_-]+$
+     * @type string
     */
-    active?: boolean;
-    /**
-     * @pattern ^[a-z]+\/[a-z0-9.\-+]+$
-     * @type string | undefined
-    */
-    mediaMimeType?: string;
-    /**
-     * @type string | undefined, uri
-    */
-    mediaUrl?: string;
+    shortcut: string;
     /**
      * @description Conteúdo da mensagem; pode conter placeholders {{nome}}, {{protocolo}} etc.
      * @minLength 1
@@ -34,17 +28,23 @@ export type CreateQuickReplyDto = {
     */
     message: string;
     /**
+     * @type string | undefined, uri
+    */
+    mediaUrl?: string;
+    /**
+     * @pattern ^[a-z]+\/[a-z0-9.\-+]+$
+     * @type string | undefined
+    */
+    mediaMimeType?: string;
+    /**
      * @description COMPANY = visível ao tenant inteiro; PERSONAL = só ao usuário criador
      * @default "PERSONAL"
      * @type string | undefined
     */
     scope?: CreateQuickReplyDtoScopeEnumKey;
     /**
-     * @description Atalho do composer; sem prefixo \"/\"
-     * @minLength 1
-     * @maxLength 50
-     * @pattern ^[a-zA-Z0-9_-]+$
-     * @type string
+     * @default true
+     * @type boolean | undefined
     */
-    shortcut: string;
+    active?: boolean;
 };

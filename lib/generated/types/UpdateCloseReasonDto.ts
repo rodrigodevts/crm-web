@@ -9,21 +9,11 @@
 */
 export type UpdateCloseReasonDto = {
     /**
-     * @type boolean | undefined
+     * @minLength 1
+     * @maxLength 100
+     * @type string | undefined
     */
-    active?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    asksDealValue?: boolean;
-    /**
-     * @type array | undefined
-    */
-    departmentIds?: string[];
-    /**
-     * @type string, uuid
-    */
-    funnelId?: string | null;
+    name?: string;
     /**
      * @minLength 1
      * @maxLength 2000
@@ -31,13 +21,23 @@ export type UpdateCloseReasonDto = {
     */
     message?: string | null;
     /**
-     * @minLength 1
-     * @maxLength 100
-     * @type string | undefined
+     * @type boolean | undefined
     */
-    name?: string;
+    active?: boolean;
     /**
      * @type boolean | undefined
     */
     triggersCsat?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    asksDealValue?: boolean;
+    /**
+     * @type string, uuid
+    */
+    funnelId?: string | null;
+    /**
+     * @type array | undefined
+    */
+    departmentIds?: string[];
 };
