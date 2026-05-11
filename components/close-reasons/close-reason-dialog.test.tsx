@@ -65,7 +65,9 @@ describe('CloseReasonDialog', () => {
     renderWithProviders(<CloseReasonDialog mode="create" reason={null} open onClose={vi.fn()} />);
     await user.type(screen.getByLabelText(/nome/i), 'Sem retorno');
     await user.type(screen.getByLabelText(/mensagem/i), 'Caso resolvido por inatividade.');
-    await user.click(screen.getByRole('checkbox', { name: /suporte/i }));
+    await user.click(screen.getByRole('combobox'));
+    await user.click(await screen.findByRole('option', { name: /suporte/i }));
+    await user.keyboard('{Escape}');
     await user.click(screen.getByRole('button', { name: /criar motivo/i }));
     await waitFor(() => expect(createMutate).toHaveBeenCalledTimes(1));
     const arg = createMutate.mock.calls[0]?.[0];
@@ -114,11 +116,11 @@ describe('CloseReasonDialog', () => {
     createMutate.mockResolvedValue({ id: 'new' });
     renderWithProviders(<CloseReasonDialog mode="create" reason={null} open onClose={vi.fn()} />);
     await user.type(screen.getByLabelText(/nome/i), 'Test');
-    const suporte = screen.getByRole('checkbox', { name: /suporte/i });
-    const vendas = screen.getByRole('checkbox', { name: /vendas/i });
-    await user.click(suporte);
-    await user.click(vendas);
-    await user.click(suporte); // toggle off
+    await user.click(screen.getByRole('combobox'));
+    await user.click(await screen.findByRole('option', { name: /suporte/i }));
+    await user.click(screen.getByRole('option', { name: /vendas/i }));
+    await user.click(screen.getByRole('option', { name: /suporte/i })); // toggle off
+    await user.keyboard('{Escape}');
     await user.click(screen.getByRole('button', { name: /criar motivo/i }));
     await waitFor(() => expect(createMutate).toHaveBeenCalledTimes(1));
     const arg = createMutate.mock.calls[0]?.[0];

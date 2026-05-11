@@ -29,6 +29,7 @@ import {
 import { Field, FieldLabel, FieldError, FieldDescription } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { MultiSelectCombobox } from '@/components/ui/multi-select-combobox';
 import { Textarea } from '@/components/ui/textarea';
 import type { z } from 'zod';
 import { closeReasonFormSchema, type CloseReasonFormValues } from './close-reason-form-schema';
@@ -237,43 +238,21 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
             <Controller
               control={form.control}
               name="departmentIds"
-              render={({ field }) => {
-                const value = field.value ?? [];
-                return (
-                  <div
-                    className={
-                      departmentItems.length === 0
-                        ? 'mt-2'
-                        : 'mt-2 grid max-h-48 grid-cols-1 gap-x-4 gap-y-2 overflow-y-auto sm:grid-cols-2'
-                    }
-                  >
-                    {departmentItems.length === 0 ? (
-                      <p className="text-muted-foreground text-sm">Nenhum departamento ativo.</p>
-                    ) : (
-                      departmentItems.map((d) => {
-                        const checked = value.includes(d.id);
-                        return (
-                          <label
-                            key={d.id}
-                            htmlFor={`cr-dept-${d.id}`}
-                            className="flex min-w-0 items-center gap-2"
-                          >
-                            <Checkbox
-                              id={`cr-dept-${d.id}`}
-                              checked={checked}
-                              onCheckedChange={(c) => {
-                                if (c === true) field.onChange([...value, d.id]);
-                                else field.onChange(value.filter((id) => id !== d.id));
-                              }}
-                            />
-                            <span className="text-foreground truncate text-sm">{d.name}</span>
-                          </label>
-                        );
-                      })
-                    )}
-                  </div>
-                );
-              }}
+              render={({ field }) => (
+                <MultiSelectCombobox
+                  value={field.value ?? []}
+                  onChange={field.onChange}
+                  options={departmentItems}
+                  placeholder={
+                    departmentItems.length === 0
+                      ? 'Nenhum departamento ativo.'
+                      : 'Selecione departamentos…'
+                  }
+                  searchPlaceholder="Buscar departamento…"
+                  emptyMessage="Nenhum departamento corresponde à busca."
+                  disabled={departmentItems.length === 0}
+                />
+              )}
             />
           </fieldset>
 
