@@ -10,7 +10,6 @@ import {
   closeReasonsControllerListQueryKey,
 } from '@/lib/generated/hooks/useCloseReasonsControllerList';
 import { useCloseReasonsControllerUpdate } from '@/lib/generated/hooks/useCloseReasonsControllerUpdate';
-import { useCloseReasonsControllerSoftDelete } from '@/lib/generated/hooks/useCloseReasonsControllerSoftDelete';
 import {
   useCloseReasonsControllerReorder,
   closeReasonsControllerReorderMutationKey,
@@ -60,7 +59,10 @@ export function CloseReasonsTable() {
   const query = useCloseReasonsControllerList(params, { client: { client: apiClient } });
 
   const update = useCloseReasonsControllerUpdate({ client: { client: apiClient } });
-  const softDelete = useCloseReasonsControllerSoftDelete({ client: { client: apiClient } });
+  // "Desativar" usa PATCH `active: false` (não softDelete) pra alinhar com o
+  // pattern de Departments e manter o motivo visível no filtro "Inativos"
+  // (DELETE seta `deletedAt`, e o list filtra `deletedAt: null` sempre → motivo
+  // somido tanto de ativos quanto de inativos).
   const reorder = useCloseReasonsControllerReorder({
     client: { client: apiClient },
     mutation: { mutationKey: closeReasonsControllerReorderMutationKey() },
@@ -134,7 +136,7 @@ export function CloseReasonsTable() {
   async function handleDeactivateConfirm() {
     if (!deactivateTarget) return;
     try {
-      await softDelete.mutateAsync({ id: deactivateTarget.id });
+      await update.mutateAsync({ id: deactivateTarget.id, data: { active: false } });
       toast.success(`Motivo "${deactivateTarget.name}" desativado.`);
       invalidate();
       setDeactivateTarget(null);
@@ -208,7 +210,7 @@ export function CloseReasonsTable() {
         <DeactivateCloseReasonDialog
           reason={{ id: deactivateTarget.id, name: deactivateTarget.name }}
           open
-          submitting={softDelete.isPending}
+          submitting={update.isPending}
           onConfirm={handleDeactivateConfirm}
           onClose={() => setDeactivateTarget(null)}
         />
