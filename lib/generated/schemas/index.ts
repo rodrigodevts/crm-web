@@ -19,8 +19,8 @@ export { closeReasonListResponseDtoSchema } from "./closeReasonListResponseDtoSc
 export { closeReasonsControllerCreate201Schema, closeReasonsControllerCreateMutationRequestSchema, closeReasonsControllerCreateMutationResponseSchema } from "./closeReasonsControllerCreateSchema.ts";
 export { closeReasonsControllerFindById200Schema, closeReasonsControllerFindByIdPathParamsSchema, closeReasonsControllerFindByIdQueryResponseSchema } from "./closeReasonsControllerFindByIdSchema.ts";
 export { closeReasonsControllerList200Schema, closeReasonsControllerListQueryParamsSchema, closeReasonsControllerListQueryResponseSchema } from "./closeReasonsControllerListSchema.ts";
+export { closeReasonsControllerRemove204Schema, closeReasonsControllerRemoveMutationResponseSchema, closeReasonsControllerRemovePathParamsSchema } from "./closeReasonsControllerRemoveSchema.ts";
 export { closeReasonsControllerReorder204Schema, closeReasonsControllerReorderMutationRequestSchema, closeReasonsControllerReorderMutationResponseSchema } from "./closeReasonsControllerReorderSchema.ts";
-export { closeReasonsControllerSoftDelete204Schema, closeReasonsControllerSoftDeleteMutationResponseSchema, closeReasonsControllerSoftDeletePathParamsSchema } from "./closeReasonsControllerSoftDeleteSchema.ts";
 export { closeReasonsControllerUpdate200Schema, closeReasonsControllerUpdateMutationRequestSchema, closeReasonsControllerUpdateMutationResponseSchema, closeReasonsControllerUpdatePathParamsSchema } from "./closeReasonsControllerUpdateSchema.ts";
 export { companiesControllerCreate201Schema, companiesControllerCreateMutationRequestSchema, companiesControllerCreateMutationResponseSchema } from "./companiesControllerCreateSchema.ts";
 export { companiesControllerDelete204Schema, companiesControllerDeleteMutationResponseSchema, companiesControllerDeletePathParamsSchema } from "./companiesControllerDeleteSchema.ts";

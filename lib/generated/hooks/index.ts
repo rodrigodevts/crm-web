@@ -17,8 +17,8 @@ export type { CloseReasonsControllerFindByIdQueryKey } from "./useCloseReasonsCo
 export type { CloseReasonsControllerFindByIdSuspenseQueryKey } from "./useCloseReasonsControllerFindByIdSuspense.ts";
 export type { CloseReasonsControllerListQueryKey } from "./useCloseReasonsControllerList.ts";
 export type { CloseReasonsControllerListSuspenseQueryKey } from "./useCloseReasonsControllerListSuspense.ts";
+export type { CloseReasonsControllerRemoveMutationKey } from "./useCloseReasonsControllerRemove.ts";
 export type { CloseReasonsControllerReorderMutationKey } from "./useCloseReasonsControllerReorder.ts";
-export type { CloseReasonsControllerSoftDeleteMutationKey } from "./useCloseReasonsControllerSoftDelete.ts";
 export type { CloseReasonsControllerUpdateMutationKey } from "./useCloseReasonsControllerUpdate.ts";
 export type { CompaniesControllerCreateMutationKey } from "./useCompaniesControllerCreate.ts";
 export type { CompaniesControllerDeleteMutationKey } from "./useCompaniesControllerDelete.ts";
@@ -136,12 +136,12 @@ export { useCloseReasonsControllerList } from "./useCloseReasonsControllerList.t
 export { closeReasonsControllerListSuspenseQueryKey } from "./useCloseReasonsControllerListSuspense.ts";
 export { closeReasonsControllerListSuspenseQueryOptions } from "./useCloseReasonsControllerListSuspense.ts";
 export { useCloseReasonsControllerListSuspense } from "./useCloseReasonsControllerListSuspense.ts";
+export { closeReasonsControllerRemoveMutationKey } from "./useCloseReasonsControllerRemove.ts";
+export { closeReasonsControllerRemoveMutationOptions } from "./useCloseReasonsControllerRemove.ts";
+export { useCloseReasonsControllerRemove } from "./useCloseReasonsControllerRemove.ts";
 export { closeReasonsControllerReorderMutationKey } from "./useCloseReasonsControllerReorder.ts";
 export { closeReasonsControllerReorderMutationOptions } from "./useCloseReasonsControllerReorder.ts";
 export { useCloseReasonsControllerReorder } from "./useCloseReasonsControllerReorder.ts";
-export { closeReasonsControllerSoftDeleteMutationKey } from "./useCloseReasonsControllerSoftDelete.ts";
-export { closeReasonsControllerSoftDeleteMutationOptions } from "./useCloseReasonsControllerSoftDelete.ts";
-export { useCloseReasonsControllerSoftDelete } from "./useCloseReasonsControllerSoftDelete.ts";
 export { closeReasonsControllerUpdateMutationKey } from "./useCloseReasonsControllerUpdate.ts";
 export { closeReasonsControllerUpdateMutationOptions } from "./useCloseReasonsControllerUpdate.ts";
 export { useCloseReasonsControllerUpdate } from "./useCloseReasonsControllerUpdate.ts";
