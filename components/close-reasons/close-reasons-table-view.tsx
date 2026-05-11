@@ -113,7 +113,6 @@ export function CloseReasonsTableView({
             <TableHead>Nome</TableHead>
             <TableHead>Mensagem</TableHead>
             <TableHead>Departamentos</TableHead>
-            <TableHead>Status</TableHead>
             <TableHead className="text-right">Ações</TableHead>
           </TableRow>
         </TableHeader>

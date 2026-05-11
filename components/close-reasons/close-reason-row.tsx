@@ -3,7 +3,6 @@
 import { GripVerticalIcon, MoreVerticalIcon } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -74,11 +73,6 @@ export function CloseReasonRow({ reason, dragDisabled, onEdit, onDelete }: Close
       </TableCell>
       <TableCell className="text-muted-foreground">
         {summarizeDepartments(reason.departments)}
-      </TableCell>
-      <TableCell>
-        <Badge variant={reason.active ? 'default' : 'outline'}>
-          {reason.active ? 'Ativo' : 'Inativo'}
-        </Badge>
       </TableCell>
       <TableCell className="text-right">
         <DropdownMenu>
