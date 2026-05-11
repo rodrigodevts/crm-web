@@ -51,11 +51,7 @@ export function DeleteCloseReasonDialog({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={submitting}>Cancelar</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={onConfirm}
-                disabled={submitting}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
+              <AlertDialogAction variant="destructive" onClick={onConfirm} disabled={submitting}>
                 Excluir
               </AlertDialogAction>
             </AlertDialogFooter>

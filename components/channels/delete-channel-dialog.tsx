@@ -50,10 +50,7 @@ export function DeleteChannelDialog({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={onConfirm}
-                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
-              >
+              <AlertDialogAction variant="destructive" onClick={onConfirm}>
                 Excluir
               </AlertDialogAction>
             </AlertDialogFooter>
