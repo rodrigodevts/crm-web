@@ -21,11 +21,6 @@ export type CreateCloseReasonDto = {
     */
     message?: string | null;
     /**
-     * @default true
-     * @type boolean | undefined
-    */
-    active?: boolean;
-    /**
      * @default false
      * @type boolean | undefined
     */

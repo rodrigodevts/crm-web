@@ -18,7 +18,7 @@ export type { CloseReasonDetailResponseDto } from "./CloseReasonDetailResponseDt
 export type { CloseReasonListResponseDto } from "./CloseReasonListResponseDto.ts";
 export type { CloseReasonsControllerCreate201, CloseReasonsControllerCreateMutation, CloseReasonsControllerCreateMutationRequest, CloseReasonsControllerCreateMutationResponse } from "./CloseReasonsControllerCreate.ts";
 export type { CloseReasonsControllerFindById200, CloseReasonsControllerFindByIdPathParams, CloseReasonsControllerFindByIdQuery, CloseReasonsControllerFindByIdQueryResponse } from "./CloseReasonsControllerFindById.ts";
-export type { CloseReasonsControllerList200, CloseReasonsControllerListQuery, CloseReasonsControllerListQueryParams, CloseReasonsControllerListQueryParamsActiveEnumKey, CloseReasonsControllerListQueryParamsSortEnumKey, CloseReasonsControllerListQueryResponse } from "./CloseReasonsControllerList.ts";
+export type { CloseReasonsControllerList200, CloseReasonsControllerListQuery, CloseReasonsControllerListQueryParams, CloseReasonsControllerListQueryParamsSortEnumKey, CloseReasonsControllerListQueryResponse } from "./CloseReasonsControllerList.ts";
 export type { CloseReasonsControllerRemove204, CloseReasonsControllerRemoveMutation, CloseReasonsControllerRemoveMutationResponse, CloseReasonsControllerRemovePathParams } from "./CloseReasonsControllerRemove.ts";
 export type { CloseReasonsControllerReorder204, CloseReasonsControllerReorderMutation, CloseReasonsControllerReorderMutationRequest, CloseReasonsControllerReorderMutationResponse } from "./CloseReasonsControllerReorder.ts";
 export type { CloseReasonsControllerUpdate200, CloseReasonsControllerUpdateMutation, CloseReasonsControllerUpdateMutationRequest, CloseReasonsControllerUpdateMutationResponse, CloseReasonsControllerUpdatePathParams } from "./CloseReasonsControllerUpdate.ts";
@@ -108,7 +108,6 @@ export { userRoleEnum } from "./AuthResponseDto.ts";
 export { channelResponseDtoProviderEnum } from "./ChannelResponseDto.ts";
 export { channelResponseDtoStatusEnum } from "./ChannelResponseDto.ts";
 export { channelsControllerListQueryParamsStatusEnum } from "./ChannelsControllerList.ts";
-export { closeReasonsControllerListQueryParamsActiveEnum } from "./CloseReasonsControllerList.ts";
 export { closeReasonsControllerListQueryParamsSortEnum } from "./CloseReasonsControllerList.ts";
 export { companiesControllerListQueryParamsActiveEnum } from "./CompaniesControllerList.ts";
 export { createChannelDtoProviderEnum } from "./CreateChannelDto.ts";

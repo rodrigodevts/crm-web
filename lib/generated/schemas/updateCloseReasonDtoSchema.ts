@@ -12,7 +12,6 @@ import { z } from "zod/v4";
 export const updateCloseReasonDtoSchema = z.object({
     "name": z.optional(z.string().min(1).max(100)),
 "message": z.string().min(1).max(2000).nullish(),
-"active": z.optional(z.boolean()),
 "triggersCsat": z.optional(z.boolean()),
 "asksDealValue": z.optional(z.boolean()),
 "funnelId": z.uuid().nullish(),

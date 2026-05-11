@@ -5,13 +5,6 @@
 
 import type { CloseReasonListResponseDto } from "./CloseReasonListResponseDto.ts";
 
-export const closeReasonsControllerListQueryParamsActiveEnum = {
-    true: "true",
-    false: "false"
-} as const;
-
-export type CloseReasonsControllerListQueryParamsActiveEnumKey = (typeof closeReasonsControllerListQueryParamsActiveEnum)[keyof typeof closeReasonsControllerListQueryParamsActiveEnum];
-
 export const closeReasonsControllerListQueryParamsSortEnum = {
     sortOrder: "sortOrder",
     name: "name",
@@ -21,7 +14,6 @@ export const closeReasonsControllerListQueryParamsSortEnum = {
 export type CloseReasonsControllerListQueryParamsSortEnumKey = (typeof closeReasonsControllerListQueryParamsSortEnum)[keyof typeof closeReasonsControllerListQueryParamsSortEnum];
 
 export type CloseReasonsControllerListQueryParams = {
-    active?: (boolean | CloseReasonsControllerListQueryParamsActiveEnumKey);
     /**
      * @type string | undefined, uuid
     */
