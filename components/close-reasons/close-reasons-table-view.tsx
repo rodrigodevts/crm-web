@@ -16,7 +16,14 @@ import {
 } from '@dnd-kit/sortable';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { CloseReasonRow, type CloseReasonListItem } from './close-reason-row';
 
 export type CloseReasonsTableState = 'loading' | 'ready' | 'error';
@@ -31,6 +38,8 @@ export interface CloseReasonsTableViewProps {
   onReorder: (orderedIds: string[]) => void;
   onClearFilters: () => void;
 }
+
+const COLUMN_COUNT = 5;
 
 export function CloseReasonsTableView({
   state,
@@ -47,50 +56,6 @@ export function CloseReasonsTableView({
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  if (state === 'loading') {
-    return (
-      <div className="flex flex-col gap-2">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Skeleton key={i} data-testid="close-reason-skeleton" className="h-12 w-full" />
-        ))}
-      </div>
-    );
-  }
-
-  if (state === 'error') {
-    return (
-      <div className="border-destructive/40 bg-destructive/10 rounded-md border p-6 text-center">
-        <p className="text-foreground text-sm">Não foi possível carregar os motivos.</p>
-      </div>
-    );
-  }
-
-  if (items.length === 0 && !hasFilters) {
-    return (
-      <div className="border-border flex flex-col items-center gap-3 rounded-md border p-12 text-center">
-        <p className="text-foreground text-base font-medium">
-          Nenhum motivo de fechamento cadastrado.
-        </p>
-        <p className="text-muted-foreground text-sm">
-          Crie motivos para usar no auto-fechamento de canais e no encerramento manual de tickets.
-        </p>
-      </div>
-    );
-  }
-
-  if (items.length === 0 && hasFilters) {
-    return (
-      <div className="border-border flex flex-col items-center gap-3 rounded-md border p-12 text-center">
-        <p className="text-foreground text-base font-medium">
-          Nenhum motivo corresponde aos filtros.
-        </p>
-        <Button variant="outline" onClick={onClearFilters}>
-          Limpar filtros
-        </Button>
-      </div>
-    );
-  }
-
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
@@ -105,31 +70,71 @@ export function CloseReasonsTableView({
   }
 
   return (
-    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-10" />
-            <TableHead>Nome</TableHead>
-            <TableHead>Mensagem</TableHead>
-            <TableHead>Departamentos</TableHead>
-            <TableHead className="text-right">Ações</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
-            {items.map((reason) => (
-              <CloseReasonRow
-                key={reason.id}
-                reason={reason}
-                dragDisabled={dragDisabled}
-                onEdit={onEdit}
-                onDelete={onDelete}
-              />
-            ))}
-          </SortableContext>
-        </TableBody>
-      </Table>
-    </DndContext>
+    <div className="rounded-md border">
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-10" />
+              <TableHead>Nome</TableHead>
+              <TableHead>Mensagem</TableHead>
+              <TableHead>Departamentos</TableHead>
+              <TableHead className="text-right">Ações</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {state === 'loading' ? (
+              Array.from({ length: 3 }).map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell colSpan={COLUMN_COUNT}>
+                    <Skeleton data-testid="close-reason-skeleton" className="h-6 w-full" />
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : state === 'error' ? (
+              <TableRow>
+                <TableCell colSpan={COLUMN_COUNT} className="text-destructive text-center">
+                  Não foi possível carregar os motivos.
+                </TableCell>
+              </TableRow>
+            ) : items.length === 0 && !hasFilters ? (
+              <TableRow>
+                <TableCell colSpan={COLUMN_COUNT} className="text-muted-foreground text-center">
+                  Nenhum motivo de fechamento cadastrado.
+                </TableCell>
+              </TableRow>
+            ) : items.length === 0 && hasFilters ? (
+              <TableRow>
+                <TableCell colSpan={COLUMN_COUNT} className="text-center">
+                  <div className="flex flex-col items-center gap-2 py-4">
+                    <p className="text-muted-foreground text-sm">
+                      Nenhum motivo corresponde aos filtros.
+                    </p>
+                    <Button variant="outline" size="sm" onClick={onClearFilters}>
+                      Limpar filtros
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : (
+              <SortableContext
+                items={items.map((i) => i.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {items.map((reason) => (
+                  <CloseReasonRow
+                    key={reason.id}
+                    reason={reason}
+                    dragDisabled={dragDisabled}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                  />
+                ))}
+              </SortableContext>
+            )}
+          </TableBody>
+        </Table>
+      </DndContext>
+    </div>
   );
 }

@@ -1,16 +1,9 @@
 'use client';
 
-import { GripVerticalIcon, MoreVerticalIcon } from 'lucide-react';
+import { GripVerticalIcon, PencilIcon, Trash2Icon } from 'lucide-react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { cn } from '@/lib/utils';
 import type { CloseReasonForDialog } from './close-reason-dialog';
@@ -75,20 +68,26 @@ export function CloseReasonRow({ reason, dragDisabled, onEdit, onDelete }: Close
         {summarizeDepartments(reason.departments)}
       </TableCell>
       <TableCell className="text-right">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label={`Ações do motivo ${reason.name}`}>
-              <MoreVerticalIcon className="size-4" aria-hidden="true" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={() => onEdit(reason)}>Editar</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive" onSelect={() => onDelete(reason)}>
-              Excluir
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex justify-end gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onEdit(reason)}
+            aria-label={`Editar motivo ${reason.name}`}
+          >
+            <PencilIcon className="size-4" />
+            Editar
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onDelete(reason)}
+            aria-label={`Excluir motivo ${reason.name}`}
+          >
+            <Trash2Icon className="size-4" />
+            Excluir
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   );
