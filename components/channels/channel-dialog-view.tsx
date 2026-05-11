@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/dialog';
 import { Field, FieldLabel, FieldError, FieldDescription } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { MaskedPhoneInput } from '@/components/ui/masked-phone-input';
 import {
   Select,
   SelectContent,
@@ -102,7 +103,7 @@ export function ChannelDialogView({
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{mode === 'create' ? 'Novo canal' : 'Editar canal'}</DialogTitle>
-          <DialogDescription>Configurações do canal de WhatsApp via Gupshup.</DialogDescription>
+          <DialogDescription>Configurações do canal de WhatsApp.</DialogDescription>
         </DialogHeader>
 
         <form
@@ -128,7 +129,7 @@ export function ChannelDialogView({
             <FieldLabel htmlFor="ch-provider" required>
               Tipo
             </FieldLabel>
-            <Select disabled value="GUPSHUP">
+            <Select disabled={mode === 'edit'} value="GUPSHUP">
               <SelectTrigger id="ch-provider">
                 <SelectValue />
               </SelectTrigger>
@@ -145,13 +146,21 @@ export function ChannelDialogView({
             <FieldLabel htmlFor="ch-phone" required>
               Telefone do canal
             </FieldLabel>
-            <Input
-              id="ch-phone"
-              {...form.register('phoneNumber')}
-              aria-invalid={!!form.formState.errors.phoneNumber}
+            <Controller
+              control={form.control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <MaskedPhoneInput
+                  id="ch-phone"
+                  value={field.value}
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  aria-invalid={!!form.formState.errors.phoneNumber}
+                />
+              )}
             />
             <FieldDescription>
-              Somente números, sem &quot;+&quot; nem espaços. Ex.: 5511999998888
+              Formato internacional com DDI + DDD. Ex.: +55 (11) 99999-8888
             </FieldDescription>
             {form.formState.errors.phoneNumber && (
               <FieldError>{form.formState.errors.phoneNumber.message}</FieldError>

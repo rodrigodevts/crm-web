@@ -78,17 +78,24 @@ describe('ChannelDialogView', () => {
     expect(screen.queryByRole('button', { name: /revelar credenciais/i })).not.toBeInTheDocument();
   });
 
-  it('phoneNumber inválido (contém "+") exibe erro inline e não chama onSubmit', async () => {
+  it('máscara do telefone descarta caracteres não-numéricos e exibe formatado', async () => {
     const user = userEvent.setup();
-    const { onSubmit } = setup();
-    await user.type(screen.getByLabelText(/nome/i), 'Canal X');
-    await user.type(screen.getByLabelText(/telefone do canal/i), '+5511999998888');
-    await user.type(screen.getByLabelText(/api key/i), 'k');
-    await user.type(screen.getByLabelText(/app id/i), 'a');
-    await user.type(screen.getByLabelText(/app name/i), 'n');
-    await user.click(screen.getByRole('button', { name: /criar canal/i }));
-    expect(await screen.findByText(/apenas dígitos/i)).toBeInTheDocument();
-    expect(onSubmit).not.toHaveBeenCalled();
+    setup();
+    const phoneInput = screen.getByLabelText(/telefone do canal/i) as HTMLInputElement;
+    // Usuário cola valor com "+", parênteses, espaços e hífens — tudo deve ser
+    // stripado e o display reformatado a partir dos dígitos puros.
+    await user.click(phoneInput);
+    await user.paste('+55 (11) 99999-8888');
+    expect(phoneInput.value).toBe('+55 (11) 99999-8888');
+  });
+
+  it('máscara mantém só os primeiros 13 dígitos mesmo se o usuário colar excesso', async () => {
+    const user = userEvent.setup();
+    setup();
+    const phoneInput = screen.getByLabelText(/telefone do canal/i) as HTMLInputElement;
+    await user.click(phoneInput);
+    await user.paste('5511999998888999');
+    expect(phoneInput.value).toBe('+55 (11) 99999-8888');
   });
 
   it('timeout > 0 sem closeReason exibe erro inline', async () => {

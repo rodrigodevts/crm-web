@@ -149,7 +149,7 @@ export function ChannelsTable() {
         <div>
           <h1 className="text-foreground text-2xl font-semibold">Canais</h1>
           <p className="text-muted-foreground text-sm">
-            Conexões WhatsApp via Gupshup. {connectedCount} de {totalCount} canais conectados.
+            {connectedCount} de {totalCount} canais conectados.
           </p>
         </div>
         <Button

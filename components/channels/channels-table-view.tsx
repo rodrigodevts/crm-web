@@ -58,9 +58,7 @@ export function ChannelsTableView({
     return (
       <div className="border-border flex flex-col items-center gap-3 rounded-md border p-12 text-center">
         <p className="text-foreground text-base font-medium">Nenhum canal cadastrado.</p>
-        <p className="text-muted-foreground text-sm">
-          Crie seu primeiro canal Gupshup para começar.
-        </p>
+        <p className="text-muted-foreground text-sm">Crie seu primeiro canal para começar.</p>
         <Button onClick={onCreate} size="lg">
           Novo canal
         </Button>

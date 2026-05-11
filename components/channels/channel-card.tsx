@@ -1,6 +1,7 @@
 import type { ChannelResponseDto } from '@/lib/generated/types/ChannelResponseDto';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { formatPhoneDigits } from '@/components/ui/masked-phone-input';
 import { ChannelStatusBadge } from './channel-status-badge';
 import { ChannelActionsMenu } from './channel-actions-menu';
 
@@ -16,7 +17,7 @@ export interface ChannelCardProps {
 
 function formatPhone(phoneNumber: string | null): string {
   if (!phoneNumber) return '—';
-  return `+${phoneNumber}`;
+  return formatPhoneDigits(phoneNumber);
 }
 
 export function ChannelCard({
