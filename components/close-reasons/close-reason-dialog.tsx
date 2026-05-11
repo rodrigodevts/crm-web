@@ -98,9 +98,12 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
     defaultValues: toFormValues(reason),
   });
 
+  // Reset toda vez que o dialog abre OU o `reason` muda (edit de alvo
+  // diferente). Sem incluir `open` nas deps, criar-fechar-criar mantinha os
+  // valores do último submit.
   useEffect(() => {
-    form.reset(toFormValues(reason));
-  }, [reason, form]);
+    if (open) form.reset(toFormValues(reason));
+  }, [open, reason, form]);
 
   function invalidate() {
     void queryClient.invalidateQueries({
@@ -237,7 +240,13 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
               render={({ field }) => {
                 const value = field.value ?? [];
                 return (
-                  <div className="mt-2 flex flex-col gap-2">
+                  <div
+                    className={
+                      departmentItems.length === 0
+                        ? 'mt-2'
+                        : 'mt-2 grid max-h-48 grid-cols-1 gap-x-4 gap-y-2 overflow-y-auto sm:grid-cols-2'
+                    }
+                  >
                     {departmentItems.length === 0 ? (
                       <p className="text-muted-foreground text-sm">Nenhum departamento ativo.</p>
                     ) : (
@@ -247,7 +256,7 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
                           <label
                             key={d.id}
                             htmlFor={`cr-dept-${d.id}`}
-                            className="flex items-center gap-2"
+                            className="flex min-w-0 items-center gap-2"
                           >
                             <Checkbox
                               id={`cr-dept-${d.id}`}
@@ -257,7 +266,7 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
                                 else field.onChange(value.filter((id) => id !== d.id));
                               }}
                             />
-                            <span className="text-foreground text-sm">{d.name}</span>
+                            <span className="text-foreground truncate text-sm">{d.name}</span>
                           </label>
                         );
                       })

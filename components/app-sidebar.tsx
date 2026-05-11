@@ -50,7 +50,7 @@ const settingsSubItems = [
   { href: '/configuracoes/usuarios', label: 'Usuários' },
   { href: '/configuracoes/quick-replies', label: 'Quick Replies' },
   { href: '/configuracoes/canais', label: 'Canais' },
-  { href: '/configuracoes/motivos-fechamento', label: 'Motivos de fechamento' },
+  { href: '/configuracoes/motivos-fechamento', label: 'Motivos' },
   { href: '/configuracoes/integracoes', label: 'Integrações' },
   { href: '/configuracoes/preferencias', label: 'Preferências' },
   { href: '/configuracoes/design-system', label: 'Design System' },
