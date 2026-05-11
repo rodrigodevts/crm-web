@@ -33,7 +33,7 @@ export function ChannelCard({
       <CardContent className="flex flex-col gap-3 p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-col gap-1">
-            <h3 className="text-foreground truncate text-base font-semibold">{channel.name}</h3>
+            <p className="text-foreground truncate text-base font-semibold">{channel.name}</p>
             <p className="text-muted-foreground text-sm">{formatPhone(channel.phoneNumber)}</p>
           </div>
           <ChannelActionsMenu

@@ -107,14 +107,18 @@ export function ChannelsTable() {
     });
   }
 
-  function handleAction(label: string, p: Promise<unknown>): Promise<void> {
+  function handleAction(
+    pastParticiple: string,
+    infinitive: string,
+    p: Promise<unknown>,
+  ): Promise<void> {
     return p
       .then(() => {
-        toast.success(`${label} aplicado.`);
+        toast.success(`Canal ${pastParticiple}.`);
         invalidate();
       })
       .catch(() => {
-        toast.error(`Não foi possível ${label.toLowerCase()} o canal.`);
+        toast.error(`Não foi possível ${infinitive} o canal.`);
       });
   }
 
@@ -177,7 +181,7 @@ export function ChannelsTable() {
         </InputGroup>
 
         <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as StatusFilter)}>
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-48" aria-label="Filtrar por status">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -201,9 +205,13 @@ export function ChannelsTable() {
           setEditTarget(c);
           setDialogOpen(true);
         }}
-        onActivate={(c) => handleAction('Ativação', activate.mutateAsync({ id: c.id }))}
-        onDeactivate={(c) => handleAction('Desativação', deactivate.mutateAsync({ id: c.id }))}
-        onRestart={(c) => handleAction('Restart', restart.mutateAsync({ id: c.id }))}
+        onActivate={(c) => handleAction('ativado', 'ativar', activate.mutateAsync({ id: c.id }))}
+        onDeactivate={(c) =>
+          handleAction('desativado', 'desativar', deactivate.mutateAsync({ id: c.id }))
+        }
+        onRestart={(c) =>
+          handleAction('reiniciado', 'reiniciar', restart.mutateAsync({ id: c.id }))
+        }
         onDelete={(c) => {
           setDeleteTarget(c);
           setDeleteBlockedCounts(null);

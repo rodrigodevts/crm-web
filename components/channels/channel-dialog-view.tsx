@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Field, FieldLabel, FieldError } from '@/components/ui/field';
+import { Field, FieldLabel, FieldError, FieldDescription } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -150,9 +150,9 @@ export function ChannelDialogView({
               {...form.register('phoneNumber')}
               aria-invalid={!!form.formState.errors.phoneNumber}
             />
-            <p className="text-muted-foreground text-xs">
+            <FieldDescription>
               Somente números, sem &quot;+&quot; nem espaços. Ex.: 5511999998888
-            </p>
+            </FieldDescription>
             {form.formState.errors.phoneNumber && (
               <FieldError>{form.formState.errors.phoneNumber.message}</FieldError>
             )}
@@ -277,9 +277,9 @@ export function ChannelDialogView({
                   />
                 )}
               />
-              <p className="text-muted-foreground text-xs">
+              <FieldDescription>
                 Em branco = desabilitado. Tickets em modo bot não são fechados por este timeout.
-              </p>
+              </FieldDescription>
               {form.formState.errors.inactivityTimeoutMinutes && (
                 <FieldError>{form.formState.errors.inactivityTimeoutMinutes.message}</FieldError>
               )}
