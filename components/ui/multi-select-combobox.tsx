@@ -128,7 +128,7 @@ export function MultiSelectCombobox({
                     onSelect={() => toggle(o.id)}
                     data-checked={checked}
                     aria-selected={checked}
-                    className="cursor-pointer"
+                    className="data-[checked=true]:bg-accent/60 cursor-pointer data-[checked=true]:font-medium"
                   >
                     <span className="truncate">{o.name}</span>
                   </CommandItem>
