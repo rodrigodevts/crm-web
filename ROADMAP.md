@@ -43,18 +43,18 @@
 
 ## 3. Mapa geral de fases
 
-| #   | Nome                                             | Estimativa  | Status     |
-| --- | ------------------------------------------------ | ----------- | ---------- |
-| 0   | Bootstrap do crm-web                             | 1-2 semanas | concluída  |
-| 1   | Tela de canal Gupshup (config + status realtime) | 1-2 semanas | aguardando |
-| 2   | UI Izing-like de Atendimentos + composer HSM     | 4-5 semanas | aguardando |
-| 3a  | Editor JSON estruturado de Bot/Fluxo             | 3-4 semanas | aguardando |
-| 3b  | Templates de fluxo + simulador                   | 2-3 semanas | aguardando |
-| 4   | Polimento, telas de configurações, CSAT          | 3-4 semanas | aguardando |
-| 5   | Tela de campanhas + webhooks de saída            | 2-3 semanas | aguardando |
-| 6   | Builder visual de fluxo (React Flow)             | 3-4 semanas | aguardando |
-| 7   | UI Baileys (QR code, status)                     | 1 semana    | aguardando |
-| 8   | Migração / on-premise / docs                     | variável    | aguardando |
+| #   | Nome                                             | Estimativa  | Status       |
+| --- | ------------------------------------------------ | ----------- | ------------ |
+| 0   | Bootstrap do crm-web                             | 1-2 semanas | concluída    |
+| 1   | Tela de canal Gupshup (config + status realtime) | 1-2 semanas | em andamento |
+| 2   | UI Izing-like de Atendimentos + composer HSM     | 4-5 semanas | aguardando   |
+| 3a  | Editor JSON estruturado de Bot/Fluxo             | 3-4 semanas | aguardando   |
+| 3b  | Templates de fluxo + simulador                   | 2-3 semanas | aguardando   |
+| 4   | Polimento, telas de configurações, CSAT          | 3-4 semanas | aguardando   |
+| 5   | Tela de campanhas + webhooks de saída            | 2-3 semanas | aguardando   |
+| 6   | Builder visual de fluxo (React Flow)             | 3-4 semanas | aguardando   |
+| 7   | UI Baileys (QR code, status)                     | 1 semana    | aguardando   |
+| 8   | Migração / on-premise / docs                     | variável    | aguardando   |
 
 > Estimativas frontend são menores que as totais do crm-api porque grande parte do trabalho de cada fase está no backend.
 
@@ -162,10 +162,53 @@
 
 ### 5.1 Fase 1 — Tela de canal Gupshup
 
-- [ ] Tela de configuração de canal
-- [ ] Mascaramento de credenciais com botão "Revelar para editar"
-- [ ] Card de canal com status em tempo real (socket.io-client)
-- [ ] Tela básica de mensagens recebidas (validação)
+> **Documento canônico de planejamento da Fase 1:** `../crm-api/ROADMAP.md` §6 (versão 9). A fatia frontend abaixo é pareada com as sprints backend correspondentes.
+>
+> **Sem dependência de deploy** para as sprints frontend: cada uma roda contra `crm-api` local. Validação ponta-a-ponta com Gupshup real é feita na Sprint 1.9 backend (smoke test via Cloudflare Tunnel + primeiro deploy leve no fim da Fase 1).
+
+**Pré-req frontend:** `pnpm generate:api:from-snapshot` precisa rodar contra OpenAPI atualizado do `crm-api` após cada sprint backend que altere contratos.
+
+#### Sprint 1.4 Fase B — Tela `/configuracoes/canais` (CRUD + mascaramento + revelação) — entregue PR #35
+
+- [x] Pareada com Sprint 1.4 do `crm-api` (CRUD do módulo `channels`)
+- [x] Página `/configuracoes/canais` com lista de canais (cards com nome, número, status badge, depto padrão, ícone do canal lógico via `ChannelKindIcon` extensível pra Instagram/Telegram)
+- [x] `ChannelDialog` (criar/editar) com campos: Nome, `provider` (Gupshup ativo + Baileys disabled), `phoneNumber` com máscara via `MaskedPhoneInput` shared, credenciais Gupshup (`apiKey`, `appId`, `appName`), `defaultDepartmentId`, `inactivityTimeoutMinutes` + `inactivityCloseReasonId` (dependente)
+- [x] Mascaramento dos campos sensíveis em GET (`***last4`)
+- [x] Botão "Revelar para editar" → POST `/channels/:id/reveal-credentials` (ADMIN only, gera audit log no backend)
+- [x] Ações inline com confirmação: `Ativar / Desativar / Forçar restart` no card
+- [x] Soft delete (deletedAt) com confirmação (bloqueia se houver tickets OPEN/PENDING — backend retorna 409, frontend mostra counts em estado bloqueado do dialog)
+- [x] RBAC: AGENT/SUPERVISOR não vêem o item de menu nem acessam a rota (gate em `lib/rbac.ts` + `proxy.ts`)
+- [x] Showcase: não foi necessário — `MaskedPhoneInput`, `MultiSelectCombobox` e `ChannelKindIcon` foram introduzidos como shared mas reusam pattern de primitivos já catalogados
+
+#### Sprint 1.4 Fase C — Tela `/configuracoes/motivos-fechamento` (CRUD + drag-and-drop reorder) — entregue PR #35
+
+> Gap-filler: a UI de Motivos de Fechamento foi pulada nas Sprints 0.18-0.22 (Departments, Tags, Quick Replies, Users, Preferences) embora o backend já estivesse pronto. Sprint 1.4 Fase C fecha esse gap junto da Sprint 1.4 Fase B porque a feature de auto-fechamento de canal só é utilizável end-to-end com motivos cadastrados.
+
+- [x] Página `/configuracoes/motivos-fechamento` com tabela bordada alinhada ao pattern de Departments/Tags (header sempre visível, estados como TableRow colSpan, ações inline ghost+sm Editar/Excluir)
+- [x] Toolbar: busca debounced
+- [x] `CloseReasonDialog` (criar/editar) com campos: Nome (único por tenant), Mensagem automática opcional, Departamentos via `MultiSelectCombobox` shared (search + badges com remoção)
+- [x] **Hard delete real** (PRs cross-repo no crm-api #61 bootstrap, #62 OpenAPI decorators, #63 list inclui departments, #64 troca soft por hard delete). `DeleteCloseReasonDialog` com 2 estados (confirmação / bloqueado por `channelsUsingCount` em FK violation)
+- [x] Drag-and-drop reorder via `@dnd-kit/sortable` (mouse + touch + keyboard a11y, optimistic update, revert no erro, desabilitado quando filtros ativos)
+- [x] RBAC: AGENT/SUPERVISOR sem acesso (mesmo gate de Configurações)
+- [x] Fields cortados intencionalmente com TODO no schema: `triggersCsat` (CSAT, Fase 4), `asksDealValue` (composer, Fase 2), `funnelId` (SalesFunnel, Fase 4+)
+
+#### Sprint 1.6 Fase B — Tela básica de mensagens recebidas (validação)
+
+- [ ] Pareada com Sprint 1.6 do `crm-api` (envio outbound + status updates)
+- [ ] Página `/atendimentos/canais-debug/[channelId]` (não é a tela final — só validação ponta-a-ponta da Fase 1; será descartada/substituída na Fase 2)
+- [ ] Lista as últimas N mensagens INBOUND/OUTBOUND do canal (timestamp, contato, conteúdo, status)
+- [ ] Composer minimalista de texto (POST `/tickets/:id/messages`)
+- [ ] Atualização em tempo real via socket.io-client (eventos `message:new`, `message:status`)
+- [ ] Suficiente para checklist §6.4 do `crm-api/ROADMAP.md` (cenários 4–7, 11)
+
+#### Sprint 1.8 Fase B — Card de canal com status realtime
+
+- [ ] Pareada com Sprint 1.8 do `crm-api` (eventos Socket.IO `channel:status`)
+- [ ] Card de canal em `/configuracoes/canais` consome socket.io-client
+- [ ] Indicador visual por estado (badge já existe da 1.4b; falta o realtime feed)
+- [ ] Toast em transições críticas (`CONNECTED → DISCONNECTED`, qualquer estado → `ERROR`)
+- [ ] Mostra `lastError` quando estado é `ERROR`
+- [ ] Reconexão automática do socket (com indicador de "reconectando")
 
 ### 5.2 Fase 2 — UI Izing-like de Atendimentos
 
@@ -240,15 +283,15 @@
 
 ## 6. Rastreamento
 
-| Fase    | Início  | Fim        | Status     | Notas                                                                                                                                                                                                                                             |
-| ------- | ------- | ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Fase 0  | 2026-04 | 2026-05-10 | concluída  | Sprints 0.13–0.23 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências, Tema final). Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes. |
-| Fase 1  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 2  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 3a | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 3b | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 4  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 5  | —       | —          | aguardando | Pré-req da Fase 8 backend.                                                                                                                                                                                                                        |
-| Fase 6  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 7  | —       | —          | aguardando | —                                                                                                                                                                                                                                                 |
-| Fase 8  | —       | —          | aguardando | Requer Fase 5 backend.                                                                                                                                                                                                                            |
+| Fase    | Início     | Fim        | Status       | Notas                                                                                                                                                                                                                                             |
+| ------- | ---------- | ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fase 0  | 2026-04    | 2026-05-10 | concluída    | Sprints 0.13–0.23 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências, Tema final). Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes. |
+| Fase 1  | 2026-05-11 | —          | em andamento | Sprints 1.4 Fase B (canais UI) e 1.4 Fase C (motivos de fechamento) entregues em PR #35 — pareadas com crm-api PRs #56, #61, #62, #63, #64. Falta Sprint 1.6 Fase B (mensagens debug) e Sprint 1.8 Fase B (realtime do canal).                    |
+| Fase 2  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 3a | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 3b | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 4  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 5  | —          | —          | aguardando   | Pré-req da Fase 8 backend.                                                                                                                                                                                                                        |
+| Fase 6  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 7  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
+| Fase 8  | —          | —          | aguardando   | Requer Fase 5 backend.                                                                                                                                                                                                                            |
