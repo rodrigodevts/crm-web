@@ -8,8 +8,7 @@ import { closeReasonListResponseDtoSchema } from "./closeReasonListResponseDtoSc
 import { z } from "zod/v4";
 
 export const closeReasonsControllerListQueryParamsSchema = z.object({
-    "active": z.optional(z.union([z.boolean(), z.enum(["true", "false"])])),
-"departmentId": z.optional(z.uuid()),
+    "departmentId": z.optional(z.uuid()),
 "search": z.optional(z.string().min(1).max(100)),
 "cursor": z.optional(z.string()),
 "limit": z.coerce.number().int().min(1).max(100).default(20),

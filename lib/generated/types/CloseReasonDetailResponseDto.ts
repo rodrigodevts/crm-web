@@ -22,10 +22,6 @@ export type CloseReasonDetailResponseDto = {
     */
     message: string | null;
     /**
-     * @type boolean
-    */
-    active: boolean;
-    /**
      * @minLength -9007199254740991
      * @maxLength 9007199254740991
      * @type integer

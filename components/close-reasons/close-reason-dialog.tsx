@@ -43,7 +43,6 @@ export interface CloseReasonForDialog {
   id: string;
   name: string;
   message: string | null;
-  active: boolean;
   departments: ReadonlyArray<{ id: string; name: string }>;
 }
 

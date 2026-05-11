@@ -12,7 +12,6 @@ export const closeReasonListResponseDtoSchema = z.object({
 "companyId": z.uuid(),
 "name": z.string(),
 "message": z.nullable(z.string()),
-"active": z.boolean(),
 "sortOrder": z.int().min(-9007199254740991).max(9007199254740991),
 "triggersCsat": z.boolean(),
 "asksDealValue": z.boolean(),

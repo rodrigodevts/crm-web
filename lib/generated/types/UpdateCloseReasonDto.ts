@@ -23,10 +23,6 @@ export type UpdateCloseReasonDto = {
     /**
      * @type boolean | undefined
     */
-    active?: boolean;
-    /**
-     * @type boolean | undefined
-    */
     triggersCsat?: boolean;
     /**
      * @type boolean | undefined

@@ -38,7 +38,6 @@ const existing = {
   companyId: 'c1',
   name: 'Atendido',
   message: 'Obrigado pelo contato!',
-  active: true,
   sortOrder: 0,
   triggersCsat: false,
   asksDealValue: false,
