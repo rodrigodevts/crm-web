@@ -24,8 +24,7 @@ export interface CloseReasonRowProps {
   reason: CloseReasonListItem;
   dragDisabled: boolean;
   onEdit: (r: CloseReasonListItem) => void;
-  onDeactivate: (r: CloseReasonListItem) => void;
-  onReactivate: (r: CloseReasonListItem) => void;
+  onDelete: (r: CloseReasonListItem) => void;
 }
 
 function summarizeDepartments(departments: ReadonlyArray<{ id: string; name: string }>): string {
@@ -38,13 +37,7 @@ function summarizeDepartments(departments: ReadonlyArray<{ id: string; name: str
   return `${first} e mais ${departments.length - 2}`;
 }
 
-export function CloseReasonRow({
-  reason,
-  dragDisabled,
-  onEdit,
-  onDeactivate,
-  onReactivate,
-}: CloseReasonRowProps) {
+export function CloseReasonRow({ reason, dragDisabled, onEdit, onDelete }: CloseReasonRowProps) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: reason.id,
     disabled: dragDisabled,
@@ -97,13 +90,9 @@ export function CloseReasonRow({
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => onEdit(reason)}>Editar</DropdownMenuItem>
             <DropdownMenuSeparator />
-            {reason.active ? (
-              <DropdownMenuItem variant="destructive" onSelect={() => onDeactivate(reason)}>
-                Desativar
-              </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem onSelect={() => onReactivate(reason)}>Reativar</DropdownMenuItem>
-            )}
+            <DropdownMenuItem variant="destructive" onSelect={() => onDelete(reason)}>
+              Excluir
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </TableCell>

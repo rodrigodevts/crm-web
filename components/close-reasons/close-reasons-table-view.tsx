@@ -27,8 +27,7 @@ export interface CloseReasonsTableViewProps {
   dragDisabled: boolean;
   hasFilters: boolean;
   onEdit: (r: CloseReasonListItem) => void;
-  onDeactivate: (r: CloseReasonListItem) => void;
-  onReactivate: (r: CloseReasonListItem) => void;
+  onDelete: (r: CloseReasonListItem) => void;
   onReorder: (orderedIds: string[]) => void;
   onClearFilters: () => void;
 }
@@ -39,8 +38,7 @@ export function CloseReasonsTableView({
   dragDisabled,
   hasFilters,
   onEdit,
-  onDeactivate,
-  onReactivate,
+  onDelete,
   onReorder,
   onClearFilters,
 }: CloseReasonsTableViewProps) {
@@ -127,8 +125,7 @@ export function CloseReasonsTableView({
                 reason={reason}
                 dragDisabled={dragDisabled}
                 onEdit={onEdit}
-                onDeactivate={onDeactivate}
-                onReactivate={onReactivate}
+                onDelete={onDelete}
               />
             ))}
           </SortableContext>

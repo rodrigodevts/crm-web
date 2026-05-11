@@ -9,31 +9,26 @@ import {
   useCloseReasonsControllerList,
   closeReasonsControllerListQueryKey,
 } from '@/lib/generated/hooks/useCloseReasonsControllerList';
-import { useCloseReasonsControllerUpdate } from '@/lib/generated/hooks/useCloseReasonsControllerUpdate';
+import { useCloseReasonsControllerRemove } from '@/lib/generated/hooks/useCloseReasonsControllerRemove';
 import {
   useCloseReasonsControllerReorder,
   closeReasonsControllerReorderMutationKey,
 } from '@/lib/generated/hooks/useCloseReasonsControllerReorder';
 import { Label } from '@/components/ui/label';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { CloseReasonsTableView } from './close-reasons-table-view';
 import { CloseReasonDialog } from './close-reason-dialog';
-import { DeactivateCloseReasonDialog } from './deactivate-close-reason-dialog';
+import { DeleteCloseReasonDialog } from './delete-close-reason-dialog';
 import type { CloseReasonListItem } from './close-reason-row';
 
-type StatusFilter = 'active' | 'inactive';
+type DeleteBlockedCounts = { channelsUsingCount: number };
 
-const STATUS_OPTIONS: ReadonlyArray<{ value: StatusFilter; label: string }> = [
-  { value: 'active', label: 'Ativos' },
-  { value: 'inactive', label: 'Inativos' },
-];
+type AxiosErrorShape = {
+  response?: {
+    status?: number;
+    data?: { message?: string; details?: { channelsUsingCount?: number } };
+  };
+};
 
 export function CloseReasonsTable() {
   const filterId = useId();
@@ -41,28 +36,23 @@ export function CloseReasonsTable() {
 
   const [search, setSearch] = useState('');
   const deferredSearch = useDeferredValue(search);
-  const [status, setStatus] = useState<StatusFilter>('active');
 
   const [editTarget, setEditTarget] = useState<CloseReasonListItem | null>(null);
-  const [deactivateTarget, setDeactivateTarget] = useState<CloseReasonListItem | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<CloseReasonListItem | null>(null);
+  const [deleteBlockedCounts, setDeleteBlockedCounts] = useState<DeleteBlockedCounts | null>(null);
 
   const params = useMemo(
     () => ({
       limit: 100,
       sort: 'sortOrder' as const,
-      active: status === 'active',
       ...(deferredSearch.trim().length > 0 ? { search: deferredSearch.trim() } : {}),
     }),
-    [deferredSearch, status],
+    [deferredSearch],
   );
 
   const query = useCloseReasonsControllerList(params, { client: { client: apiClient } });
 
-  const update = useCloseReasonsControllerUpdate({ client: { client: apiClient } });
-  // "Desativar" usa PATCH `active: false` (não softDelete) pra alinhar com o
-  // pattern de Departments e manter o motivo visível no filtro "Inativos"
-  // (DELETE seta `deletedAt`, e o list filtra `deletedAt: null` sempre → motivo
-  // somido tanto de ativos quanto de inativos).
+  const remove = useCloseReasonsControllerRemove({ client: { client: apiClient } });
   const reorder = useCloseReasonsControllerReorder({
     client: { client: apiClient },
     mutation: { mutationKey: closeReasonsControllerReorderMutationKey() },
@@ -101,7 +91,7 @@ export function CloseReasonsTable() {
     }
   }
 
-  const hasFilters = deferredSearch.trim().length > 0 || status === 'inactive';
+  const hasFilters = deferredSearch.trim().length > 0;
   const dragDisabled = hasFilters || reorder.isPending;
   const state = query.isPending ? 'loading' : query.isError ? 'error' : 'ready';
 
@@ -123,25 +113,23 @@ export function CloseReasonsTable() {
     }
   }
 
-  async function handleReactivate(reason: CloseReasonListItem) {
+  async function handleDeleteConfirm() {
+    if (!deleteTarget) return;
     try {
-      await update.mutateAsync({ id: reason.id, data: { active: true } });
-      toast.success(`Motivo "${reason.name}" reativado.`);
+      await remove.mutateAsync({ id: deleteTarget.id });
+      toast.success('Motivo excluído.');
       invalidate();
-    } catch {
-      toast.error('Não foi possível reativar o motivo.');
-    }
-  }
-
-  async function handleDeactivateConfirm() {
-    if (!deactivateTarget) return;
-    try {
-      await update.mutateAsync({ id: deactivateTarget.id, data: { active: false } });
-      toast.success(`Motivo "${deactivateTarget.name}" desativado.`);
-      invalidate();
-      setDeactivateTarget(null);
-    } catch {
-      toast.error('Não foi possível desativar o motivo.');
+      setDeleteTarget(null);
+      setDeleteBlockedCounts(null);
+    } catch (err) {
+      const e = err as AxiosErrorShape;
+      const status = e?.response?.status;
+      const count = e?.response?.data?.details?.channelsUsingCount;
+      if (status === 409 && typeof count === 'number') {
+        setDeleteBlockedCounts({ channelsUsingCount: count });
+        return;
+      }
+      toast.error('Não foi possível excluir o motivo.');
     }
   }
 
@@ -163,19 +151,6 @@ export function CloseReasonsTable() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </InputGroup>
-
-        <Select value={status} onValueChange={(v) => setStatus(v as StatusFilter)}>
-          <SelectTrigger className="w-40" aria-label="Filtrar por status">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {STATUS_OPTIONS.map((o) => (
-              <SelectItem key={o.value} value={o.value}>
-                {o.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </div>
 
       {dragDisabled && hasFilters && (
@@ -188,12 +163,13 @@ export function CloseReasonsTable() {
         dragDisabled={dragDisabled}
         hasFilters={hasFilters}
         onEdit={(r) => setEditTarget(r)}
-        onDeactivate={(r) => setDeactivateTarget(r)}
-        onReactivate={handleReactivate}
+        onDelete={(r) => {
+          setDeleteTarget(r);
+          setDeleteBlockedCounts(null);
+        }}
         onReorder={handleReorder}
         onClearFilters={() => {
           setSearch('');
-          setStatus('active');
         }}
       />
 
@@ -206,13 +182,17 @@ export function CloseReasonsTable() {
         />
       )}
 
-      {deactivateTarget && (
-        <DeactivateCloseReasonDialog
-          reason={{ id: deactivateTarget.id, name: deactivateTarget.name }}
+      {deleteTarget && (
+        <DeleteCloseReasonDialog
+          reason={{ id: deleteTarget.id, name: deleteTarget.name }}
           open
-          submitting={update.isPending}
-          onConfirm={handleDeactivateConfirm}
-          onClose={() => setDeactivateTarget(null)}
+          blockedCounts={deleteBlockedCounts}
+          submitting={remove.isPending}
+          onConfirm={handleDeleteConfirm}
+          onClose={() => {
+            setDeleteTarget(null);
+            setDeleteBlockedCounts(null);
+          }}
         />
       )}
     </div>

@@ -17,7 +17,6 @@ import {
 import { closeReasonsControllerListQueryKey } from '@/lib/generated/hooks/useCloseReasonsControllerList';
 import { useDepartmentsControllerList } from '@/lib/generated/hooks/useDepartmentsControllerList';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -28,7 +27,6 @@ import {
 } from '@/components/ui/dialog';
 import { Field, FieldLabel, FieldError, FieldDescription } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { MultiSelectCombobox } from '@/components/ui/multi-select-combobox';
 import { Textarea } from '@/components/ui/textarea';
 import type { z } from 'zod';
@@ -60,7 +58,6 @@ const EMPTY_VALUES: CloseReasonFormValues = {
   name: '',
   message: null,
   departmentIds: [],
-  active: true,
 };
 
 function toFormValues(reason: CloseReasonForDialog | null): CloseReasonFormValues {
@@ -69,7 +66,6 @@ function toFormValues(reason: CloseReasonForDialog | null): CloseReasonFormValue
     name: reason.name,
     message: reason.message,
     departmentIds: reason.departments.map((d) => d.id),
-    active: reason.active,
   };
 }
 
@@ -153,7 +149,6 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
     if (dirty.name) data.name = values.name;
     if (dirty.message) data.message = values.message;
     if (dirty.departmentIds) data.departmentIds = values.departmentIds;
-    if (dirty.active) data.active = values.active;
 
     if (Object.keys(data).length === 0) {
       onClose();
@@ -255,25 +250,6 @@ export function CloseReasonDialog({ mode, reason, open, onClose }: CloseReasonDi
               )}
             />
           </fieldset>
-
-          {mode === 'edit' && (
-            <Field>
-              <Controller
-                control={form.control}
-                name="active"
-                render={({ field }) => (
-                  <label className="flex items-center gap-2">
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={(c) => field.onChange(c === true)}
-                    />
-                    <Label className="cursor-pointer">Motivo ativo</Label>
-                  </label>
-                )}
-              />
-              <FieldDescription>Motivos inativos não aparecem em selects.</FieldDescription>
-            </Field>
-          )}
         </form>
 
         <DialogFooter>

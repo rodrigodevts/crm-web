@@ -12,8 +12,7 @@ describe('CloseReasonsTableView', () => {
         items={[]}
         dragDisabled
         onEdit={noop}
-        onDeactivate={noop}
-        onReactivate={noop}
+        onDelete={noop}
         onReorder={noop}
         onClearFilters={noop}
         hasFilters={false}
@@ -29,8 +28,7 @@ describe('CloseReasonsTableView', () => {
         items={[]}
         dragDisabled
         onEdit={noop}
-        onDeactivate={noop}
-        onReactivate={noop}
+        onDelete={noop}
         onReorder={noop}
         onClearFilters={noop}
         hasFilters={false}
@@ -46,8 +44,7 @@ describe('CloseReasonsTableView', () => {
         items={[]}
         dragDisabled
         onEdit={noop}
-        onDeactivate={noop}
-        onReactivate={noop}
+        onDelete={noop}
         onReorder={noop}
         onClearFilters={noop}
         hasFilters
@@ -64,8 +61,7 @@ describe('CloseReasonsTableView', () => {
         items={[]}
         dragDisabled
         onEdit={noop}
-        onDeactivate={noop}
-        onReactivate={noop}
+        onDelete={noop}
         onReorder={noop}
         onClearFilters={noop}
         hasFilters={false}

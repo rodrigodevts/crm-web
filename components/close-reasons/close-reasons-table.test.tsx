@@ -62,8 +62,9 @@ vi.mock('@/lib/generated/hooks/useCloseReasonsControllerUpdate', () => ({
   useCloseReasonsControllerUpdate: () => ({ mutateAsync: vi.fn(), isPending: false }),
   closeReasonsControllerUpdateMutationKey: () => ['close-reasons', 'update'],
 }));
-vi.mock('@/lib/generated/hooks/useCloseReasonsControllerSoftDelete', () => ({
-  useCloseReasonsControllerSoftDelete: () => ({ mutateAsync: vi.fn(), isPending: false }),
+vi.mock('@/lib/generated/hooks/useCloseReasonsControllerRemove', () => ({
+  useCloseReasonsControllerRemove: () => ({ mutateAsync: vi.fn(), isPending: false }),
+  closeReasonsControllerRemoveMutationKey: () => ['close-reasons', 'remove'],
 }));
 vi.mock('@/lib/generated/hooks/useCloseReasonsControllerReorder', () => ({
   useCloseReasonsControllerReorder: () => ({ mutateAsync: reorderMutate, isPending: false }),

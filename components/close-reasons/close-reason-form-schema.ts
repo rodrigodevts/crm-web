@@ -13,7 +13,6 @@ export const closeReasonFormSchema = z.object({
   name: z.string().trim().min(1, 'Nome é obrigatório').max(100, 'Máximo 100 caracteres'),
   message: z.string().trim().max(2000, 'Máximo 2000 caracteres').nullable(),
   departmentIds: z.array(z.string().uuid()).max(50, 'Máximo 50 departamentos').default([]),
-  active: z.boolean(),
 });
 
 export type CloseReasonFormValues = z.infer<typeof closeReasonFormSchema>;
