@@ -1,0 +1,112 @@
+'use client';
+
+import { GripVerticalIcon, MoreVerticalIcon } from 'lucide-react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { TableCell, TableRow } from '@/components/ui/table';
+import { cn } from '@/lib/utils';
+import type { CloseReasonForDialog } from './close-reason-dialog';
+
+export interface CloseReasonListItem extends CloseReasonForDialog {
+  sortOrder: number;
+}
+
+export interface CloseReasonRowProps {
+  reason: CloseReasonListItem;
+  dragDisabled: boolean;
+  onEdit: (r: CloseReasonListItem) => void;
+  onDeactivate: (r: CloseReasonListItem) => void;
+  onReactivate: (r: CloseReasonListItem) => void;
+}
+
+function summarizeDepartments(departments: ReadonlyArray<{ id: string; name: string }>): string {
+  if (departments.length === 0) return 'Todos';
+  if (departments.length <= 3) return departments.map((d) => d.name).join(', ');
+  const first = departments
+    .slice(0, 2)
+    .map((d) => d.name)
+    .join(', ');
+  return `${first} e mais ${departments.length - 2}`;
+}
+
+export function CloseReasonRow({
+  reason,
+  dragDisabled,
+  onEdit,
+  onDeactivate,
+  onReactivate,
+}: CloseReasonRowProps) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: reason.id,
+    disabled: dragDisabled,
+  });
+
+  const style: React.CSSProperties = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.4 : 1,
+  };
+
+  return (
+    <TableRow ref={setNodeRef} style={style} data-testid={`close-reason-row-${reason.id}`}>
+      <TableCell className="w-10 align-middle">
+        <button
+          type="button"
+          {...attributes}
+          {...listeners}
+          aria-label={`Reordenar ${reason.name}`}
+          disabled={dragDisabled}
+          className={cn(
+            'text-muted-foreground inline-flex size-8 items-center justify-center rounded-md',
+            'hover:bg-muted hover:text-foreground',
+            'disabled:cursor-not-allowed disabled:opacity-40',
+            !dragDisabled && 'cursor-grab active:cursor-grabbing',
+          )}
+        >
+          <GripVerticalIcon className="size-4" aria-hidden="true" />
+        </button>
+      </TableCell>
+      <TableCell className="font-medium">{reason.name}</TableCell>
+      <TableCell className="text-muted-foreground max-w-[20rem] truncate">
+        {reason.message ?? '—'}
+      </TableCell>
+      <TableCell className="text-muted-foreground">
+        {summarizeDepartments(reason.departments)}
+      </TableCell>
+      <TableCell>
+        <Badge variant={reason.active ? 'default' : 'outline'}>
+          {reason.active ? 'Ativo' : 'Inativo'}
+        </Badge>
+      </TableCell>
+      <TableCell className="text-right">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label={`Ações do motivo ${reason.name}`}>
+              <MoreVerticalIcon className="size-4" aria-hidden="true" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={() => onEdit(reason)}>Editar</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            {reason.active ? (
+              <DropdownMenuItem variant="destructive" onSelect={() => onDeactivate(reason)}>
+                Desativar
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem onSelect={() => onReactivate(reason)}>Reativar</DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </TableCell>
+    </TableRow>
+  );
+}
