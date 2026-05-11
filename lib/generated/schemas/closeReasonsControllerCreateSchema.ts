@@ -4,10 +4,11 @@
 */
 
 import type { CloseReasonsControllerCreate201, CloseReasonsControllerCreateMutationRequest, CloseReasonsControllerCreateMutationResponse } from "../types/CloseReasonsControllerCreate.ts";
+import { closeReasonDetailResponseDtoSchema } from "./closeReasonDetailResponseDtoSchema.ts";
 import { createCloseReasonDtoSchema } from "./createCloseReasonDtoSchema.ts";
 import { z } from "zod/v4";
 
-export const closeReasonsControllerCreate201Schema = z.any() as unknown as z.ZodType<CloseReasonsControllerCreate201>
+export const closeReasonsControllerCreate201Schema = z.lazy(() => closeReasonDetailResponseDtoSchema) as unknown as z.ZodType<CloseReasonsControllerCreate201>
 
 export const closeReasonsControllerCreateMutationRequestSchema = z.lazy(() => createCloseReasonDtoSchema).describe("Dados para criar motivo de fechamento") as unknown as z.ZodType<CloseReasonsControllerCreateMutationRequest>
 

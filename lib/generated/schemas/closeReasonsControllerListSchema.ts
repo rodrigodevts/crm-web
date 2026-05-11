@@ -4,6 +4,7 @@
 */
 
 import type { CloseReasonsControllerList200, CloseReasonsControllerListQueryParams, CloseReasonsControllerListQueryResponse } from "../types/CloseReasonsControllerList.ts";
+import { closeReasonListResponseDtoSchema } from "./closeReasonListResponseDtoSchema.ts";
 import { z } from "zod/v4";
 
 export const closeReasonsControllerListQueryParamsSchema = z.object({
@@ -15,6 +16,6 @@ export const closeReasonsControllerListQueryParamsSchema = z.object({
 "sort": z.enum(["sortOrder", "name", "createdAt"]).default("sortOrder")
     }) as unknown as z.ZodType<CloseReasonsControllerListQueryParams>
 
-export const closeReasonsControllerList200Schema = z.any() as unknown as z.ZodType<CloseReasonsControllerList200>
+export const closeReasonsControllerList200Schema = z.lazy(() => closeReasonListResponseDtoSchema) as unknown as z.ZodType<CloseReasonsControllerList200>
 
 export const closeReasonsControllerListQueryResponseSchema = z.lazy(() => closeReasonsControllerList200Schema) as unknown as z.ZodType<CloseReasonsControllerListQueryResponse>

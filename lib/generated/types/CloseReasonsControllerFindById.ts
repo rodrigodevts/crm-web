@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { CloseReasonDetailResponseDto } from "./CloseReasonDetailResponseDto.ts";
 
 export type CloseReasonsControllerFindByIdPathParams = {
     /**
@@ -11,7 +12,7 @@ export type CloseReasonsControllerFindByIdPathParams = {
     id: string;
 };
 
-export type CloseReasonsControllerFindById200 = unknown;
+export type CloseReasonsControllerFindById200 = CloseReasonDetailResponseDto;
 
 export type CloseReasonsControllerFindByIdQueryResponse = CloseReasonsControllerFindById200;
 

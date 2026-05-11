@@ -3,9 +3,10 @@
 * Do not edit manually.
 */
 
+import type { CloseReasonDetailResponseDto } from "./CloseReasonDetailResponseDto.ts";
 import type { CreateCloseReasonDto } from "./CreateCloseReasonDto.ts";
 
-export type CloseReasonsControllerCreate201 = unknown;
+export type CloseReasonsControllerCreate201 = CloseReasonDetailResponseDto;
 
 export type CloseReasonsControllerCreateMutationRequest = CreateCloseReasonDto;
 

@@ -14,6 +14,8 @@ export type { ChannelsControllerRemove204, ChannelsControllerRemoveMutation, Cha
 export type { ChannelsControllerRestart200, ChannelsControllerRestartMutation, ChannelsControllerRestartMutationResponse, ChannelsControllerRestartPathParams } from "./ChannelsControllerRestart.ts";
 export type { ChannelsControllerReveal200, ChannelsControllerRevealMutation, ChannelsControllerRevealMutationResponse, ChannelsControllerRevealPathParams } from "./ChannelsControllerReveal.ts";
 export type { ChannelsControllerUpdate200, ChannelsControllerUpdateMutation, ChannelsControllerUpdateMutationRequest, ChannelsControllerUpdateMutationResponse, ChannelsControllerUpdatePathParams } from "./ChannelsControllerUpdate.ts";
+export type { CloseReasonDetailResponseDto } from "./CloseReasonDetailResponseDto.ts";
+export type { CloseReasonListResponseDto } from "./CloseReasonListResponseDto.ts";
 export type { CloseReasonsControllerCreate201, CloseReasonsControllerCreateMutation, CloseReasonsControllerCreateMutationRequest, CloseReasonsControllerCreateMutationResponse } from "./CloseReasonsControllerCreate.ts";
 export type { CloseReasonsControllerFindById200, CloseReasonsControllerFindByIdPathParams, CloseReasonsControllerFindByIdQuery, CloseReasonsControllerFindByIdQueryResponse } from "./CloseReasonsControllerFindById.ts";
 export type { CloseReasonsControllerList200, CloseReasonsControllerListQuery, CloseReasonsControllerListQueryParams, CloseReasonsControllerListQueryParamsActiveEnumKey, CloseReasonsControllerListQueryParamsSortEnumKey, CloseReasonsControllerListQueryResponse } from "./CloseReasonsControllerList.ts";

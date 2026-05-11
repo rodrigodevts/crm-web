@@ -4,6 +4,7 @@
 */
 
 import type { CloseReasonsControllerUpdate200, CloseReasonsControllerUpdateMutationRequest, CloseReasonsControllerUpdateMutationResponse, CloseReasonsControllerUpdatePathParams } from "../types/CloseReasonsControllerUpdate.ts";
+import { closeReasonDetailResponseDtoSchema } from "./closeReasonDetailResponseDtoSchema.ts";
 import { updateCloseReasonDtoSchema } from "./updateCloseReasonDtoSchema.ts";
 import { z } from "zod/v4";
 
@@ -11,7 +12,7 @@ export const closeReasonsControllerUpdatePathParamsSchema = z.object({
     "id": z.string()
     }) as unknown as z.ZodType<CloseReasonsControllerUpdatePathParams>
 
-export const closeReasonsControllerUpdate200Schema = z.any() as unknown as z.ZodType<CloseReasonsControllerUpdate200>
+export const closeReasonsControllerUpdate200Schema = z.lazy(() => closeReasonDetailResponseDtoSchema) as unknown as z.ZodType<CloseReasonsControllerUpdate200>
 
 export const closeReasonsControllerUpdateMutationRequestSchema = z.lazy(() => updateCloseReasonDtoSchema).describe("Patch do motivo de fechamento (presença-baseada)") as unknown as z.ZodType<CloseReasonsControllerUpdateMutationRequest>
 

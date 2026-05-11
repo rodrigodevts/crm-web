@@ -3,6 +3,7 @@
 * Do not edit manually.
 */
 
+import type { CloseReasonDetailResponseDto } from "./CloseReasonDetailResponseDto.ts";
 import type { UpdateCloseReasonDto } from "./UpdateCloseReasonDto.ts";
 
 export type CloseReasonsControllerUpdatePathParams = {
@@ -12,7 +13,7 @@ export type CloseReasonsControllerUpdatePathParams = {
     id: string;
 };
 
-export type CloseReasonsControllerUpdate200 = unknown;
+export type CloseReasonsControllerUpdate200 = CloseReasonDetailResponseDto;
 
 export type CloseReasonsControllerUpdateMutationRequest = UpdateCloseReasonDto;
 

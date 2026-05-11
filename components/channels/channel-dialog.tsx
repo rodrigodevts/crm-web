@@ -80,12 +80,9 @@ export function ChannelDialog({ mode, channel, open, role, onClose }: ChannelDia
     { limit: 100, active: true },
     { client: { client: apiClient } },
   );
-  // O endpoint /close-reasons retorna `unknown` no OpenAPI (gap do backend — schema
-  // ainda não definido). Tipamos localmente o shape mínimo que consumimos aqui.
-  // TODO: remover quando o backend expuser CloseReasonListResponseDto.
   const closeReasons = useCloseReasonsControllerList(undefined, {
     client: { client: apiClient },
-  }) as { data?: { items?: ReadonlyArray<{ id: string; name: string }> } };
+  });
 
   const createMutation = useChannelsControllerCreate({
     client: { client: apiClient },
