@@ -50,7 +50,7 @@ const settingsSubItems = [
   { href: '/configuracoes/usuarios', label: 'Usuários' },
   { href: '/configuracoes/quick-replies', label: 'Quick Replies' },
   { href: '/configuracoes/canais', label: 'Canais' },
-  { href: '/configuracoes/motivos-fechamento', label: 'Motivos' },
+  { href: '/configuracoes/motivos-fechamento', label: 'Motivos de fechamento' },
   { href: '/configuracoes/integracoes', label: 'Integrações' },
   { href: '/configuracoes/preferencias', label: 'Preferências' },
   { href: '/configuracoes/design-system', label: 'Design System' },
@@ -92,8 +92,12 @@ function ConfiguracoesMenu({
                   {visibleSubItems.map((sub) => (
                     <SidebarMenuSubItem key={sub.href}>
                       <SidebarMenuSubButton asChild isActive={isRouteActive(pathname, sub.href)}>
-                        <Link href={sub.href} onClick={() => setOpenMobile(false)}>
-                          {sub.label}
+                        <Link
+                          href={sub.href}
+                          title={sub.label}
+                          onClick={() => setOpenMobile(false)}
+                        >
+                          <span className="truncate">{sub.label}</span>
                         </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
