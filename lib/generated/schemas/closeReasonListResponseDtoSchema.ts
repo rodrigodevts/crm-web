@@ -18,7 +18,11 @@ export const closeReasonListResponseDtoSchema = z.object({
 "asksDealValue": z.boolean(),
 "funnelId": z.nullable(z.uuid()),
 "createdAt": z.iso.datetime({ offset: true }),
-"updatedAt": z.iso.datetime({ offset: true })
+"updatedAt": z.iso.datetime({ offset: true }),
+"departments": z.array(z.object({
+    "id": z.uuid(),
+"name": z.string()
+    }))
     })),
 "pagination": z.object({
     "nextCursor": z.nullable(z.string()),

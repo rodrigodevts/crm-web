@@ -55,6 +55,19 @@ export type CloseReasonListResponseDto = {
          * @type string, date-time
         */
         updatedAt: string;
+        /**
+         * @type array
+        */
+        departments: {
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @type string
+            */
+            name: string;
+        }[];
     }[];
     /**
      * @type object
