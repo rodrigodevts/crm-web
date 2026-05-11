@@ -7,8 +7,8 @@ import type { CreateTagDto } from "../types/CreateTagDto.ts";
 import { z } from "zod/v4";
 
 export const createTagDtoSchema = z.object({
-    "active": z.optional(z.boolean().default(true)),
+    "name": z.string().min(1).max(100).describe("Nome único da tag dentro do tenant"),
 "color": z.string().regex(/^#[0-9A-Fa-f]{6}$/).describe("Cor hex no formato #RRGGBB; normalizada para uppercase"),
-"name": z.string().min(1).max(100).describe("Nome único da tag dentro do tenant"),
-"scope": z.optional(z.enum(["CONTACT", "TICKET", "BOTH"]).default("BOTH").describe("Onde a tag pode ser aplicada: contato, ticket ou ambos"))
+"scope": z.optional(z.enum(["CONTACT", "TICKET", "BOTH"]).default("BOTH").describe("Onde a tag pode ser aplicada: contato, ticket ou ambos")),
+"active": z.optional(z.boolean().default(true))
     }) as unknown as z.ZodType<CreateTagDto>

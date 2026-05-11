@@ -20,14 +20,14 @@ export type HealthResponseDto = {
     */
     status: HealthResponseDtoStatusEnumKey;
     /**
-     * @description Timestamp ISO 8601 UTC
-     * @type string, date-time
-    */
-    timestamp: string;
-    /**
      * @description Uptime do processo em segundos
      * @minLength 0
      * @type number
     */
     uptime: number;
+    /**
+     * @description Timestamp ISO 8601 UTC
+     * @type string, date-time
+    */
+    timestamp: string;
 };

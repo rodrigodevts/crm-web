@@ -18,26 +18,42 @@ export type UserResponseDtoRoleEnumKey = (typeof userResponseDtoRoleEnum)[keyof 
 */
 export type UserResponseDto = {
     /**
-     * @type boolean
+     * @type string, uuid
     */
-    absenceActive: boolean;
+    id: string;
+    /**
+     * @type string, uuid
+    */
+    companyId: string;
     /**
      * @type string
     */
-    absenceMessage: string | null;
+    name: string;
+    /**
+     * @type string, email
+    */
+    email: string;
+    /**
+     * @type string
+    */
+    role: UserResponseDtoRoleEnumKey;
     /**
      * @description Falso quando o usuário está soft-deletado (deletedAt != null).
      * @type boolean
     */
     active: boolean;
     /**
-     * @type string, uuid
+     * @type string
     */
-    companyId: string;
+    absenceMessage: string | null;
+    /**
+     * @type boolean
+    */
+    absenceActive: boolean;
     /**
      * @type string, date-time
     */
-    createdAt: string;
+    lastSeenAt: string | null;
     /**
      * @type array
     */
@@ -52,25 +68,9 @@ export type UserResponseDto = {
         name: string;
     }[];
     /**
-     * @type string, email
-    */
-    email: string;
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
      * @type string, date-time
     */
-    lastSeenAt: string | null;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    role: UserResponseDtoRoleEnumKey;
+    createdAt: string;
     /**
      * @type string, date-time
     */

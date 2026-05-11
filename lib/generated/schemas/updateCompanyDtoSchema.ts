@@ -10,17 +10,26 @@ import { z } from "zod/v4";
  * @description Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).
  */
 export const updateCompanyDtoSchema = z.object({
-    "active": z.optional(z.boolean()),
+    "name": z.optional(z.string().min(2).max(100)),
+"timezone": z.optional(z.string().min(1).max(64)),
 "defaultWorkingHours": z.object({
-    "friday": z.optional(z.array(z.object({
+    "monday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"holiday": z.optional(z.array(z.object({
+"tuesday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"monday": z.optional(z.array(z.object({
+"wednesday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"thursday": z.optional(z.array(z.object({
+    "from": z.string().regex(/^\d{2}:\d{2}$/),
+"to": z.string().regex(/^\d{2}:\d{2}$/)
+    }))),
+"friday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
@@ -32,21 +41,12 @@ export const updateCompanyDtoSchema = z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     }))),
-"thursday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"tuesday": z.optional(z.array(z.object({
-    "from": z.string().regex(/^\d{2}:\d{2}$/),
-"to": z.string().regex(/^\d{2}:\d{2}$/)
-    }))),
-"wednesday": z.optional(z.array(z.object({
+"holiday": z.optional(z.array(z.object({
     "from": z.string().regex(/^\d{2}:\d{2}$/),
 "to": z.string().regex(/^\d{2}:\d{2}$/)
     })))
     }).describe("Horário de funcionamento por dia da semana (e feriado).").nullish(),
-"name": z.optional(z.string().min(2).max(100)),
 "outOfHoursMessage": z.string().max(2000).nullish(),
 "planId": z.optional(z.uuid()),
-"timezone": z.optional(z.string().min(1).max(64))
+"active": z.optional(z.boolean())
     }).describe("Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).") as unknown as z.ZodType<UpdateCompanyDto>

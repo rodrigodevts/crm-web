@@ -6,13 +6,49 @@
 
 export type CompanySettingsResponseDto = {
     /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type string, uuid
+    */
+    companyId: string;
+    /**
      * @type boolean
     */
-    agentCanChangeDefaultAgent: boolean;
+    hideOtherUsersTickets: boolean;
+    /**
+     * @type boolean
+    */
+    agentSeeOtherUsersTicketsOnSameChannel: boolean;
+    /**
+     * @type boolean
+    */
+    agentSeeTicketsWithOtherDefaultAgents: boolean;
+    /**
+     * @type boolean
+    */
+    hidePhoneFromAgents: boolean;
+    /**
+     * @type boolean
+    */
+    ignoreGroupMessages: boolean;
+    /**
+     * @type boolean
+    */
+    showAssignedGroups: boolean;
+    /**
+     * @type boolean
+    */
+    forceWalletRouting: boolean;
     /**
      * @type boolean
     */
     agentCanDeleteContacts: boolean;
+    /**
+     * @type boolean
+    */
+    agentCanChangeDefaultAgent: boolean;
     /**
      * @type boolean
     */
@@ -24,51 +60,15 @@ export type CompanySettingsResponseDto = {
     /**
      * @type boolean
     */
-    agentSeeOtherUsersTicketsOnSameChannel: boolean;
-    /**
-     * @type boolean
-    */
-    agentSeeTicketsWithOtherDefaultAgents: boolean;
-    /**
-     * @type string, uuid
-    */
-    companyId: string;
-    /**
-     * @type string, date-time
-    */
-    createdAt: string;
+    hideBotTicketsFromAgents: boolean;
     /**
      * @type string, uuid
     */
     defaultBotChatFlowId: string | null;
     /**
-     * @type boolean
+     * @type string, date-time
     */
-    forceWalletRouting: boolean;
-    /**
-     * @type boolean
-    */
-    hideBotTicketsFromAgents: boolean;
-    /**
-     * @type boolean
-    */
-    hideOtherUsersTickets: boolean;
-    /**
-     * @type boolean
-    */
-    hidePhoneFromAgents: boolean;
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type boolean
-    */
-    ignoreGroupMessages: boolean;
-    /**
-     * @type boolean
-    */
-    showAssignedGroups: boolean;
+    createdAt: string;
     /**
      * @type string, date-time
     */

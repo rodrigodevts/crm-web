@@ -6,18 +6,12 @@
 
 export type UpdateQuickReplyDto = {
     /**
-     * @type boolean | undefined
+     * @minLength 1
+     * @maxLength 50
+     * @pattern ^[a-zA-Z0-9_-]+$
+     * @type string | undefined
     */
-    active?: boolean;
-    /**
-     * @pattern ^[a-z]+\/[a-z0-9.\-+]+$
-     * @type string
-    */
-    mediaMimeType?: string | null;
-    /**
-     * @type string, uri
-    */
-    mediaUrl?: string | null;
+    shortcut?: string;
     /**
      * @minLength 1
      * @maxLength 4000
@@ -25,10 +19,16 @@ export type UpdateQuickReplyDto = {
     */
     message?: string;
     /**
-     * @minLength 1
-     * @maxLength 50
-     * @pattern ^[a-zA-Z0-9_-]+$
-     * @type string | undefined
+     * @type string, uri
     */
-    shortcut?: string;
+    mediaUrl?: string | null;
+    /**
+     * @pattern ^[a-z]+\/[a-z0-9.\-+]+$
+     * @type string
+    */
+    mediaMimeType?: string | null;
+    /**
+     * @type boolean | undefined
+    */
+    active?: boolean;
 };

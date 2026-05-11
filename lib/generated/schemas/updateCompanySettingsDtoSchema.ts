@@ -10,17 +10,17 @@ import { z } from "zod/v4";
  * @description Patch das configurações da empresa (presença-baseada)
  */
 export const updateCompanySettingsDtoSchema = z.object({
-    "agentCanChangeDefaultAgent": z.optional(z.boolean()),
-"agentCanDeleteContacts": z.optional(z.boolean()),
-"agentCanEditTags": z.optional(z.boolean()),
-"agentCanToggleSignature": z.optional(z.boolean()),
+    "hideOtherUsersTickets": z.optional(z.boolean()),
 "agentSeeOtherUsersTicketsOnSameChannel": z.optional(z.boolean()),
 "agentSeeTicketsWithOtherDefaultAgents": z.optional(z.boolean()),
-"defaultBotChatFlowId": z.uuid().nullish(),
-"forceWalletRouting": z.optional(z.boolean()),
-"hideBotTicketsFromAgents": z.optional(z.boolean()),
-"hideOtherUsersTickets": z.optional(z.boolean()),
 "hidePhoneFromAgents": z.optional(z.boolean()),
 "ignoreGroupMessages": z.optional(z.boolean()),
-"showAssignedGroups": z.optional(z.boolean())
+"showAssignedGroups": z.optional(z.boolean()),
+"forceWalletRouting": z.optional(z.boolean()),
+"agentCanDeleteContacts": z.optional(z.boolean()),
+"agentCanChangeDefaultAgent": z.optional(z.boolean()),
+"agentCanEditTags": z.optional(z.boolean()),
+"agentCanToggleSignature": z.optional(z.boolean()),
+"hideBotTicketsFromAgents": z.optional(z.boolean()),
+"defaultBotChatFlowId": z.uuid().nullish()
     }).describe("Patch das configurações da empresa (presença-baseada)") as unknown as z.ZodType<UpdateCompanySettingsDto>

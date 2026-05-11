@@ -8,19 +8,19 @@ import { z } from "zod/v4";
 
 export const invitationListResponseDtoSchema = z.object({
     "items": z.array(z.object({
-    "acceptedAt": z.nullable(z.iso.datetime({ offset: true })),
-"acceptedById": z.nullable(z.uuid()),
-"createdAt": z.iso.datetime({ offset: true }),
+    "id": z.uuid(),
 "email": z.email(),
-"id": z.uuid(),
+"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]),
+"status": z.enum(["PENDING", "ACCEPTED", "REVOKED"]),
 "invitedById": z.uuid(),
 "invitedByName": z.string(),
+"acceptedById": z.nullable(z.uuid()),
+"acceptedAt": z.nullable(z.iso.datetime({ offset: true })),
 "revokedAt": z.nullable(z.iso.datetime({ offset: true })),
-"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]),
-"status": z.enum(["PENDING", "ACCEPTED", "REVOKED"])
+"createdAt": z.iso.datetime({ offset: true })
     }).describe("Convite no estado atual")),
 "pagination": z.object({
-    "hasMore": z.boolean(),
-"nextCursor": z.nullable(z.string())
+    "nextCursor": z.nullable(z.string()),
+"hasMore": z.boolean()
     })
     }) as unknown as z.ZodType<InvitationListResponseDto>

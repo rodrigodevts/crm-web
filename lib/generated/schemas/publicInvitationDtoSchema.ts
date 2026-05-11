@@ -10,7 +10,7 @@ import { z } from "zod/v4";
  * @description Dados públicos para a tela de aceite (sem id, sem token, sem companyId)
  */
 export const publicInvitationDtoSchema = z.object({
-    "companyName": z.string(),
-"email": z.email(),
-"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"])
+    "email": z.email(),
+"role": z.enum(["ADMIN", "SUPERVISOR", "AGENT"]),
+"companyName": z.string()
     }).describe("Dados públicos para a tela de aceite (sem id, sem token, sem companyId)") as unknown as z.ZodType<PublicInvitationDto>

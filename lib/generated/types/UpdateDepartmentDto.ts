@@ -18,41 +18,25 @@ export type UpdateDepartmentDtoDistributionModeEnumKey = (typeof updateDepartmen
 */
 export type UpdateDepartmentDto = {
     /**
-     * @type boolean | undefined
-    */
-    active?: boolean;
-    /**
-     * @type string | undefined
-    */
-    distributionMode?: UpdateDepartmentDtoDistributionModeEnumKey;
-    /**
-     * @maxLength 2000
-     * @type string
-    */
-    greetingMessage?: string | null;
-    /**
      * @minLength 2
      * @maxLength 100
      * @type string | undefined
     */
     name?: string;
     /**
+     * @type boolean | undefined
+    */
+    active?: boolean;
+    /**
+     * @maxLength 2000
+     * @type string
+    */
+    greetingMessage?: string | null;
+    /**
      * @maxLength 2000
      * @type string
     */
     outOfHoursMessage?: string | null;
-    /**
-     * @minLength 1
-     * @maxLength 43200
-     * @type integer
-    */
-    slaResolutionMinutes?: number | null;
-    /**
-     * @minLength 1
-     * @maxLength 43200
-     * @type integer
-    */
-    slaResponseMinutes?: number | null;
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
@@ -61,37 +45,67 @@ export type UpdateDepartmentDto = {
         /**
          * @type array | undefined
         */
-        friday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        holiday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
         monday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        tuesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        wednesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        thursday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        friday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -136,37 +150,7 @@ export type UpdateDepartmentDto = {
         /**
          * @type array | undefined
         */
-        thursday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        tuesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        wednesday?: {
+        holiday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -179,4 +163,20 @@ export type UpdateDepartmentDto = {
             to: string;
         }[];
     } | null;
+    /**
+     * @minLength 1
+     * @maxLength 43200
+     * @type integer
+    */
+    slaResponseMinutes?: number | null;
+    /**
+     * @minLength 1
+     * @maxLength 43200
+     * @type integer
+    */
+    slaResolutionMinutes?: number | null;
+    /**
+     * @type string | undefined
+    */
+    distributionMode?: UpdateDepartmentDtoDistributionModeEnumKey;
 };

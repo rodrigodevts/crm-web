@@ -10,8 +10,8 @@ import { z } from "zod/v4";
  * @description Dados que o próprio usuário pode editar
  */
 export const updateMeDtoSchema = z.object({
-    "absenceActive": z.optional(z.boolean()),
+    "name": z.optional(z.string().min(2).max(100)),
+"password": z.optional(z.string().min(8).max(128)),
 "absenceMessage": z.string().max(500).nullish(),
-"name": z.optional(z.string().min(2).max(100)),
-"password": z.optional(z.string().min(8).max(128))
+"absenceActive": z.optional(z.boolean())
     }).describe("Dados que o próprio usuário pode editar") as unknown as z.ZodType<UpdateMeDto>

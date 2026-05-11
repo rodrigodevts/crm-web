@@ -11,10 +11,10 @@ import { z } from "zod/v4";
  */
 export const authResponseDtoSchema = z.object({
     "user": z.object({
-    "companyId": z.uuid(),
-"email": z.email(),
-"id": z.uuid(),
+    "id": z.uuid(),
+"companyId": z.uuid(),
 "name": z.string(),
+"email": z.email(),
 "role": z.enum(["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"])
     }).describe("Dados públicos do usuário (sem hash de senha)")
     }).describe("Dados do usuário autenticado. Tokens trafegam por cookie httpOnly (ver ADR 0001).") as unknown as z.ZodType<AuthResponseDto>
