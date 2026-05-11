@@ -2,6 +2,7 @@ import type { ChannelResponseDto } from '@/lib/generated/types/ChannelResponseDt
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { formatPhoneDigits } from '@/components/ui/masked-phone-input';
+import { ChannelKindIcon } from './channel-kind-icon';
 import { ChannelStatusBadge } from './channel-status-badge';
 import { ChannelActionsMenu } from './channel-actions-menu';
 
@@ -31,9 +32,10 @@ export function ChannelCard({
 }: ChannelCardProps) {
   return (
     <Card>
-      <CardContent className="flex flex-col gap-3 p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex min-w-0 flex-col gap-1">
+      <CardContent className="flex flex-col gap-2 p-4">
+        <div className="flex items-start gap-3">
+          <ChannelKindIcon provider={channel.provider} className="mt-0.5 size-8 shrink-0" />
+          <div className="flex min-w-0 flex-1 flex-col">
             <p className="text-foreground truncate text-base font-semibold">{channel.name}</p>
             <p className="text-muted-foreground text-sm">{formatPhone(channel.phoneNumber)}</p>
           </div>
@@ -49,7 +51,9 @@ export function ChannelCard({
 
         <div className="flex flex-wrap items-center gap-2">
           <ChannelStatusBadge status={channel.status} />
-          <Badge variant="outline">{channel.provider}</Badge>
+          <Badge variant="outline" className="font-mono text-xs">
+            {channel.provider}
+          </Badge>
         </div>
 
         <p className="text-muted-foreground text-xs">
