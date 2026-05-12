@@ -1,10 +1,11 @@
-export function PlaceholderPage({ title }: { title: string }) {
+export function PlaceholderPage({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="flex h-full items-center justify-center p-6">
-      <div className="text-center">
-        <h2 className="text-foreground mb-2 text-2xl font-semibold">{title}</h2>
-        <p className="text-muted-foreground text-sm">Em breve.</p>
-      </div>
+    <div className="flex flex-col gap-6 p-6">
+      <header>
+        <h1 className="text-foreground text-2xl font-semibold">{title}</h1>
+        {description ? <p className="text-muted-foreground text-sm">{description}</p> : null}
+      </header>
+      <div className="text-muted-foreground text-sm">Em breve.</div>
     </div>
   );
 }
