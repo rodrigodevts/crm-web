@@ -7,7 +7,6 @@ import {
   useInvitationsControllerList,
   invitationsControllerListQueryKey,
 } from '@/lib/generated/hooks/useInvitationsControllerList';
-import { useInvitationsControllerRevoke } from '@/lib/generated/hooks/useInvitationsControllerRevoke';
 import { useInvitationsControllerResend } from '@/lib/generated/hooks/useInvitationsControllerResend';
 import { apiClient } from '@/lib/api-client';
 import type { InvitationsControllerListQueryParamsStatusEnumKey } from '@/lib/generated/types/InvitationsControllerList';
@@ -18,6 +17,7 @@ import {
   type InvitationAction,
   type InvitationListItem,
 } from './invitations-table-view';
+import { RevokeInvitationDialog } from './revoke-invitation-dialog';
 
 type InvitationStatus = InvitationsControllerListQueryParamsStatusEnumKey;
 
@@ -41,13 +41,13 @@ async function copyToClipboard(text: string): Promise<boolean> {
 
 export function InvitationsTable() {
   const [status, setStatus] = useState<InvitationStatus>('PENDING');
+  const [revokeTarget, setRevokeTarget] = useState<InvitationListItem | null>(null);
   const queryClient = useQueryClient();
 
   const query = useInvitationsControllerList(
     { status, limit: 50 },
     { client: { client: apiClient } },
   );
-  const revoke = useInvitationsControllerRevoke({ client: { client: apiClient } });
   const resend = useInvitationsControllerResend({ client: { client: apiClient } });
 
   const items: InvitationListItem[] = query.data?.items ?? [];
@@ -98,14 +98,7 @@ export function InvitationsTable() {
       return;
     }
     if (action === 'revoke') {
-      if (!window.confirm(`Revogar o convite de ${item.email}?`)) return;
-      try {
-        await revoke.mutateAsync({ id: item.id });
-        toast.success(`Convite de ${item.email} revogado`);
-        void invalidateAll();
-      } catch {
-        toast.error('Não foi possível revogar o convite');
-      }
+      setRevokeTarget(item);
       return;
     }
   };
@@ -125,6 +118,14 @@ export function InvitationsTable() {
         items={items}
         emptyStatusLabel={STATUS_EMPTY_LABEL[status]}
         onAction={(action, item) => void handleAction(action, item)}
+      />
+
+      <RevokeInvitationDialog
+        invitation={revokeTarget}
+        open={!!revokeTarget}
+        onOpenChange={(next) => {
+          if (!next) setRevokeTarget(null);
+        }}
       />
     </div>
   );

@@ -125,7 +125,7 @@ describe('InvitationsTable', () => {
     expect(screen.queryByRole('button', { name: /revogar/i })).not.toBeInTheDocument();
   });
 
-  it('revoga convite com confirmação positiva', async () => {
+  it('revoga convite via dialog de confirmação', async () => {
     setListAdapter({
       PENDING: {
         items: [sampleInvitation({ email: 'alvo@example.com' })],
@@ -157,7 +157,6 @@ describe('InvitationsTable', () => {
     });
     apiClient.defaults.adapter = adapter as AxiosAdapter;
 
-    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true);
     const user = userEvent.setup();
 
     render(
@@ -166,14 +165,16 @@ describe('InvitationsTable', () => {
       </Wrapper>,
     );
 
+    // abre o dialog clicando na ação Revogar da linha
     await user.click(
       await screen.findByRole('button', { name: /revogar convite de alvo@example.com/i }),
     );
 
-    await waitFor(() => {
-      expect(toastSuccess).toHaveBeenCalledWith('Convite de alvo@example.com revogado');
-    });
+    // confirma no dialog
+    await user.click(await screen.findByRole('button', { name: 'Revogar' }));
 
-    confirmSpy.mockRestore();
+    await waitFor(() => {
+      expect(toastSuccess).toHaveBeenCalledWith('Convite de alvo@example.com revogado.');
+    });
   });
 });

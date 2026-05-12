@@ -123,6 +123,7 @@ export function DepartmentsTableView({
                       <Button
                         variant="ghost"
                         size="sm"
+                        className="text-destructive hover:text-destructive"
                         onClick={() => onDeactivate(item)}
                         aria-label={`Desativar departamento ${item.name}`}
                       >
