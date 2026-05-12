@@ -378,6 +378,133 @@ O `required` no `FieldLabel` (`components/ui/field.tsx`) renderiza um asterisco 
 
 ---
 
+## Padrões de telas de configuração
+
+Convenções consolidadas das sub-páginas em `app/(app)/configuracoes/*`. Sempre que criar uma tela nova ali, siga estes padrões — eles já existem replicados em Departamentos, Tags, Usuários, Quick Replies e Preferências.
+
+### Shell de página
+
+Estrutura padrão (não componente — pattern repetido em cada `page.tsx`):
+
+```tsx
+<div className="flex flex-col gap-6 p-6">
+  <header className="flex items-center justify-between">
+    <div>
+      <h1 className="text-foreground text-2xl font-semibold">Título</h1>
+      <p className="text-muted-foreground text-sm">Descrição curta da seção.</p>
+    </div>
+    <CTA />
+  </header>
+  {/* corpo */}
+</div>
+```
+
+- Wrapper: `flex flex-col gap-6 p-6`
+- Título: `<h1>` com `text-2xl font-semibold text-foreground`
+- Descrição: `<p>` com `text-sm text-muted-foreground`
+- CTA opcional (botão "Novo", "Convidar", etc) à direita via `justify-between`
+- Sem CTA? Remover `justify-between` e o `<div>` wrapper interno do header
+- Páginas só de conteúdo (sem ação primária) seguem o mesmo wrapper; o corpo entra abaixo do `<header>`
+
+Por que não extrair um `<SettingsPageShell>`: as ~10 linhas acima são estáveis e auto-documentadas no nível da page; abstrair adiciona ruído sem ganho real (decidido em Sprint Maio 2026).
+
+### Toolbar de listas
+
+Acima da tabela. Ordem fixa: busca → selects → switches.
+
+```tsx
+<div className="flex flex-wrap items-center gap-3">
+  <InputGroup className="w-full max-w-sm">
+    <InputGroupAddon>
+      <SearchIcon className="size-4" />
+    </InputGroupAddon>
+    <InputGroupInput type="search" placeholder="Buscar…" />
+  </InputGroup>
+  {/* selects de filtro com Label visível à esquerda */}
+  {/* switch(es) de filtro com Label à direita */}
+</div>
+```
+
+- Busca: sempre `<InputGroup>` + `SearchIcon` `size-4` + `max-w-sm` + `useDeferredValue`
+- Selects de filtro: largura `w-36` por padrão; aumentar caso a caso (`w-44`) quando o rótulo mais longo não couber
+- Label `sr-only` para a busca; visível (`text-muted-foreground text-sm`) para Selects e Switches
+- Filtros binários: **Select** quando é dimensão de filtragem com semântica simétrica (`Ativos`/`Inativos`, `Contato`/`Ticket`/`Ambos`); **Switch** quando é toggle pessoal de fluxo com estado padrão neutro (ex.: `Apenas as minhas`)
+
+### Tabela: wrapper e estados
+
+```tsx
+<div className="rounded-md border">
+  <Table>{/* ... */}</Table>
+</div>
+```
+
+Estados obrigatórios no `<TableBody>`:
+
+- **Loading:** `Array.from({length: 3})` linhas com `<TableCell colSpan={N}><Skeleton className="h-6 w-full" /></TableCell>`
+- **Error:** uma linha com `<TableCell colSpan={N} className="text-destructive text-center">Erro ao carregar X.</TableCell>`
+- **Empty:** uma linha com `<TableCell colSpan={N} className="text-muted-foreground text-center">{emptyMessage}</TableCell>`
+
+Rodapé "mais resultados" (quando `hasMore`): `<p className="text-muted-foreground text-sm">Mostrando os primeiros {LIMIT} resultados. Use a busca para refinar.</p>`
+
+### Ações de linha
+
+- `<Button variant="ghost" size="sm">` com `<Icon className="size-4" /> Texto`
+- Container: `<div className="flex justify-end gap-1">`
+- Até 4 ações inline é aceitável quando todas são frequentes (ex.: Users com Editar/Desativar/Forçar logout/Reativar)
+- `aria-label` sempre com a entidade alvo: `aria-label={\`Editar X ${item.name}\`}`
+
+### Cor de botão destrutivo
+
+**Regra:** toda ação destrutiva (que afeta negativamente o recurso, mesmo que reversível) usa `text-destructive hover:text-destructive`:
+
+```tsx
+<Button
+  variant="ghost"
+  size="sm"
+  className="text-destructive hover:text-destructive"
+  onClick={() => onDeactivate(item)}
+  aria-label={`Desativar X ${item.name}`}
+>
+  <BanIcon className="size-4" />
+  Desativar
+</Button>
+```
+
+Aplica a: **Desativar**, **Apagar**, **Revogar**, **Forçar logout**.
+Não aplica a: Editar, Reativar, Copiar link, Reenviar.
+
+Em dialogs de confirmação destrutiva o botão de confirmação usa `<AlertDialogAction variant="destructive">` — é a ação primária do dialog, não um ghost com tinta.
+
+### Form longo com sticky bar
+
+Padrão observado em Preferências:
+
+```tsx
+<form>
+  {sections.map(...)} {/* cada section é um <Card> com h2 text-lg font-semibold + CardDescription + linhas */}
+  <div className="bg-background border-border sticky bottom-0 -mx-6 flex justify-end gap-2 border-t px-6 py-4">
+    <Button type="button" variant="outline">Descartar alterações</Button>
+    <Button type="submit">Salvar alterações</Button>
+  </div>
+</form>
+```
+
+- Usar quando o form é longo (mais que uma altura de viewport)
+- Cada seção em `<Card>` separado. Título da seção em `<h2 className="text-foreground text-lg font-semibold">` (não usar `<CardTitle>` — ele é `<div>` no shadcn baseline e perde semântica de heading) + `<CardDescription>` para o subtítulo
+- Botões Descartar e Salvar desabilitados quando `!isDirty || isSubmitting`
+- Sticky bar mantém `-mx-6 px-6` para alinhar com o padding `p-6` do shell
+
+### Loading e error
+
+- **Página com tabela** (listas): trata internamente via `state='loading' | 'error' | 'ready'` no `<TableView>`. **Não** criar `loading.tsx` nem `error.tsx` de rota.
+- **Página só de form/conteúdo** (Preferências e similares): trata em nível de rota via `app/.../loading.tsx` (skeleton da página inteira) e `app/.../error.tsx` (mensagem amigável + `<Button onClick={reset}>` para retry).
+
+### Exceção documentada — Quick Replies sem filtro Status
+
+A tabela de Quick Replies não expõe filtro `Ativos`/`Inativos`. Motivo: o backend faz soft-delete (marca `active=false`), mas a UI modela DELETE como hard delete — o item somente desaparece. O hook lista usa `active: true` fixo. Decisão consciente; ver `components/quick-replies/quick-replies-table.tsx` comentário sobre `active: true`.
+
+---
+
 ## Iconografia
 
 **Biblioteca:** lucide-react (https://lucide.dev)
