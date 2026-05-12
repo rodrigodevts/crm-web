@@ -135,11 +135,11 @@ Expected: PASS
 
 - [ ] **Step 2: Adicionar className destrutiva nos dois botões (Desativar e Forçar logout)**
 
-Em `components/users/users-table-view.tsx`, dois botões recebem a className:
+Em `components/users/users-table-view.tsx`, dois botões dentro da coluna "Ações" recebem a className. O snippet abaixo está dentro de `<>...</>` apenas para o prettier parsear como JSX — copie só o conteúdo dos fragments (as duas expressões `{user.active && ...}` consecutivas) substituindo os blocos equivalentes existentes:
 
 ```tsx
-{
-  user.active && canDeactivateItem(user) ? (
+<>
+  {user.active && canDeactivateItem(user) ? (
     <Button
       variant="ghost"
       size="sm"
@@ -150,10 +150,8 @@ Em `components/users/users-table-view.tsx`, dois botões recebem a className:
       <BanIcon className="size-4" />
       Desativar
     </Button>
-  ) : null;
-}
-{
-  user.active && canForceLogoutItem(user) ? (
+  ) : null}
+  {user.active && canForceLogoutItem(user) ? (
     <Button
       variant="ghost"
       size="sm"
@@ -164,8 +162,8 @@ Em `components/users/users-table-view.tsx`, dois botões recebem a className:
       <LogOutIcon className="size-4" />
       Forçar logout
     </Button>
-  ) : null;
-}
+  ) : null}
+</>
 ```
 
 Os botões "Editar" e "Reativar" continuam sem a className.
