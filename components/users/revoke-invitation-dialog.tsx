@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { useInvitationsControllerRevoke } from '@/lib/generated/hooks/useInvitationsControllerRevoke';
 import { invitationsControllerListQueryKey } from '@/lib/generated/hooks/useInvitationsControllerList';
 import { apiClient } from '@/lib/api-client';
+import type { InvitationListResponseDto } from '@/lib/generated/types/InvitationListResponseDto';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,10 +17,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 
-interface InvitationLite {
-  id: string;
-  email: string;
-}
+type InvitationLite = Pick<InvitationListResponseDto['items'][number], 'id' | 'email'>;
 
 interface RevokeInvitationDialogProps {
   invitation: InvitationLite | null;
