@@ -129,6 +129,7 @@ export function InvitationsTableView({
                       <Button
                         variant="ghost"
                         size="sm"
+                        className="text-destructive hover:text-destructive"
                         onClick={() => onAction('revoke', item)}
                         aria-label={`Revogar convite de ${item.email}`}
                       >

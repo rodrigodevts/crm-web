@@ -158,6 +158,7 @@ export function UsersTableView({
                         <Button
                           variant="ghost"
                           size="sm"
+                          className="text-destructive hover:text-destructive"
                           onClick={() => onDeactivate(user)}
                           aria-label={`Desativar usuário ${user.name}`}
                         >
@@ -169,6 +170,7 @@ export function UsersTableView({
                         <Button
                           variant="ghost"
                           size="sm"
+                          className="text-destructive hover:text-destructive"
                           onClick={() => onForceLogout(user)}
                           aria-label={`Forçar logout do usuário ${user.name}`}
                         >
