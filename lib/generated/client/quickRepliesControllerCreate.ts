@@ -8,7 +8,7 @@ import type { QuickRepliesControllerCreateMutationRequest, QuickRepliesControlle
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getQuickRepliesControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/quick-replies` as const }
+  const res = { method: 'POST', url: `/api/v1/quick-replies` as const }
   return res
 }
 

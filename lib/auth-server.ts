@@ -1,9 +1,9 @@
 import type { UserResponseDto } from '@/lib/generated/types/UserResponseDto';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
+const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export async function fetchCurrentUser(cookieHeader: string): Promise<UserResponseDto | null> {
-  const response = await fetch(`${baseURL}/me`, {
+  const response = await fetch(`${baseURL}/api/v1/me`, {
     headers: { cookie: cookieHeader },
     cache: 'no-store',
   });

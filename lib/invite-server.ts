@@ -1,6 +1,6 @@
 import type { PublicInvitationDto } from '@/lib/generated/types/PublicInvitationDto';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
+const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export type InviteFetchResult =
   | { kind: 'ok'; invitation: PublicInvitationDto }
@@ -8,9 +8,12 @@ export type InviteFetchResult =
   | { kind: 'error'; status: number };
 
 export async function fetchInvitationByToken(token: string): Promise<InviteFetchResult> {
-  const response = await fetch(`${baseURL}/invitations/by-token/${encodeURIComponent(token)}`, {
-    cache: 'no-store',
-  });
+  const response = await fetch(
+    `${baseURL}/api/v1/invitations/by-token/${encodeURIComponent(token)}`,
+    {
+      cache: 'no-store',
+    },
+  );
 
   if (response.status === 200) {
     const data = (await response.json()) as PublicInvitationDto;

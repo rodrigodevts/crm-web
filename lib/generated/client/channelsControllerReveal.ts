@@ -8,7 +8,7 @@ import type { ChannelsControllerRevealMutationResponse, ChannelsControllerReveal
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerRevealUrl(id: ChannelsControllerRevealPathParams["id"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/channels/${id}/reveal-credentials` as const }
+  const res = { method: 'POST', url: `/api/v1/channels/${id}/reveal-credentials` as const }
   return res
 }
 

@@ -8,7 +8,7 @@ import type { CloseReasonsControllerReorderMutationRequest, CloseReasonsControll
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCloseReasonsControllerReorderUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/close-reasons/reorder` as const }
+  const res = { method: 'POST', url: `/api/v1/close-reasons/reorder` as const }
   return res
 }
 

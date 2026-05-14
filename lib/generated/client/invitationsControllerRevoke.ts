@@ -8,7 +8,7 @@ import type { InvitationsControllerRevokeMutationResponse, InvitationsController
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getInvitationsControllerRevokeUrl(id: InvitationsControllerRevokePathParams["id"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/invitations/${id}/revoke` as const }
+  const res = { method: 'POST', url: `/api/v1/invitations/${id}/revoke` as const }
   return res
 }
 

@@ -8,7 +8,7 @@ import type { InvitationsPublicControllerAcceptMutationRequest, InvitationsPubli
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getInvitationsPublicControllerAcceptUrl(token: InvitationsPublicControllerAcceptPathParams["token"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/invitations/by-token/${token}/accept` as const }
+  const res = { method: 'POST', url: `/api/v1/invitations/by-token/${token}/accept` as const }
   return res
 }
 

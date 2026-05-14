@@ -8,7 +8,7 @@ import type { HealthQueueControllerGetStatusQueryResponse, HealthQueueController
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getHealthQueueControllerGetStatusUrl(jobId: HealthQueueControllerGetStatusPathParams["jobId"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/health/queue/${jobId}` as const }
+  const res = { method: 'GET', url: `/health/queue/${jobId}` as const }
   return res
 }
 

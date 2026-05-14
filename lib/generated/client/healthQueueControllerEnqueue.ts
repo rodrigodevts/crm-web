@@ -8,7 +8,7 @@ import type { HealthQueueControllerEnqueueMutationResponse } from "../types/Heal
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getHealthQueueControllerEnqueueUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/health/queue` as const }
+  const res = { method: 'POST', url: `/health/queue` as const }
   return res
 }
 

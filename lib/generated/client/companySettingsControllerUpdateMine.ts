@@ -8,7 +8,7 @@ import type { CompanySettingsControllerUpdateMineMutationRequest, CompanySetting
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompanySettingsControllerUpdateMineUrl() {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/companies/me/settings` as const }
+  const res = { method: 'PATCH', url: `/api/v1/companies/me/settings` as const }
   return res
 }
 

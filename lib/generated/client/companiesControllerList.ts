@@ -8,7 +8,7 @@ import type { CompaniesControllerListQueryResponse, CompaniesControllerListQuery
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompaniesControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/companies` as const }
+  const res = { method: 'GET', url: `/api/v1/companies` as const }
   return res
 }
 

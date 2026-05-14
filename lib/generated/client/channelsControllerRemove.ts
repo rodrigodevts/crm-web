@@ -8,7 +8,7 @@ import type { ChannelsControllerRemoveMutationResponse, ChannelsControllerRemove
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerRemoveUrl(id: ChannelsControllerRemovePathParams["id"]) {
-  const res = { method: 'DELETE', url: `http://localhost:3000/api/v1/channels/${id}` as const }
+  const res = { method: 'DELETE', url: `/api/v1/channels/${id}` as const }
   return res
 }
 

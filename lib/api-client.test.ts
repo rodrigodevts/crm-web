@@ -23,7 +23,7 @@ describe('apiClient', () => {
 
   it('cria instance com baseURL e withCredentials', async () => {
     const { apiClient } = await import('./api-client');
-    expect(apiClient.defaults.baseURL).toBe('http://localhost:3000/api/v1');
+    expect(apiClient.defaults.baseURL).toBe('http://localhost:3000');
     expect(apiClient.defaults.withCredentials).toBe(true);
   });
 

@@ -8,7 +8,7 @@ import type { DepartmentsControllerSoftDeleteMutationResponse, DepartmentsContro
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getDepartmentsControllerSoftDeleteUrl(id: DepartmentsControllerSoftDeletePathParams["id"]) {
-  const res = { method: 'DELETE', url: `http://localhost:3000/api/v1/departments/${id}` as const }
+  const res = { method: 'DELETE', url: `/api/v1/departments/${id}` as const }
   return res
 }
 

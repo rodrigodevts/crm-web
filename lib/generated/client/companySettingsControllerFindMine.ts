@@ -8,7 +8,7 @@ import type { CompanySettingsControllerFindMineQueryResponse } from "../types/Co
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompanySettingsControllerFindMineUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/companies/me/settings` as const }
+  const res = { method: 'GET', url: `/api/v1/companies/me/settings` as const }
   return res
 }
 

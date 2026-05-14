@@ -8,7 +8,7 @@ import type { DepartmentsControllerFindByIdQueryResponse, DepartmentsControllerF
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getDepartmentsControllerFindByIdUrl(id: DepartmentsControllerFindByIdPathParams["id"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/departments/${id}` as const }
+  const res = { method: 'GET', url: `/api/v1/departments/${id}` as const }
   return res
 }
 

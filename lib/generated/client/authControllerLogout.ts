@@ -8,7 +8,7 @@ import type { AuthControllerLogoutMutationRequest, AuthControllerLogoutMutationR
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getAuthControllerLogoutUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/auth/logout` as const }
+  const res = { method: 'POST', url: `/api/v1/auth/logout` as const }
   return res
 }
 

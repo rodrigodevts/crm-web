@@ -8,7 +8,7 @@ import type { ChannelsControllerListQueryResponse, ChannelsControllerListQueryPa
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/channels` as const }
+  const res = { method: 'GET', url: `/api/v1/channels` as const }
   return res
 }
 

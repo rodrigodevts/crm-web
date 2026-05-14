@@ -8,7 +8,7 @@ import type { CompaniesControllerCreateMutationRequest, CompaniesControllerCreat
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompaniesControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/companies` as const }
+  const res = { method: 'POST', url: `/api/v1/companies` as const }
   return res
 }
 

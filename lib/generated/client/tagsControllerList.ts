@@ -8,7 +8,7 @@ import type { TagsControllerListQueryResponse, TagsControllerListQueryParams } f
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getTagsControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/tags` as const }
+  const res = { method: 'GET', url: `/api/v1/tags` as const }
   return res
 }
 

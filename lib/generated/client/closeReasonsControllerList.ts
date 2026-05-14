@@ -8,7 +8,7 @@ import type { CloseReasonsControllerListQueryResponse, CloseReasonsControllerLis
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCloseReasonsControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/close-reasons` as const }
+  const res = { method: 'GET', url: `/api/v1/close-reasons` as const }
   return res
 }
 

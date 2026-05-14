@@ -8,7 +8,7 @@ import type { UsersControllerListQueryResponse, UsersControllerListQueryParams }
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getUsersControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/users` as const }
+  const res = { method: 'GET', url: `/api/v1/users` as const }
   return res
 }
 

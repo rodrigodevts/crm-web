@@ -8,7 +8,7 @@ import type { TagsControllerUpdateMutationRequest, TagsControllerUpdateMutationR
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getTagsControllerUpdateUrl(id: TagsControllerUpdatePathParams["id"]) {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/tags/${id}` as const }
+  const res = { method: 'PATCH', url: `/api/v1/tags/${id}` as const }
   return res
 }
 

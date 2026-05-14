@@ -8,7 +8,7 @@ import type { ChannelsControllerRestartMutationResponse, ChannelsControllerResta
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerRestartUrl(id: ChannelsControllerRestartPathParams["id"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/channels/${id}/restart` as const }
+  const res = { method: 'POST', url: `/api/v1/channels/${id}/restart` as const }
   return res
 }
 
