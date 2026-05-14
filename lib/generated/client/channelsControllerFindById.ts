@@ -8,7 +8,7 @@ import type { ChannelsControllerFindByIdQueryResponse, ChannelsControllerFindByI
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerFindByIdUrl(id: ChannelsControllerFindByIdPathParams["id"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/channels/${id}` as const }
+  const res = { method: 'GET', url: `/api/v1/channels/${id}` as const }
   return res
 }
 

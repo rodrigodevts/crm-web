@@ -8,7 +8,7 @@ import type { TagsControllerCreateMutationRequest, TagsControllerCreateMutationR
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getTagsControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/tags` as const }
+  const res = { method: 'POST', url: `/api/v1/tags` as const }
   return res
 }
 

@@ -8,7 +8,7 @@ import type { UsersControllerCreateMutationRequest, UsersControllerCreateMutatio
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getUsersControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/users` as const }
+  const res = { method: 'POST', url: `/api/v1/users` as const }
   return res
 }
 

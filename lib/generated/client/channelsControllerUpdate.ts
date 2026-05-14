@@ -8,7 +8,7 @@ import type { ChannelsControllerUpdateMutationRequest, ChannelsControllerUpdateM
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerUpdateUrl(id: ChannelsControllerUpdatePathParams["id"]) {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/channels/${id}` as const }
+  const res = { method: 'PATCH', url: `/api/v1/channels/${id}` as const }
   return res
 }
 

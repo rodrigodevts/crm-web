@@ -8,7 +8,7 @@ import type { UsersControllerForceLogoutMutationResponse, UsersControllerForceLo
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getUsersControllerForceLogoutUrl(id: UsersControllerForceLogoutPathParams["id"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/users/${id}/force-logout` as const }
+  const res = { method: 'POST', url: `/api/v1/users/${id}/force-logout` as const }
   return res
 }
 

@@ -8,7 +8,7 @@ import type { AuthControllerLoginMutationRequest, AuthControllerLoginMutationRes
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getAuthControllerLoginUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/auth/login` as const }
+  const res = { method: 'POST', url: `/api/v1/auth/login` as const }
   return res
 }
 

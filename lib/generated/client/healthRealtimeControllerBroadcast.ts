@@ -8,7 +8,7 @@ import type { HealthRealtimeControllerBroadcastMutationResponse } from "../types
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getHealthRealtimeControllerBroadcastUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/health/realtime/broadcast` as const }
+  const res = { method: 'POST', url: `/health/realtime/broadcast` as const }
   return res
 }
 

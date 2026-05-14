@@ -8,7 +8,7 @@ import type { UsersControllerFindByIdQueryResponse, UsersControllerFindByIdPathP
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getUsersControllerFindByIdUrl(id: UsersControllerFindByIdPathParams["id"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/users/${id}` as const }
+  const res = { method: 'GET', url: `/api/v1/users/${id}` as const }
   return res
 }
 

@@ -8,7 +8,7 @@ import type { InvitationsControllerCreateMutationRequest, InvitationsControllerC
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getInvitationsControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/invitations` as const }
+  const res = { method: 'POST', url: `/api/v1/invitations` as const }
   return res
 }
 

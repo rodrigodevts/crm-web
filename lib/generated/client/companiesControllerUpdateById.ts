@@ -8,7 +8,7 @@ import type { CompaniesControllerUpdateByIdMutationRequest, CompaniesControllerU
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompaniesControllerUpdateByIdUrl(id: CompaniesControllerUpdateByIdPathParams["id"]) {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/companies/${id}` as const }
+  const res = { method: 'PATCH', url: `/api/v1/companies/${id}` as const }
   return res
 }
 

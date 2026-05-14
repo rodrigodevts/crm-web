@@ -8,7 +8,7 @@ import type { QuickRepliesControllerDeleteMutationResponse, QuickRepliesControll
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getQuickRepliesControllerDeleteUrl(id: QuickRepliesControllerDeletePathParams["id"]) {
-  const res = { method: 'DELETE', url: `http://localhost:3000/api/v1/quick-replies/${id}` as const }
+  const res = { method: 'DELETE', url: `/api/v1/quick-replies/${id}` as const }
   return res
 }
 

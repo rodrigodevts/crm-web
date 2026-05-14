@@ -8,7 +8,7 @@ import type { DepartmentsControllerUpdateMutationRequest, DepartmentsControllerU
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getDepartmentsControllerUpdateUrl(id: DepartmentsControllerUpdatePathParams["id"]) {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/departments/${id}` as const }
+  const res = { method: 'PATCH', url: `/api/v1/departments/${id}` as const }
   return res
 }
 

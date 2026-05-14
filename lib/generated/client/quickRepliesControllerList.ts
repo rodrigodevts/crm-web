@@ -8,7 +8,7 @@ import type { QuickRepliesControllerListQueryResponse, QuickRepliesControllerLis
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getQuickRepliesControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/quick-replies` as const }
+  const res = { method: 'GET', url: `/api/v1/quick-replies` as const }
   return res
 }
 

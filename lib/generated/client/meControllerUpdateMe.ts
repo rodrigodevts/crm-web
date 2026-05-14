@@ -8,7 +8,7 @@ import type { MeControllerUpdateMeMutationRequest, MeControllerUpdateMeMutationR
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getMeControllerUpdateMeUrl() {
-  const res = { method: 'PATCH', url: `http://localhost:3000/api/v1/me` as const }
+  const res = { method: 'PATCH', url: `/api/v1/me` as const }
   return res
 }
 

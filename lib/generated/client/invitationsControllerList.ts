@@ -8,7 +8,7 @@ import type { InvitationsControllerListQueryResponse, InvitationsControllerListQ
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getInvitationsControllerListUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/invitations` as const }
+  const res = { method: 'GET', url: `/api/v1/invitations` as const }
   return res
 }
 

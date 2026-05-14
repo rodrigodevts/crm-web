@@ -8,7 +8,7 @@ import type { CompaniesControllerFindByIdQueryResponse, CompaniesControllerFindB
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCompaniesControllerFindByIdUrl(id: CompaniesControllerFindByIdPathParams["id"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/companies/${id}` as const }
+  const res = { method: 'GET', url: `/api/v1/companies/${id}` as const }
   return res
 }
 

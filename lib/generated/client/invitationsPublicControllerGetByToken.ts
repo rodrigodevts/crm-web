@@ -8,7 +8,7 @@ import type { InvitationsPublicControllerGetByTokenQueryResponse, InvitationsPub
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getInvitationsPublicControllerGetByTokenUrl(token: InvitationsPublicControllerGetByTokenPathParams["token"]) {
-  const res = { method: 'GET', url: `http://localhost:3000/api/v1/invitations/by-token/${token}` as const }
+  const res = { method: 'GET', url: `/api/v1/invitations/by-token/${token}` as const }
   return res
 }
 

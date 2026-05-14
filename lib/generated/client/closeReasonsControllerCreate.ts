@@ -8,7 +8,7 @@ import type { CloseReasonsControllerCreateMutationRequest, CloseReasonsControlle
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getCloseReasonsControllerCreateUrl() {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/close-reasons` as const }
+  const res = { method: 'POST', url: `/api/v1/close-reasons` as const }
   return res
 }
 

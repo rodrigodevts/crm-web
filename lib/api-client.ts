@@ -2,7 +2,7 @@ import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axio
 import { toast } from 'sonner';
 import type { authControllerRefresh as AuthControllerRefreshFn } from '@/lib/generated/client/authControllerRefresh';
 
-const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000/api/v1';
+const baseURL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3000';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL,

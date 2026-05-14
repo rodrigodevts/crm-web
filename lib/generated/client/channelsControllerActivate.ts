@@ -8,7 +8,7 @@ import type { ChannelsControllerActivateMutationResponse, ChannelsControllerActi
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getChannelsControllerActivateUrl(id: ChannelsControllerActivatePathParams["id"]) {
-  const res = { method: 'POST', url: `http://localhost:3000/api/v1/channels/${id}/activate` as const }
+  const res = { method: 'POST', url: `/api/v1/channels/${id}/activate` as const }
   return res
 }
 

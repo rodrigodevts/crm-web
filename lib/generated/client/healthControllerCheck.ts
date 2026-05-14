@@ -8,7 +8,7 @@ import type { HealthControllerCheckQueryResponse } from "../types/HealthControll
 import type { Client, RequestConfig, ResponseErrorConfig } from "@kubb/plugin-client/clients/axios";
 
 function getHealthControllerCheckUrl() {
-  const res = { method: 'GET', url: `http://localhost:3000/health` as const }
+  const res = { method: 'GET', url: `/health` as const }
   return res
 }
 
