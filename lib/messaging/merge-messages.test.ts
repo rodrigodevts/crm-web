@@ -15,6 +15,7 @@ function msg(over: Partial<ChannelMessage> & { id: string; createdAt: string }):
     sentByBot: false,
     isSystemMessage: false,
     ...over,
+    // cast: helper monta um ChannelMessage parcial p/ teste; spread + Partial não inferem o tipo gerado completo
   } as ChannelMessage;
 }
 
