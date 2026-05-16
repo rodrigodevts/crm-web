@@ -53,6 +53,7 @@ export function MessageComposer({ ticketId }: { ticketId: string | null }) {
         rows={3}
         placeholder="Escreva uma mensagem de texto…"
         disabled={disabled || send.isPending}
+        aria-invalid={!!form.formState.errors.text}
         {...form.register('text')}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
