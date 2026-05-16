@@ -10,6 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
+// Desvio consciente de CLAUDE.md §4.4 ("forms usam o mesmo schema Zod do
+// backend"): o schema gerado pelo Kubb (`createMessageBodyDtoSchema`) termina
+// em `as unknown as z.ZodType<T>`, que apaga a inferência de input/output e
+// quebra os overloads do @hookform/resolvers/zod sem um cast estrutural feio.
+// Todo o resto do repo (login-form, *-dialog) usa schema zod local com
+// zodResolver. Espelhamos aqui as MESMAS restrições do backend
+// (crm-api create-message.schema.ts: TEXT, text 1..4096, mensagens pt-BR).
+// Tela descartável (Fase 2 substitui); revisitar se o cast do Kubb for
+// resolvido upstream.
 const composerSchema = z.object({
   type: z.literal('TEXT'),
   text: z

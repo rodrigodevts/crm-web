@@ -27,6 +27,9 @@ export function useChannelMessagesRealtime(channelId: string): ChannelMessagesRe
     { client: { client: apiClient } },
   );
 
+  // Tradeoff conhecido (tela descartável): buffer append-only, re-folded no
+  // render. O(eventos) por render; aceitável p/ sessão de debug de minutos.
+  // Fase 2 (tela definitiva) deve compactar/limitar se a sessão for longa.
   // Buffer de eventos de socket crus (não folded). São reaplicados sobre o
   // seed do GET no render — evita useEffect+setState (react-hooks/
   // set-state-in-effect) e mantém o fold 100% na função pura mergeMessages,
