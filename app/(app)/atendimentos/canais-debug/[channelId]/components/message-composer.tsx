@@ -1,32 +1,30 @@
 'use client';
 
+import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { apiClient } from '@/lib/api-client';
 import { useTicketsMessagesControllerSend } from '@/lib/generated/hooks/useTicketsMessagesControllerSend';
-import { createMessageBodyDtoSchema } from '@/lib/generated/schemas/createMessageBodyDtoSchema';
-import type { TicketsMessagesControllerSendMutationRequest } from '@/lib/generated/types/TicketsMessagesControllerSend';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 
-type FormValues = TicketsMessagesControllerSendMutationRequest;
+const composerSchema = z.object({
+  type: z.literal('TEXT'),
+  text: z
+    .string()
+    .min(1, 'Texto da mensagem é obrigatório')
+    .max(4096, 'Texto da mensagem excede o limite de 4096 caracteres'),
+});
 
-// Kubb gera o schema com `as unknown as z.ZodType<T>` apagando `_input`.
-// @hookform/resolvers/zod exige Zod3Type<Output,Input> onde Input extends FieldValues.
-// Cast estrutural abaixo satisfaz o overload sem perda de segurança de runtime.
-const resolverSchema = createMessageBodyDtoSchema as unknown as {
-  _output: FormValues;
-  _input: FormValues;
-  _def: { typeName: string };
-};
+type FormValues = z.infer<typeof composerSchema>;
 
 export function MessageComposer({ ticketId }: { ticketId: string | null }) {
   const send = useTicketsMessagesControllerSend({ client: { client: apiClient } });
 
   const form = useForm<FormValues>({
-    resolver: zodResolver(resolverSchema),
+    resolver: zodResolver(composerSchema),
     defaultValues: { type: 'TEXT', text: '' },
   });
 
