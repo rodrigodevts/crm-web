@@ -1,6 +1,14 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/metrics": {
+      "get": {
+        "operationId": "MetricsController_getMetrics",
+        "parameters": [],
+        "responses": { "200": { "description": "" } },
+        "tags": ["Metrics"]
+      }
+    },
     "/api/v1/auth/login": {
       "post": {
         "operationId": "AuthController_login",
@@ -8,22 +16,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/LoginDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
             }
           }
         },
@@ -37,22 +37,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RefreshDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/RefreshDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
             }
           }
         },
@@ -66,18 +58,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LogoutDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/LogoutDto" } }
           }
         },
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["auth"]
       }
     },
@@ -89,11 +73,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/HealthResponseDto" } }
             }
           }
         },
@@ -109,9 +89,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/EnqueueHealthJobResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/EnqueueHealthJobResponseDto" }
               }
             }
           }
@@ -123,23 +101,14 @@
       "get": {
         "operationId": "HealthQueueController_getStatus",
         "parameters": [
-          {
-            "name": "jobId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "jobId", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HealthJobStatusResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/HealthJobStatusResponseDto" }
               }
             }
           }
@@ -156,9 +125,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BroadcastHealthResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/BroadcastHealthResponseDto" }
               }
             }
           }
@@ -173,22 +140,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateUserDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateUserDto" } }
           }
         },
         "responses": {
           "201": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -201,40 +160,23 @@
             "name": "role",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string",
-              "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"]
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT", "SUPER_ADMIN"] }
           },
           {
             "name": "active",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
             "name": "departmentId",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
             "schema": {
               "format": "uuid",
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
@@ -245,39 +187,22 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de usuários"
-            },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de usuários" },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
         "responses": {
@@ -285,9 +210,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/UserListResponseDto" }
               }
             }
           }
@@ -299,24 +222,13 @@
       "get": {
         "operationId": "UsersController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -325,34 +237,19 @@
       "patch": {
         "operationId": "UsersController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateUserDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateUserDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -361,20 +258,9 @@
       "delete": {
         "operationId": "UsersController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["users"]
       }
     },
@@ -382,20 +268,9 @@
       "post": {
         "operationId": "UsersController_forceLogout",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["users"]
       }
     },
@@ -407,11 +282,7 @@
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -423,22 +294,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateMeDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateMeDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/UserResponseDto" } }
             }
           }
         },
@@ -449,11 +312,7 @@
       "get": {
         "operationId": "CompaniesMeController_findMine",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "patch": {
@@ -462,18 +321,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanyMeDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateCompanyMeDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -484,18 +335,10 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCompanyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateCompanyDto" } }
           }
         },
-        "responses": {
-          "201": {
-            "description": ""
-          }
-        },
+        "responses": { "201": { "description": "" } },
         "tags": ["companies"]
       },
       "get": {
@@ -509,15 +352,7 @@
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
@@ -527,11 +362,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
@@ -540,9 +371,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -551,19 +380,10 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de empresas (SUPER_ADMIN)"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -571,68 +391,31 @@
       "get": {
         "operationId": "CompaniesController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "patch": {
         "operationId": "CompaniesController_updateById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateCompanyDto" } }
           }
         },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
+        "responses": { "200": { "description": "" } },
         "tags": ["companies"]
       },
       "delete": {
         "operationId": "CompaniesController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["companies"]
       }
     },
@@ -643,11 +426,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateDepartmentDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateDepartmentDto" } }
           }
         },
         "responses": {
@@ -655,9 +434,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DepartmentResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/DepartmentResponseDto" }
               }
             }
           }
@@ -675,15 +452,7 @@
               "description": "Filtros para listagem de departamentos"
             },
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
@@ -693,11 +462,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "sort",
@@ -706,11 +471,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "default": "createdAt",
-              "type": "string",
-              "enum": ["createdAt", "name"]
-            }
+            "schema": { "default": "createdAt", "type": "string", "enum": ["createdAt", "name"] }
           },
           {
             "name": "cursor",
@@ -719,9 +480,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -730,12 +489,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de departamentos"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
         "responses": {
@@ -743,9 +497,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DepartmentListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/DepartmentListResponseDto" }
               }
             }
           }
@@ -757,23 +509,14 @@
       "get": {
         "operationId": "DepartmentsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DepartmentDetailResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/DepartmentDetailResponseDto" }
               }
             }
           }
@@ -783,23 +526,12 @@
       "patch": {
         "operationId": "DepartmentsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateDepartmentDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateDepartmentDto" } }
           }
         },
         "responses": {
@@ -807,9 +539,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DepartmentResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/DepartmentResponseDto" }
               }
             }
           }
@@ -819,20 +549,9 @@
       "delete": {
         "operationId": "DepartmentsController_softDelete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["departments"]
       }
     },
@@ -843,22 +562,14 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTagDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateTagDto" } }
           }
         },
         "responses": {
           "201": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TagResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/TagResponseDto" } }
             }
           }
         },
@@ -872,64 +583,33 @@
             "required": false,
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
             "name": "scope",
             "required": false,
             "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["CONTACT", "TICKET", "BOTH"]
-            }
+            "schema": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] }
           },
           {
             "name": "search",
             "required": false,
             "in": "query",
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
-          {
-            "name": "cursor",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
+          { "name": "cursor", "required": false, "in": "query", "schema": { "type": "string" } },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           },
           {
             "name": "sort",
             "required": false,
             "in": "query",
-            "schema": {
-              "default": "createdAt",
-              "type": "string",
-              "enum": ["createdAt", "name"]
-            }
+            "schema": { "default": "createdAt", "type": "string", "enum": ["createdAt", "name"] }
           }
         ],
         "responses": {
@@ -937,9 +617,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TagListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/TagListResponseDto" }
               }
             }
           }
@@ -951,24 +629,13 @@
       "get": {
         "operationId": "TagsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TagResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/TagResponseDto" } }
             }
           }
         },
@@ -977,34 +644,19 @@
       "patch": {
         "operationId": "TagsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateTagDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateTagDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TagResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/TagResponseDto" } }
             }
           }
         },
@@ -1013,36 +665,17 @@
       "delete": {
         "operationId": "TagsController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          },
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
           {
             "name": "hard",
             "required": false,
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["tags"]
       }
     },
@@ -1053,11 +686,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateQuickReplyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateQuickReplyDto" } }
           }
         },
         "responses": {
@@ -1065,9 +694,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuickReplyResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/QuickReplyResponseDto" }
               }
             }
           }
@@ -1082,25 +709,14 @@
             "required": false,
             "in": "query",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
             "name": "scope",
             "required": false,
             "in": "query",
-            "schema": {
-              "type": "string",
-              "enum": ["COMPANY", "PERSONAL"]
-            }
+            "schema": { "type": "string", "enum": ["COMPANY", "PERSONAL"] }
           },
           {
             "name": "mine",
@@ -1108,45 +724,21 @@
             "in": "query",
             "description": "Quando true, retorna apenas PERSONAL próprias",
             "schema": {
-              "anyOf": [
-                {
-                  "type": "boolean"
-                },
-                {
-                  "type": "string",
-                  "enum": ["true", "false"]
-                }
-              ]
+              "anyOf": [{ "type": "boolean" }, { "type": "string", "enum": ["true", "false"] }]
             }
           },
           {
             "name": "search",
             "required": false,
             "in": "query",
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
-          {
-            "name": "cursor",
-            "required": false,
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
+          { "name": "cursor", "required": false, "in": "query", "schema": { "type": "string" } },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           },
           {
             "name": "sort",
@@ -1164,9 +756,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuickReplyListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/QuickReplyListResponseDto" }
               }
             }
           }
@@ -1178,23 +768,14 @@
       "get": {
         "operationId": "QuickRepliesController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuickReplyResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/QuickReplyResponseDto" }
               }
             }
           }
@@ -1204,23 +785,12 @@
       "patch": {
         "operationId": "QuickRepliesController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateQuickReplyDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateQuickReplyDto" } }
           }
         },
         "responses": {
@@ -1228,9 +798,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuickReplyResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/QuickReplyResponseDto" }
               }
             }
           }
@@ -1240,20 +808,9 @@
       "delete": {
         "operationId": "QuickRepliesController_delete",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": "Soft-delete: marca active=false"
-          }
-        },
+        "responses": { "204": { "description": "Soft-delete: marca active=false" } },
         "tags": ["quick-replies"]
       }
     },
@@ -1265,9 +822,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCloseReasonDto"
-              }
+              "schema": { "$ref": "#/components/schemas/CreateCloseReasonDto" }
             }
           }
         },
@@ -1276,9 +831,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CloseReasonDetailResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CloseReasonDetailResponseDto" }
               }
             }
           }
@@ -1308,11 +861,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 100,
-              "type": "string"
-            }
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
           },
           {
             "name": "cursor",
@@ -1321,9 +870,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "type": "string"
-            }
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
@@ -1332,12 +879,7 @@
             "x-nestjs_zod-parent-metadata": {
               "description": "Filtros para listagem de motivos de fechamento"
             },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           },
           {
             "name": "sort",
@@ -1358,9 +900,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CloseReasonListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CloseReasonListResponseDto" }
               }
             }
           }
@@ -1376,17 +916,11 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ReorderCloseReasonsDto"
-              }
+              "schema": { "$ref": "#/components/schemas/ReorderCloseReasonsDto" }
             }
           }
         },
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["close-reasons"]
       }
     },
@@ -1394,23 +928,14 @@
       "get": {
         "operationId": "CloseReasonsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CloseReasonDetailResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CloseReasonDetailResponseDto" }
               }
             }
           }
@@ -1420,22 +945,13 @@
       "patch": {
         "operationId": "CloseReasonsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCloseReasonDto"
-              }
+              "schema": { "$ref": "#/components/schemas/UpdateCloseReasonDto" }
             }
           }
         },
@@ -1444,9 +960,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CloseReasonDetailResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CloseReasonDetailResponseDto" }
               }
             }
           }
@@ -1456,20 +970,9 @@
       "delete": {
         "operationId": "CloseReasonsController_remove",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["close-reasons"]
       }
     },
@@ -1482,9 +985,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompanySettingsResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CompanySettingsResponseDto" }
               }
             }
           }
@@ -1498,9 +999,7 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCompanySettingsDto"
-              }
+              "schema": { "$ref": "#/components/schemas/UpdateCompanySettingsDto" }
             }
           }
         },
@@ -1509,9 +1008,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CompanySettingsResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/CompanySettingsResponseDto" }
               }
             }
           }
@@ -1526,11 +1023,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateInvitationDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateInvitationDto" } }
           }
         },
         "responses": {
@@ -1538,9 +1031,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvitationCreatedDto"
-                }
+                "schema": { "$ref": "#/components/schemas/InvitationCreatedDto" }
               }
             }
           }
@@ -1554,9 +1045,7 @@
             "name": "status",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de convites"
-            },
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
             "schema": {
               "default": "PENDING",
               "type": "string",
@@ -1567,26 +1056,15 @@
             "name": "cursor",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de convites"
-            },
-            "schema": {
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Filtros para listagem de convites"
-            },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Filtros para listagem de convites" },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
         "responses": {
@@ -1594,9 +1072,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvitationListResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/InvitationListResponseDto" }
               }
             }
           }
@@ -1608,20 +1084,9 @@
       "post": {
         "operationId": "InvitationsController_revoke",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["invitations"]
       }
     },
@@ -1629,23 +1094,14 @@
       "post": {
         "operationId": "InvitationsController_resend",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InvitationCreatedDto"
-                }
+                "schema": { "$ref": "#/components/schemas/InvitationCreatedDto" }
               }
             }
           }
@@ -1657,23 +1113,14 @@
       "get": {
         "operationId": "InvitationsPublicController_getByToken",
         "parameters": [
-          {
-            "name": "token",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "token", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PublicInvitationDto"
-                }
+                "schema": { "$ref": "#/components/schemas/PublicInvitationDto" }
               }
             }
           }
@@ -1685,34 +1132,19 @@
       "post": {
         "operationId": "InvitationsPublicController_accept",
         "parameters": [
-          {
-            "name": "token",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "token", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AcceptInvitationDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/AcceptInvitationDto" } }
           }
         },
         "responses": {
           "200": {
             "description": "",
             "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthResponseDto"
-                }
-              }
+              "application/json": { "schema": { "$ref": "#/components/schemas/AuthResponseDto" } }
             }
           }
         },
@@ -1727,9 +1159,7 @@
             "name": "status",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Query params da listagem de canais"
-            },
+            "x-nestjs_zod-parent-metadata": { "description": "Query params da listagem de canais" },
             "schema": {
               "type": "string",
               "enum": [
@@ -1746,39 +1176,22 @@
             "name": "search",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Query params da listagem de canais"
-            },
-            "schema": {
-              "minLength": 1,
-              "maxLength": 200,
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Query params da listagem de canais" },
+            "schema": { "minLength": 1, "maxLength": 200, "type": "string" }
           },
           {
             "name": "cursor",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Query params da listagem de canais"
-            },
-            "schema": {
-              "type": "string"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Query params da listagem de canais" },
+            "schema": { "type": "string" }
           },
           {
             "name": "limit",
             "required": false,
             "in": "query",
-            "x-nestjs_zod-parent-metadata": {
-              "description": "Query params da listagem de canais"
-            },
-            "schema": {
-              "minimum": 1,
-              "maximum": 100,
-              "default": 20,
-              "type": "integer"
-            }
+            "x-nestjs_zod-parent-metadata": { "description": "Query params da listagem de canais" },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
         "responses": {
@@ -1786,9 +1199,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ListChannelsResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ListChannelsResponseDto" }
               }
             }
           }
@@ -1801,11 +1212,7 @@
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateChannelDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/CreateChannelDto" } }
           }
         },
         "responses": {
@@ -1813,9 +1220,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
               }
             }
           }
@@ -1827,23 +1232,14 @@
       "get": {
         "operationId": "ChannelsController_findById",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
               }
             }
           }
@@ -1853,23 +1249,12 @@
       "patch": {
         "operationId": "ChannelsController_update",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateChannelDto"
-              }
-            }
+            "application/json": { "schema": { "$ref": "#/components/schemas/UpdateChannelDto" } }
           }
         },
         "responses": {
@@ -1877,9 +1262,7 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
               }
             }
           }
@@ -1889,20 +1272,9 @@
       "delete": {
         "operationId": "ChannelsController_remove",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
-        "responses": {
-          "204": {
-            "description": ""
-          }
-        },
+        "responses": { "204": { "description": "" } },
         "tags": ["channels"]
       }
     },
@@ -1910,23 +1282,14 @@
       "post": {
         "operationId": "ChannelsController_reveal",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RevealCredentialsResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/RevealCredentialsResponseDto" }
               }
             }
           }
@@ -1938,23 +1301,14 @@
       "post": {
         "operationId": "ChannelsController_activate",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
               }
             }
           }
@@ -1966,23 +1320,14 @@
       "post": {
         "operationId": "ChannelsController_deactivate",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
         ],
         "responses": {
           "200": {
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
               }
             }
           }
@@ -1994,13 +1339,94 @@
       "post": {
         "operationId": "ChannelsController_restart",
         "parameters": [
-          {
-            "name": "id",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ChannelResponseDto" }
+              }
             }
+          }
+        },
+        "tags": ["channels"]
+      }
+    },
+    "/api/v1/channels/{id}/templates/sync": {
+      "post": {
+        "operationId": "ChannelsController_syncTemplates",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TemplatesSyncResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["channels"]
+      }
+    },
+    "/api/v1/channels/{id}/templates": {
+      "get": {
+        "operationId": "ChannelsController_listTemplates",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
+          {
+            "name": "status",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Query params da listagem de templates"
+            },
+            "schema": {
+              "type": "string",
+              "enum": ["PENDING", "APPROVED", "REJECTED", "DISABLED", "PAUSED"]
+            }
+          },
+          {
+            "name": "category",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Query params da listagem de templates"
+            },
+            "schema": { "type": "string", "enum": ["MARKETING", "UTILITY", "AUTHENTICATION"] }
+          },
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Busca case-insensitive no nome do template",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Query params da listagem de templates"
+            },
+            "schema": { "minLength": 1, "maxLength": 100, "type": "string" }
+          },
+          {
+            "name": "cursor",
+            "required": false,
+            "in": "query",
+            "description": "Cursor opaco da página anterior",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Query params da listagem de templates"
+            },
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Query params da listagem de templates"
+            },
+            "schema": { "minimum": 1, "maximum": 100, "default": 20, "type": "integer" }
           }
         ],
         "responses": {
@@ -2008,9 +1434,90 @@
             "description": "",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChannelResponseDto"
-                }
+                "schema": { "$ref": "#/components/schemas/TemplatesListResponseDto" }
+              }
+            }
+          }
+        },
+        "tags": ["channels"]
+      }
+    },
+    "/webhooks/channel/{connectionId}": {
+      "post": {
+        "operationId": "WebhooksController_ingest",
+        "parameters": [
+          { "name": "connectionId", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/GupshupWebhookEnvelopeDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/WebhookAcknowledgmentDto" }
+              }
+            }
+          }
+        },
+        "tags": ["webhooks"]
+      }
+    },
+    "/api/v1/tickets/{id}/messages": {
+      "post": {
+        "operationId": "TicketsMessagesController_send",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateMessageBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/MessageResponseDtoClass" }
+              }
+            }
+          }
+        },
+        "tags": ["tickets"]
+      }
+    },
+    "/api/v1/channels/{id}/messages": {
+      "get": {
+        "operationId": "ChannelMessagesController_list",
+        "parameters": [
+          { "name": "id", "required": true, "in": "path", "schema": { "type": "string" } },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Quantidade máxima de mensagens retornadas (1–50, default 20)",
+            "x-nestjs_zod-parent-metadata": {
+              "description": "Filtros da listagem mínima de mensagens por canal"
+            },
+            "schema": { "minimum": 1, "maximum": 50, "default": 20, "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ChannelMessagesResponseDtoClass" }
               }
             }
           }
@@ -2029,11 +1536,7 @@
   "servers": [],
   "components": {
     "securitySchemes": {
-      "bearer": {
-        "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "type": "http"
-      },
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" },
       "cookie": {
         "type": "apiKey",
         "in": "cookie",
@@ -2050,10 +1553,7 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8
-          }
+          "password": { "type": "string", "minLength": 8 }
         },
         "required": ["email", "password"],
         "description": "Credenciais de login"
@@ -2074,18 +1574,13 @@
                 "format": "uuid",
                 "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
               },
-              "name": {
-                "type": "string"
-              },
+              "name": { "type": "string" },
               "email": {
                 "type": "string",
                 "format": "email",
                 "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
               },
-              "role": {
-                "type": "string",
-                "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
-              }
+              "role": { "type": "string", "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"] }
             },
             "required": ["id", "companyId", "name", "email", "role"],
             "description": "Dados públicos do usuário (sem hash de senha)"
@@ -2142,10 +1637,7 @@
       "EnqueueHealthJobResponseDto": {
         "type": "object",
         "properties": {
-          "jobId": {
-            "type": "string",
-            "description": "ID do job enfileirado na fila health-check"
-          }
+          "jobId": { "type": "string", "description": "ID do job enfileirado na fila health-check" }
         },
         "required": ["jobId"],
         "description": "Resposta de POST /health/queue (smoke; gated por NODE_ENV)"
@@ -2153,10 +1645,7 @@
       "HealthJobStatusResponseDto": {
         "type": "object",
         "properties": {
-          "jobId": {
-            "type": "string",
-            "description": "ID do job consultado"
-          },
+          "jobId": { "type": "string", "description": "ID do job consultado" },
           "state": {
             "type": "string",
             "enum": ["waiting", "active", "completed", "failed", "delayed", "unknown"],
@@ -2165,10 +1654,7 @@
           "returnvalue": {
             "type": "object",
             "properties": {
-              "ok": {
-                "type": "boolean",
-                "enum": [true]
-              },
+              "ok": { "type": "boolean", "enum": [true] },
               "processedAt": {
                 "type": "string",
                 "format": "date-time",
@@ -2204,21 +1690,13 @@
       "CreateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
           "role": {
             "type": "string",
             "enum": ["ADMIN", "SUPERVISOR", "AGENT"],
@@ -2252,29 +1730,19 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
+          "name": { "type": "string" },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "role": {
-            "type": "string",
-            "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
-          },
+          "role": { "type": "string", "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"] },
           "active": {
             "type": "boolean",
             "description": "Falso quando o usuário está soft-deletado (deletedAt != null)."
           },
-          "absenceMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          },
+          "absenceMessage": { "type": "string", "nullable": true },
+          "absenceActive": { "type": "boolean" },
           "lastSeenAt": {
             "type": "string",
             "format": "date-time",
@@ -2291,9 +1759,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                }
+                "name": { "type": "string" }
               },
               "required": ["id", "name"]
             }
@@ -2343,9 +1809,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
+                "name": { "type": "string" },
                 "email": {
                   "type": "string",
                   "format": "email",
@@ -2359,13 +1823,8 @@
                   "type": "boolean",
                   "description": "Falso quando o usuário está soft-deletado (deletedAt != null)."
                 },
-                "absenceMessage": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "absenceActive": {
-                  "type": "boolean"
-                },
+                "absenceMessage": { "type": "string", "nullable": true },
+                "absenceActive": { "type": "boolean" },
                 "lastSeenAt": {
                   "type": "string",
                   "format": "date-time",
@@ -2382,9 +1841,7 @@
                         "format": "uuid",
                         "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                       },
-                      "name": {
-                        "type": "string"
-                      }
+                      "name": { "type": "string" }
                     },
                     "required": ["id", "name"]
                   }
@@ -2420,13 +1877,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -2436,25 +1888,14 @@
       "UpdateUserDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
           "email": {
             "type": "string",
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-          },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
+          "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT"] },
           "departmentIds": {
             "type": "array",
             "items": {
@@ -2463,14 +1904,8 @@
               "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
             }
           },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          },
+          "absenceMessage": { "type": "string", "maxLength": 500, "nullable": true },
+          "absenceActive": { "type": "boolean" },
           "active": {
             "description": "true reativa usuário soft-deletado; false equivale a DELETE (mesmas guards SUPER_ADMIN e último ADMIN).",
             "type": "boolean"
@@ -2482,24 +1917,10 @@
       "UpdateMeDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          },
-          "absenceMessage": {
-            "type": "string",
-            "maxLength": 500,
-            "nullable": true
-          },
-          "absenceActive": {
-            "type": "boolean"
-          }
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 },
+          "absenceMessage": { "type": "string", "maxLength": 500, "nullable": true },
+          "absenceActive": { "type": "boolean" }
         },
         "description": "Dados que o próprio usuário pode editar",
         "additionalProperties": false
@@ -2507,16 +1928,8 @@
       "UpdateCompanyMeDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "timezone": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "timezone": { "type": "string", "minLength": 1, "maxLength": 64 },
           "defaultWorkingHours": {
             "type": "object",
             "properties": {
@@ -2526,14 +1939,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2545,14 +1952,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2564,14 +1965,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2583,14 +1978,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2602,14 +1991,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2621,14 +2004,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2640,14 +2017,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2659,14 +2030,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2677,11 +2042,7 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          }
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true }
         },
         "description": "Campos editáveis pelo ADMIN do próprio tenant",
         "additionalProperties": false
@@ -2692,11 +2053,7 @@
           "company": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 100
-              },
+              "name": { "type": "string", "minLength": 2, "maxLength": 100 },
               "slug": {
                 "type": "string",
                 "minLength": 3,
@@ -2723,14 +2080,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2742,14 +2093,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2761,14 +2106,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2780,14 +2119,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2799,14 +2132,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2818,14 +2145,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2837,14 +2158,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2856,14 +2171,8 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "from": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        },
-                        "to": {
-                          "type": "string",
-                          "pattern": "^\\d{2}:\\d{2}$"
-                        }
+                        "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                        "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                       },
                       "required": ["from", "to"],
                       "additionalProperties": false
@@ -2874,11 +2183,7 @@
                 "description": "Horário de funcionamento por dia da semana (e feriado).",
                 "nullable": true
               },
-              "outOfHoursMessage": {
-                "type": "string",
-                "maxLength": 2000,
-                "nullable": true
-              }
+              "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true }
             },
             "required": ["name", "slug", "planId"],
             "additionalProperties": false,
@@ -2887,21 +2192,13 @@
           "admin": {
             "type": "object",
             "properties": {
-              "name": {
-                "type": "string",
-                "minLength": 2,
-                "maxLength": 100
-              },
+              "name": { "type": "string", "minLength": 2, "maxLength": 100 },
               "email": {
                 "type": "string",
                 "format": "email",
                 "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
               },
-              "password": {
-                "type": "string",
-                "minLength": 8,
-                "maxLength": 128
-              }
+              "password": { "type": "string", "minLength": 8, "maxLength": 128 }
             },
             "required": ["name", "email", "password"],
             "additionalProperties": false,
@@ -2915,16 +2212,8 @@
       "UpdateCompanyDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "timezone": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 64
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "timezone": { "type": "string", "minLength": 1, "maxLength": 64 },
           "defaultWorkingHours": {
             "type": "object",
             "properties": {
@@ -2934,14 +2223,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2953,14 +2236,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2972,14 +2249,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -2991,14 +2262,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3010,14 +2275,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3029,14 +2288,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3048,14 +2301,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3067,14 +2314,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3085,19 +2326,13 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "planId": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "active": {
-            "type": "boolean"
-          }
+          "active": { "type": "boolean" }
         },
         "description": "Campos editáveis pelo SUPER_ADMIN. Não inclui slug (imutável).",
         "additionalProperties": false
@@ -3105,25 +2340,10 @@
       "CreateDepartmentDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "active": { "default": true, "type": "boolean" },
+          "greetingMessage": { "type": "string", "maxLength": 2000, "nullable": true },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -3133,14 +2353,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3152,14 +2366,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3171,14 +2379,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3190,14 +2392,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3209,14 +2405,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3228,14 +2418,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3247,14 +2431,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3266,14 +2444,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3319,20 +2491,10 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "nullable": true
-          },
+          "name": { "type": "string" },
+          "active": { "type": "boolean" },
+          "greetingMessage": { "type": "string", "nullable": true },
+          "outOfHoursMessage": { "type": "string", "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -3342,14 +2504,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3361,14 +2517,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3380,14 +2530,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3399,14 +2543,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3418,14 +2556,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3437,14 +2569,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3456,14 +2582,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3475,14 +2595,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3493,14 +2607,8 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "slaResponseMinutes": {
-            "type": "number",
-            "nullable": true
-          },
-          "slaResolutionMinutes": {
-            "type": "number",
-            "nullable": true
-          },
+          "slaResponseMinutes": { "type": "number", "nullable": true },
+          "slaResolutionMinutes": { "type": "number", "nullable": true },
           "distributionMode": {
             "type": "string",
             "enum": ["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]
@@ -3550,20 +2658,10 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
-                "active": {
-                  "type": "boolean"
-                },
-                "greetingMessage": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "outOfHoursMessage": {
-                  "type": "string",
-                  "nullable": true
-                },
+                "name": { "type": "string" },
+                "active": { "type": "boolean" },
+                "greetingMessage": { "type": "string", "nullable": true },
+                "outOfHoursMessage": { "type": "string", "nullable": true },
                 "workingHours": {
                   "type": "object",
                   "properties": {
@@ -3573,14 +2671,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3592,14 +2684,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3611,14 +2697,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3630,14 +2710,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3649,14 +2723,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3668,14 +2736,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3687,14 +2749,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3706,14 +2762,8 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "from": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          },
-                          "to": {
-                            "type": "string",
-                            "pattern": "^\\d{2}:\\d{2}$"
-                          }
+                          "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                          "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                         },
                         "required": ["from", "to"],
                         "additionalProperties": false
@@ -3724,14 +2774,8 @@
                   "description": "Horário de funcionamento por dia da semana (e feriado).",
                   "nullable": true
                 },
-                "slaResponseMinutes": {
-                  "type": "number",
-                  "nullable": true
-                },
-                "slaResolutionMinutes": {
-                  "type": "number",
-                  "nullable": true
-                },
+                "slaResponseMinutes": { "type": "number", "nullable": true },
+                "slaResolutionMinutes": { "type": "number", "nullable": true },
                 "distributionMode": {
                   "type": "string",
                   "enum": ["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]
@@ -3767,13 +2811,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -3793,20 +2832,10 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "nullable": true
-          },
+          "name": { "type": "string" },
+          "active": { "type": "boolean" },
+          "greetingMessage": { "type": "string", "nullable": true },
+          "outOfHoursMessage": { "type": "string", "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -3816,14 +2845,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3835,14 +2858,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3854,14 +2871,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3873,14 +2884,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3892,14 +2897,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3911,14 +2910,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3930,14 +2923,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3949,14 +2936,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -3967,14 +2948,8 @@
             "description": "Horário de funcionamento por dia da semana (e feriado).",
             "nullable": true
           },
-          "slaResponseMinutes": {
-            "type": "number",
-            "nullable": true
-          },
-          "slaResolutionMinutes": {
-            "type": "number",
-            "nullable": true
-          },
+          "slaResponseMinutes": { "type": "number", "nullable": true },
+          "slaResolutionMinutes": { "type": "number", "nullable": true },
           "distributionMode": {
             "type": "string",
             "enum": ["MANUAL", "RANDOM", "BALANCED", "SEQUENTIAL"]
@@ -3999,9 +2974,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
+                "name": { "type": "string" },
                 "role": {
                   "type": "string",
                   "enum": ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "AGENT"]
@@ -4031,24 +3004,10 @@
       "UpdateDepartmentDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "greetingMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "outOfHoursMessage": {
-            "type": "string",
-            "maxLength": 2000,
-            "nullable": true
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "active": { "type": "boolean" },
+          "greetingMessage": { "type": "string", "maxLength": 2000, "nullable": true },
+          "outOfHoursMessage": { "type": "string", "maxLength": 2000, "nullable": true },
           "workingHours": {
             "type": "object",
             "properties": {
@@ -4058,14 +3017,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4077,14 +3030,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4096,14 +3043,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4115,14 +3056,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4134,14 +3069,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4153,14 +3082,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4172,14 +3095,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4191,14 +3108,8 @@
                 "items": {
                   "type": "object",
                   "properties": {
-                    "from": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    },
-                    "to": {
-                      "type": "string",
-                      "pattern": "^\\d{2}:\\d{2}$"
-                    }
+                    "from": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" },
+                    "to": { "type": "string", "pattern": "^\\d{2}:\\d{2}$" }
                   },
                   "required": ["from", "to"],
                   "additionalProperties": false
@@ -4249,10 +3160,7 @@
             "type": "string",
             "enum": ["CONTACT", "TICKET", "BOTH"]
           },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          }
+          "active": { "default": true, "type": "boolean" }
         },
         "required": ["name", "color"],
         "additionalProperties": false
@@ -4270,19 +3178,10 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
-          "color": {
-            "type": "string"
-          },
-          "scope": {
-            "type": "string",
-            "enum": ["CONTACT", "TICKET", "BOTH"]
-          },
-          "active": {
-            "type": "boolean"
-          },
+          "name": { "type": "string" },
+          "color": { "type": "string" },
+          "scope": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] },
+          "active": { "type": "boolean" },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -4323,19 +3222,10 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
-                "color": {
-                  "type": "string"
-                },
-                "scope": {
-                  "type": "string",
-                  "enum": ["CONTACT", "TICKET", "BOTH"]
-                },
-                "active": {
-                  "type": "boolean"
-                },
+                "name": { "type": "string" },
+                "color": { "type": "string" },
+                "scope": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] },
+                "active": { "type": "boolean" },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time",
@@ -4362,13 +3252,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -4378,22 +3263,10 @@
       "UpdateTagDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "color": {
-            "type": "string",
-            "pattern": "^#[0-9A-Fa-f]{6}$"
-          },
-          "scope": {
-            "type": "string",
-            "enum": ["CONTACT", "TICKET", "BOTH"]
-          },
-          "active": {
-            "type": "boolean"
-          }
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+          "scope": { "type": "string", "enum": ["CONTACT", "TICKET", "BOTH"] },
+          "active": { "type": "boolean" }
         },
         "additionalProperties": false
       },
@@ -4413,24 +3286,15 @@
             "maxLength": 4000,
             "description": "Conteúdo da mensagem; pode conter placeholders {{nome}}, {{protocolo}} etc."
           },
-          "mediaUrl": {
-            "type": "string",
-            "format": "uri"
-          },
-          "mediaMimeType": {
-            "type": "string",
-            "pattern": "^[a-z]+\\/[a-z0-9.\\-+]+$"
-          },
+          "mediaUrl": { "type": "string", "format": "uri" },
+          "mediaMimeType": { "type": "string", "pattern": "^[a-z]+\\/[a-z0-9.\\-+]+$" },
           "scope": {
             "default": "PERSONAL",
             "description": "COMPANY = visível ao tenant inteiro; PERSONAL = só ao usuário criador",
             "type": "string",
             "enum": ["COMPANY", "PERSONAL"]
           },
-          "active": {
-            "default": true,
-            "type": "boolean"
-          }
+          "active": { "default": true, "type": "boolean" }
         },
         "required": ["shortcut", "message"],
         "additionalProperties": false
@@ -4448,33 +3312,18 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "shortcut": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string"
-          },
-          "mediaUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "mediaMimeType": {
-            "type": "string",
-            "nullable": true
-          },
-          "scope": {
-            "type": "string",
-            "enum": ["COMPANY", "PERSONAL"]
-          },
+          "shortcut": { "type": "string" },
+          "message": { "type": "string" },
+          "mediaUrl": { "type": "string", "nullable": true },
+          "mediaMimeType": { "type": "string", "nullable": true },
+          "scope": { "type": "string", "enum": ["COMPANY", "PERSONAL"] },
           "ownerUserId": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
             "nullable": true
           },
-          "active": {
-            "type": "boolean"
-          },
+          "active": { "type": "boolean" },
           "createdAt": {
             "type": "string",
             "format": "date-time",
@@ -4518,33 +3367,18 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "shortcut": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                },
-                "mediaUrl": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "mediaMimeType": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "scope": {
-                  "type": "string",
-                  "enum": ["COMPANY", "PERSONAL"]
-                },
+                "shortcut": { "type": "string" },
+                "message": { "type": "string" },
+                "mediaUrl": { "type": "string", "nullable": true },
+                "mediaMimeType": { "type": "string", "nullable": true },
+                "scope": { "type": "string", "enum": ["COMPANY", "PERSONAL"] },
                 "ownerUserId": {
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
                   "nullable": true
                 },
-                "active": {
-                  "type": "boolean"
-                },
+                "active": { "type": "boolean" },
                 "createdAt": {
                   "type": "string",
                   "format": "date-time",
@@ -4574,13 +3408,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -4596,49 +3425,24 @@
             "maxLength": 50,
             "pattern": "^[a-zA-Z0-9_-]+$"
           },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 4000
-          },
-          "mediaUrl": {
-            "type": "string",
-            "format": "uri",
-            "nullable": true
-          },
+          "message": { "type": "string", "minLength": 1, "maxLength": 4000 },
+          "mediaUrl": { "type": "string", "format": "uri", "nullable": true },
           "mediaMimeType": {
             "type": "string",
             "pattern": "^[a-z]+\\/[a-z0-9.\\-+]+$",
             "nullable": true
           },
-          "active": {
-            "type": "boolean"
-          }
+          "active": { "type": "boolean" }
         },
         "additionalProperties": false
       },
       "CreateCloseReasonDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "triggersCsat": {
-            "default": false,
-            "type": "boolean"
-          },
-          "asksDealValue": {
-            "default": false,
-            "type": "boolean"
-          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "message": { "type": "string", "minLength": 1, "maxLength": 2000, "nullable": true },
+          "triggersCsat": { "default": false, "type": "boolean" },
+          "asksDealValue": { "default": false, "type": "boolean" },
           "funnelId": {
             "type": "string",
             "format": "uuid",
@@ -4673,24 +3477,15 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
-          "message": {
-            "type": "string",
-            "nullable": true
-          },
+          "name": { "type": "string" },
+          "message": { "type": "string", "nullable": true },
           "sortOrder": {
             "type": "integer",
             "minimum": -9007199254740991,
             "maximum": 9007199254740991
           },
-          "triggersCsat": {
-            "type": "boolean"
-          },
-          "asksDealValue": {
-            "type": "boolean"
-          },
+          "triggersCsat": { "type": "boolean" },
+          "asksDealValue": { "type": "boolean" },
           "funnelId": {
             "type": "string",
             "format": "uuid",
@@ -4717,9 +3512,7 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                }
+                "name": { "type": "string" }
               },
               "required": ["id", "name"]
             }
@@ -4757,24 +3550,15 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string",
-                  "nullable": true
-                },
+                "name": { "type": "string" },
+                "message": { "type": "string", "nullable": true },
                 "sortOrder": {
                   "type": "integer",
                   "minimum": -9007199254740991,
                   "maximum": 9007199254740991
                 },
-                "triggersCsat": {
-                  "type": "boolean"
-                },
-                "asksDealValue": {
-                  "type": "boolean"
-                },
+                "triggersCsat": { "type": "boolean" },
+                "asksDealValue": { "type": "boolean" },
                 "funnelId": {
                   "type": "string",
                   "format": "uuid",
@@ -4801,9 +3585,7 @@
                         "format": "uuid",
                         "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                       },
-                      "name": {
-                        "type": "string"
-                      }
+                      "name": { "type": "string" }
                     },
                     "required": ["id", "name"]
                   }
@@ -4827,13 +3609,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -4861,23 +3638,10 @@
       "UpdateCloseReasonDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 100
-          },
-          "message": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 2000,
-            "nullable": true
-          },
-          "triggersCsat": {
-            "type": "boolean"
-          },
-          "asksDealValue": {
-            "type": "boolean"
-          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "message": { "type": "string", "minLength": 1, "maxLength": 2000, "nullable": true },
+          "triggersCsat": { "type": "boolean" },
+          "asksDealValue": { "type": "boolean" },
           "funnelId": {
             "type": "string",
             "format": "uuid",
@@ -4910,42 +3674,18 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "hideOtherUsersTickets": {
-            "type": "boolean"
-          },
-          "agentSeeOtherUsersTicketsOnSameChannel": {
-            "type": "boolean"
-          },
-          "agentSeeTicketsWithOtherDefaultAgents": {
-            "type": "boolean"
-          },
-          "hidePhoneFromAgents": {
-            "type": "boolean"
-          },
-          "ignoreGroupMessages": {
-            "type": "boolean"
-          },
-          "showAssignedGroups": {
-            "type": "boolean"
-          },
-          "forceWalletRouting": {
-            "type": "boolean"
-          },
-          "agentCanDeleteContacts": {
-            "type": "boolean"
-          },
-          "agentCanChangeDefaultAgent": {
-            "type": "boolean"
-          },
-          "agentCanEditTags": {
-            "type": "boolean"
-          },
-          "agentCanToggleSignature": {
-            "type": "boolean"
-          },
-          "hideBotTicketsFromAgents": {
-            "type": "boolean"
-          },
+          "hideOtherUsersTickets": { "type": "boolean" },
+          "agentSeeOtherUsersTicketsOnSameChannel": { "type": "boolean" },
+          "agentSeeTicketsWithOtherDefaultAgents": { "type": "boolean" },
+          "hidePhoneFromAgents": { "type": "boolean" },
+          "ignoreGroupMessages": { "type": "boolean" },
+          "showAssignedGroups": { "type": "boolean" },
+          "forceWalletRouting": { "type": "boolean" },
+          "agentCanDeleteContacts": { "type": "boolean" },
+          "agentCanChangeDefaultAgent": { "type": "boolean" },
+          "agentCanEditTags": { "type": "boolean" },
+          "agentCanToggleSignature": { "type": "boolean" },
+          "hideBotTicketsFromAgents": { "type": "boolean" },
           "defaultBotChatFlowId": {
             "type": "string",
             "format": "uuid",
@@ -4986,42 +3726,18 @@
       "UpdateCompanySettingsDto": {
         "type": "object",
         "properties": {
-          "hideOtherUsersTickets": {
-            "type": "boolean"
-          },
-          "agentSeeOtherUsersTicketsOnSameChannel": {
-            "type": "boolean"
-          },
-          "agentSeeTicketsWithOtherDefaultAgents": {
-            "type": "boolean"
-          },
-          "hidePhoneFromAgents": {
-            "type": "boolean"
-          },
-          "ignoreGroupMessages": {
-            "type": "boolean"
-          },
-          "showAssignedGroups": {
-            "type": "boolean"
-          },
-          "forceWalletRouting": {
-            "type": "boolean"
-          },
-          "agentCanDeleteContacts": {
-            "type": "boolean"
-          },
-          "agentCanChangeDefaultAgent": {
-            "type": "boolean"
-          },
-          "agentCanEditTags": {
-            "type": "boolean"
-          },
-          "agentCanToggleSignature": {
-            "type": "boolean"
-          },
-          "hideBotTicketsFromAgents": {
-            "type": "boolean"
-          },
+          "hideOtherUsersTickets": { "type": "boolean" },
+          "agentSeeOtherUsersTicketsOnSameChannel": { "type": "boolean" },
+          "agentSeeTicketsWithOtherDefaultAgents": { "type": "boolean" },
+          "hidePhoneFromAgents": { "type": "boolean" },
+          "ignoreGroupMessages": { "type": "boolean" },
+          "showAssignedGroups": { "type": "boolean" },
+          "forceWalletRouting": { "type": "boolean" },
+          "agentCanDeleteContacts": { "type": "boolean" },
+          "agentCanChangeDefaultAgent": { "type": "boolean" },
+          "agentCanEditTags": { "type": "boolean" },
+          "agentCanToggleSignature": { "type": "boolean" },
+          "hideBotTicketsFromAgents": { "type": "boolean" },
           "defaultBotChatFlowId": {
             "type": "string",
             "format": "uuid",
@@ -5063,22 +3779,14 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-          },
-          "status": {
-            "type": "string",
-            "enum": ["PENDING", "ACCEPTED", "REVOKED"]
-          },
+          "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT"] },
+          "status": { "type": "string", "enum": ["PENDING", "ACCEPTED", "REVOKED"] },
           "invitedById": {
             "type": "string",
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "invitedByName": {
-            "type": "string"
-          },
+          "invitedByName": { "type": "string" },
           "acceptedById": {
             "type": "string",
             "format": "uuid",
@@ -5141,22 +3849,14 @@
                   "format": "email",
                   "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
                 },
-                "role": {
-                  "type": "string",
-                  "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-                },
-                "status": {
-                  "type": "string",
-                  "enum": ["PENDING", "ACCEPTED", "REVOKED"]
-                },
+                "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT"] },
+                "status": { "type": "string", "enum": ["PENDING", "ACCEPTED", "REVOKED"] },
                 "invitedById": {
                   "type": "string",
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "invitedByName": {
-                  "type": "string"
-                },
+                "invitedByName": { "type": "string" },
                 "acceptedById": {
                   "type": "string",
                   "format": "uuid",
@@ -5199,13 +3899,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -5220,13 +3915,8 @@
             "format": "email",
             "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
           },
-          "role": {
-            "type": "string",
-            "enum": ["ADMIN", "SUPERVISOR", "AGENT"]
-          },
-          "companyName": {
-            "type": "string"
-          }
+          "role": { "type": "string", "enum": ["ADMIN", "SUPERVISOR", "AGENT"] },
+          "companyName": { "type": "string" }
         },
         "required": ["email", "role", "companyName"],
         "description": "Dados públicos para a tela de aceite (sem id, sem token, sem companyId)"
@@ -5234,16 +3924,8 @@
       "AcceptInvitationDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "password": {
-            "type": "string",
-            "minLength": 8,
-            "maxLength": 128
-          }
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "password": { "type": "string", "minLength": 8, "maxLength": 128 }
         },
         "required": ["name", "password"],
         "description": "Dados para aceitar convite e criar a conta",
@@ -5262,13 +3944,8 @@
                   "format": "uuid",
                   "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
                 },
-                "name": {
-                  "type": "string"
-                },
-                "provider": {
-                  "type": "string",
-                  "enum": ["GUPSHUP", "BAILEYS"]
-                },
+                "name": { "type": "string" },
+                "provider": { "type": "string", "enum": ["GUPSHUP", "BAILEYS"] },
                 "status": {
                   "type": "string",
                   "enum": [
@@ -5280,39 +3957,20 @@
                     "ERROR"
                   ]
                 },
-                "phoneNumber": {
-                  "type": "string",
-                  "nullable": true
-                },
-                "externalId": {
-                  "type": "string",
-                  "nullable": true
-                },
+                "phoneNumber": { "type": "string", "nullable": true },
+                "externalId": { "type": "string", "nullable": true },
                 "config": {
                   "type": "object",
                   "properties": {
-                    "apiKey": {
-                      "type": "string",
-                      "description": "apiKey mascarada (***last4)"
-                    },
-                    "appId": {
-                      "type": "string",
-                      "description": "appId mascarado (***last4)"
-                    },
-                    "appName": {
-                      "type": "string"
-                    },
-                    "sourcePhone": {
-                      "type": "string"
-                    }
+                    "apiKey": { "type": "string", "description": "apiKey mascarada (***last4)" },
+                    "appId": { "type": "string", "description": "appId mascarado (***last4)" },
+                    "appName": { "type": "string" },
+                    "sourcePhone": { "type": "string" }
                   },
                   "required": ["apiKey", "appId", "appName", "sourcePhone"],
                   "nullable": true
                 },
-                "lastError": {
-                  "type": "string",
-                  "nullable": true
-                },
+                "lastError": { "type": "string", "nullable": true },
                 "lastConnectedAt": {
                   "type": "string",
                   "format": "date-time",
@@ -5387,13 +4045,8 @@
           "pagination": {
             "type": "object",
             "properties": {
-              "nextCursor": {
-                "type": "string",
-                "nullable": true
-              },
-              "hasMore": {
-                "type": "boolean"
-              }
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
             },
             "required": ["nextCursor", "hasMore"]
           }
@@ -5409,50 +4062,26 @@
             "format": "uuid",
             "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
           },
-          "name": {
-            "type": "string"
-          },
-          "provider": {
-            "type": "string",
-            "enum": ["GUPSHUP", "BAILEYS"]
-          },
+          "name": { "type": "string" },
+          "provider": { "type": "string", "enum": ["GUPSHUP", "BAILEYS"] },
           "status": {
             "type": "string",
             "enum": ["INACTIVE", "CONNECTING", "AWAITING_QR", "CONNECTED", "DISCONNECTED", "ERROR"]
           },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "externalId": {
-            "type": "string",
-            "nullable": true
-          },
+          "phoneNumber": { "type": "string", "nullable": true },
+          "externalId": { "type": "string", "nullable": true },
           "config": {
             "type": "object",
             "properties": {
-              "apiKey": {
-                "type": "string",
-                "description": "apiKey mascarada (***last4)"
-              },
-              "appId": {
-                "type": "string",
-                "description": "appId mascarado (***last4)"
-              },
-              "appName": {
-                "type": "string"
-              },
-              "sourcePhone": {
-                "type": "string"
-              }
+              "apiKey": { "type": "string", "description": "apiKey mascarada (***last4)" },
+              "appId": { "type": "string", "description": "appId mascarado (***last4)" },
+              "appName": { "type": "string" },
+              "sourcePhone": { "type": "string" }
             },
             "required": ["apiKey", "appId", "appName", "sourcePhone"],
             "nullable": true
           },
-          "lastError": {
-            "type": "string",
-            "nullable": true
-          },
+          "lastError": { "type": "string", "nullable": true },
           "lastConnectedAt": {
             "type": "string",
             "format": "date-time",
@@ -5516,40 +4145,16 @@
       "CreateChannelDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "provider": {
-            "type": "string",
-            "enum": ["GUPSHUP"]
-          },
-          "phoneNumber": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^\\d+$"
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "provider": { "type": "string", "enum": ["GUPSHUP"] },
+          "phoneNumber": { "type": "string", "minLength": 1, "pattern": "^\\d+$" },
           "config": {
             "type": "object",
             "properties": {
-              "apiKey": {
-                "type": "string",
-                "minLength": 1
-              },
-              "appId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "appName": {
-                "type": "string",
-                "minLength": 1
-              },
-              "sourcePhone": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^\\d+$"
-              }
+              "apiKey": { "type": "string", "minLength": 1 },
+              "appId": { "type": "string", "minLength": 1 },
+              "appName": { "type": "string", "minLength": 1 },
+              "sourcePhone": { "type": "string", "minLength": 1, "pattern": "^\\d+$" }
             },
             "required": ["apiKey", "appId", "appName", "sourcePhone"],
             "additionalProperties": false,
@@ -5587,36 +4192,15 @@
       "UpdateChannelDto": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "minLength": 2,
-            "maxLength": 100
-          },
-          "phoneNumber": {
-            "type": "string",
-            "minLength": 1,
-            "pattern": "^\\d+$"
-          },
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "phoneNumber": { "type": "string", "minLength": 1, "pattern": "^\\d+$" },
           "config": {
             "type": "object",
             "properties": {
-              "apiKey": {
-                "type": "string",
-                "minLength": 1
-              },
-              "appId": {
-                "type": "string",
-                "minLength": 1
-              },
-              "appName": {
-                "type": "string",
-                "minLength": 1
-              },
-              "sourcePhone": {
-                "type": "string",
-                "minLength": 1,
-                "pattern": "^\\d+$"
-              }
+              "apiKey": { "type": "string", "minLength": 1 },
+              "appId": { "type": "string", "minLength": 1 },
+              "appName": { "type": "string", "minLength": 1 },
+              "sourcePhone": { "type": "string", "minLength": 1, "pattern": "^\\d+$" }
             },
             "required": ["apiKey", "appId", "appName", "sourcePhone"],
             "additionalProperties": false
@@ -5652,21 +4236,349 @@
       "RevealCredentialsResponseDto": {
         "type": "object",
         "properties": {
-          "apiKey": {
-            "type": "string"
-          },
-          "appId": {
-            "type": "string"
-          },
-          "appName": {
-            "type": "string"
-          },
-          "sourcePhone": {
-            "type": "string"
-          }
+          "apiKey": { "type": "string" },
+          "appId": { "type": "string" },
+          "appName": { "type": "string" },
+          "sourcePhone": { "type": "string" }
         },
         "required": ["apiKey", "appId", "appName", "sourcePhone"],
         "description": "Credenciais Gupshup decifradas (apenas ADMIN, gera AuditLog)"
+      },
+      "TemplatesSyncResponseDto": {
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Templates novos criados nesta sincronização"
+          },
+          "updated": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Templates existentes atualizados"
+          },
+          "removed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Templates marcados como DISABLED por não estarem mais no Gupshup"
+          },
+          "syncedAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+            "description": "Timestamp da sincronização em ISO 8601 UTC"
+          }
+        },
+        "required": ["created", "updated", "removed", "syncedAt"],
+        "description": "Resultado da sincronização de templates HSM"
+      },
+      "TemplatesListResponseDto": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "externalId": { "type": "string" },
+                "name": { "type": "string" },
+                "category": {
+                  "type": "string",
+                  "enum": ["MARKETING", "UTILITY", "AUTHENTICATION"]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["PENDING", "APPROVED", "REJECTED", "DISABLED", "PAUSED"]
+                },
+                "language": { "type": "string" },
+                "bodyText": { "type": "string" },
+                "headerType": {
+                  "type": "string",
+                  "enum": ["TEXT", "IMAGE", "VIDEO", "DOCUMENT"],
+                  "nullable": true
+                },
+                "headerText": { "type": "string", "nullable": true },
+                "footerText": { "type": "string", "nullable": true },
+                "buttons": {
+                  "description": "JSON com estrutura de botões (opaco no Sprint 1.7)",
+                  "nullable": true
+                },
+                "variables": { "type": "integer", "minimum": 0, "maximum": 9007199254740991 },
+                "rejectionReason": { "type": "string", "nullable": true },
+                "lastSyncedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                  "nullable": true
+                },
+                "syncError": { "type": "string", "nullable": true },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+                }
+              },
+              "required": [
+                "id",
+                "externalId",
+                "name",
+                "category",
+                "status",
+                "language",
+                "bodyText",
+                "headerType",
+                "headerText",
+                "footerText",
+                "buttons",
+                "variables",
+                "rejectionReason",
+                "lastSyncedAt",
+                "syncError",
+                "createdAt",
+                "updatedAt"
+              ]
+            }
+          },
+          "pagination": {
+            "type": "object",
+            "properties": {
+              "nextCursor": { "type": "string", "nullable": true },
+              "hasMore": { "type": "boolean" }
+            },
+            "required": ["nextCursor", "hasMore"]
+          }
+        },
+        "required": ["items", "pagination"]
+      },
+      "GupshupWebhookEnvelopeDto": {
+        "type": "object",
+        "properties": {
+          "app": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nome do App Gupshup. Deve bater com ChannelConnection.config.appName."
+          },
+          "timestamp": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Unix epoch em milissegundos"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": -9007199254740991,
+            "maximum": 9007199254740991,
+            "description": "Sempre 2 na API v1 da Gupshup"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Discriminante: message | message-event | user-event | system-events | billing-events"
+          },
+          "payload": { "description": "Payload específico por type — o adapter parseia" }
+        },
+        "required": ["app", "timestamp", "version", "type", "payload"],
+        "description": "Envelope raiz do webhook Gupshup"
+      },
+      "WebhookAcknowledgmentDto": {
+        "type": "object",
+        "properties": {
+          "ok": { "type": "boolean", "enum": [true] },
+          "enqueuedJobsCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "Quantidade de InboundMessages enfileiradas (0 quando type != message)"
+          }
+        },
+        "required": ["ok", "enqueuedJobsCount"],
+        "description": "Resposta de sucesso do webhook entrante"
+      },
+      "CreateMessageBodyDto": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": { "type": "string", "enum": ["TEXT"] },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "description": "Conteúdo de texto livre (1..4096 chars)"
+              }
+            },
+            "required": ["type", "text"]
+          }
+        ],
+        "description": "Body de POST /tickets/:id/messages — Sprint 1.6 aceita apenas type=TEXT."
+      },
+      "MessageResponseDtoClass": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "ticketId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "direction": { "type": "string", "enum": ["INBOUND", "OUTBOUND"] },
+          "type": {
+            "type": "string",
+            "enum": [
+              "TEXT",
+              "IMAGE",
+              "FILE",
+              "AUDIO",
+              "VIDEO",
+              "CONTACT",
+              "LOCATION",
+              "BUTTON_REPLY",
+              "LIST_REPLY",
+              "STICKER",
+              "TEMPLATE",
+              "SYSTEM"
+            ]
+          },
+          "content": {},
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]
+          },
+          "externalId": { "type": "string", "nullable": true },
+          "lastError": { "type": "string", "nullable": true },
+          "sentByUserId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+          }
+        },
+        "required": [
+          "id",
+          "ticketId",
+          "direction",
+          "type",
+          "content",
+          "status",
+          "externalId",
+          "lastError",
+          "sentByUserId",
+          "createdAt"
+        ],
+        "description": "Mensagem retornada após criação OUTBOUND (HTTP 202)."
+      },
+      "ChannelMessagesResponseDtoClass": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "ticketId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "channelConnectionId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+                },
+                "externalId": {
+                  "type": "string",
+                  "description": "ID da mensagem no provedor (Gupshup); null se ainda não enviada",
+                  "nullable": true
+                },
+                "direction": { "type": "string", "enum": ["INBOUND", "OUTBOUND"] },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "TEXT",
+                    "IMAGE",
+                    "FILE",
+                    "AUDIO",
+                    "VIDEO",
+                    "CONTACT",
+                    "LOCATION",
+                    "BUTTON_REPLY",
+                    "LIST_REPLY",
+                    "STICKER",
+                    "TEMPLATE",
+                    "SYSTEM"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]
+                },
+                "content": {
+                  "description": "Mesmo Json persistido em Message.content; null se ausente",
+                  "nullable": true
+                },
+                "sentByUserId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
+                  "description": "Usuário que enviou (OUTBOUND); null em INBOUND, bot ou sistema",
+                  "nullable": true
+                },
+                "sentByBot": { "type": "boolean" },
+                "isSystemMessage": { "type": "boolean" },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$",
+                  "description": "ISO 8601 UTC"
+                }
+              },
+              "required": [
+                "id",
+                "ticketId",
+                "channelConnectionId",
+                "externalId",
+                "direction",
+                "type",
+                "status",
+                "content",
+                "sentByUserId",
+                "sentByBot",
+                "isSystemMessage",
+                "createdAt"
+              ]
+            },
+            "description": "Mensagens em ordem cronológica ascendente"
+          }
+        },
+        "required": ["items"],
+        "description": "Últimas N mensagens do canal (sem paginação cursor — Fase 2)"
       }
     }
   }
