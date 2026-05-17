@@ -2,8 +2,8 @@
 
 > Plano de fases do **frontend** (`crm-web`). Para escopo backend, ver `../crm-api/ROADMAP.md` — fonte canônica.
 >
-> **Versão:** 11 (Fase 0 concluída — Sprint 0.23 Tema final entregue)
-> **Última atualização:** 10/05/2026
+> **Versão:** 12 (Fase 1 frontend em andamento — sync com `crm-api/ROADMAP.md` v23 / Fase 1 backend concluída)
+> **Última atualização:** 15/05/2026
 >
 > **Documento companheiro:** `ARCHITECTURE.md` (raiz crm-web).
 
@@ -162,9 +162,11 @@
 
 ### 5.1 Fase 1 — Tela de canal Gupshup
 
-> **Documento canônico de planejamento da Fase 1:** `../crm-api/ROADMAP.md` §6 (versão 9). A fatia frontend abaixo é pareada com as sprints backend correspondentes.
+> **Documento canônico de planejamento da Fase 1:** `../crm-api/ROADMAP.md` §6 (versão 23, 15/05/2026). A fatia frontend abaixo é pareada com as sprints backend correspondentes.
 >
-> **Sem dependência de deploy** para as sprints frontend: cada uma roda contra `crm-api` local. Validação ponta-a-ponta com Gupshup real é feita na Sprint 1.9 backend (smoke test via Cloudflare Tunnel + primeiro deploy leve no fim da Fase 1).
+> **Cross-repo (15/05/2026):** **Fase 1 backend concluída** no `crm-api` (Sprint 1.9 deploy + Sprint 1.9-hotfix). A Fase 1 **frontend** segue **em andamento** — Sprint 1.6 Fase B **entregue** (esta branch); falta Sprint 1.8 Fase B (detalhe abaixo). O checklist ponta-a-ponta `crm-api/ROADMAP.md` §6.4 está verde nos itens 1–9 e 11; o **item 10 ("status do canal em tempo real no frontend") tem só a emissão backend validada** (Socket.IO `channel:status`, Sprint 1.8b) — a superfície de UI é a Sprint 1.8 Fase B aqui, ainda pendente.
+>
+> **Sem dependência de deploy** para as sprints frontend: cada uma roda contra `crm-api` local. A validação ponta-a-ponta com Gupshup real foi feita na Sprint 1.9 backend via **deploy no Coolify (VPS compartilhado)** — o Cloudflare Tunnel foi descartado (premissa antiga). A Sprint 1.9-hotfix corrigiu o `externalId` do Gupshup (`ev.gsId ?? ev.id`).
 
 **Pré-req frontend:** `pnpm generate:api:from-snapshot` precisa rodar contra OpenAPI atualizado do `crm-api` após cada sprint backend que altere contratos.
 
@@ -192,16 +194,20 @@
 - [x] RBAC: AGENT/SUPERVISOR sem acesso (mesmo gate de Configurações)
 - [x] Fields cortados intencionalmente com TODO no schema: `triggersCsat` (CSAT, Fase 4), `asksDealValue` (composer, Fase 2), `funnelId` (SalesFunnel, Fase 4+)
 
-#### Sprint 1.6 Fase B — Tela básica de mensagens recebidas (validação)
+#### Sprint 1.6 Fase B — Tela básica de mensagens recebidas (validação) — entregue
 
-- [ ] Pareada com Sprint 1.6 do `crm-api` (envio outbound + status updates)
-- [ ] Página `/atendimentos/canais-debug/[channelId]` (não é a tela final — só validação ponta-a-ponta da Fase 1; será descartada/substituída na Fase 2)
-- [ ] Lista as últimas N mensagens INBOUND/OUTBOUND do canal (timestamp, contato, conteúdo, status)
-- [ ] Composer minimalista de texto (POST `/tickets/:id/messages`)
-- [ ] Atualização em tempo real via socket.io-client (eventos `message:new`, `message:status`)
-- [ ] Suficiente para checklist §6.4 do `crm-api/ROADMAP.md` (cenários 4–7, 11)
+- [x] Pareada com Sprint 1.6 do `crm-api` (envio outbound + status updates)
+- [x] Página `/atendimentos/canais-debug/[channelId]` (não é a tela final — só validação ponta-a-ponta da Fase 1; será descartada/substituída na Fase 2)
+- [x] Lista as últimas N mensagens INBOUND/OUTBOUND do canal (timestamp, ticketId curto, conteúdo defensivo, status)
+- [x] Composer minimalista de texto (POST `/tickets/:id/messages`)
+- [x] Atualização em tempo real via socket.io-client (eventos `message:new`, `message:status`)
+- [x] Suficiente para checklist §6.4 do `crm-api/ROADMAP.md` (cenários 4–7, 11)
+
+> **Validação manual §6.4 (contra crm-api local, via replay do webhook-recorder):** cenários **4, 5, 7, 11** validados na tela debug. O cenário **6** (`outOfHoursMessage` OUTBOUND) estava bloqueado por gap do crm-api (envio era TODO órfão da Sprint 1.6 backend) — destravado pelo follow-up **crm-api PR #80** (`feat(sprint-1.6 follow-up): envio real de outOfHoursMessage`) e então validado verde na tela. **Desvio consciente** (CLAUDE.md §4.4): o composer usa schema Zod local em vez do gerado pelo Kubb — o schema gerado termina em `as unknown as z.ZodType<T>` e quebra o `zodResolver`; todo o restante do repo usa schema local (ver `message-composer.tsx` e memória `project_kubb_zod_schema_zodresolver`). Aceitável por ser tela descartável; a tipagem da mutation continua sendo a gerada.
 
 #### Sprint 1.8 Fase B — Card de canal com status realtime
+
+> **Backend pronto e validado** (Sprint 1.8b do `crm-api`, emissão `channel:status`). Esta sprint frontend é a peça que falta para fechar `crm-api/ROADMAP.md` §6.4 item 10.
 
 - [ ] Pareada com Sprint 1.8 do `crm-api` (eventos Socket.IO `channel:status`)
 - [ ] Card de canal em `/configuracoes/canais` consome socket.io-client
@@ -283,15 +289,15 @@
 
 ## 6. Rastreamento
 
-| Fase    | Início     | Fim        | Status       | Notas                                                                                                                                                                                                                                             |
-| ------- | ---------- | ---------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Fase 0  | 2026-04    | 2026-05-10 | concluída    | Sprints 0.13–0.23 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências, Tema final). Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes. |
-| Fase 1  | 2026-05-11 | —          | em andamento | Sprints 1.4 Fase B (canais UI) e 1.4 Fase C (motivos de fechamento) entregues em PR #35 — pareadas com crm-api PRs #56, #61, #62, #63, #64. Falta Sprint 1.6 Fase B (mensagens debug) e Sprint 1.8 Fase B (realtime do canal).                    |
-| Fase 2  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 3a | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 3b | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 4  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 5  | —          | —          | aguardando   | Pré-req da Fase 8 backend.                                                                                                                                                                                                                        |
-| Fase 6  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 7  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                 |
-| Fase 8  | —          | —          | aguardando   | Requer Fase 5 backend.                                                                                                                                                                                                                            |
+| Fase    | Início     | Fim        | Status       | Notas                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------- | ---------- | ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Fase 0  | 2026-04    | 2026-05-10 | concluída    | Sprints 0.13–0.23 entregues (bootstrap, app shell, design-system showcase, convites, Departamentos, Tags, Quick Replies, Usuários CRUD, Preferências, Tema final). Canais movidos pra Fase 1; E2E/RBAC granular/upload de avatar não-bloqueantes.                                                                                                                                                     |
+| Fase 1  | 2026-05-11 | —          | em andamento | **Fase 1 backend concluída no `crm-api`** (Sprint 1.9 deploy Coolify + 1.9-hotfix externalId; `crm-api/ROADMAP.md` v23). Frontend: Sprints 1.4 Fase B (canais UI) e 1.4 Fase C (motivos de fechamento) entregues em PR #35 — pareadas com crm-api PRs #56, #61, #62, #63, #64. Pendente: Sprint 1.6 Fase B (mensagens debug) e Sprint 1.8 Fase B (realtime do canal — fecha §6.4 item 10 do crm-api). |
+| Fase 2  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 3a | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 3b | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 4  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 5  | —          | —          | aguardando   | Pré-req da Fase 8 backend.                                                                                                                                                                                                                                                                                                                                                                            |
+| Fase 6  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 7  | —          | —          | aguardando   | —                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Fase 8  | —          | —          | aguardando   | Requer Fase 5 backend.                                                                                                                                                                                                                                                                                                                                                                                |
