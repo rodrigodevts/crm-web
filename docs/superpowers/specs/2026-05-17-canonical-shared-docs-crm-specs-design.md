@@ -43,6 +43,21 @@ fonte de drift.
    descrição do PR de código.
 7. **CONTRIBUTING.md**: stub de ~3 linhas nos repos de código (preserva o
    link automático do GitHub), conteúdo real só no `crm-specs`.
+8. **WORKFLOW.md / CONTRIBUTING.md per-stack** (descoberto no planejamento):
+   ~10 linhas divergem por motivo legítimo de stack (frontend:
+   `pnpm format:check`, build cai pro CI §11; backend: `pnpm build`,
+   `pnpm test:e2e`, gerador `pnpm g:feature`). Doc canônico **único** com
+   **callouts explícitos por stack** onde o comando difere — não generaliza,
+   não mantém por-repo.
+9. **ARCHITECTURE.md é estruturalmente idêntico** (descoberto no
+   planejamento): mesmas seções §1–§6 em ambos, §4 já tem "Backend (crm-api)"
+   **e** "Frontend (crm-web)", §5.1/5.2/5.3 cobre os 3 repos. Não é
+   "fundação + stack por repo" — é doc totalmente compartilhado que driftou.
+   Canônico = o do `crm-api` (superset, 1131 linhas; CLAUDE.md já diz que o do
+   crm-web "é cópia da do crm-api") + reconciliar drift. **Âncoras de seção
+   preservadas automaticamente** → refs `§4`/`§N` do CLAUDE.md continuam
+   resolvendo; só o caminho do arquivo muda. Sem doc de "mapeamento de
+   seções".
 
 ## Arquitetura da solução
 
@@ -60,14 +75,24 @@ fonte de drift.
   **seção frontend explícita**. Resultado: um ROADMAP único do produto
   (back + fatia front) sem perder o estado já registrado (ex.: §6.4 item 10
   fechado pela Sprint 1.8 Fase B).
-- **ARCHITECTURE**: ~85% comum + duas seções de stack. Doc único cobrindo as
-  duas stacks. **Preservar âncoras de seção addressáveis**, porque
-  `crm-web/CLAUDE.md` cita "ARCHITECTURE.md §4 (Frontend)" e
-  `crm-api/CLAUDE.md` cita "ARCHITECTURE.md seção 3 (libs)". Documentar no PR
-  do `crm-specs` qual seção do doc unificado corresponde a cada uma, para o
-  re-apontamento no passo D.
-- **WORKFLOW / CONTRIBUTING**: reconciliar o drift (~8–16 linhas), adotando a
-  versão mais atual de cada hunk divergente.
+- **ARCHITECTURE**: estruturalmente idêntico nos dois (mesmas seções,
+  §4 já com Backend+Frontend, §5 com os 3 repos). Canônico = **copiar
+  `crm-api/ARCHITECTURE.md` verbatim** (superset/canônico por definição) e
+  reconciliar os ~162 linhas de drift de conteúdo, mantendo a estrutura de
+  seções intacta. Âncoras (`§4`, etc.) ficam idênticas → nenhum
+  re-apontamento de número de seção necessário (só o caminho do arquivo muda
+  no passo D). Sem doc de mapeamento.
+- **WORKFLOW / CONTRIBUTING**: doc canônico único. As ~10 linhas
+  legitimamente por-stack viram **callouts explícitos** no formato:
+  > **Frontend (`crm-web`):** `pnpm format:check`; `pnpm build` cai pro CI
+  > (limitação §11). **Backend (`crm-api`):** `pnpm build` compila;
+  > `pnpm test:e2e`; gerador `pnpm g:feature`.
+  > Onde o `WORKFLOW.md` canônico cita uma regra do `CLAUDE.md`, **referenciar
+  > por tópico/nome** ("a regra de ROADMAP-no-mesmo-ciclo do `CLAUDE.md` do
+  > repo"), nunca por número — a numeração do `CLAUDE.md` difere por repo
+  > (§4.16 no crm-web, §23 no crm-api) e continua por-repo. Demais hunks de
+  > drift: adotar a versão mais atual (base = versão do `crm-web`, que recebeu
+  > o update mais recente no PR #42).
 
 ### C. Consumo nos repos de código (ponteiro, sem cópia)
 
@@ -88,10 +113,12 @@ fonte de drift.
   `../crm-specs/ROADMAP.md`, `../crm-specs/ARCHITECTURE.md`,
   `../crm-specs/WORKFLOW.md` (caminho relativo sibling; é `additionalDirectory`
   do agente).
-- Re-apontar refs internas: `crm-web/CLAUDE.md` "ARCHITECTURE.md §4
-  (Frontend)" e `crm-api/CLAUDE.md` "ARCHITECTURE.md seção 3" → seção
-  correspondente do doc unificado (conforme mapeamento documentado no PR do
-  crm-specs, passo B).
+- Refs internas a seções do `ARCHITECTURE.md` **não mudam de número** (a
+  estrutura é idêntica e preservada). `crm-web/CLAUDE.md` "ARCHITECTURE.md §4
+  (Frontend)" continua válido. **Exceção:** `crm-api/CLAUDE.md` cita
+  "ARCHITECTURE.md seção 3" para libs aprovadas, mas libs/stack é §4 (§3 é
+  "Arquitetura interna") — corrigir essa ref stale para §4 ao tocar a linha
+  (in-escopo, é a mesma linha do re-apontamento de caminho).
 - Remover do `crm-web/CLAUDE.md` a frase "(cópia da do crm-api, serve como
   referência canônica)" — deixa de ser cópia.
 
@@ -118,8 +145,7 @@ Não existe PR cross-repo; cada repo tem seu PR, nesta ordem:
 
 1. **`crm-specs`** — criar os 4 docs canônicos reconciliados (branch + PR;
    sem CI, review leve). **Tem de landar primeiro** para os ponteiros não
-   nascerem quebrados. O PR documenta o mapeamento de seções do
-   `ARCHITECTURE.md` unificado (para o passo D).
+   nascerem quebrados.
 2. **`crm-web`** — remover os 3 `.md`, criar stub `CONTRIBUTING.md`, bloco
    README, atualizar `CLAUDE.md` §2/§4.16/refs. PR próprio, referencia o PR do
    crm-specs.
@@ -137,8 +163,9 @@ Não existe PR cross-repo; cada repo tem seu PR, nesta ordem:
   remover dos outros repos.
 - **`crm-specs` sem CI/branch-protection** → ROADMAP vira alvo de commit
   direto; risco baixo (docs) e é o que torna o §4.16 cross-repo leve.
-- **Refs `ARCHITECTURE.md §N` quebrarem** → mapeamento de seções documentado
-  no PR do crm-specs e aplicado no passo D antes de fechar os PRs de código.
+- **Refs `ARCHITECTURE.md §N`** → estrutura de seções idêntica e preservada
+  no merge; números não mudam. Único ajuste: corrigir a ref stale "seção 3"→
+  "§4" no `crm-api/CLAUDE.md` (passo D).
 
 ## Verificação (sem testes — é docs/processo)
 
