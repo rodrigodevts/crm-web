@@ -76,12 +76,18 @@ fonte de drift.
   (back + fatia front) sem perder o estado já registrado (ex.: §6.4 item 10
   fechado pela Sprint 1.8 Fase B).
 - **ARCHITECTURE**: estruturalmente idêntico nos dois (mesmas seções,
-  §4 já com Backend+Frontend, §5 com os 3 repos). Canônico = **copiar
-  `crm-api/ARCHITECTURE.md` verbatim** (superset/canônico por definição) e
-  reconciliar os ~162 linhas de drift de conteúdo, mantendo a estrutura de
-  seções intacta. Âncoras (`§4`, etc.) ficam idênticas → nenhum
-  re-apontamento de número de seção necessário (só o caminho do arquivo muda
-  no passo D). Sem doc de mapeamento.
+  §4 já com Backend+Frontend, §5 com os 3 repos). Canônico = **base
+  `crm-api/ARCHITECTURE.md`** (superset para conteúdo backend/compartilhado,
+  que está mais novo lá) **+ reconciliar as células frontend-specific da
+  subseção §4 "Frontend (`crm-web`)" com a realidade atual do `crm-web`**.
+  ⚠️ A heurística "crm-api sempre supera" falha para o frontend: o `crm-web`
+  evoluiu sua stack independentemente (Sprint 0.23 "Tema final" — ex.:
+  tipografia consolidada em **Geist**, não o stale "Archivo+Inter+JetBrains"
+  da cópia do crm-api). Autoritativo p/ frontend: `crm-web/design-system.md`
+  - `crm-web/ARCHITECTURE.md` (ambos fora do escopo de mover; seguem
+    frontend-canônicos). Estrutura de seções idêntica preservada → âncoras
+    (`§4`, etc.) inalteradas, sem doc de mapeamento (só o caminho do arquivo
+    muda no passo D).
 - **WORKFLOW / CONTRIBUTING**: doc canônico único. As ~10 linhas
   legitimamente por-stack viram **callouts explícitos** no formato:
   > **Frontend (`crm-web`):** `pnpm format:check`; `pnpm build` cai pro CI
