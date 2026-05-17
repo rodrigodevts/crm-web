@@ -1,9 +1,11 @@
 'use client';
 
 import { useDeferredValue, useId, useMemo, useState } from 'react';
-import { SearchIcon } from 'lucide-react';
+import { Loader2Icon, SearchIcon } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { useChannelsStatusRealtime } from '@/hooks/useChannelsStatusRealtime';
+import { mergeChannelStatus } from '@/lib/channels/channel-status';
 import { apiClient } from '@/lib/api-client';
 import { useCurrentUser } from '@/contexts/current-user-context';
 import {
@@ -88,7 +90,7 @@ export function ChannelsTable() {
   const restart = useChannelsControllerRestart({ client: { client: apiClient } });
   const remove = useChannelsControllerRemove({ client: { client: apiClient } });
 
-  const items = channelsQuery.data?.items ?? [];
+  const items = useMemo(() => channelsQuery.data?.items ?? [], [channelsQuery.data?.items]);
   const connectedCount = channelsQuery.data?.connectedCount ?? 0;
   const totalCount = channelsQuery.data?.totalCount ?? 0;
   const hasFilters = deferredSearch.trim().length > 0 || statusFilter !== 'all';
@@ -99,6 +101,22 @@ export function ChannelsTable() {
     for (const d of departmentsQuery.data?.items ?? []) out[d.id] = d.name;
     return out;
   }, [departmentsQuery.data]);
+
+  const channelNameById = useMemo(() => {
+    const out = new Map<string, string>();
+    for (const c of items) out.set(c.id, c.name);
+    return out;
+  }, [items]);
+
+  const { overrides, socketDown } = useChannelsStatusRealtime(
+    channelsQuery.refetch,
+    channelNameById,
+  );
+
+  const effectiveItems = useMemo(
+    () => items.map((c) => mergeChannelStatus(c, overrides.get(c.id))),
+    [items, overrides],
+  );
 
   function invalidate(): void {
     void queryClient.invalidateQueries({
@@ -194,9 +212,20 @@ export function ChannelsTable() {
         </Select>
       </div>
 
+      {socketDown && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="border-border bg-muted text-muted-foreground flex items-center gap-2 rounded-md border px-3 py-2 text-sm"
+        >
+          <Loader2Icon aria-hidden="true" className="size-4 animate-spin" />
+          Reconectando…
+        </div>
+      )}
+
       <ChannelsTableView
         state={state}
-        items={items}
+        items={effectiveItems}
         departmentsById={departmentsById}
         hasFilters={hasFilters}
         connectedCount={connectedCount}
