@@ -103,6 +103,15 @@ Audits são o contrato visual e comportamental.
 
 15. **Se o backend muda OpenAPI, o frontend deve regenerar.** `lib/generated/` regenerado contra `openapi.snapshot.json` deve ter zero diff em CI. Se você atualizar o snapshot, comite o `lib/generated` correspondente no mesmo PR.
 
+### ROADMAP atualizado na mesma PR
+
+16. **Toda PR que entrega (ou conclui parcialmente) uma sprint do ROADMAP atualiza `ROADMAP.md` no mesmo PR.** Sem PR de "atualização de doc" depois.
+    - Marcar checkboxes concluídos (`[x]`) com data e número da PR.
+    - Atualizar a tabela de rastreamento (status, notas).
+    - Bumpar a "Versão" e "Última atualização" no cabeçalho do ROADMAP.
+    - Se a sprint mudou de escopo durante a execução (fatiamento, deferimento, escopo adicional), refletir aqui — não acumular drift.
+17. **Sprints densas devem ser fatiadas antes de começar.** Heurística: se a estimativa passa de ~4 dias ou envolve 3+ subáreas distintas (ex: lista + form + integração realtime), fatiar em sub-sprints (`X.Ya`, `X.Yb`, etc), cada uma virando PR mergeável independente. Razão: contexto de sessão de Claude Code degrada em sprints monolíticas; PRs menores também são mais fáceis de revisar.
+
 ---
 
 ## 5. Workflow padrão (com Superpowers)
