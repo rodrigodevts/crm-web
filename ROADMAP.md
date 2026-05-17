@@ -164,7 +164,7 @@
 
 > **Documento canônico de planejamento da Fase 1:** `../crm-api/ROADMAP.md` §6 (versão 23, 15/05/2026). A fatia frontend abaixo é pareada com as sprints backend correspondentes.
 >
-> **Cross-repo (15/05/2026):** **Fase 1 backend concluída** no `crm-api` (Sprint 1.9 deploy + Sprint 1.9-hotfix). A Fase 1 **frontend** segue **em andamento** — faltam Sprint 1.6 Fase B e Sprint 1.8 Fase B (detalhe abaixo). O checklist ponta-a-ponta `crm-api/ROADMAP.md` §6.4 está verde nos itens 1–9 e 11; o **item 10 ("status do canal em tempo real no frontend") tem só a emissão backend validada** (Socket.IO `channel:status`, Sprint 1.8b) — a superfície de UI é a Sprint 1.8 Fase B aqui, ainda pendente.
+> **Cross-repo (15/05/2026):** **Fase 1 backend concluída** no `crm-api` (Sprint 1.9 deploy + Sprint 1.9-hotfix). A Fase 1 **frontend** segue **em andamento** — Sprint 1.6 Fase B **entregue** (esta branch); falta Sprint 1.8 Fase B (detalhe abaixo). O checklist ponta-a-ponta `crm-api/ROADMAP.md` §6.4 está verde nos itens 1–9 e 11; o **item 10 ("status do canal em tempo real no frontend") tem só a emissão backend validada** (Socket.IO `channel:status`, Sprint 1.8b) — a superfície de UI é a Sprint 1.8 Fase B aqui, ainda pendente.
 >
 > **Sem dependência de deploy** para as sprints frontend: cada uma roda contra `crm-api` local. A validação ponta-a-ponta com Gupshup real foi feita na Sprint 1.9 backend via **deploy no Coolify (VPS compartilhado)** — o Cloudflare Tunnel foi descartado (premissa antiga). A Sprint 1.9-hotfix corrigiu o `externalId` do Gupshup (`ev.gsId ?? ev.id`).
 
@@ -194,14 +194,16 @@
 - [x] RBAC: AGENT/SUPERVISOR sem acesso (mesmo gate de Configurações)
 - [x] Fields cortados intencionalmente com TODO no schema: `triggersCsat` (CSAT, Fase 4), `asksDealValue` (composer, Fase 2), `funnelId` (SalesFunnel, Fase 4+)
 
-#### Sprint 1.6 Fase B — Tela básica de mensagens recebidas (validação)
+#### Sprint 1.6 Fase B — Tela básica de mensagens recebidas (validação) — entregue
 
-- [ ] Pareada com Sprint 1.6 do `crm-api` (envio outbound + status updates)
-- [ ] Página `/atendimentos/canais-debug/[channelId]` (não é a tela final — só validação ponta-a-ponta da Fase 1; será descartada/substituída na Fase 2)
-- [ ] Lista as últimas N mensagens INBOUND/OUTBOUND do canal (timestamp, contato, conteúdo, status)
-- [ ] Composer minimalista de texto (POST `/tickets/:id/messages`)
-- [ ] Atualização em tempo real via socket.io-client (eventos `message:new`, `message:status`)
-- [ ] Suficiente para checklist §6.4 do `crm-api/ROADMAP.md` (cenários 4–7, 11)
+- [x] Pareada com Sprint 1.6 do `crm-api` (envio outbound + status updates)
+- [x] Página `/atendimentos/canais-debug/[channelId]` (não é a tela final — só validação ponta-a-ponta da Fase 1; será descartada/substituída na Fase 2)
+- [x] Lista as últimas N mensagens INBOUND/OUTBOUND do canal (timestamp, ticketId curto, conteúdo defensivo, status)
+- [x] Composer minimalista de texto (POST `/tickets/:id/messages`)
+- [x] Atualização em tempo real via socket.io-client (eventos `message:new`, `message:status`)
+- [x] Suficiente para checklist §6.4 do `crm-api/ROADMAP.md` (cenários 4–7, 11)
+
+> **Validação manual §6.4 (contra crm-api local, via replay do webhook-recorder):** cenários **4, 5, 7, 11** validados na tela debug. O cenário **6** (`outOfHoursMessage` OUTBOUND) estava bloqueado por gap do crm-api (envio era TODO órfão da Sprint 1.6 backend) — destravado pelo follow-up **crm-api PR #80** (`feat(sprint-1.6 follow-up): envio real de outOfHoursMessage`) e então validado verde na tela. **Desvio consciente** (CLAUDE.md §4.4): o composer usa schema Zod local em vez do gerado pelo Kubb — o schema gerado termina em `as unknown as z.ZodType<T>` e quebra o `zodResolver`; todo o restante do repo usa schema local (ver `message-composer.tsx` e memória `project_kubb_zod_schema_zodresolver`). Aceitável por ser tela descartável; a tipagem da mutation continua sendo a gerada.
 
 #### Sprint 1.8 Fase B — Card de canal com status realtime
 
