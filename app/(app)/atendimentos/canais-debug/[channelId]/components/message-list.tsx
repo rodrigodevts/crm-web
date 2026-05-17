@@ -67,7 +67,7 @@ export function MessageList({ rows }: { rows: MessageRow[] }) {
               <StatusBadge status={m.status} />
             </span>
           </div>
-          <p className="text-foreground text-sm break-words whitespace-pre-wrap">
+          <p className="text-foreground text-sm wrap-break-word whitespace-pre-wrap">
             {renderContent(m.content)}
           </p>
           {m.status === 'FAILED' && m.lastError && (
