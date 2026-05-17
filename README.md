@@ -11,6 +11,19 @@ Licença: AGPL-3.0-or-later.
 
 ---
 
+## Documentação canônica
+
+Plano, arquitetura, workflow e contribuição vivem no repositório de docs `crm-specs` (fonte única — não duplicar aqui):
+
+- [ROADMAP](https://github.com/rodrigodevts/crm-specs/blob/main/ROADMAP.md)
+- [ARCHITECTURE](https://github.com/rodrigodevts/crm-specs/blob/main/ARCHITECTURE.md)
+- [WORKFLOW](https://github.com/rodrigodevts/crm-specs/blob/main/WORKFLOW.md)
+- [CONTRIBUTING](https://github.com/rodrigodevts/crm-specs/blob/main/CONTRIBUTING.md)
+
+No setup de dev o `crm-specs` é clonado como sibling, então localmente: `../crm-specs/<arquivo>.md`.
+
+---
+
 ## Pré-requisitos
 
 - Node.js **22 LTS** (`.nvmrc`)
@@ -69,7 +82,7 @@ pnpm format            # prettier --write
 
 ## Estrutura
 
-Detalhada em [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.2.
+Detalhada em [ARCHITECTURE](https://github.com/rodrigodevts/crm-specs/blob/main/ARCHITECTURE.md) §5.2.
 
 ```
 app/
@@ -108,21 +121,9 @@ lib/
 | `API_OPENAPI_URL`     | `http://localhost:3000/api/v1/openapi.json` | Para `pnpm generate:api` |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:3000`                     | Base do client gerado    |
 
-## Próximos passos da Fase 0
+## Documentação local
 
-Ver [`ROADMAP.md`](./ROADMAP.md) §5. Em ordem:
-
-1. Auth real (`/login` chamando `/auth/login` da API + JWT em cookie)
-2. `middleware.ts` redirecionando rotas protegidas
-3. Layout autenticado (`(dashboard)/layout.tsx` com sidebar + header)
-4. Páginas dummy de Atendimentos
-5. Telas básicas de Configurações (Departments, Users, Tags, CloseReasons)
-
-## Documentação relacionada
-
-- [`CLAUDE.md`](./CLAUDE.md) — instruções operacionais
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — fundação técnica
-- [`ROADMAP.md`](./ROADMAP.md) — plano de fases
+- [`CLAUDE.md`](./CLAUDE.md) — instruções operacionais para agentes
 - [`design-system.md`](./design-system.md) — cores, tipografia, espaçamento
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — padrões de commit, PR, código
 - [`docs/conventions/`](./docs/conventions/) — multi-tenant, errors, API, testing

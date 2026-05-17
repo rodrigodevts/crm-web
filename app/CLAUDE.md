@@ -222,7 +222,7 @@ Pasta `app/(dashboard)/settings/`:
 
 ## Antes de criar rota nova
 
-- [ ] Confirme que feature está na fase atual (`ROADMAP.md`)
+- [ ] Confirme que feature está na fase atual (`../crm-specs/ROADMAP.md`)
 - [ ] Decidir se precisa de auth (route group `(dashboard)` ou `(auth)`)
 - [ ] Adicionar metadata
 - [ ] Loading state se há fetch
