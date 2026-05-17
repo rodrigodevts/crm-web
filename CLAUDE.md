@@ -23,10 +23,10 @@ Backend correspondente vive em `../crm-api/` (NestJS + Fastify + Prisma + Postgr
 A cada sessão nova, sempre:
 
 1. **Este arquivo** (`CLAUDE.md` raiz crm-web) — você está aqui
-2. **`ROADMAP.md`** raiz crm-web — confirme em qual fase/sprint estamos
-3. **`ARCHITECTURE.md`** raiz crm-web — fundação técnica do projeto inteiro (cópia da do crm-api, serve como referência canônica)
+2. **`../crm-specs/ROADMAP.md`** (canônico) — confirme em qual fase/sprint estamos
+3. **`../crm-specs/ARCHITECTURE.md`** (canônico) — fundação técnica do projeto inteiro
 4. **`design-system.md`** raiz crm-web — cores, tipografia, espaçamento, componentes
-5. **`WORKFLOW.md`** raiz crm-web — workflow Superpowers
+5. **`../crm-specs/WORKFLOW.md`** (canônico) — workflow Superpowers
 
 Não pule essa leitura mesmo que pareça redundante. Decisões mudam.
 
@@ -61,7 +61,7 @@ Audits são o contrato visual e comportamental.
 
 ### Antes de adicionar dependência nova (npm package)
 
-**Pergunte ao humano antes.** Lista de libs aprovadas em `ARCHITECTURE.md` §4 (Frontend `crm-web`). Se não estiver lá, requer aprovação.
+**Pergunte ao humano antes.** Lista de libs aprovadas em `../crm-specs/ARCHITECTURE.md` §4 (Frontend `crm-web`). Se não estiver lá, requer aprovação.
 
 ---
 
@@ -103,20 +103,19 @@ Audits são o contrato visual e comportamental.
 
 15. **Se o backend muda OpenAPI, o frontend deve regenerar.** `lib/generated/` regenerado contra `openapi.snapshot.json` deve ter zero diff em CI. Se você atualizar o snapshot, comite o `lib/generated` correspondente no mesmo PR.
 
-### ROADMAP atualizado na mesma PR
+### ROADMAP atualizado no mesmo ciclo (canônico em crm-specs)
 
-16. **Toda PR que entrega (ou conclui parcialmente) uma sprint do ROADMAP atualiza `ROADMAP.md` no mesmo PR.** Sem PR de "atualização de doc" depois.
+16. **Toda PR que entrega (ou conclui parcialmente) uma sprint atualiza o `ROADMAP.md` canônico em `../crm-specs` na MESMA sessão.** Sem deferir, sem PR de "atualização de doc" depois.
     - Marcar checkboxes concluídos (`[x]`) com data e número da PR.
-    - Atualizar a tabela de rastreamento (status, notas).
-    - Bumpar a "Versão" e "Última atualização" no cabeçalho do ROADMAP.
-    - Se a sprint mudou de escopo durante a execução (fatiamento, deferimento, escopo adicional), refletir aqui — não acumular drift.
+    - Atualizar a tabela de rastreamento (status, notas) e a versão/data do cabeçalho.
+    - Como `crm-specs` não tem CI/branch-protection: commit/push direto na `main` do `crm-specs`; cite o SHA/link desse commit na descrição do PR de código.
 17. **Sprints densas devem ser fatiadas antes de começar.** Heurística: se a estimativa passa de ~4 dias ou envolve 3+ subáreas distintas (ex: lista + form + integração realtime), fatiar em sub-sprints (`X.Ya`, `X.Yb`, etc), cada uma virando PR mergeável independente. Razão: contexto de sessão de Claude Code degrada em sprints monolíticas; PRs menores também são mais fáceis de revisar.
 
 ---
 
 ## 5. Workflow padrão (com Superpowers)
 
-Detalhado em `WORKFLOW.md`. Resumo:
+Detalhado em `../crm-specs/WORKFLOW.md`. Resumo:
 
 ```
 1. Você descreve o que quer construir
@@ -164,7 +163,7 @@ Antes de codar: sempre brainstorm. Antes de declarar pronto: verificação por e
 1. **Editar `lib/generated/` à mão.** É sobrescrito no próximo `pnpm generate:api`.
 2. **Inventar tipo local porque o backend não expôs.** Reporte como gap, não faça shim.
 3. **Reescrever component existente sem ser pedido.** Modificação cirúrgica, não refactor lateral.
-4. **Adicionar lib não-aprovada.** Use só o que está em `ARCHITECTURE.md` §4 frontend.
+4. **Adicionar lib não-aprovada.** Use só o que está em `../crm-specs/ARCHITECTURE.md` §4 frontend.
 5. **Misturar Server Component e Client Component sem critério.** Default Server; `'use client'` só onde precisa.
 6. **`any` ou `as Type` sem comentário.** TypeScript estrito é não-negociável.
 7. **Criar arquivos não pedidos.** Se feature pediu X, não crie testes/docs/configs extras sem necessidade.
@@ -189,7 +188,7 @@ Hierarquia de busca:
 
 1. **Audit da feature** em `../crm-specs/audits/` (se acessível) — primeira consulta pra UI/comportamento
 2. **Spec descritiva do sistema atual** em `../crm-specs/areas/`
-3. **Backend correspondente** em `../crm-api/` — schemas Zod, audits, ARCHITECTURE.md
+3. **Backend correspondente** em `../crm-api/` — schemas Zod, audits. Fundação técnica canônica: `../crm-specs/ARCHITECTURE.md`
 4. **Chatwoot** clonado em `/home/rodrigo-digigov/referencias/chatwoot` — referência **read-only** de padrões de UI/socket (Vue, traduzir mentalmente pra React)
 5. **Doc oficial** da lib (Next.js, Tailwind, shadcn, TanStack Query, Zod, etc) — nunca chutar API
 6. **Pergunta ao humano** — se nada acima resolver
@@ -203,7 +202,7 @@ NÃO improvise comportamento crítico. Pergunte.
 Verifique:
 
 - [ ] Documentação atualizada se descobriu algo novo
-- [ ] `ARCHITECTURE.md` atualizado se houve decisão arquitetural relevante
+- [ ] `../crm-specs/ARCHITECTURE.md` atualizado se houve decisão arquitetural relevante
 - [ ] `lib/generated/` regenerado se o backend mudou OpenAPI
 - [ ] Testes passando (`pnpm test`)
 - [ ] Lint, typecheck, format OK
