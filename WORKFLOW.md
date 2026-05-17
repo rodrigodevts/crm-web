@@ -397,9 +397,10 @@ Quando regra não está clara, **pergunte**. Não invente. Resposta errada custa
 ### Final de sessão
 
 - Confirme que todos os testes passam
+- **Atualize `ROADMAP.md` no MESMO PR da sprint** (checkboxes, tabela de rastreamento, versão e data no cabeçalho). Vide CLAUDE.md §4 regra 16. Sem PR de "atualização de doc" depois.
+- Se a sprint estourou de escopo (fatiamento, deferimento, item novo descoberto), reflita no ROADMAP no mesmo PR.
 - Commit final ou PR aberto
-- Atualize ROADMAP.md (item da fase atual marcado como done)
-- Se descobriu algo arquitetural: atualize ARCHITECTURE.md ou abra ADR
+- Se descobriu algo arquitetural: atualize ARCHITECTURE.md ou abra ADR (também no mesmo PR quando possível)
 
 ### Próxima sessão
 
