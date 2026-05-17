@@ -56,6 +56,12 @@ export function ChannelCard({
           </Badge>
         </div>
 
+        {channel.status === 'ERROR' && channel.lastError && (
+          <p role="alert" className="text-destructive text-xs">
+            {channel.lastError}
+          </p>
+        )}
+
         <p className="text-muted-foreground text-xs">
           Departamento padrão: {departmentName ?? 'Não definido'}
         </p>
