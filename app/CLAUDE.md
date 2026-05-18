@@ -1,6 +1,6 @@
 # CLAUDE.md — `crm-web/app/`
 
-> Convenções de rotas e layouts (Next.js 15 App Router).
+> Convenções de rotas e layouts (Next.js 16 App Router).
 
 ---
 
@@ -107,7 +107,7 @@ Acesso ao param:
 ```tsx
 // Server Component
 export default async function TicketPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params; // params é Promise no Next.js 15
+  const { id } = await params; // params é Promise no Next.js 16
   return <TicketDetail id={id} />;
 }
 ```
