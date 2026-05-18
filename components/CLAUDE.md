@@ -17,19 +17,17 @@ Cores, tipografia, espaçamento, padrões visuais. Tudo aqui deriva dele.
 ```
 components/
 ├── ui/                       # shadcn/ui components (auto-gerados pelo CLI)
-├── layout/                   # Header, Sidebar, Footer, Drawer
-├── tickets/                  # componentes específicos de tickets
-│   ├── TicketCard.tsx
-│   ├── TicketList.tsx
-│   ├── ChatComposer.tsx
-│   └── ...
-├── chat/                     # componentes de chat
-│   ├── MessageBubble.tsx     # 3 variantes (bot, atendente, sistema)
-│   ├── MessageList.tsx
-│   └── ...
-├── shared/                   # componentes reutilizáveis sem domínio específico
-└── forms/                    # forms reutilizáveis com React Hook Form + Zod
+├── layout/                   # componentes estruturais (sidebar, header, nav)
+├── channels/                 # componentes de canais
+├── close-reasons/            # componentes de motivos de fechamento
+├── departments/              # componentes de departamentos
+├── preferences/              # componentes de preferências
+├── quick-replies/            # componentes de respostas rápidas
+├── tags/                     # componentes de tags
+└── users/                    # componentes de usuários
 ```
+
+Componentes específicos de uma única rota ficam em `app/(app)/<rota>/components/`, não aqui. Esta pasta contém apenas componentes compartilhados entre rotas.
 
 ---
 
@@ -73,7 +71,7 @@ export function TicketCard({
         'bg-card cursor-pointer rounded-md p-5 shadow-sm transition-shadow',
         'hover:shadow-md',
         isSelected && 'bg-primary/10',
-        isPinned && 'border-primary-500 border-l-2',
+        isPinned && 'border-primary border-l-2',
       )}
       onClick={onClick}
     >
@@ -86,7 +84,7 @@ export function TicketCard({
 **Regras:**
 
 - `'use client'` só quando precisa (hooks, eventos, state)
-- Default Server Component quando possível (Next.js 15)
+- Default Server Component quando possível (Next.js 16)
 - Props interface acima do componente, com `interface` (não `type`)
 - Defaults via desestruturação, não `defaultProps` (deprecated)
 - `cn()` de `@/lib/utils` para concatenar classes condicionais
@@ -257,7 +255,7 @@ Sem i18n no MVP (decisão arquitetural). Adicionar i18n só quando aparecer caso
 ## Performance
 
 - Memoizar listas grandes com `useMemo`
-- Virtualizar listas com 100+ items (`@tanstack/react-virtual`)
+- Para listas com 100+ items, considerar virtualização (requer aprovar dependência nova — ver regra de deps em `CLAUDE.md` raiz); hoje não há lib de virtualização instalada no projeto
 - Lazy load pesado (`next/dynamic`) pra componentes grandes que não aparecem na primeira tela
 - Imagens via `next/image` sempre
 

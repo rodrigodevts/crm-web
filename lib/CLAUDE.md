@@ -28,7 +28,8 @@ pnpm generate:api
 ```
 
 Esse comando:
-1. Lê o OpenAPI spec do backend (URL via `API_OPENAPI_URL` env var, default `http://localhost:3000/api/v1/openapi`)
+
+1. Lê o OpenAPI spec do backend (URL via `API_OPENAPI_URL` env var, default `http://localhost:3000/api/v1/openapi.json`)
 2. Gera todos os arquivos desta pasta
 3. Limpa arquivos antigos não usados
 
@@ -66,11 +67,13 @@ import { CreateTicketSchema } from '@/lib/generated/schemas';
 Edições manuais são **sobrescritas** na próxima vez que `pnpm generate:api` rodar.
 
 Se você precisa customizar:
+
 1. Customize o **schema Zod no backend** (em `crm-api/src/modules/*/schemas/`)
 2. Adicione `.describe()` para enriquecer OpenAPI
 3. Regenere no frontend
 
 Se precisa de helper local que não cabe no backend, criar em outro lugar:
+
 - `lib/api-client.ts` — wrappers customizados
 - `lib/utils.ts` — utilities gerais
 - `hooks/` (sem `generated/`) — hooks customizados que usam os gerados
