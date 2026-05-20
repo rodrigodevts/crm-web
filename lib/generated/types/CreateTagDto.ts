@@ -14,12 +14,10 @@ export type CreateTagDtoScopeEnumKey = (typeof createTagDtoScopeEnum)[keyof type
 
 export type CreateTagDto = {
     /**
-     * @description Nome único da tag dentro do tenant
-     * @minLength 1
-     * @maxLength 100
-     * @type string
+     * @default true
+     * @type boolean | undefined
     */
-    name: string;
+    active?: boolean;
     /**
      * @description Cor hex no formato #RRGGBB; normalizada para uppercase
      * @pattern ^#[0-9A-Fa-f]{6}$
@@ -27,14 +25,16 @@ export type CreateTagDto = {
     */
     color: string;
     /**
+     * @description Nome único da tag dentro do tenant
+     * @minLength 1
+     * @maxLength 100
+     * @type string
+    */
+    name: string;
+    /**
      * @description Onde a tag pode ser aplicada: contato, ticket ou ambos
      * @default "BOTH"
      * @type string | undefined
     */
     scope?: CreateTagDtoScopeEnumKey;
-    /**
-     * @default true
-     * @type boolean | undefined
-    */
-    active?: boolean;
 };

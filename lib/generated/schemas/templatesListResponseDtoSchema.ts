@@ -8,26 +8,26 @@ import { z } from "zod/v4";
 
 export const templatesListResponseDtoSchema = z.object({
     "items": z.array(z.object({
-    "id": z.uuid(),
-"externalId": z.string(),
-"name": z.string(),
-"category": z.enum(["MARKETING", "UTILITY", "AUTHENTICATION"]),
-"status": z.enum(["PENDING", "APPROVED", "REJECTED", "DISABLED", "PAUSED"]),
-"language": z.string(),
-"bodyText": z.string(),
-"headerType": z.nullable(z.enum(["TEXT", "IMAGE", "VIDEO", "DOCUMENT"])),
-"headerText": z.nullable(z.string()),
-"footerText": z.nullable(z.string()),
+    "bodyText": z.string(),
 "buttons": z.nullable(z.any().describe("JSON com estrutura de botões (opaco no Sprint 1.7)")),
-"variables": z.int().min(0).max(9007199254740991),
-"rejectionReason": z.nullable(z.string()),
-"lastSyncedAt": z.nullable(z.iso.datetime({ offset: true })),
-"syncError": z.nullable(z.string()),
+"category": z.enum(["MARKETING", "UTILITY", "AUTHENTICATION"]),
 "createdAt": z.iso.datetime({ offset: true }),
-"updatedAt": z.iso.datetime({ offset: true })
+"externalId": z.string(),
+"footerText": z.nullable(z.string()),
+"headerText": z.nullable(z.string()),
+"headerType": z.nullable(z.enum(["TEXT", "IMAGE", "VIDEO", "DOCUMENT"])),
+"id": z.uuid(),
+"language": z.string(),
+"lastSyncedAt": z.nullable(z.iso.datetime({ offset: true })),
+"name": z.string(),
+"rejectionReason": z.nullable(z.string()),
+"status": z.enum(["PENDING", "APPROVED", "REJECTED", "DISABLED", "PAUSED"]),
+"syncError": z.nullable(z.string()),
+"updatedAt": z.iso.datetime({ offset: true }),
+"variables": z.int().min(0).max(9007199254740991)
     })),
 "pagination": z.object({
-    "nextCursor": z.nullable(z.string()),
-"hasMore": z.boolean()
+    "hasMore": z.boolean(),
+"nextCursor": z.nullable(z.string())
     })
     }) as unknown as z.ZodType<TemplatesListResponseDto>

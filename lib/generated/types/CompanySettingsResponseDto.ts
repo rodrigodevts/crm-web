@@ -6,49 +6,13 @@
 
 export type CompanySettingsResponseDto = {
     /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type string, uuid
-    */
-    companyId: string;
-    /**
      * @type boolean
     */
-    hideOtherUsersTickets: boolean;
-    /**
-     * @type boolean
-    */
-    agentSeeOtherUsersTicketsOnSameChannel: boolean;
-    /**
-     * @type boolean
-    */
-    agentSeeTicketsWithOtherDefaultAgents: boolean;
-    /**
-     * @type boolean
-    */
-    hidePhoneFromAgents: boolean;
-    /**
-     * @type boolean
-    */
-    ignoreGroupMessages: boolean;
-    /**
-     * @type boolean
-    */
-    showAssignedGroups: boolean;
-    /**
-     * @type boolean
-    */
-    forceWalletRouting: boolean;
+    agentCanChangeDefaultAgent: boolean;
     /**
      * @type boolean
     */
     agentCanDeleteContacts: boolean;
-    /**
-     * @type boolean
-    */
-    agentCanChangeDefaultAgent: boolean;
     /**
      * @type boolean
     */
@@ -60,15 +24,51 @@ export type CompanySettingsResponseDto = {
     /**
      * @type boolean
     */
-    hideBotTicketsFromAgents: boolean;
+    agentSeeOtherUsersTicketsOnSameChannel: boolean;
+    /**
+     * @type boolean
+    */
+    agentSeeTicketsWithOtherDefaultAgents: boolean;
+    /**
+     * @type string, uuid
+    */
+    companyId: string;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
     /**
      * @type string, uuid
     */
     defaultBotChatFlowId: string | null;
     /**
-     * @type string, date-time
+     * @type boolean
     */
-    createdAt: string;
+    forceWalletRouting: boolean;
+    /**
+     * @type boolean
+    */
+    hideBotTicketsFromAgents: boolean;
+    /**
+     * @type boolean
+    */
+    hideOtherUsersTickets: boolean;
+    /**
+     * @type boolean
+    */
+    hidePhoneFromAgents: boolean;
+    /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type boolean
+    */
+    ignoreGroupMessages: boolean;
+    /**
+     * @type boolean
+    */
+    showAssignedGroups: boolean;
     /**
      * @type string, date-time
     */

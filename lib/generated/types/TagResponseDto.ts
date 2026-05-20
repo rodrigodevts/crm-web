@@ -14,13 +14,25 @@ export type TagResponseDtoScopeEnumKey = (typeof tagResponseDtoScopeEnum)[keyof 
 
 export type TagResponseDto = {
     /**
-     * @type string, uuid
+     * @type boolean
     */
-    id: string;
+    active: boolean;
+    /**
+     * @type string
+    */
+    color: string;
     /**
      * @type string, uuid
     */
     companyId: string;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
+    /**
+     * @type string, uuid
+    */
+    id: string;
     /**
      * @type string
     */
@@ -28,19 +40,7 @@ export type TagResponseDto = {
     /**
      * @type string
     */
-    color: string;
-    /**
-     * @type string
-    */
     scope: TagResponseDtoScopeEnumKey;
-    /**
-     * @type boolean
-    */
-    active: boolean;
-    /**
-     * @type string, date-time
-    */
-    createdAt: string;
     /**
      * @type string, date-time
     */

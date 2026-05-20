@@ -10,6 +10,6 @@ import { z } from "zod/v4";
  * @description Resposta de sucesso do webhook entrante
  */
 export const webhookAcknowledgmentDtoSchema = z.object({
-    "ok": z.literal(true),
-"enqueuedJobsCount": z.int().min(0).max(9007199254740991).describe("Quantidade de InboundMessages enfileiradas (0 quando type != message)")
+    "enqueuedJobsCount": z.int().min(0).max(9007199254740991).describe("Quantidade de InboundMessages enfileiradas (0 quando type != message)"),
+"ok": z.literal(true)
     }).describe("Resposta de sucesso do webhook entrante") as unknown as z.ZodType<WebhookAcknowledgmentDto>

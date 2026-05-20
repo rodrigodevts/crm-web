@@ -7,18 +7,18 @@ import type { CloseReasonDetailResponseDto } from "../types/CloseReasonDetailRes
 import { z } from "zod/v4";
 
 export const closeReasonDetailResponseDtoSchema = z.object({
-    "id": z.uuid(),
+    "asksDealValue": z.boolean(),
 "companyId": z.uuid(),
-"name": z.string(),
-"message": z.nullable(z.string()),
-"sortOrder": z.int().min(-9007199254740991).max(9007199254740991),
-"triggersCsat": z.boolean(),
-"asksDealValue": z.boolean(),
-"funnelId": z.nullable(z.uuid()),
 "createdAt": z.iso.datetime({ offset: true }),
-"updatedAt": z.iso.datetime({ offset: true }),
 "departments": z.array(z.object({
     "id": z.uuid(),
 "name": z.string()
-    }))
+    })),
+"funnelId": z.nullable(z.uuid()),
+"id": z.uuid(),
+"message": z.nullable(z.string()),
+"name": z.string(),
+"sortOrder": z.int().min(-9007199254740991).max(9007199254740991),
+"triggersCsat": z.boolean(),
+"updatedAt": z.iso.datetime({ offset: true })
     }) as unknown as z.ZodType<CloseReasonDetailResponseDto>

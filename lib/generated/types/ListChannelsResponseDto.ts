@@ -11,7 +11,7 @@ export const itemsProviderEnum = {
 
 export type ItemsProviderEnumKey = (typeof itemsProviderEnum)[keyof typeof itemsProviderEnum];
 
-export const itemsStatusEnum2 = {
+export const itemsStatusEnum3 = {
     INACTIVE: "INACTIVE",
     CONNECTING: "CONNECTING",
     AWAITING_QR: "AWAITING_QR",
@@ -20,40 +20,22 @@ export const itemsStatusEnum2 = {
     ERROR: "ERROR"
 } as const;
 
-export type ItemsStatusEnum2Key = (typeof itemsStatusEnum2)[keyof typeof itemsStatusEnum2];
+export type ItemsStatusEnum3Key = (typeof itemsStatusEnum3)[keyof typeof itemsStatusEnum3];
 
 /**
  * @description Resposta paginada de canais com contadores agregados
 */
 export type ListChannelsResponseDto = {
     /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+    */
+    connectedCount: number;
+    /**
      * @type array
     */
     items: {
-        /**
-         * @type string, uuid
-        */
-        id: string;
-        /**
-         * @type string
-        */
-        name: string;
-        /**
-         * @type string
-        */
-        provider: ItemsProviderEnumKey;
-        /**
-         * @type string
-        */
-        status: ItemsStatusEnum2Key;
-        /**
-         * @type string
-        */
-        phoneNumber: string | null;
-        /**
-         * @type string
-        */
-        externalId: string | null;
         /**
          * @type object
         */
@@ -78,21 +60,29 @@ export type ListChannelsResponseDto = {
             sourcePhone: string;
         } | null;
         /**
-         * @type string
-        */
-        lastError: string | null;
-        /**
          * @type string, date-time
         */
-        lastConnectedAt: string | null;
+        createdAt: string;
+        /**
+         * @type string, uuid
+        */
+        defaultChatFlowId: string | null;
         /**
          * @type string, uuid
         */
         defaultDepartmentId: string | null;
         /**
+         * @type string
+        */
+        externalId: string | null;
+        /**
          * @type string, uuid
         */
-        defaultChatFlowId: string | null;
+        id: string;
+        /**
+         * @type string, uuid
+        */
+        inactivityCloseReasonId: string | null;
         /**
          * @minLength -9007199254740991
          * @maxLength 9007199254740991
@@ -100,41 +90,51 @@ export type ListChannelsResponseDto = {
         */
         inactivityTimeoutMinutes: number | null;
         /**
-         * @type string, uuid
-        */
-        inactivityCloseReasonId: string | null;
-        /**
          * @type string, date-time
         */
-        createdAt: string;
+        lastConnectedAt: string | null;
+        /**
+         * @type string
+        */
+        lastError: string | null;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
+         * @type string
+        */
+        phoneNumber: string | null;
+        /**
+         * @type string
+        */
+        provider: ItemsProviderEnumKey;
+        /**
+         * @type string
+        */
+        status: ItemsStatusEnum3Key;
         /**
          * @type string, date-time
         */
         updatedAt: string;
     }[];
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
-     * @type integer
+     * @type object
     */
-    connectedCount: number;
+    pagination: {
+        /**
+         * @type boolean
+        */
+        hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
+    };
     /**
      * @minLength -9007199254740991
      * @maxLength 9007199254740991
      * @type integer
     */
     totalCount: number;
-    /**
-     * @type object
-    */
-    pagination: {
-        /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
-         * @type boolean
-        */
-        hasMore: boolean;
-    };
 };

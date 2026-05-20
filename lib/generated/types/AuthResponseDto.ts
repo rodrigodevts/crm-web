@@ -25,19 +25,19 @@ export type AuthResponseDto = {
         /**
          * @type string, uuid
         */
-        id: string;
-        /**
-         * @type string, uuid
-        */
         companyId: string;
-        /**
-         * @type string
-        */
-        name: string;
         /**
          * @type string, email
         */
         email: string;
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type string
+        */
+        name: string;
         /**
          * @type string
         */

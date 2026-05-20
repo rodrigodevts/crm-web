@@ -10,14 +10,14 @@ import { z } from "zod/v4";
  * @description Mensagem retornada após criação OUTBOUND (HTTP 202).
  */
 export const messageResponseDtoClassSchema = z.object({
-    "id": z.uuid(),
-"ticketId": z.uuid(),
+    "content": z.any(),
+"createdAt": z.iso.datetime({ offset: true }),
 "direction": z.enum(["INBOUND", "OUTBOUND"]),
-"type": z.enum(["TEXT", "IMAGE", "FILE", "AUDIO", "VIDEO", "CONTACT", "LOCATION", "BUTTON_REPLY", "LIST_REPLY", "STICKER", "TEMPLATE", "SYSTEM"]),
-"content": z.any(),
-"status": z.enum(["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]),
 "externalId": z.nullable(z.string()),
+"id": z.uuid(),
 "lastError": z.nullable(z.string()),
 "sentByUserId": z.nullable(z.uuid()),
-"createdAt": z.iso.datetime({ offset: true })
+"status": z.enum(["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]),
+"ticketId": z.uuid(),
+"type": z.enum(["TEXT", "IMAGE", "FILE", "AUDIO", "VIDEO", "CONTACT", "LOCATION", "BUTTON_REPLY", "LIST_REPLY", "STICKER", "TEMPLATE", "SYSTEM"])
     }).describe("Mensagem retornada após criação OUTBOUND (HTTP 202).") as unknown as z.ZodType<MessageResponseDtoClass>

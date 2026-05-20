@@ -15,14 +15,14 @@ export type WebhookAcknowledgmentDtoOkEnumKey = (typeof webhookAcknowledgmentDto
 */
 export type WebhookAcknowledgmentDto = {
     /**
-     * @type boolean
-    */
-    ok: WebhookAcknowledgmentDtoOkEnumKey;
-    /**
      * @description Quantidade de InboundMessages enfileiradas (0 quando type != message)
      * @minLength 0
      * @maxLength 9007199254740991
      * @type integer
     */
     enqueuedJobsCount: number;
+    /**
+     * @type boolean
+    */
+    ok: WebhookAcknowledgmentDtoOkEnumKey;
 };

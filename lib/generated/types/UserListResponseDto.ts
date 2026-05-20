@@ -4,14 +4,14 @@
 */
 
 
-export const itemsRoleEnum = {
+export const itemsRoleEnum2 = {
     SUPER_ADMIN: "SUPER_ADMIN",
     ADMIN: "ADMIN",
     SUPERVISOR: "SUPERVISOR",
     AGENT: "AGENT"
 } as const;
 
-export type ItemsRoleEnumKey = (typeof itemsRoleEnum)[keyof typeof itemsRoleEnum];
+export type ItemsRoleEnum2Key = (typeof itemsRoleEnum2)[keyof typeof itemsRoleEnum2];
 
 export type UserListResponseDto = {
     /**
@@ -19,42 +19,26 @@ export type UserListResponseDto = {
     */
     items: {
         /**
-         * @type string, uuid
+         * @type boolean
         */
-        id: string;
-        /**
-         * @type string, uuid
-        */
-        companyId: string;
+        absenceActive: boolean;
         /**
          * @type string
         */
-        name: string;
-        /**
-         * @type string, email
-        */
-        email: string;
-        /**
-         * @type string
-        */
-        role: ItemsRoleEnumKey;
+        absenceMessage: string | null;
         /**
          * @description Falso quando o usuário está soft-deletado (deletedAt != null).
          * @type boolean
         */
         active: boolean;
         /**
-         * @type string
+         * @type string, uuid
         */
-        absenceMessage: string | null;
-        /**
-         * @type boolean
-        */
-        absenceActive: boolean;
+        companyId: string;
         /**
          * @type string, date-time
         */
-        lastSeenAt: string | null;
+        createdAt: string;
         /**
          * @type array
         */
@@ -69,9 +53,25 @@ export type UserListResponseDto = {
             name: string;
         }[];
         /**
+         * @type string, email
+        */
+        email: string;
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
          * @type string, date-time
         */
-        createdAt: string;
+        lastSeenAt: string | null;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
+         * @type string
+        */
+        role: ItemsRoleEnum2Key;
         /**
          * @type string, date-time
         */
@@ -82,12 +82,12 @@ export type UserListResponseDto = {
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

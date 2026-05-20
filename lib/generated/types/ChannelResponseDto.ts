@@ -27,30 +27,6 @@ export type ChannelResponseDtoStatusEnumKey = (typeof channelResponseDtoStatusEn
 */
 export type ChannelResponseDto = {
     /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    provider: ChannelResponseDtoProviderEnumKey;
-    /**
-     * @type string
-    */
-    status: ChannelResponseDtoStatusEnumKey;
-    /**
-     * @type string
-    */
-    phoneNumber: string | null;
-    /**
-     * @type string
-    */
-    externalId: string | null;
-    /**
      * @type object
     */
     config: {
@@ -74,21 +50,29 @@ export type ChannelResponseDto = {
         sourcePhone: string;
     } | null;
     /**
-     * @type string
-    */
-    lastError: string | null;
-    /**
      * @type string, date-time
     */
-    lastConnectedAt: string | null;
+    createdAt: string;
+    /**
+     * @type string, uuid
+    */
+    defaultChatFlowId: string | null;
     /**
      * @type string, uuid
     */
     defaultDepartmentId: string | null;
     /**
+     * @type string
+    */
+    externalId: string | null;
+    /**
      * @type string, uuid
     */
-    defaultChatFlowId: string | null;
+    id: string;
+    /**
+     * @type string, uuid
+    */
+    inactivityCloseReasonId: string | null;
     /**
      * @minLength -9007199254740991
      * @maxLength 9007199254740991
@@ -96,13 +80,29 @@ export type ChannelResponseDto = {
     */
     inactivityTimeoutMinutes: number | null;
     /**
-     * @type string, uuid
-    */
-    inactivityCloseReasonId: string | null;
-    /**
      * @type string, date-time
     */
-    createdAt: string;
+    lastConnectedAt: string | null;
+    /**
+     * @type string
+    */
+    lastError: string | null;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
+     * @type string
+    */
+    phoneNumber: string | null;
+    /**
+     * @type string
+    */
+    provider: ChannelResponseDtoProviderEnumKey;
+    /**
+     * @type string
+    */
+    status: ChannelResponseDtoStatusEnumKey;
     /**
      * @type string, date-time
     */

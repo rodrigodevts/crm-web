@@ -18,29 +18,49 @@ export type DepartmentResponseDtoDistributionModeEnumKey = (typeof departmentRes
 */
 export type DepartmentResponseDto = {
     /**
-     * @type string, uuid
+     * @type boolean
     */
-    id: string;
+    active: boolean;
     /**
      * @type string, uuid
     */
     companyId: string;
     /**
+     * @type string, date-time
+    */
+    createdAt: string;
+    /**
      * @type string
     */
-    name: string;
-    /**
-     * @type boolean
-    */
-    active: boolean;
+    distributionMode: DepartmentResponseDtoDistributionModeEnumKey;
     /**
      * @type string
     */
     greetingMessage: string | null;
     /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
      * @type string
     */
     outOfHoursMessage: string | null;
+    /**
+     * @type number
+    */
+    slaResolutionMinutes: number | null;
+    /**
+     * @type number
+    */
+    slaResponseMinutes: number | null;
+    /**
+     * @type string, date-time
+    */
+    updatedAt: string;
     /**
      * @description Horário de funcionamento por dia da semana (e feriado).
      * @type object
@@ -49,67 +69,37 @@ export type DepartmentResponseDto = {
         /**
          * @type array | undefined
         */
-        monday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        tuesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        wednesday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
-        thursday?: {
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            from: string;
-            /**
-             * @pattern ^\d{2}:\d{2}$
-             * @type string
-            */
-            to: string;
-        }[];
-        /**
-         * @type array | undefined
-        */
         friday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        holiday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        monday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -154,7 +144,37 @@ export type DepartmentResponseDto = {
         /**
          * @type array | undefined
         */
-        holiday?: {
+        thursday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        tuesday?: {
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            from: string;
+            /**
+             * @pattern ^\d{2}:\d{2}$
+             * @type string
+            */
+            to: string;
+        }[];
+        /**
+         * @type array | undefined
+        */
+        wednesday?: {
             /**
              * @pattern ^\d{2}:\d{2}$
              * @type string
@@ -167,24 +187,4 @@ export type DepartmentResponseDto = {
             to: string;
         }[];
     } | null;
-    /**
-     * @type number
-    */
-    slaResponseMinutes: number | null;
-    /**
-     * @type number
-    */
-    slaResolutionMinutes: number | null;
-    /**
-     * @type string
-    */
-    distributionMode: DepartmentResponseDtoDistributionModeEnumKey;
-    /**
-     * @type string, date-time
-    */
-    createdAt: string;
-    /**
-     * @type string, date-time
-    */
-    updatedAt: string;
 };

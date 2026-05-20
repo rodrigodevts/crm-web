@@ -10,16 +10,16 @@ import { z } from "zod/v4";
  * @description Dados para atualizar canal. provider é imutável após criação — enviar provider retorna 400 via .strict().
  */
 export const updateChannelDtoSchema = z.object({
-    "name": z.optional(z.string().min(2).max(100)),
-"phoneNumber": z.optional(z.string().min(1).regex(/^\d+$/)),
-"config": z.optional(z.object({
+    "config": z.optional(z.object({
     "apiKey": z.string().min(1),
 "appId": z.string().min(1),
 "appName": z.string().min(1),
 "sourcePhone": z.string().min(1).regex(/^\d+$/)
     })),
-"defaultDepartmentId": z.uuid().nullish(),
 "defaultChatFlowId": z.uuid().nullish(),
+"defaultDepartmentId": z.uuid().nullish(),
+"inactivityCloseReasonId": z.uuid().nullish(),
 "inactivityTimeoutMinutes": z.int().max(43200).gt(0).nullish(),
-"inactivityCloseReasonId": z.uuid().nullish()
+"name": z.optional(z.string().min(2).max(100)),
+"phoneNumber": z.optional(z.string().min(1).regex(/^\d+$/))
     }).describe("Dados para atualizar canal. provider é imutável após criação — enviar provider retorna 400 via .strict().") as unknown as z.ZodType<UpdateChannelDto>

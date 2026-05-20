@@ -11,8 +11,8 @@ import { z } from "zod/v4";
  */
 export const gupshupWebhookEnvelopeDtoSchema = z.object({
     "app": z.string().min(1).describe("Nome do App Gupshup. Deve bater com ChannelConnection.config.appName."),
+"payload": z.any().describe("Payload específico por type — o adapter parseia"),
 "timestamp": z.int().max(9007199254740991).gt(0).describe("Unix epoch em milissegundos"),
-"version": z.int().min(-9007199254740991).max(9007199254740991).describe("Sempre 2 na API v1 da Gupshup"),
 "type": z.string().min(1).describe("Discriminante: message | message-event | user-event | system-events | billing-events"),
-"payload": z.any().describe("Payload específico por type — o adapter parseia")
+"version": z.int().min(-9007199254740991).max(9007199254740991).describe("Sempre 2 na API v1 da Gupshup")
     }).describe("Envelope raiz do webhook Gupshup") as unknown as z.ZodType<GupshupWebhookEnvelopeDto>

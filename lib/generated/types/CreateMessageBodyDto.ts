@@ -10,14 +10,40 @@ export const createMessageBodyDtoTypeEnum = {
 
 export type CreateMessageBodyDtoTypeEnumKey = (typeof createMessageBodyDtoTypeEnum)[keyof typeof createMessageBodyDtoTypeEnum];
 
+export const createMessageBodyDtoTypeEnum2 = {
+    IMAGE: "IMAGE"
+} as const;
+
+export type CreateMessageBodyDtoTypeEnum2Key = (typeof createMessageBodyDtoTypeEnum2)[keyof typeof createMessageBodyDtoTypeEnum2];
+
+export const createMessageBodyDtoTypeEnum3 = {
+    VIDEO: "VIDEO"
+} as const;
+
+export type CreateMessageBodyDtoTypeEnum3Key = (typeof createMessageBodyDtoTypeEnum3)[keyof typeof createMessageBodyDtoTypeEnum3];
+
+export const createMessageBodyDtoTypeEnum4 = {
+    AUDIO: "AUDIO"
+} as const;
+
+export type CreateMessageBodyDtoTypeEnum4Key = (typeof createMessageBodyDtoTypeEnum4)[keyof typeof createMessageBodyDtoTypeEnum4];
+
+export const createMessageBodyDtoTypeEnum5 = {
+    DOCUMENT: "DOCUMENT"
+} as const;
+
+export type CreateMessageBodyDtoTypeEnum5Key = (typeof createMessageBodyDtoTypeEnum5)[keyof typeof createMessageBodyDtoTypeEnum5];
+
+export const createMessageBodyDtoTypeEnum6 = {
+    TEMPLATE: "TEMPLATE"
+} as const;
+
+export type CreateMessageBodyDtoTypeEnum6Key = (typeof createMessageBodyDtoTypeEnum6)[keyof typeof createMessageBodyDtoTypeEnum6];
+
 /**
- * @description Body de POST /tickets/:id/messages — Sprint 1.6 aceita apenas type=TEXT.
+ * @description Body de POST /tickets/:id/messages — polimórfico por tipo (Sprint 2.4).
 */
-export type CreateMessageBodyDto = {
-    /**
-     * @type string
-    */
-    type: CreateMessageBodyDtoTypeEnumKey;
+export type CreateMessageBodyDto = ({
     /**
      * @description Conteúdo de texto livre (1..4096 chars)
      * @minLength 1
@@ -25,4 +51,89 @@ export type CreateMessageBodyDto = {
      * @type string
     */
     text: string;
-};
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnumKey;
+} | {
+    /**
+     * @description Ref devolvida por POST /attachments/upload
+     * @type string, uuid
+    */
+    attachmentId: string;
+    /**
+     * @maxLength 1024
+     * @type string | undefined
+    */
+    caption?: string;
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnum2Key;
+} | {
+    /**
+     * @description Ref devolvida por POST /attachments/upload
+     * @type string, uuid
+    */
+    attachmentId: string;
+    /**
+     * @maxLength 1024
+     * @type string | undefined
+    */
+    caption?: string;
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnum3Key;
+} | {
+    /**
+     * @description Ref devolvida por POST /attachments/upload
+     * @type string, uuid
+    */
+    attachmentId: string;
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnum4Key;
+} | {
+    /**
+     * @description Ref devolvida por POST /attachments/upload
+     * @type string, uuid
+    */
+    attachmentId: string;
+    /**
+     * @maxLength 1024
+     * @type string | undefined
+    */
+    caption?: string;
+    /**
+     * @description Nome do arquivo exibido no WhatsApp
+     * @maxLength 255
+     * @type string | undefined
+    */
+    filename?: string;
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnum5Key;
+} | {
+    /**
+     * @description Só se o template tiver header de mídia
+     * @type string | undefined, uuid
+    */
+    mediaAttachmentId?: string;
+    /**
+     * @description Variáveis posicionais {{1}},{{2}},... na ordem
+     * @type array
+    */
+    params: string[];
+    /**
+     * @description MessageTemplate.id
+     * @type string, uuid
+    */
+    templateId: string;
+    /**
+     * @type string
+    */
+    type: CreateMessageBodyDtoTypeEnum6Key;
+});

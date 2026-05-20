@@ -10,17 +10,17 @@ import { z } from "zod/v4";
  * @description Dados para criar canal
  */
 export const createChannelDtoSchema = z.object({
-    "name": z.string().min(2).max(100),
-"provider": z.enum(["GUPSHUP"]),
-"phoneNumber": z.string().min(1).regex(/^\d+$/),
-"config": z.object({
+    "config": z.object({
     "apiKey": z.string().min(1),
 "appId": z.string().min(1),
 "appName": z.string().min(1),
 "sourcePhone": z.string().min(1).regex(/^\d+$/)
     }).describe("Credenciais Gupshup (apiKey e appId serão cifrados antes de persistir)"),
-"defaultDepartmentId": z.uuid().nullish(),
 "defaultChatFlowId": z.uuid().nullish(),
+"defaultDepartmentId": z.uuid().nullish(),
+"inactivityCloseReasonId": z.uuid().nullish(),
 "inactivityTimeoutMinutes": z.int().max(43200).gt(0).nullish(),
-"inactivityCloseReasonId": z.uuid().nullish()
+"name": z.string().min(2).max(100),
+"phoneNumber": z.string().min(1).regex(/^\d+$/),
+"provider": z.enum(["GUPSHUP"])
     }).describe("Dados para criar canal") as unknown as z.ZodType<CreateChannelDto>

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { PlaceholderPage } from '@/components/layout/placeholder-page';
+import { AtendimentosShell } from './components/atendimentos-shell';
 
 export const metadata: Metadata = { title: 'Atendimentos — DigiChat' };
 
 export default function Page() {
-  return <PlaceholderPage title="Atendimentos" />;
+  return <AtendimentosShell />;
 }
