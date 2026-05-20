@@ -17,6 +17,10 @@ describe('formatBrPhone', () => {
   it('retorna string vazia para entrada vazia', () => {
     expect(formatBrPhone('')).toBe('');
   });
+
+  it('retorna string vazia para entrada sem dígitos', () => {
+    expect(formatBrPhone('abc')).toBe('');
+  });
 });
 
 describe('maskBrPhone', () => {
@@ -34,5 +38,13 @@ describe('maskBrPhone', () => {
 
   it('retorna string vazia para entrada vazia', () => {
     expect(maskBrPhone('')).toBe('');
+  });
+
+  it('retorna string vazia para entrada sem dígitos', () => {
+    expect(maskBrPhone('abc')).toBe('');
+  });
+
+  it('boundary: exatos 4 dígitos → ••• 1234', () => {
+    expect(maskBrPhone('1234')).toBe('••• 1234');
   });
 });
