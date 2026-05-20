@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
+import { EllipsisVertical, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { apiClient } from '@/lib/api-client';
@@ -42,18 +42,30 @@ export function QueueSidebar({ selectedTicketId, onSelectTicket }: QueueSidebarP
   ];
 
   return (
-    <aside className="flex h-full flex-col border-r">
-      <header className="flex items-center justify-between gap-2 p-6">
-        <h1 className="text-foreground text-2xl font-semibold">Atendimentos</h1>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled
-          aria-label="Filtros avançados (em breve)"
-          title="Disponível em breve"
-        >
-          <SlidersHorizontal className="size-4" aria-hidden />
-        </Button>
+    <aside className="flex h-full flex-col">
+      <header className="flex items-center justify-between gap-2 px-6 pt-6 pb-4">
+        <h1 className="text-foreground text-2xl font-semibold">Atendimento</h1>
+        <div className="flex items-center gap-1">
+          <Button
+            size="icon"
+            className="size-9 rounded-full"
+            disabled
+            aria-label="Novo atendimento (em breve)"
+            title="Disponível em breve"
+          >
+            <Plus className="size-4" aria-hidden />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="size-9"
+            disabled
+            aria-label="Mais opções (em breve)"
+            title="Disponível em breve"
+          >
+            <EllipsisVertical className="size-4" aria-hidden />
+          </Button>
+        </div>
       </header>
 
       <Tabs
@@ -61,7 +73,9 @@ export function QueueSidebar({ selectedTicketId, onSelectTicket }: QueueSidebarP
         onValueChange={(v) => setActiveTab(v as QueueTabId)}
         className="flex flex-1 flex-col overflow-hidden"
       >
-        <QueueTabs counts={counts} />
+        <div className="px-6 pb-3">
+          <QueueTabs counts={counts} />
+        </div>
         {tabsConfig.map(({ id, query }) => {
           const items = query.data?.pages.flatMap((p) => p.items) ?? [];
           const queryStatus = query.isPending
