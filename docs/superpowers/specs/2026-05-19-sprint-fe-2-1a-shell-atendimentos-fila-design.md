@@ -71,7 +71,7 @@ Tornar `/atendimentos` uma tela funcional: shell de 3 colunas + sidebar de fila 
 7. **Mascaramento de telefone**: respeita `CompanySettings.hidePhoneFromAgents`. Quando `true` e `contact.name` é `null`, mostra `••• ${last4}` (consistente com mascaramento de canais Sprint 1.4 Fase B). Quando `false`, mostra `formatBrPhone(phoneNumber)`. Quando `contact.name` existe, sempre mostra o nome (mascaramento só afeta o fallback).
 8. **Avatar fallback**: iniciais do `contact.name` (até 2 letras); se `name=null`, ícone `<User />` lucide em `text-muted-foreground`. Sem foto (Contact não tem `avatarUrl` no MVP).
 9. **Hora**: formato relativo curto (`agora`, `2m`, `1h`, `ontem`, `12/05`, `12/05/2025`); util puro em `lib/format-ticket-time.ts`, testável.
-10. **Defaults menores**: `limit=50` por página; sem `sortBy` na FE-2.1a (usa default backend `LAST_MESSAGE_DESC`); `pinnedTickets` da response **ignorado** nesta sub-sprint (UI de pin é FE-2.1b); 3 queries TanStack independentes (uma por aba), todas `enabled=true` no mount pra alimentar badges + cache.
+10. **Defaults menores**: `limit=50` por página; sem `sortBy` na FE-2.1a (usa default backend `LAST_MESSAGE_DESC`); `pinnedTickets` da response **não renderizado** nesta sub-sprint — backend já separa (`items` vem **sem** os pinnados; `pinnedTickets` é array à parte). Não mesclar. Como a UI de pin/desfixar só entra na FE-2.1b, `pinnedTickets` será sempre `[]` em produção durante a vida útil da FE-2.1a isolada; FE-2.1b passa a renderizar a seção "Fixados" acima de `items[]`. 3 queries TanStack independentes (uma por aba), todas `enabled=true` no mount pra alimentar badges + cache.
 
 ## Arquitetura
 
@@ -99,7 +99,8 @@ hooks/
 
 lib/
 ├── format-ticket-time.ts             ← util puro (testável)
-└── format-br-phone.ts                ← reusar se já existir (Sprint 1.4 introduziu MaskedPhoneInput; verificar helper)
+├── format-br-phone.ts                ← reusar se já existir (Sprint 1.4 introduziu MaskedPhoneInput; verificar helper)
+└── contrast-color.ts                 ← util puro: relativa luminância → text-foreground branco/preto, usado pra tags coloridas
 ```
 
 ### Layout em CSS
