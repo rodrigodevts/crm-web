@@ -1,8 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { EllipsisVertical, Plus } from 'lucide-react';
+import { EllipsisVertical, Plus, Search, SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { apiClient } from '@/lib/api-client';
 import { useCompanySettingsControllerFindMine } from '@/lib/generated/hooks';
@@ -75,6 +81,30 @@ export function QueueSidebar({ selectedTicketId, onSelectTicket }: QueueSidebarP
       >
         <div className="px-6 pb-3">
           <QueueTabs counts={counts} />
+        </div>
+        <div className="px-6 pb-3">
+          <InputGroup>
+            <InputGroupAddon>
+              <Search className="size-4" aria-hidden />
+            </InputGroupAddon>
+            <InputGroupInput
+              type="search"
+              placeholder="Buscar atendimentos…"
+              disabled
+              aria-label="Buscar atendimentos (em breve)"
+              title="Disponível em breve"
+            />
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                size="icon-sm"
+                disabled
+                aria-label="Filtros avançados (em breve)"
+                title="Disponível em breve"
+              >
+                <SlidersHorizontal className="size-4" aria-hidden />
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
         </div>
         {tabsConfig.map(({ id, query }) => {
           const items = query.data?.pages.flatMap((p) => p.items) ?? [];
