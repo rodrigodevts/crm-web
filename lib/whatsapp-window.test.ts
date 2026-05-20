@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { whatsappWindowState } from './whatsapp-window';
+import { whatsappWindowRemainingLabel, whatsappWindowState } from './whatsapp-window';
 
 const NOW = new Date('2026-05-19T20:00:00Z');
 
@@ -43,5 +43,30 @@ describe('whatsappWindowState', () => {
   it('retorna hidden para string vazia ou inválida (defensivo)', () => {
     expect(whatsappWindowState('', true, NOW)).toBe('hidden');
     expect(whatsappWindowState('not-a-date', true, NOW)).toBe('hidden');
+  });
+});
+
+describe('whatsappWindowRemainingLabel', () => {
+  it('retorna null quando hidden (inWhatsappWindow=false)', () => {
+    expect(whatsappWindowRemainingLabel('2026-05-19T19:00:00Z', false, NOW)).toBeNull();
+  });
+
+  it('retorna null quando hidden (lastInboundAt=null)', () => {
+    expect(whatsappWindowRemainingLabel(null, true, NOW)).toBeNull();
+  });
+
+  it('formata HHh:MM com 2 dígitos cada (ex: 17h restantes)', () => {
+    // 7h atrás → 17h restantes
+    expect(whatsappWindowRemainingLabel('2026-05-19T13:00:00Z', true, NOW)).toBe('17h:00');
+  });
+
+  it('formata corretamente quando restam < 1h', () => {
+    // 23h30m atrás → 0h:30 restantes
+    expect(whatsappWindowRemainingLabel('2026-05-18T20:30:00Z', true, NOW)).toBe('00h:30');
+  });
+
+  it('formata com horas e minutos não-zero', () => {
+    // 21h50m atrás → 2h:10 restantes
+    expect(whatsappWindowRemainingLabel('2026-05-18T22:10:00Z', true, NOW)).toBe('02h:10');
   });
 });

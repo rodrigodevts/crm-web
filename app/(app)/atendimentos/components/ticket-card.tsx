@@ -15,9 +15,10 @@ import { WhatsappWindowBar } from './whatsapp-window-bar';
 
 type TicketListItem = TicketsListResponseDto['items'][number];
 
-const BORDER_BY_STATUS = {
+// Cor do status dot no avatar (no canto inferior direito).
+const STATUS_DOT_BY_STATUS = {
   PENDING: 'bg-amber-500',
-  OPEN: 'bg-primary',
+  OPEN: 'bg-emerald-500',
   CLOSED: 'bg-muted-foreground/40',
 } as const satisfies Record<TicketListItem['status'], string>;
 
@@ -62,21 +63,26 @@ export function TicketCard({
         }
       }}
       className={cn(
-        'border-border hover:bg-muted/50 focus-visible:ring-ring relative flex cursor-pointer items-start gap-3 border-b p-4 transition-colors focus:outline-none focus-visible:ring-2',
+        'border-border hover:bg-muted/50 focus-visible:ring-ring flex cursor-pointer items-start gap-3 border-b p-4 transition-colors focus:outline-none focus-visible:ring-2',
         isSelected && 'bg-muted',
       )}
       aria-label={`Atendimento ${ticket.protocol} de ${displayName}`}
     >
-      <div
-        className={cn('absolute top-0 bottom-0 left-0 w-[3px]', BORDER_BY_STATUS[ticket.status])}
-        aria-hidden
-      />
-
-      <Avatar className="size-12 shrink-0">
-        <AvatarFallback>
-          {initials ?? <User className="text-muted-foreground size-5" aria-hidden />}
-        </AvatarFallback>
-      </Avatar>
+      {/* Avatar com status dot do ticket (verde OPEN / âmbar PENDING / cinza CLOSED) */}
+      <div className="relative shrink-0">
+        <Avatar className="size-12">
+          <AvatarFallback>
+            {initials ?? <User className="text-muted-foreground size-5" aria-hidden />}
+          </AvatarFallback>
+        </Avatar>
+        <span
+          className={cn(
+            'border-card absolute right-0 bottom-0 size-3 rounded-full border-2',
+            STATUS_DOT_BY_STATUS[ticket.status],
+          )}
+          aria-hidden
+        />
+      </div>
 
       <div className="flex-1 space-y-1 overflow-hidden">
         <div className="flex items-start justify-between gap-2">
@@ -86,16 +92,23 @@ export function TicketCard({
           </span>
         </div>
 
+        <div className="text-muted-foreground font-mono text-xs">#{ticket.protocol}</div>
+
+        {/* Snippet + badge unread inline (badge à direita) */}
         <div className="flex items-center justify-between gap-2">
-          <span className="text-muted-foreground font-mono text-xs">#{ticket.protocol}</span>
+          <div className="min-w-0 flex-1">
+            <TicketSnippet lastMessage={ticket.lastMessage} />
+          </div>
           {ticket.unreadCount > 0 && (
-            <Badge className="bg-destructive text-destructive-foreground h-5 px-1.5 text-xs">
+            <Badge
+              variant="destructive"
+              className="size-6 min-w-6 shrink-0 justify-center rounded-full px-1 text-xs"
+              aria-label={`${ticket.unreadCount} mensagens não lidas`}
+            >
               {ticket.unreadCount}
             </Badge>
           )}
         </div>
-
-        <TicketSnippet lastMessage={ticket.lastMessage} />
 
         {(departmentName || assignedUserName || visibleTags.length > 0) && (
           <div className="flex flex-wrap items-center gap-1.5 pt-1">
@@ -129,10 +142,12 @@ export function TicketCard({
           </div>
         )}
 
-        <WhatsappWindowBar
-          lastInboundAt={ticket.lastInboundAt}
-          inWhatsappWindow={ticket.inWhatsappWindow}
-        />
+        <div className="pt-1">
+          <WhatsappWindowBar
+            lastInboundAt={ticket.lastInboundAt}
+            inWhatsappWindow={ticket.inWhatsappWindow}
+          />
+        </div>
       </div>
 
       {/* Slot do menu ⋮ — FE-2.1a só reserva o espaço */}
