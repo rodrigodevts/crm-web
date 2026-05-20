@@ -8,6 +8,7 @@ import { AcceptInviteForm } from '@/components/accept-invite-form';
 import { UsersTableView } from '@/components/users/users-table-view';
 import { InvitationsTableView } from '@/components/users/invitations-table-view';
 import { CompositesPreferences } from './composites-preferences';
+import { CompositesTicketCard } from './composites-ticket-card';
 import { Section } from './section';
 type UserItem = UserListResponseDto['items'][number];
 type InvItem = InvitationListResponseDto['items'][number];
@@ -219,6 +220,8 @@ export function Composites() {
       </div>
 
       <CompositesPreferences />
+
+      <CompositesTicketCard />
     </Section>
   );
 }
