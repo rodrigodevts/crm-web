@@ -11,7 +11,7 @@ import { z } from "zod/v4";
  */
 export const templatesSyncResponseDtoSchema = z.object({
     "created": z.int().min(0).max(9007199254740991).describe("Templates novos criados nesta sincronização"),
-"updated": z.int().min(0).max(9007199254740991).describe("Templates existentes atualizados"),
 "removed": z.int().min(0).max(9007199254740991).describe("Templates marcados como DISABLED por não estarem mais no Gupshup"),
-"syncedAt": z.iso.datetime({ offset: true }).describe("Timestamp da sincronização em ISO 8601 UTC")
+"syncedAt": z.iso.datetime({ offset: true }).describe("Timestamp da sincronização em ISO 8601 UTC"),
+"updated": z.int().min(0).max(9007199254740991).describe("Templates existentes atualizados")
     }).describe("Resultado da sincronização de templates HSM") as unknown as z.ZodType<TemplatesSyncResponseDto>

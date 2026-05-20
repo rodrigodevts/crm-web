@@ -11,6 +11,16 @@ export const itemsDirectionEnum = {
 
 export type ItemsDirectionEnumKey = (typeof itemsDirectionEnum)[keyof typeof itemsDirectionEnum];
 
+export const itemsStatusEnum = {
+    PENDING: "PENDING",
+    SENT: "SENT",
+    DELIVERED: "DELIVERED",
+    READ: "READ",
+    FAILED: "FAILED"
+} as const;
+
+export type ItemsStatusEnumKey = (typeof itemsStatusEnum)[keyof typeof itemsStatusEnum];
+
 export const itemsTypeEnum = {
     TEXT: "TEXT",
     IMAGE: "IMAGE",
@@ -28,16 +38,6 @@ export const itemsTypeEnum = {
 
 export type ItemsTypeEnumKey = (typeof itemsTypeEnum)[keyof typeof itemsTypeEnum];
 
-export const itemsStatusEnum4 = {
-    PENDING: "PENDING",
-    SENT: "SENT",
-    DELIVERED: "DELIVERED",
-    READ: "READ",
-    FAILED: "FAILED"
-} as const;
-
-export type ItemsStatusEnum4Key = (typeof itemsStatusEnum4)[keyof typeof itemsStatusEnum4];
-
 /**
  * @description Últimas N mensagens do canal (sem paginação cursor — Fase 2)
 */
@@ -50,53 +50,53 @@ export type ChannelMessagesResponseDtoClass = {
         /**
          * @type string, uuid
         */
-        id: string;
-        /**
-         * @type string, uuid
-        */
-        ticketId: string;
-        /**
-         * @type string, uuid
-        */
         channelConnectionId: string;
+        /**
+         * @description Mesmo Json persistido em Message.content; null se ausente
+        */
+        content: unknown | null;
+        /**
+         * @description ISO 8601 UTC
+         * @type string, date-time
+        */
+        createdAt: string;
+        /**
+         * @type string
+        */
+        direction: ItemsDirectionEnumKey;
         /**
          * @description ID da mensagem no provedor (Gupshup); null se ainda não enviada
          * @type string
         */
         externalId: string | null;
         /**
-         * @type string
+         * @type string, uuid
         */
-        direction: ItemsDirectionEnumKey;
+        id: string;
         /**
-         * @type string
+         * @type boolean
         */
-        type: ItemsTypeEnumKey;
+        isSystemMessage: boolean;
         /**
-         * @type string
+         * @type boolean
         */
-        status: ItemsStatusEnum4Key;
-        /**
-         * @description Mesmo Json persistido em Message.content; null se ausente
-        */
-        content: unknown | null;
+        sentByBot: boolean;
         /**
          * @description Usuário que enviou (OUTBOUND); null em INBOUND, bot ou sistema
          * @type string, uuid
         */
         sentByUserId: string | null;
         /**
-         * @type boolean
+         * @type string
         */
-        sentByBot: boolean;
+        status: ItemsStatusEnumKey;
         /**
-         * @type boolean
+         * @type string, uuid
         */
-        isSystemMessage: boolean;
+        ticketId: string;
         /**
-         * @description ISO 8601 UTC
-         * @type string, date-time
+         * @type string
         */
-        createdAt: string;
+        type: ItemsTypeEnumKey;
     }[];
 };

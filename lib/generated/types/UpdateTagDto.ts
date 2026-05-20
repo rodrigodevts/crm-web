@@ -14,22 +14,22 @@ export type UpdateTagDtoScopeEnumKey = (typeof updateTagDtoScopeEnum)[keyof type
 
 export type UpdateTagDto = {
     /**
-     * @minLength 1
-     * @maxLength 100
-     * @type string | undefined
+     * @type boolean | undefined
     */
-    name?: string;
+    active?: boolean;
     /**
      * @pattern ^#[0-9A-Fa-f]{6}$
      * @type string | undefined
     */
     color?: string;
     /**
+     * @minLength 1
+     * @maxLength 100
+     * @type string | undefined
+    */
+    name?: string;
+    /**
      * @type string | undefined
     */
     scope?: UpdateTagDtoScopeEnumKey;
-    /**
-     * @type boolean | undefined
-    */
-    active?: boolean;
 };

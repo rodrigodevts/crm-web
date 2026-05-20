@@ -10,24 +10,24 @@ import { z } from "zod/v4";
  * @description Canal retornado em GETs (config mascarado)
  */
 export const channelResponseDtoSchema = z.object({
-    "id": z.uuid(),
-"name": z.string(),
-"provider": z.enum(["GUPSHUP", "BAILEYS"]),
-"status": z.enum(["INACTIVE", "CONNECTING", "AWAITING_QR", "CONNECTED", "DISCONNECTED", "ERROR"]),
-"phoneNumber": z.nullable(z.string()),
-"externalId": z.nullable(z.string()),
-"config": z.nullable(z.object({
+    "config": z.nullable(z.object({
     "apiKey": z.string().describe("apiKey mascarada (***last4)"),
 "appId": z.string().describe("appId mascarado (***last4)"),
 "appName": z.string(),
 "sourcePhone": z.string()
     })),
-"lastError": z.nullable(z.string()),
-"lastConnectedAt": z.nullable(z.iso.datetime({ offset: true })),
-"defaultDepartmentId": z.nullable(z.uuid()),
-"defaultChatFlowId": z.nullable(z.uuid()),
-"inactivityTimeoutMinutes": z.nullable(z.int().min(-9007199254740991).max(9007199254740991)),
-"inactivityCloseReasonId": z.nullable(z.uuid()),
 "createdAt": z.iso.datetime({ offset: true }),
+"defaultChatFlowId": z.nullable(z.uuid()),
+"defaultDepartmentId": z.nullable(z.uuid()),
+"externalId": z.nullable(z.string()),
+"id": z.uuid(),
+"inactivityCloseReasonId": z.nullable(z.uuid()),
+"inactivityTimeoutMinutes": z.nullable(z.int().min(-9007199254740991).max(9007199254740991)),
+"lastConnectedAt": z.nullable(z.iso.datetime({ offset: true })),
+"lastError": z.nullable(z.string()),
+"name": z.string(),
+"phoneNumber": z.nullable(z.string()),
+"provider": z.enum(["GUPSHUP", "BAILEYS"]),
+"status": z.enum(["INACTIVE", "CONNECTING", "AWAITING_QR", "CONNECTED", "DISCONNECTED", "ERROR"]),
 "updatedAt": z.iso.datetime({ offset: true })
     }).describe("Canal retornado em GETs (config mascarado)") as unknown as z.ZodType<ChannelResponseDto>

@@ -15,22 +15,6 @@ export type CreateChannelDtoProviderEnumKey = (typeof createChannelDtoProviderEn
 */
 export type CreateChannelDto = {
     /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    provider: CreateChannelDtoProviderEnumKey;
-    /**
-     * @minLength 1
-     * @pattern ^\d+$
-     * @type string
-    */
-    phoneNumber: string;
-    /**
      * @description Credenciais Gupshup (apiKey e appId serão cifrados antes de persistir)
      * @type object
     */
@@ -60,18 +44,34 @@ export type CreateChannelDto = {
     /**
      * @type string, uuid
     */
+    defaultChatFlowId?: string | null;
+    /**
+     * @type string, uuid
+    */
     defaultDepartmentId?: string | null;
     /**
      * @type string, uuid
     */
-    defaultChatFlowId?: string | null;
+    inactivityCloseReasonId?: string | null;
     /**
      * @maxLength 43200
      * @type integer
     */
     inactivityTimeoutMinutes?: number | null;
     /**
-     * @type string, uuid
+     * @minLength 2
+     * @maxLength 100
+     * @type string
     */
-    inactivityCloseReasonId?: string | null;
+    name: string;
+    /**
+     * @minLength 1
+     * @pattern ^\d+$
+     * @type string
+    */
+    phoneNumber: string;
+    /**
+     * @type string
+    */
+    provider: CreateChannelDtoProviderEnumKey;
 };

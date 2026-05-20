@@ -10,11 +10,11 @@ import { z } from "zod/v4";
  * @description Resposta de GET /health/queue/:jobId (smoke; gated por NODE_ENV)
  */
 export const healthJobStatusResponseDtoSchema = z.object({
-    "jobId": z.string().describe("ID do job consultado"),
-"state": z.enum(["waiting", "active", "completed", "failed", "delayed", "unknown"]).describe("Estado atual do job na fila"),
+    "failedReason": z.nullable(z.string().describe("Mensagem de erro quando state=\"failed\"")),
+"jobId": z.string().describe("ID do job consultado"),
 "returnvalue": z.nullable(z.object({
     "ok": z.literal(true),
 "processedAt": z.iso.datetime({ offset: true })
     }).describe("Valor retornado pelo processor quando state=\"completed\"")),
-"failedReason": z.nullable(z.string().describe("Mensagem de erro quando state=\"failed\""))
+"state": z.enum(["waiting", "active", "completed", "failed", "delayed", "unknown"]).describe("Estado atual do job na fila")
     }).describe("Resposta de GET /health/queue/:jobId (smoke; gated por NODE_ENV)") as unknown as z.ZodType<HealthJobStatusResponseDto>

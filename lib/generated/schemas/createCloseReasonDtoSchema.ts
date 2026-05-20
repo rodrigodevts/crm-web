@@ -10,10 +10,10 @@ import { z } from "zod/v4";
  * @description Dados para criar motivo de fechamento
  */
 export const createCloseReasonDtoSchema = z.object({
-    "name": z.string().min(1).max(100),
-"message": z.string().min(1).max(2000).nullish(),
-"triggersCsat": z.optional(z.boolean().default(false)),
-"asksDealValue": z.optional(z.boolean().default(false)),
+    "asksDealValue": z.optional(z.boolean().default(false)),
+"departmentIds": z.optional(z.array(z.uuid()).max(50)),
 "funnelId": z.uuid().nullish(),
-"departmentIds": z.optional(z.array(z.uuid()).max(50))
+"message": z.string().min(1).max(2000).nullish(),
+"name": z.string().min(1).max(100),
+"triggersCsat": z.optional(z.boolean().default(false))
     }).describe("Dados para criar motivo de fechamento") as unknown as z.ZodType<CreateCloseReasonDto>

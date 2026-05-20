@@ -12,16 +12,6 @@ export const itemsCategoryEnum = {
 
 export type ItemsCategoryEnumKey = (typeof itemsCategoryEnum)[keyof typeof itemsCategoryEnum];
 
-export const itemsStatusEnum3 = {
-    PENDING: "PENDING",
-    APPROVED: "APPROVED",
-    REJECTED: "REJECTED",
-    DISABLED: "DISABLED",
-    PAUSED: "PAUSED"
-} as const;
-
-export type ItemsStatusEnum3Key = (typeof itemsStatusEnum3)[keyof typeof itemsStatusEnum3];
-
 export const itemsHeaderTypeEnum = {
     TEXT: "TEXT",
     IMAGE: "IMAGE",
@@ -31,15 +21,37 @@ export const itemsHeaderTypeEnum = {
 
 export type ItemsHeaderTypeEnumKey = (typeof itemsHeaderTypeEnum)[keyof typeof itemsHeaderTypeEnum];
 
+export const itemsStatusEnum4 = {
+    PENDING: "PENDING",
+    APPROVED: "APPROVED",
+    REJECTED: "REJECTED",
+    DISABLED: "DISABLED",
+    PAUSED: "PAUSED"
+} as const;
+
+export type ItemsStatusEnum4Key = (typeof itemsStatusEnum4)[keyof typeof itemsStatusEnum4];
+
 export type TemplatesListResponseDto = {
     /**
      * @type array
     */
     items: {
         /**
-         * @type string, uuid
+         * @type string
         */
-        id: string;
+        bodyText: string;
+        /**
+         * @description JSON com estrutura de botões (opaco no Sprint 1.7)
+        */
+        buttons: unknown | null;
+        /**
+         * @type string
+        */
+        category: ItemsCategoryEnumKey;
+        /**
+         * @type string, date-time
+        */
+        createdAt: string;
         /**
          * @type string
         */
@@ -47,27 +59,7 @@ export type TemplatesListResponseDto = {
         /**
          * @type string
         */
-        name: string;
-        /**
-         * @type string
-        */
-        category: ItemsCategoryEnumKey;
-        /**
-         * @type string
-        */
-        status: ItemsStatusEnum3Key;
-        /**
-         * @type string
-        */
-        language: string;
-        /**
-         * @type string
-        */
-        bodyText: string;
-        /**
-         * @type string
-        */
-        headerType: ItemsHeaderTypeEnumKey | null;
+        footerText: string | null;
         /**
          * @type string
         */
@@ -75,21 +67,15 @@ export type TemplatesListResponseDto = {
         /**
          * @type string
         */
-        footerText: string | null;
+        headerType: ItemsHeaderTypeEnumKey | null;
         /**
-         * @description JSON com estrutura de botões (opaco no Sprint 1.7)
+         * @type string, uuid
         */
-        buttons: unknown | null;
-        /**
-         * @minLength 0
-         * @maxLength 9007199254740991
-         * @type integer
-        */
-        variables: number;
+        id: string;
         /**
          * @type string
         */
-        rejectionReason: string | null;
+        language: string;
         /**
          * @type string, date-time
         */
@@ -97,27 +83,41 @@ export type TemplatesListResponseDto = {
         /**
          * @type string
         */
+        name: string;
+        /**
+         * @type string
+        */
+        rejectionReason: string | null;
+        /**
+         * @type string
+        */
+        status: ItemsStatusEnum4Key;
+        /**
+         * @type string
+        */
         syncError: string | null;
         /**
          * @type string, date-time
         */
-        createdAt: string;
-        /**
-         * @type string, date-time
-        */
         updatedAt: string;
+        /**
+         * @minLength 0
+         * @maxLength 9007199254740991
+         * @type integer
+        */
+        variables: number;
     }[];
     /**
      * @type object
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

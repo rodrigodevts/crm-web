@@ -11,6 +11,16 @@ export const messageResponseDtoClassDirectionEnum = {
 
 export type MessageResponseDtoClassDirectionEnumKey = (typeof messageResponseDtoClassDirectionEnum)[keyof typeof messageResponseDtoClassDirectionEnum];
 
+export const messageResponseDtoClassStatusEnum = {
+    PENDING: "PENDING",
+    SENT: "SENT",
+    DELIVERED: "DELIVERED",
+    READ: "READ",
+    FAILED: "FAILED"
+} as const;
+
+export type MessageResponseDtoClassStatusEnumKey = (typeof messageResponseDtoClassStatusEnum)[keyof typeof messageResponseDtoClassStatusEnum];
+
 export const messageResponseDtoClassTypeEnum = {
     TEXT: "TEXT",
     IMAGE: "IMAGE",
@@ -28,28 +38,15 @@ export const messageResponseDtoClassTypeEnum = {
 
 export type MessageResponseDtoClassTypeEnumKey = (typeof messageResponseDtoClassTypeEnum)[keyof typeof messageResponseDtoClassTypeEnum];
 
-export const messageResponseDtoClassStatusEnum = {
-    PENDING: "PENDING",
-    SENT: "SENT",
-    DELIVERED: "DELIVERED",
-    READ: "READ",
-    FAILED: "FAILED"
-} as const;
-
-export type MessageResponseDtoClassStatusEnumKey = (typeof messageResponseDtoClassStatusEnum)[keyof typeof messageResponseDtoClassStatusEnum];
-
 /**
  * @description Mensagem retornada após criação OUTBOUND (HTTP 202).
 */
 export type MessageResponseDtoClass = {
+    content: unknown;
     /**
-     * @type string, uuid
+     * @type string, date-time
     */
-    id: string;
-    /**
-     * @type string, uuid
-    */
-    ticketId: string;
+    createdAt: string;
     /**
      * @type string
     */
@@ -57,16 +54,11 @@ export type MessageResponseDtoClass = {
     /**
      * @type string
     */
-    type: MessageResponseDtoClassTypeEnumKey;
-    content: unknown;
-    /**
-     * @type string
-    */
-    status: MessageResponseDtoClassStatusEnumKey;
-    /**
-     * @type string
-    */
     externalId: string | null;
+    /**
+     * @type string, uuid
+    */
+    id: string;
     /**
      * @type string
     */
@@ -76,7 +68,15 @@ export type MessageResponseDtoClass = {
     */
     sentByUserId: string | null;
     /**
-     * @type string, date-time
+     * @type string
     */
-    createdAt: string;
+    status: MessageResponseDtoClassStatusEnumKey;
+    /**
+     * @type string, uuid
+    */
+    ticketId: string;
+    /**
+     * @type string
+    */
+    type: MessageResponseDtoClassTypeEnumKey;
 };

@@ -8,20 +8,20 @@ import { z } from "zod/v4";
 
 export const quickReplyListResponseDtoSchema = z.object({
     "items": z.array(z.object({
-    "id": z.uuid(),
+    "active": z.boolean(),
 "companyId": z.uuid(),
-"shortcut": z.string(),
-"message": z.string(),
-"mediaUrl": z.nullable(z.string()),
-"mediaMimeType": z.nullable(z.string()),
-"scope": z.enum(["COMPANY", "PERSONAL"]),
-"ownerUserId": z.nullable(z.uuid()),
-"active": z.boolean(),
 "createdAt": z.iso.datetime({ offset: true }),
+"id": z.uuid(),
+"mediaMimeType": z.nullable(z.string()),
+"mediaUrl": z.nullable(z.string()),
+"message": z.string(),
+"ownerUserId": z.nullable(z.uuid()),
+"scope": z.enum(["COMPANY", "PERSONAL"]),
+"shortcut": z.string(),
 "updatedAt": z.iso.datetime({ offset: true })
     })),
 "pagination": z.object({
-    "nextCursor": z.nullable(z.string()),
-"hasMore": z.boolean()
+    "hasMore": z.boolean(),
+"nextCursor": z.nullable(z.string())
     })
     }) as unknown as z.ZodType<QuickReplyListResponseDto>

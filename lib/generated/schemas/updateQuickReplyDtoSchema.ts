@@ -7,9 +7,9 @@ import type { UpdateQuickReplyDto } from "../types/UpdateQuickReplyDto.ts";
 import { z } from "zod/v4";
 
 export const updateQuickReplyDtoSchema = z.object({
-    "shortcut": z.optional(z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/)),
-"message": z.optional(z.string().min(1).max(4000)),
-"mediaUrl": z.url().nullish(),
+    "active": z.optional(z.boolean()),
 "mediaMimeType": z.string().regex(/^[a-z]+\/[a-z0-9.\-+]+$/).nullish(),
-"active": z.optional(z.boolean())
+"mediaUrl": z.url().nullish(),
+"message": z.optional(z.string().min(1).max(4000)),
+"shortcut": z.optional(z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/))
     }) as unknown as z.ZodType<UpdateQuickReplyDto>

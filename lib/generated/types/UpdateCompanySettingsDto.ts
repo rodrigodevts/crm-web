@@ -11,7 +11,19 @@ export type UpdateCompanySettingsDto = {
     /**
      * @type boolean | undefined
     */
-    hideOtherUsersTickets?: boolean;
+    agentCanChangeDefaultAgent?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    agentCanDeleteContacts?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    agentCanEditTags?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    agentCanToggleSignature?: boolean;
     /**
      * @type boolean | undefined
     */
@@ -20,6 +32,22 @@ export type UpdateCompanySettingsDto = {
      * @type boolean | undefined
     */
     agentSeeTicketsWithOtherDefaultAgents?: boolean;
+    /**
+     * @type string, uuid
+    */
+    defaultBotChatFlowId?: string | null;
+    /**
+     * @type boolean | undefined
+    */
+    forceWalletRouting?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    hideBotTicketsFromAgents?: boolean;
+    /**
+     * @type boolean | undefined
+    */
+    hideOtherUsersTickets?: boolean;
     /**
      * @type boolean | undefined
     */
@@ -32,32 +60,4 @@ export type UpdateCompanySettingsDto = {
      * @type boolean | undefined
     */
     showAssignedGroups?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    forceWalletRouting?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    agentCanDeleteContacts?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    agentCanChangeDefaultAgent?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    agentCanEditTags?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    agentCanToggleSignature?: boolean;
-    /**
-     * @type boolean | undefined
-    */
-    hideBotTicketsFromAgents?: boolean;
-    /**
-     * @type string, uuid
-    */
-    defaultBotChatFlowId?: string | null;
 };

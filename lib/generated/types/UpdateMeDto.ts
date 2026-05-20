@@ -9,6 +9,15 @@
 */
 export type UpdateMeDto = {
     /**
+     * @type boolean | undefined
+    */
+    absenceActive?: boolean;
+    /**
+     * @maxLength 500
+     * @type string
+    */
+    absenceMessage?: string | null;
+    /**
      * @minLength 2
      * @maxLength 100
      * @type string | undefined
@@ -20,13 +29,4 @@ export type UpdateMeDto = {
      * @type string | undefined
     */
     password?: string;
-    /**
-     * @maxLength 500
-     * @type string
-    */
-    absenceMessage?: string | null;
-    /**
-     * @type boolean | undefined
-    */
-    absenceActive?: boolean;
 };

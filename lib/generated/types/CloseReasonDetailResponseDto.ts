@@ -6,47 +6,17 @@
 
 export type CloseReasonDetailResponseDto = {
     /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type string, uuid
-    */
-    companyId: string;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    message: string | null;
-    /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
-     * @type integer
-    */
-    sortOrder: number;
-    /**
-     * @type boolean
-    */
-    triggersCsat: boolean;
-    /**
      * @type boolean
     */
     asksDealValue: boolean;
     /**
      * @type string, uuid
     */
-    funnelId: string | null;
+    companyId: string;
     /**
      * @type string, date-time
     */
     createdAt: string;
-    /**
-     * @type string, date-time
-    */
-    updatedAt: string;
     /**
      * @type array
     */
@@ -60,4 +30,34 @@ export type CloseReasonDetailResponseDto = {
         */
         name: string;
     }[];
+    /**
+     * @type string, uuid
+    */
+    funnelId: string | null;
+    /**
+     * @type string, uuid
+    */
+    id: string;
+    /**
+     * @type string
+    */
+    message: string | null;
+    /**
+     * @type string
+    */
+    name: string;
+    /**
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
+    */
+    sortOrder: number;
+    /**
+     * @type boolean
+    */
+    triggersCsat: boolean;
+    /**
+     * @type string, date-time
+    */
+    updatedAt: string;
 };

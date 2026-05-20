@@ -4,21 +4,21 @@
 */
 
 
-export const itemsRoleEnum2 = {
+export const itemsRoleEnum = {
     ADMIN: "ADMIN",
     SUPERVISOR: "SUPERVISOR",
     AGENT: "AGENT"
 } as const;
 
-export type ItemsRoleEnum2Key = (typeof itemsRoleEnum2)[keyof typeof itemsRoleEnum2];
+export type ItemsRoleEnumKey = (typeof itemsRoleEnum)[keyof typeof itemsRoleEnum];
 
-export const itemsStatusEnum = {
+export const itemsStatusEnum2 = {
     PENDING: "PENDING",
     ACCEPTED: "ACCEPTED",
     REVOKED: "REVOKED"
 } as const;
 
-export type ItemsStatusEnumKey = (typeof itemsStatusEnum)[keyof typeof itemsStatusEnum];
+export type ItemsStatusEnum2Key = (typeof itemsStatusEnum2)[keyof typeof itemsStatusEnum2];
 
 export type InvitationListResponseDto = {
     /**
@@ -26,21 +26,25 @@ export type InvitationListResponseDto = {
     */
     items: {
         /**
+         * @type string, date-time
+        */
+        acceptedAt: string | null;
+        /**
          * @type string, uuid
         */
-        id: string;
+        acceptedById: string | null;
+        /**
+         * @type string, date-time
+        */
+        createdAt: string;
         /**
          * @type string, email
         */
         email: string;
         /**
-         * @type string
+         * @type string, uuid
         */
-        role: ItemsRoleEnum2Key;
-        /**
-         * @type string
-        */
-        status: ItemsStatusEnumKey;
+        id: string;
         /**
          * @type string, uuid
         */
@@ -50,33 +54,29 @@ export type InvitationListResponseDto = {
         */
         invitedByName: string;
         /**
-         * @type string, uuid
-        */
-        acceptedById: string | null;
-        /**
-         * @type string, date-time
-        */
-        acceptedAt: string | null;
-        /**
          * @type string, date-time
         */
         revokedAt: string | null;
         /**
-         * @type string, date-time
+         * @type string
         */
-        createdAt: string;
+        role: ItemsRoleEnumKey;
+        /**
+         * @type string
+        */
+        status: ItemsStatusEnum2Key;
     }[];
     /**
      * @type object
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

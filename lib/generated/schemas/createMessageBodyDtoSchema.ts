@@ -7,9 +7,30 @@ import type { CreateMessageBodyDto } from "../types/CreateMessageBodyDto.ts";
 import { z } from "zod/v4";
 
 /**
- * @description Body de POST /tickets/:id/messages — Sprint 1.6 aceita apenas type=TEXT.
+ * @description Body de POST /tickets/:id/messages — polimórfico por tipo (Sprint 2.4).
  */
-export const createMessageBodyDtoSchema = z.object({
-    "type": z.enum(["TEXT"]),
-"text": z.string().min(1).max(4096).describe("Conteúdo de texto livre (1..4096 chars)")
-    }).describe("Body de POST /tickets/:id/messages — Sprint 1.6 aceita apenas type=TEXT.") as unknown as z.ZodType<CreateMessageBodyDto>
+export const createMessageBodyDtoSchema = z.union([z.object({
+    "text": z.string().min(1).max(4096).describe("Conteúdo de texto livre (1..4096 chars)"),
+"type": z.enum(["TEXT"])
+    }), z.object({
+    "attachmentId": z.uuid().describe("Ref devolvida por POST /attachments/upload"),
+"caption": z.optional(z.string().max(1024)),
+"type": z.enum(["IMAGE"])
+    }), z.object({
+    "attachmentId": z.uuid().describe("Ref devolvida por POST /attachments/upload"),
+"caption": z.optional(z.string().max(1024)),
+"type": z.enum(["VIDEO"])
+    }), z.object({
+    "attachmentId": z.uuid().describe("Ref devolvida por POST /attachments/upload"),
+"type": z.enum(["AUDIO"])
+    }), z.object({
+    "attachmentId": z.uuid().describe("Ref devolvida por POST /attachments/upload"),
+"caption": z.optional(z.string().max(1024)),
+"filename": z.optional(z.string().max(255).describe("Nome do arquivo exibido no WhatsApp")),
+"type": z.enum(["DOCUMENT"])
+    }), z.object({
+    "mediaAttachmentId": z.optional(z.uuid().describe("Só se o template tiver header de mídia")),
+"params": z.array(z.string()).describe("Variáveis posicionais {{1}},{{2}},... na ordem"),
+"templateId": z.uuid().describe("MessageTemplate.id"),
+"type": z.enum(["TEMPLATE"])
+    })]).describe("Body de POST /tickets/:id/messages — polimórfico por tipo (Sprint 2.4).") as unknown as z.ZodType<CreateMessageBodyDto>

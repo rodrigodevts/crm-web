@@ -14,6 +14,6 @@ export const ticketsMessagesControllerSendPathParamsSchema = z.object({
 
 export const ticketsMessagesControllerSend202Schema = z.lazy(() => messageResponseDtoClassSchema).describe("Mensagem retornada após criação OUTBOUND (HTTP 202).") as unknown as z.ZodType<TicketsMessagesControllerSend202>
 
-export const ticketsMessagesControllerSendMutationRequestSchema = z.lazy(() => createMessageBodyDtoSchema).describe("Body de POST /tickets/:id/messages — Sprint 1.6 aceita apenas type=TEXT.") as unknown as z.ZodType<TicketsMessagesControllerSendMutationRequest>
+export const ticketsMessagesControllerSendMutationRequestSchema = z.lazy(() => createMessageBodyDtoSchema).describe("Body de POST /tickets/:id/messages — polimórfico por tipo (Sprint 2.4).") as unknown as z.ZodType<TicketsMessagesControllerSendMutationRequest>
 
 export const ticketsMessagesControllerSendMutationResponseSchema = z.lazy(() => ticketsMessagesControllerSend202Schema) as unknown as z.ZodType<TicketsMessagesControllerSendMutationResponse>

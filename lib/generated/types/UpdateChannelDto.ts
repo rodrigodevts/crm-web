@@ -9,18 +9,6 @@
 */
 export type UpdateChannelDto = {
     /**
-     * @minLength 2
-     * @maxLength 100
-     * @type string | undefined
-    */
-    name?: string;
-    /**
-     * @minLength 1
-     * @pattern ^\d+$
-     * @type string | undefined
-    */
-    phoneNumber?: string;
-    /**
      * @type object | undefined
     */
     config?: {
@@ -49,18 +37,30 @@ export type UpdateChannelDto = {
     /**
      * @type string, uuid
     */
+    defaultChatFlowId?: string | null;
+    /**
+     * @type string, uuid
+    */
     defaultDepartmentId?: string | null;
     /**
      * @type string, uuid
     */
-    defaultChatFlowId?: string | null;
+    inactivityCloseReasonId?: string | null;
     /**
      * @maxLength 43200
      * @type integer
     */
     inactivityTimeoutMinutes?: number | null;
     /**
-     * @type string, uuid
+     * @minLength 2
+     * @maxLength 100
+     * @type string | undefined
     */
-    inactivityCloseReasonId?: string | null;
+    name?: string;
+    /**
+     * @minLength 1
+     * @pattern ^\d+$
+     * @type string | undefined
+    */
+    phoneNumber?: string;
 };

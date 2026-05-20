@@ -7,21 +7,21 @@ import type { CompanySettingsResponseDto } from "../types/CompanySettingsRespons
 import { z } from "zod/v4";
 
 export const companySettingsResponseDtoSchema = z.object({
-    "id": z.uuid(),
-"companyId": z.uuid(),
-"hideOtherUsersTickets": z.boolean(),
-"agentSeeOtherUsersTicketsOnSameChannel": z.boolean(),
-"agentSeeTicketsWithOtherDefaultAgents": z.boolean(),
-"hidePhoneFromAgents": z.boolean(),
-"ignoreGroupMessages": z.boolean(),
-"showAssignedGroups": z.boolean(),
-"forceWalletRouting": z.boolean(),
+    "agentCanChangeDefaultAgent": z.boolean(),
 "agentCanDeleteContacts": z.boolean(),
-"agentCanChangeDefaultAgent": z.boolean(),
 "agentCanEditTags": z.boolean(),
 "agentCanToggleSignature": z.boolean(),
-"hideBotTicketsFromAgents": z.boolean(),
-"defaultBotChatFlowId": z.nullable(z.uuid()),
+"agentSeeOtherUsersTicketsOnSameChannel": z.boolean(),
+"agentSeeTicketsWithOtherDefaultAgents": z.boolean(),
+"companyId": z.uuid(),
 "createdAt": z.iso.datetime({ offset: true }),
+"defaultBotChatFlowId": z.nullable(z.uuid()),
+"forceWalletRouting": z.boolean(),
+"hideBotTicketsFromAgents": z.boolean(),
+"hideOtherUsersTickets": z.boolean(),
+"hidePhoneFromAgents": z.boolean(),
+"id": z.uuid(),
+"ignoreGroupMessages": z.boolean(),
+"showAssignedGroups": z.boolean(),
 "updatedAt": z.iso.datetime({ offset: true })
     }) as unknown as z.ZodType<CompanySettingsResponseDto>

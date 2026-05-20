@@ -15,18 +15,15 @@ export type GupshupWebhookEnvelopeDto = {
     */
     app: string;
     /**
+     * @description Payload específico por type — o adapter parseia
+    */
+    payload: unknown;
+    /**
      * @description Unix epoch em milissegundos
      * @maxLength 9007199254740991
      * @type integer
     */
     timestamp: number;
-    /**
-     * @description Sempre 2 na API v1 da Gupshup
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
-     * @type integer
-    */
-    version: number;
     /**
      * @description Discriminante: message | message-event | user-event | system-events | billing-events
      * @minLength 1
@@ -34,7 +31,10 @@ export type GupshupWebhookEnvelopeDto = {
     */
     type: string;
     /**
-     * @description Payload específico por type — o adapter parseia
+     * @description Sempre 2 na API v1 da Gupshup
+     * @minLength -9007199254740991
+     * @maxLength 9007199254740991
+     * @type integer
     */
-    payload: unknown;
+    version: number;
 };

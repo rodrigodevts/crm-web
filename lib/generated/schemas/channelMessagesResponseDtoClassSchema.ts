@@ -11,17 +11,17 @@ import { z } from "zod/v4";
  */
 export const channelMessagesResponseDtoClassSchema = z.object({
     "items": z.array(z.object({
-    "id": z.uuid(),
-"ticketId": z.uuid(),
-"channelConnectionId": z.uuid(),
-"externalId": z.nullable(z.string().describe("ID da mensagem no provedor (Gupshup); null se ainda não enviada")),
-"direction": z.enum(["INBOUND", "OUTBOUND"]),
-"type": z.enum(["TEXT", "IMAGE", "FILE", "AUDIO", "VIDEO", "CONTACT", "LOCATION", "BUTTON_REPLY", "LIST_REPLY", "STICKER", "TEMPLATE", "SYSTEM"]),
-"status": z.enum(["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]),
+    "channelConnectionId": z.uuid(),
 "content": z.nullable(z.any().describe("Mesmo Json persistido em Message.content; null se ausente")),
-"sentByUserId": z.nullable(z.uuid().describe("Usuário que enviou (OUTBOUND); null em INBOUND, bot ou sistema")),
-"sentByBot": z.boolean(),
+"createdAt": z.iso.datetime({ offset: true }).describe("ISO 8601 UTC"),
+"direction": z.enum(["INBOUND", "OUTBOUND"]),
+"externalId": z.nullable(z.string().describe("ID da mensagem no provedor (Gupshup); null se ainda não enviada")),
+"id": z.uuid(),
 "isSystemMessage": z.boolean(),
-"createdAt": z.iso.datetime({ offset: true }).describe("ISO 8601 UTC")
+"sentByBot": z.boolean(),
+"sentByUserId": z.nullable(z.uuid().describe("Usuário que enviou (OUTBOUND); null em INBOUND, bot ou sistema")),
+"status": z.enum(["PENDING", "SENT", "DELIVERED", "READ", "FAILED"]),
+"ticketId": z.uuid(),
+"type": z.enum(["TEXT", "IMAGE", "FILE", "AUDIO", "VIDEO", "CONTACT", "LOCATION", "BUTTON_REPLY", "LIST_REPLY", "STICKER", "TEMPLATE", "SYSTEM"])
     })).describe("Mensagens em ordem cronológica ascendente")
     }).describe("Últimas N mensagens do canal (sem paginação cursor — Fase 2)") as unknown as z.ZodType<ChannelMessagesResponseDtoClass>

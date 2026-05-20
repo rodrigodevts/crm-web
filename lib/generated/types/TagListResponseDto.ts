@@ -4,13 +4,13 @@
 */
 
 
-export const itemsScopeEnum = {
+export const itemsScopeEnum2 = {
     CONTACT: "CONTACT",
     TICKET: "TICKET",
     BOTH: "BOTH"
 } as const;
 
-export type ItemsScopeEnumKey = (typeof itemsScopeEnum)[keyof typeof itemsScopeEnum];
+export type ItemsScopeEnum2Key = (typeof itemsScopeEnum2)[keyof typeof itemsScopeEnum2];
 
 export type TagListResponseDto = {
     /**
@@ -18,13 +18,25 @@ export type TagListResponseDto = {
     */
     items: {
         /**
-         * @type string, uuid
+         * @type boolean
         */
-        id: string;
+        active: boolean;
+        /**
+         * @type string
+        */
+        color: string;
         /**
          * @type string, uuid
         */
         companyId: string;
+        /**
+         * @type string, date-time
+        */
+        createdAt: string;
+        /**
+         * @type string, uuid
+        */
+        id: string;
         /**
          * @type string
         */
@@ -32,19 +44,7 @@ export type TagListResponseDto = {
         /**
          * @type string
         */
-        color: string;
-        /**
-         * @type string
-        */
-        scope: ItemsScopeEnumKey;
-        /**
-         * @type boolean
-        */
-        active: boolean;
-        /**
-         * @type string, date-time
-        */
-        createdAt: string;
+        scope: ItemsScopeEnum2Key;
         /**
          * @type string, date-time
         */
@@ -55,12 +55,12 @@ export type TagListResponseDto = {
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

@@ -7,10 +7,10 @@ import type { CreateQuickReplyDto } from "../types/CreateQuickReplyDto.ts";
 import { z } from "zod/v4";
 
 export const createQuickReplyDtoSchema = z.object({
-    "shortcut": z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/).describe("Atalho do composer; sem prefixo \"/\""),
-"message": z.string().min(1).max(4000).describe("Conteúdo da mensagem; pode conter placeholders {{nome}}, {{protocolo}} etc."),
-"mediaUrl": z.optional(z.url()),
+    "active": z.optional(z.boolean().default(true)),
 "mediaMimeType": z.optional(z.string().regex(/^[a-z]+\/[a-z0-9.\-+]+$/)),
+"mediaUrl": z.optional(z.url()),
+"message": z.string().min(1).max(4000).describe("Conteúdo da mensagem; pode conter placeholders {{nome}}, {{protocolo}} etc."),
 "scope": z.optional(z.enum(["COMPANY", "PERSONAL"]).default("PERSONAL").describe("COMPANY = visível ao tenant inteiro; PERSONAL = só ao usuário criador")),
-"active": z.optional(z.boolean().default(true))
+"shortcut": z.string().min(1).max(50).regex(/^[a-zA-Z0-9_-]+$/).describe("Atalho do composer; sem prefixo \"/\"")
     }) as unknown as z.ZodType<CreateQuickReplyDto>

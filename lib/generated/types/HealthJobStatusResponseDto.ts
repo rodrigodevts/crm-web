@@ -4,6 +4,12 @@
 */
 
 
+export const returnvalueOkEnum = {
+    true: true
+} as const;
+
+export type ReturnvalueOkEnumKey = (typeof returnvalueOkEnum)[keyof typeof returnvalueOkEnum];
+
 export const healthJobStatusResponseDtoStateEnum = {
     waiting: "waiting",
     active: "active",
@@ -15,26 +21,20 @@ export const healthJobStatusResponseDtoStateEnum = {
 
 export type HealthJobStatusResponseDtoStateEnumKey = (typeof healthJobStatusResponseDtoStateEnum)[keyof typeof healthJobStatusResponseDtoStateEnum];
 
-export const returnvalueOkEnum = {
-    true: true
-} as const;
-
-export type ReturnvalueOkEnumKey = (typeof returnvalueOkEnum)[keyof typeof returnvalueOkEnum];
-
 /**
  * @description Resposta de GET /health/queue/:jobId (smoke; gated por NODE_ENV)
 */
 export type HealthJobStatusResponseDto = {
     /**
+     * @description Mensagem de erro quando state=\"failed\"
+     * @type string
+    */
+    failedReason: string | null;
+    /**
      * @description ID do job consultado
      * @type string
     */
     jobId: string;
-    /**
-     * @description Estado atual do job na fila
-     * @type string
-    */
-    state: HealthJobStatusResponseDtoStateEnumKey;
     /**
      * @description Valor retornado pelo processor quando state=\"completed\"
      * @type object
@@ -50,8 +50,8 @@ export type HealthJobStatusResponseDto = {
         processedAt: string;
     } | null;
     /**
-     * @description Mensagem de erro quando state=\"failed\"
+     * @description Estado atual do job na fila
      * @type string
     */
-    failedReason: string | null;
+    state: HealthJobStatusResponseDtoStateEnumKey;
 };

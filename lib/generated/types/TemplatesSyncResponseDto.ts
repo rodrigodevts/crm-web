@@ -16,13 +16,6 @@ export type TemplatesSyncResponseDto = {
     */
     created: number;
     /**
-     * @description Templates existentes atualizados
-     * @minLength 0
-     * @maxLength 9007199254740991
-     * @type integer
-    */
-    updated: number;
-    /**
      * @description Templates marcados como DISABLED por não estarem mais no Gupshup
      * @minLength 0
      * @maxLength 9007199254740991
@@ -34,4 +27,11 @@ export type TemplatesSyncResponseDto = {
      * @type string, date-time
     */
     syncedAt: string;
+    /**
+     * @description Templates existentes atualizados
+     * @minLength 0
+     * @maxLength 9007199254740991
+     * @type integer
+    */
+    updated: number;
 };

@@ -4,12 +4,12 @@
 */
 
 
-export const itemsScopeEnum2 = {
+export const itemsScopeEnum = {
     COMPANY: "COMPANY",
     PERSONAL: "PERSONAL"
 } as const;
 
-export type ItemsScopeEnum2Key = (typeof itemsScopeEnum2)[keyof typeof itemsScopeEnum2];
+export type ItemsScopeEnumKey = (typeof itemsScopeEnum)[keyof typeof itemsScopeEnum];
 
 export type QuickReplyListResponseDto = {
     /**
@@ -17,25 +17,21 @@ export type QuickReplyListResponseDto = {
     */
     items: {
         /**
-         * @type string, uuid
+         * @type boolean
         */
-        id: string;
+        active: boolean;
         /**
          * @type string, uuid
         */
         companyId: string;
         /**
-         * @type string
+         * @type string, date-time
         */
-        shortcut: string;
+        createdAt: string;
         /**
-         * @type string
+         * @type string, uuid
         */
-        message: string;
-        /**
-         * @type string
-        */
-        mediaUrl: string | null;
+        id: string;
         /**
          * @type string
         */
@@ -43,19 +39,23 @@ export type QuickReplyListResponseDto = {
         /**
          * @type string
         */
-        scope: ItemsScopeEnum2Key;
+        mediaUrl: string | null;
+        /**
+         * @type string
+        */
+        message: string;
         /**
          * @type string, uuid
         */
         ownerUserId: string | null;
         /**
-         * @type boolean
+         * @type string
         */
-        active: boolean;
+        scope: ItemsScopeEnumKey;
         /**
-         * @type string, date-time
+         * @type string
         */
-        createdAt: string;
+        shortcut: string;
         /**
          * @type string, date-time
         */
@@ -66,12 +66,12 @@ export type QuickReplyListResponseDto = {
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

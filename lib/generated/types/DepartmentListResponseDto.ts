@@ -19,29 +19,49 @@ export type DepartmentListResponseDto = {
     */
     items: {
         /**
-         * @type string, uuid
+         * @type boolean
         */
-        id: string;
+        active: boolean;
         /**
          * @type string, uuid
         */
         companyId: string;
         /**
+         * @type string, date-time
+        */
+        createdAt: string;
+        /**
          * @type string
         */
-        name: string;
-        /**
-         * @type boolean
-        */
-        active: boolean;
+        distributionMode: ItemsDistributionModeEnumKey;
         /**
          * @type string
         */
         greetingMessage: string | null;
         /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
          * @type string
         */
         outOfHoursMessage: string | null;
+        /**
+         * @type number
+        */
+        slaResolutionMinutes: number | null;
+        /**
+         * @type number
+        */
+        slaResponseMinutes: number | null;
+        /**
+         * @type string, date-time
+        */
+        updatedAt: string;
         /**
          * @description Horário de funcionamento por dia da semana (e feriado).
          * @type object
@@ -50,67 +70,37 @@ export type DepartmentListResponseDto = {
             /**
              * @type array | undefined
             */
-            monday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            tuesday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            wednesday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
-            thursday?: {
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                from: string;
-                /**
-                 * @pattern ^\d{2}:\d{2}$
-                 * @type string
-                */
-                to: string;
-            }[];
-            /**
-             * @type array | undefined
-            */
             friday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            holiday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            monday?: {
                 /**
                  * @pattern ^\d{2}:\d{2}$
                  * @type string
@@ -155,7 +145,37 @@ export type DepartmentListResponseDto = {
             /**
              * @type array | undefined
             */
-            holiday?: {
+            thursday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            tuesday?: {
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                from: string;
+                /**
+                 * @pattern ^\d{2}:\d{2}$
+                 * @type string
+                */
+                to: string;
+            }[];
+            /**
+             * @type array | undefined
+            */
+            wednesday?: {
                 /**
                  * @pattern ^\d{2}:\d{2}$
                  * @type string
@@ -168,38 +188,18 @@ export type DepartmentListResponseDto = {
                 to: string;
             }[];
         } | null;
-        /**
-         * @type number
-        */
-        slaResponseMinutes: number | null;
-        /**
-         * @type number
-        */
-        slaResolutionMinutes: number | null;
-        /**
-         * @type string
-        */
-        distributionMode: ItemsDistributionModeEnumKey;
-        /**
-         * @type string, date-time
-        */
-        createdAt: string;
-        /**
-         * @type string, date-time
-        */
-        updatedAt: string;
     }[];
     /**
      * @type object
     */
     pagination: {
         /**
-         * @type string
-        */
-        nextCursor: string | null;
-        /**
          * @type boolean
         */
         hasMore: boolean;
+        /**
+         * @type string
+        */
+        nextCursor: string | null;
     };
 };

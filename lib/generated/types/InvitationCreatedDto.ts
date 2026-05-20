@@ -25,21 +25,30 @@ export type InvitationCreatedDtoStatusEnumKey = (typeof invitationCreatedDtoStat
 */
 export type InvitationCreatedDto = {
     /**
+     * @type string, date-time
+    */
+    acceptedAt: string | null;
+    /**
      * @type string, uuid
     */
-    id: string;
+    acceptedById: string | null;
+    /**
+     * @type string, date-time
+    */
+    createdAt: string;
     /**
      * @type string, email
     */
     email: string;
     /**
-     * @type string
+     * @type string, uuid
     */
-    role: InvitationCreatedDtoRoleEnumKey;
+    id: string;
     /**
-     * @type string
+     * @description URL para o convidado aceitar o convite. Plaintext devolvido apenas uma vez.
+     * @type string, uri
     */
-    status: InvitationCreatedDtoStatusEnumKey;
+    inviteUrl: string;
     /**
      * @type string, uuid
     */
@@ -49,24 +58,15 @@ export type InvitationCreatedDto = {
     */
     invitedByName: string;
     /**
-     * @type string, uuid
-    */
-    acceptedById: string | null;
-    /**
-     * @type string, date-time
-    */
-    acceptedAt: string | null;
-    /**
      * @type string, date-time
     */
     revokedAt: string | null;
     /**
-     * @type string, date-time
+     * @type string
     */
-    createdAt: string;
+    role: InvitationCreatedDtoRoleEnumKey;
     /**
-     * @description URL para o convidado aceitar o convite. Plaintext devolvido apenas uma vez.
-     * @type string, uri
+     * @type string
     */
-    inviteUrl: string;
+    status: InvitationCreatedDtoStatusEnumKey;
 };
