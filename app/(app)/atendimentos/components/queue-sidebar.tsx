@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { apiClient } from '@/lib/api-client';
 import { useCompanySettingsControllerFindMine } from '@/lib/generated/hooks';
 import { useTicketsInfiniteQuery } from '@/hooks/use-tickets-infinite-query';
 import { QueueList } from './queue-list';
@@ -14,10 +15,14 @@ interface QueueSidebarProps {
   onSelectTicket: (id: string) => void;
 }
 
+// Kubb gera hooks sem baseURL embutido; passar { client: { client: apiClient } }
+// pra usar nosso apiClient (baseURL + refresh interceptor).
+const KUBB_CLIENT_OPTS = { client: { client: apiClient } } as const;
+
 export function QueueSidebar({ selectedTicketId, onSelectTicket }: QueueSidebarProps) {
   const [activeTab, setActiveTab] = useState<QueueTabId>('open');
 
-  const settingsQ = useCompanySettingsControllerFindMine();
+  const settingsQ = useCompanySettingsControllerFindMine(KUBB_CLIENT_OPTS);
   const hidePhoneFromAgents = settingsQ.data?.hidePhoneFromAgents ?? false;
 
   const openQ = useTicketsInfiniteQuery({ status: ['OPEN'] });
