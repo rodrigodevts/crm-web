@@ -15,8 +15,8 @@ export function AtendimentosShell() {
       className={cn(
         'divide-border grid h-full divide-x',
         hasSelection
-          ? 'grid-cols-1 md:grid-cols-[400px_1fr_360px]'
-          : 'grid-cols-1 md:grid-cols-[400px_1fr]',
+          ? 'grid-cols-1 md:grid-cols-[460px_1fr_360px]'
+          : 'grid-cols-1 md:grid-cols-[460px_1fr]',
       )}
     >
       <QueueSidebar selectedTicketId={selectedTicketId} onSelectTicket={setSelectedTicketId} />

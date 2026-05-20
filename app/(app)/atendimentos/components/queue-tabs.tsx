@@ -23,21 +23,23 @@ const TABS: Array<{
 
 export function QueueTabs({ counts }: QueueTabsProps) {
   return (
-    <TabsList className="flex h-auto w-full items-center justify-start gap-1 bg-transparent p-0">
+    <TabsList className="flex h-auto w-full items-center justify-start gap-2 bg-transparent p-0">
       {TABS.map(({ id, label, Icon, countKey }) => (
         <TabsTrigger
           key={id}
           value={id}
-          className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-muted text-muted-foreground data-[state=inactive]:hover:text-foreground gap-1.5 rounded-full bg-transparent px-2.5 py-1.5 text-sm font-medium whitespace-nowrap transition-colors data-[state=active]:shadow-sm"
+          className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground hover:bg-muted text-muted-foreground data-[state=inactive]:hover:text-foreground relative gap-1.5 rounded-full bg-transparent px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-colors data-[state=active]:shadow-sm"
         >
           <Icon className="size-4 shrink-0" aria-hidden />
           <span>{label}</span>
-          <Badge
-            variant="destructive"
-            className="ml-0.5 h-5 min-w-5 justify-center rounded-full px-1.5 text-xs"
-          >
-            {counts[countKey]}
-          </Badge>
+          {counts[countKey] > 0 && (
+            <Badge
+              variant="destructive"
+              className="absolute -top-1.5 -right-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px] leading-none"
+            >
+              {counts[countKey]}
+            </Badge>
+          )}
         </TabsTrigger>
       ))}
     </TabsList>

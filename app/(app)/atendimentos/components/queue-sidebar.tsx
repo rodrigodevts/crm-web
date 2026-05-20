@@ -79,7 +79,7 @@ export function QueueSidebar({ selectedTicketId, onSelectTicket }: QueueSidebarP
         onValueChange={(v) => setActiveTab(v as QueueTabId)}
         className="flex flex-1 flex-col overflow-hidden"
       >
-        <div className="overflow-x-auto px-6 pb-3">
+        <div className="px-6 pt-1 pb-3">
           <QueueTabs counts={counts} />
         </div>
         <div className="px-6 pb-3">
