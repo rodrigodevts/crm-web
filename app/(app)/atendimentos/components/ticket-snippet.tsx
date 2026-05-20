@@ -54,7 +54,7 @@ export function TicketSnippet({ lastMessage }: TicketSnippetProps) {
   const { Icon, label } = MEDIA_BY_TYPE[lastMessage.type];
   return (
     <span className="text-muted-foreground flex items-center gap-1.5 text-sm">
-      <Icon className="size-3.5 shrink-0" aria-hidden />
+      <Icon className="size-4 shrink-0" aria-hidden />
       <span className="line-clamp-1">{label}</span>
     </span>
   );
