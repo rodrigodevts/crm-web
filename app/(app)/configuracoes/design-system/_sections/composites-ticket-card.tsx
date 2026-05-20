@@ -5,12 +5,16 @@ import { TicketCard } from '@/app/(app)/atendimentos/components/ticket-card';
 
 type TicketItem = TicketsListResponseDto['items'][number];
 
+const NOW_MS = Date.now();
+const HOUR_MS = 60 * 60 * 1000;
+const hoursAgo = (h: number) => new Date(NOW_MS - h * HOUR_MS).toISOString();
+
 const baseTicket = {
   channelConnectionId: '00000000-0000-7000-8000-0000000000aa',
   isBot: false,
   inWhatsappWindow: true,
-  createdAt: '2026-05-19T10:00:00.000Z',
-  updatedAt: '2026-05-19T19:50:00.000Z',
+  createdAt: hoursAgo(48),
+  updatedAt: hoursAgo(1),
 } as const;
 
 const mockTickets: TicketItem[] = [
@@ -28,8 +32,8 @@ const mockTickets: TicketItem[] = [
     assignedUserId: '00000000-0000-7000-8000-0000000000a1',
     departmentId: '00000000-0000-7000-8000-0000000000d1',
     unreadCount: 3,
-    lastMessageAt: '2026-05-19T19:55:00.000Z',
-    lastInboundAt: '2026-05-19T16:00:00.000Z',
+    lastMessageAt: hoursAgo(0.1),
+    lastInboundAt: hoursAgo(2),
     tags: [
       { id: 't1', name: 'Faturamento', color: '#1b84ff' },
       { id: 't2', name: 'VIP', color: '#facc15' },
@@ -53,8 +57,8 @@ const mockTickets: TicketItem[] = [
     assignedUserId: null,
     departmentId: null,
     unreadCount: 0,
-    lastMessageAt: '2026-05-19T17:00:00.000Z',
-    lastInboundAt: '2026-05-18T22:00:00.000Z',
+    lastMessageAt: hoursAgo(3),
+    lastInboundAt: hoursAgo(20),
     tags: [],
     lastMessage: { type: 'IMAGE', content: null },
   },
@@ -72,7 +76,7 @@ const mockTickets: TicketItem[] = [
     assignedUserId: '00000000-0000-7000-8000-0000000000a1',
     departmentId: null,
     unreadCount: 1,
-    lastMessageAt: '2026-05-19T14:00:00.000Z',
+    lastMessageAt: hoursAgo(7),
     lastInboundAt: null,
     inWhatsappWindow: false,
     tags: [{ id: 't3', name: 'Suporte', color: '#22c55e' }],
@@ -92,8 +96,8 @@ const mockTickets: TicketItem[] = [
     assignedUserId: null,
     departmentId: '00000000-0000-7000-8000-0000000000d1',
     unreadCount: 12,
-    lastMessageAt: '2026-05-19T19:58:00.000Z',
-    lastInboundAt: '2026-05-18T20:30:00.000Z',
+    lastMessageAt: hoursAgo(0.05),
+    lastInboundAt: hoursAgo(23.5), // urgent — 30min restantes na janela
     tags: [
       { id: 't1', name: 'Faturamento', color: '#1b84ff' },
       { id: 't4', name: 'Cobrança', color: '#ef4444' },
