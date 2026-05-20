@@ -32,14 +32,12 @@ export function QueueTabs({ counts }: QueueTabsProps) {
         >
           <Icon className="size-4 shrink-0" aria-hidden />
           <span>{label}</span>
-          {counts[countKey] > 0 && (
-            <Badge
-              variant="destructive"
-              className="absolute -top-1.5 -right-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px] leading-none"
-            >
-              {counts[countKey]}
-            </Badge>
-          )}
+          <Badge
+            variant="destructive"
+            className="absolute -top-1.5 -right-1.5 h-4 min-w-4 justify-center rounded-full px-1 text-[10px] leading-none"
+          >
+            {counts[countKey]}
+          </Badge>
         </TabsTrigger>
       ))}
     </TabsList>
