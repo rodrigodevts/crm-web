@@ -15,6 +15,7 @@ export function useTicketsInfiniteQuery(filters: TicketsListFilters) {
     queryKey: ['tickets', 'list', filters],
     queryFn: ({ pageParam }) =>
       ticketsControllerList({ ...filters, cursor: pageParam, limit: PAGE_SIZE }),
+    // string | undefined: cursor é opcional na 1ª página; TanStack Query v5 exige initialPageParam explícito
     initialPageParam: undefined as string | undefined,
     getNextPageParam: getNextCursorFromPage,
     staleTime: 30_000,
