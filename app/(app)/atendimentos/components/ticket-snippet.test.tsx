@@ -26,19 +26,23 @@ describe('TicketSnippet', () => {
   });
 
   it.each([
-    ['IMAGE', '📷 Imagem'],
-    ['VIDEO', '🎥 Vídeo'],
-    ['AUDIO', '🎤 Áudio'],
-    ['FILE', '📎 Arquivo'],
-    ['STICKER', '😀 Figurinha'],
-    ['CONTACT', '👤 Contato'],
-    ['LOCATION', '📍 Localização'],
-    ['BUTTON_REPLY', '▶ Resposta de botão'],
-    ['LIST_REPLY', '▶ Resposta de lista'],
-    ['TEMPLATE', '📋 Modelo'],
-    ['SYSTEM', '⚙ Mensagem do sistema'],
+    ['IMAGE', 'Imagem'],
+    ['VIDEO', 'Vídeo'],
+    ['AUDIO', 'Áudio'],
+    ['FILE', 'Arquivo'],
+    ['STICKER', 'Figurinha'],
+    ['CONTACT', 'Contato'],
+    ['LOCATION', 'Localização'],
+    ['BUTTON_REPLY', 'Resposta de botão'],
+    ['LIST_REPLY', 'Resposta de lista'],
+    ['TEMPLATE', 'Modelo'],
+    ['SYSTEM', 'Mensagem do sistema'],
   ] as const)('renderiza label correto para type=%s', (type, expected) => {
-    const { getByText } = render(<TicketSnippet lastMessage={{ type, content: null }} />);
+    const { getByText, container } = render(
+      <TicketSnippet lastMessage={{ type, content: null }} />,
+    );
     expect(getByText(expected)).toBeTruthy();
+    // Ícone lucide-react renderizado ao lado do label (decorativo, aria-hidden)
+    expect(container.querySelector('svg')).toBeTruthy();
   });
 });
