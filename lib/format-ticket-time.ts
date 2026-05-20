@@ -8,7 +8,10 @@ function pad2(n: number): string {
 export function formatTicketTime(value: Date | string | null, now: Date = new Date()): string {
   if (value === null) return '';
   const d = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(d.getTime())) return '';
   const diff = now.getTime() - d.getTime();
+  // Datas no futuro (clock skew ou dados ruins do backend) caem em "agora" —
+  // é mais útil do que mostrar "NaN" ou um valor negativo.
   if (diff < 60_000) return 'agora';
   if (diff < 60 * 60_000) return `${Math.floor(diff / 60_000)}m`;
   if (diff < 24 * 60 * 60_000) return `${Math.floor(diff / (60 * 60_000))}h`;

@@ -39,4 +39,17 @@ describe('formatTicketTime', () => {
   it('retorna string vazia para null', () => {
     expect(formatTicketTime(null, NOW)).toBe('');
   });
+
+  it('retorna string vazia para string vazia (Invalid Date)', () => {
+    expect(formatTicketTime('', NOW)).toBe('');
+  });
+
+  it('retorna string vazia para string ISO inválida', () => {
+    expect(formatTicketTime('not-a-date', NOW)).toBe('');
+  });
+
+  it('retorna "agora" para datas no futuro (clock skew / dados ruins)', () => {
+    const future = new Date('2026-05-19T20:05:00Z'); // 5min no futuro
+    expect(formatTicketTime(future, NOW)).toBe('agora');
+  });
 });
